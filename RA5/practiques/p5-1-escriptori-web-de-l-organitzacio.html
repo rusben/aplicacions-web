@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P5.1 · Pràctica: l'escriptori web de l'organització — Aplicacions Web (0228)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* === SINAPSI-CSS INICI =======================================
+   0228 · Aplicacions Web — Identitat visual del mòdul
+   Blau estructural · taronja per als avisos · paper clar
+   per a la lectura · codi en fosc.
+   Aquest bloc és IDÈNTIC a totes les pàgines del mòdul.
+   No l'editis en una sola pàgina: edita'l a totes o extreu-lo
+   a un full compartit (_identitat/sinapsi.css).
+   ============================================================ */
+  :root {
+    --paper:        #FBFCFD;
+    --card:         #FFFFFF;
+    --ink:          #131A22;
+    --muted:        #5C6875;
+    --rule:         #E3E7EC;
+    --accent:       #1D4E89;
+    --accent-hover: #26639F;
+    --accent-soft:  #EFF5FB;
+    --accent-line:  #DCE7F3;
+    --warn:         #C2410C;
+    --warn-soft:    #FEF6EF;
+    --warn-line:    #F0CBAE;
+    --code-bg:      #16202E;
+    --code-ink:     #E2E9F1;
+    --ok:           #0E7A4B;
+    --ok-soft:      #F0FAF4;
+    --ok-line:      #C6E7D6;
+    --ko:           #B4232B;
+    --ko-soft:      #FEF4F4;
+    --ko-line:      #F2CFCF;
+    --font-display: "Ubuntu", -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-body:    "Source Sans 3", -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono:    "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  }
+
+  body {
+    margin: 0;
+    padding: 40px 16px 72px;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ==== Navegació: barra de dalt i pas a la pàgina següent ==== */
+  .cq-nav {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    margin: -40px -16px 26px;
+    padding: 9px 16px;
+    background: rgba(251, 252, 253, .93);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .cq-nav .inner {
+    max-width: 660px;
+    margin: 0 auto;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+  }
+  .cq-nav a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .9rem;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cq-nav a:hover { text-decoration: underline; }
+  .cq-nav .pos {
+    flex: 0 0 auto;
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    letter-spacing: .1em;
+    color: var(--muted);
+  }
+
+  .cq-pager {
+    max-width: 660px;
+    margin: 26px auto 0;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .cq-pager a {
+    display: block;
+    padding: 13px 16px;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    background: var(--card);
+    color: var(--ink);
+    text-decoration: none;
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-pager a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-pager .dir {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: .67rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+  .cq-pager .ttl {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: .92rem;
+    line-height: 1.3;
+  }
+  .cq-pager .next { grid-column: 2; text-align: right; }
+
+  /* Referència a una altra pàgina del mòdul (T2.4, G4.1, A3.2…) */
+  a.cq-ref {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-line);
+  }
+  a.cq-ref:hover { border-bottom-color: var(--accent); }
+
+  /* ==== Capçalera de la pàgina ==== */
+  .cq-header {
+    max-width: 660px;
+    margin: 0 auto 26px;
+  }
+  .cq-header .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .cq-header h1 {
+    margin: 6px 0 4px;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1.15;
+  }
+  .cq-header .lede {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+
+  /* ==== Bloc de contingut: patró únic per a tots els tipus ==== */
+  .cq-block {
+    max-width: 660px;
+    margin: 0 auto 20px;
+    padding: 26px 30px 28px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    position: relative;
+  }
+
+  /* Etiqueta de secció: petita, monoespaiada, com la capçalera
+     d'una fitxa tècnica. El text surt de l'atribut data-kind. */
+  .cq-block::before {
+    content: attr(data-kind);
+    position: absolute;
+    top: -8px;
+    left: 26px;
+    padding: 1px 9px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 20px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .cq-block h2 {
+    margin: 4px 0 14px;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .cq-block p { margin: 0 0 14px; }
+  .cq-block p:last-child { margin-bottom: 0; }
+  .cq-block em { font-style: italic; color: var(--muted); }
+  .cq-block strong { font-weight: 600; }
+  .cq-block ul, .cq-block ol { margin: 0 0 14px; padding-left: 22px; }
+  .cq-block li { margin-bottom: 6px; }
+  .cq-block li:last-child { margin-bottom: 0; }
+  .cq-block a { color: var(--accent); overflow-wrap: anywhere; }
+
+  .cq-block code {
+    font-family: var(--font-mono);
+    font-size: .84em;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    border-radius: 4px;
+    padding: 1px 5px;
+    color: var(--accent);
+  }
+  .cq-block pre {
+    margin: 14px 0 18px;
+    padding: 16px 18px;
+    background: var(--code-bg);
+    color: var(--code-ink);
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: .82rem;
+    line-height: 1.6;
+  }
+  .cq-block pre code { all: unset; font: inherit; }
+  .cq-block pre .c { color: #7E93AB; }   /* comentari dins del codi */
+  .cq-block pre .o { color: #8FD0A5; }   /* sortida esperada */
+
+  /* ---- Figures: captures i esquemes ---- */
+  .cq-block figure { margin: 16px 0 18px; }
+  .cq-block figure img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: #FFF;
+  }
+  .cq-block figcaption {
+    margin-top: 6px;
+    font-size: .86rem;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  /* ---- Variants de color per tipus de bloc ---- */
+  .cq-block[data-kind="objectius"],
+  .cq-block[data-kind="pas a pas"],
+  .cq-block[data-kind="lliurament"],
+  .cq-block[data-kind="resum"] { border-color: var(--accent-line); }
+  .cq-block[data-kind="objectius"]::before,
+  .cq-block[data-kind="pas a pas"]::before,
+  .cq-block[data-kind="lliurament"]::before,
+  .cq-block[data-kind="resum"]::before { border-color: var(--accent-line); color: var(--accent); }
+  .cq-block[data-kind="objectius"] h2,
+  .cq-block[data-kind="pas a pas"] h2,
+  .cq-block[data-kind="lliurament"] h2,
+  .cq-block[data-kind="resum"] h2 { color: var(--accent); }
+
+  .cq-block[data-kind="recordatori"] { background: var(--warn-soft); border-color: #F5DCC8; }
+  .cq-block[data-kind="recordatori"]::before { background: var(--warn-soft); border-color: var(--warn-line); color: var(--warn); }
+  .cq-block[data-kind="recordatori"] h2 { color: var(--warn); }
+
+  .cq-block[data-kind="bones pràctiques"] { background: var(--ok-soft); border-color: var(--ok-line); }
+  .cq-block[data-kind="bones pràctiques"]::before { background: var(--ok-soft); border-color: var(--ok-line); color: var(--ok); }
+  .cq-block[data-kind="bones pràctiques"] h2 { color: var(--ok); }
+
+  .cq-block[data-kind="problemes"] { background: var(--ko-soft); border-color: var(--ko-line); }
+  .cq-block[data-kind="problemes"]::before { background: var(--ko-soft); border-color: var(--ko-line); color: var(--ko); }
+  .cq-block[data-kind="problemes"] h2 { color: var(--ko); }
+
+  /* ==== Traçabilitat amb el currículum ==== */
+  .cq-block[data-kind="currículum"] { background: transparent; }
+  .cq-block[data-kind="currículum"] h2 { color: var(--muted); }
+  .cq-block[data-kind="currículum"] p {
+    margin: 0 0 6px;
+    font-size: .86rem;
+    color: var(--muted);
+  }
+  .cq-block[data-kind="currículum"] p:last-child { margin-bottom: 0; }
+  .cq-block[data-kind="currículum"] .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-right: 6px;
+    white-space: nowrap;
+  }
+
+  /* ==== Diagrama de passos en flux (DORA i similars) ==== */
+  .dora-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
+    margin: 20px 0 22px;
+    flex-wrap: wrap;
+  }
+  .dora-step {
+    flex: 1 1 130px;
+    padding: 14px 12px 12px;
+    border: 1px solid var(--rule);
+    border-top: 2px solid var(--accent);
+    border-radius: 6px;
+    background: var(--paper);
+  }
+  .dora-step .n {
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: .08em;
+  }
+  .dora-step .t {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: .9rem;
+    letter-spacing: .02em;
+    margin: 2px 0 5px;
+  }
+  .dora-step .d { font-size: .8rem; line-height: 1.45; color: var(--muted); }
+  .dora-arrow { align-self: center; color: #B3C2D2; font-size: 1rem; }
+  @media (max-width: 620px) {
+    .dora-arrow { display: none; }
+    .dora-step { flex-basis: 100%; }
+  }
+
+  /* ==== Passos numerats de les guies pas a pas ==== */
+  .cq-steps { counter-reset: step; margin: 4px 0 0; padding: 0; list-style: none; }
+  .cq-steps > li {
+    counter-increment: step;
+    position: relative;
+    padding: 0 0 4px 34px;
+    margin-bottom: 18px;
+  }
+  .cq-steps > li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0; top: 1px;
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    border-radius: 50%;
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--accent);
+  }
+  .cq-steps > li > :first-child { margin-top: 0; }
+
+  /* ==== Problemes: símptoma → causa → solució ==== */
+  .cq-issues { margin: 4px 0 0; }
+  .cq-issues dt {
+    font-weight: 600;
+    margin-top: 16px;
+    color: var(--ko);
+  }
+  .cq-issues dt:first-child { margin-top: 0; }
+  .cq-issues dd { margin: 4px 0 0 0; }
+  .cq-issues dd .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 6px;
+  }
+
+  /* ==== Taula de referència ==== */
+  .cq-tablewrap { overflow-x: auto; margin: 14px 0 4px; }
+  .cq-table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+  .cq-table th, .cq-table td {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .cq-table th {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: .78rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom-color: var(--accent-line);
+    white-space: nowrap;
+  }
+  /* La primera columna sol ser una ordre curta i queda millor sencera, però
+     quan és prosa ha de poder partir-se: si no, la taula no cap al mòbil. */
+  .cq-table td:first-child > code:only-child { white-space: nowrap; }
+  .cq-table tr:last-child td { border-bottom: none; }
+
+  /* ==== Nota de versió de sistema (Ubuntu 26.04) ==== */
+  .cq-note {
+    margin: 14px 0 4px;
+    padding: 10px 14px;
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: 0 6px 6px 0;
+    font-size: .9rem;
+  }
+  .cq-note .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+
+  /* ==== Índex del mòdul (portada) ==== */
+  .cq-index { display: grid; gap: 10px; margin: 4px 0 0; padding: 0; list-style: none; }
+  .cq-index a {
+    display: flex; align-items: baseline; gap: 12px;
+    padding: 13px 16px;
+    border: 1px solid var(--rule); border-radius: 8px;
+    background: var(--paper); color: var(--ink); text-decoration: none;
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-index a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-index .ref {
+    font-family: var(--font-mono); font-size: .74rem; font-weight: 500;
+    color: var(--accent); letter-spacing: .06em; flex: 0 0 auto;
+  }
+  .cq-index .ttl { font-family: var(--font-display); font-weight: 700; font-size: .98rem; }
+  .cq-index .sub { display: block; font-size: .84rem; color: var(--muted); font-weight: 400; font-family: var(--font-body); margin-top: 1px; }
+
+  /* ==== Quiz ==== */
+  .cq-question { margin: 22px 0 0; }
+  .cq-question + .cq-question { padding-top: 22px; border-top: 1px solid var(--rule); }
+  .cq-question .statement { font-weight: 600; margin-bottom: 10px; }
+  .cq-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 14px;
+    margin: 7px 0;
+    border: 1px solid var(--rule);
+    border-radius: 7px;
+    background: var(--card);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .95rem;
+    color: var(--ink);
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-option:hover:not(:disabled) { border-color: #B3C2D2; }
+  .cq-option:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .cq-option.cq-selected { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-option.cq-correct { border-color: var(--ok); background: var(--ok-soft); color: var(--ok); }
+  .cq-option.cq-incorrect { border-color: var(--ko); background: var(--ko-soft); color: var(--ko); }
+  .cq-check-btn {
+    margin-top: 10px;
+    padding: 9px 20px;
+    border: none;
+    border-radius: 7px;
+    background: var(--accent);
+    color: #FFFFFF;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: .88rem;
+    cursor: pointer;
+  }
+  .cq-check-btn:hover:not(:disabled) { background: var(--accent-hover); }
+  .cq-check-btn:disabled { background: #B3C2D2; cursor: default; }
+  .cq-feedback { margin-top: 10px; font-size: .88rem; font-weight: 600; }
+  .cq-feedback.ok { color: var(--ok); }
+  .cq-feedback.ko { color: var(--ko); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  /* ==== Mòbil: la pantalla de 375 px és la mida de treball real ==== */
+  @media (max-width: 620px) {
+    body { padding: 26px 10px 56px; }
+    .cq-nav { margin: -26px -10px 22px; padding: 9px 10px; }
+    .cq-block { padding: 22px 16px 24px; }
+    .cq-block::before { left: 14px; }
+    .cq-table { font-size: .84rem; }
+    .cq-table th, .cq-table td { padding: 8px 8px; }
+    .cq-table th { white-space: normal; }
+    .cq-pager { grid-template-columns: 1fr; }
+    .cq-pager .next { grid-column: 1; text-align: left; }
+  }
+
+  /* ==== Impressió: els alumnes imprimeixen la teoria ==== */
+  @media print {
+    body { background: #FFF; padding: 0; font-size: 11pt; }
+    .cq-block { border-color: #CCC; page-break-inside: avoid; margin-bottom: 12px; }
+    .cq-block pre { background: #F4F4F4; color: #000; border: 1px solid #DDD; }
+    .cq-block pre .c, .cq-block pre .o { color: #555; }
+    .cq-check-btn { display: none; }
+    .cq-nav, .cq-pager { display: none; }
+    a.cq-ref { border-bottom: none; color: inherit; }
+  }
+  /* ==== Contingut no copiable ====
+     Dissuasiu, no una protecció: la prosa és per llegir-la al web o a
+     Moodle, no per copiar-la. El codi, les ordres i les taules SÍ que es
+     copien: l'alumnat treballa per SSH i les ha d'enganxar. L'editor
+     treballa amb contenteditable i queda exclòs. */
+  .cq-header, .cq-block {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  .cq-block pre, .cq-block pre *,
+  .cq-block code, .cq-table, .cq-table *,
+  [contenteditable="true"], [contenteditable="true"] * {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    user-select: text;
+  }
+
+/* === SINAPSI-CSS FI ======================================== */
+</style>
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA5 · Instal·lació d'aplicacions web d'escriptori</a>
+    <span class="pos">P5.1 · 10/10</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA5 · P5.1</div>
+  <h1>Pràctica: l'escriptori web de l'organització</h1>
+  <p class="lede">Correu, agenda, contactes i tasques al navegador, per a un equip de debò, amb els manuals escrits.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Les teories <a class="cq-ref" href="../teoria/t5-1-aplicacions-web-d-escriptori.html">T5.1</a>, <a class="cq-ref" href="../teoria/t5-2-com-viatja-un-correu.html">T5.2</a> i <a class="cq-ref" href="../teoria/t5-3-calendaris-contactes-i-tasques.html">T5.3</a>, i les activitats <a class="cq-ref" href="../activitats/a5-1-busties-al-servidor.html">A5.1</a>, <a class="cq-ref" href="../activitats/a5-2-correu-web.html">A5.2</a> i <a class="cq-ref" href="../activitats/a5-3-agenda-contactes-i-tasques.html">A5.3</a>, que en són l'assaig. Les guies <a class="cq-ref" href="../guies/g5-1-servidor-de-correu-intern.html">G5.1</a>, <a class="cq-ref" href="../guies/g5-2-correu-web-amb-roundcube.html">G5.2</a> i <a class="cq-ref" href="../guies/g5-3-calendari-contactes-i-tasques.html">G5.3</a> són els manuals que consultaràs; per a la pila i el servidor d'agenda, <a class="cq-ref" href="../../RA1/guies/g1-2-pila-lamp.html">G1.2</a> i <a class="cq-ref" href="../../RA3/guies/g3-1-instal-lar-nextcloud.html">G3.1</a>.</p>
+  <p>És la pràctica principal del <a class="cq-ref" href="../index.html">RA5</a>. Muntaràs l'escriptori web complet d'una organització que triïs: servidor de correu, correu web i agenda compartida, amb els comptes de l'equip i les proves fetes.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Element</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>Màquina</td><td>Escriptori <strong>nou</strong> a IsardVDI, anomenat <code>p5-1-cognom</code></td></tr>
+        <tr><td>Sistema</td><td>Ubuntu, la versió que admetin les aplicacions que instal·lis</td></tr>
+        <tr><td>Correu</td><td>Servidor intern al domini que triïs, amb bústies Maildir</td></tr>
+        <tr><td>Correu web</td><td>Client web connectat a aquest servidor</td></tr>
+        <tr><td>Agenda</td><td>Calendari, contactes i tasques web</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Tria l'organització: una gestoria, una clínica veterinària, un equip esportiu o un departament del centre. Les persones, els calendaris i els contactes han de tenir sentit per a aquella organització.</p>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 1: tria i servidor de correu</h2>
+  <ol>
+    <li><strong>Compara</strong> almenys dues aplicacions web d'escriptori de correu i justifica la que instal·les, amb enllaços a la documentació.</li>
+    <li>Fes la <strong>fitxa de requeriments</strong> i l'inventari del servidor.</li>
+    <li>Instal·la i configura el <strong>servidor de correu intern</strong>: bústies Maildir, escoltant només a la màquina, amb el domini de l'organització.</li>
+    <li>Crea <strong>quatre comptes</strong> com a mínim, amb almenys un <strong>àlies</strong> genèric, i documenta el procediment d'alta i de baixa.</li>
+    <li>Fes una taula dels <strong>serveis i ports</strong> i explica què fa cadascun.</li>
+  </ol>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 2: correu web integrat</h2>
+  <ol>
+    <li>Instal·la el <strong>correu web</strong> i integra'l amb el servidor de bústies i el d'enviament. Documenta cada opció que canviïs.</li>
+    <li>Personalitza'l: nom de l'organització, idioma i aparença.</li>
+    <li>Deixa cada compte a punt: <strong>identitat, signatura, carpetes</strong> i preferències.</li>
+    <li>Crea com a mínim <strong>dos filtres</strong> útils per a l'organització i demostra'ls.</li>
+    <li>Munta la <strong>llibreta d'adreces</strong> amb contactes i un grup, i exporta-la.</li>
+    <li><strong>Verifica l'accés al correu</strong>: cada compte entra, s'envien missatges entre ells i es comprova a la bústia del disc. Un compte desactivat no ha de poder entrar.</li>
+  </ol>
+</div>
+
+<!-- ============ 5 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 3: agenda, contactes i tasques</h2>
+  <ol>
+    <li>Instal·la l'aplicació de <strong>calendari web</strong> i activa contactes i tasques.</li>
+    <li>Crea els <strong>calendaris</strong> de l'organització: personals i d'equip, amb colors i comparticions pensades.</li>
+    <li>Demostra les <strong>prestacions</strong>: cita amb lloc, esdeveniment repetit amb final, convidats amb resposta, recordatori i consulta de disponibilitat abans de posar una reunió.</li>
+    <li><strong>Llibreta compartida</strong> de l'organització i <strong>llista de tasques</strong> d'equip amb dates i prioritats.</li>
+    <li><strong>Sincronitza</strong> un compte amb un client de fora del navegador amb contrasenya d'aplicació, i comprova-ho en els dos sentits.</li>
+    <li>Explica la <strong>relació entre el correu i l'agenda</strong>: per què les invitacions necessiten correu sortint.</li>
+  </ol>
+</div>
+
+<!-- ============ 6 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 4: gestió, seguretat i proves</h2>
+  <ol>
+    <li><strong>Gestió d'usuaris documentada</strong>: alta, canvi de contrasenya, àlies, baixa i què passa amb la bústia i amb l'agenda de qui marxa.</li>
+    <li><strong>Seguretat</strong>: el servidor de correu tancat a l'exterior, contrasenyes robustes, contrasenyes d'aplicació per als clients, comprovacions de l'estat del servidor i actualitzacions.</li>
+    <li><strong>Còpia</strong> de les bústies i de les dades de l'agenda, treta del servidor, i una <strong>restauració provada</strong>: esborra una bústia i un calendari i recupera'ls.</li>
+    <li>Passa una <strong>llista de proves</strong> d'almenys deu files, abans i després de la restauració.</li>
+    <li><strong>Extra:</strong> unifica correu i agenda en una sola interfície, o configura HTTPS amb certificat.</li>
+  </ol>
+</div>
+
+<!-- ============ 7 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Escriptori i pila LAMP</td><td>Guies <a class="cq-ref" href="../../RA1/guies/g1-1-entorn-de-laboratori.html">G1.1</a> i <a class="cq-ref" href="../../RA1/guies/g1-2-pila-lamp.html">G1.2</a></td></tr>
+        <tr><td>Servidor de correu i comptes</td><td>Guia <a class="cq-ref" href="../guies/g5-1-servidor-de-correu-intern.html">G5.1</a> i activitat <a class="cq-ref" href="../activitats/a5-1-busties-al-servidor.html">A5.1</a></td></tr>
+        <tr><td>Correu web, filtres i contactes</td><td>Guia <a class="cq-ref" href="../guies/g5-2-correu-web-amb-roundcube.html">G5.2</a> i activitat <a class="cq-ref" href="../activitats/a5-2-correu-web.html">A5.2</a></td></tr>
+        <tr><td>Servidor d'agenda</td><td>Guia <a class="cq-ref" href="../../RA3/guies/g3-1-instal-lar-nextcloud.html">G3.1</a></td></tr>
+        <tr><td>Calendari, contactes, tasques i sincronització</td><td>Guia <a class="cq-ref" href="../guies/g5-3-calendari-contactes-i-tasques.html">G5.3</a> i activitat <a class="cq-ref" href="../activitats/a5-3-agenda-contactes-i-tasques.html">A5.3</a></td></tr>
+        <tr><td>Per què cada peça fa el que fa</td><td>Teories <a class="cq-ref" href="../teoria/t5-1-aplicacions-web-d-escriptori.html">T5.1</a>, <a class="cq-ref" href="../teoria/t5-2-com-viatja-un-correu.html">T5.2</a> i <a class="cq-ref" href="../teoria/t5-3-calendaris-contactes-i-tasques.html">T5.3</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 8 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>Correu de laboratori</h2>
+  <p>El servidor ha de quedar tancat a l'exterior: només correu entre els comptes de l'organització. Obrir-lo a Internet sense DNS ni protecció acaba en correu brossa i en una IP del centre bloquejada. Documenta com has comprovat que està tancat.</p>
+</div>
+
+<!-- ============ 9 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Demostra-ho amb dos comptes</h2>
+  <p>Totes les proves d'aquesta pràctica es fan amb dues sessions obertes alhora, una per compte, en finestres diferents. Enviar-se correu a un mateix o mirar el propi calendari amaga la meitat dels problemes de permisos i d'entrega.</p>
+</div>
+
+<!-- ============ 10 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li>Els serveis de correu i de bústies estan actius i escolten només on toca.</li>
+    <li>Cada compte entra al correu web i veu la seva bústia; el desactivat, no.</li>
+    <li>Un missatge enviat des del client apareix al Maildir del destinatari i al seu correu web.</li>
+    <li>El filtre classifica el missatge de prova.</li>
+    <li>El calendari d'equip es pot editar des d'un altre compte i el personal només mostra disponibilitat.</li>
+    <li>Un client de fora sincronitza cites en els dos sentits.</li>
+    <li>Després de restaurar, la bústia i el calendari esborrats hi tornen a ser.</li>
+  </ul>
+</div>
+
+<!-- ============ 11 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>El correu web no autentica cap compte</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El servidor de bústies no autentica o el client apunta on no toca.</p>
+      <p><span class="lbl">Solució</span> Aïlla-ho provant l'autenticació des del terminal, com a <a class="cq-ref" href="../guies/g5-1-servidor-de-correu-intern.html">G5.1</a>, abans de tocar el client.</p>
+    </dd>
+    <dt>Les invitacions del calendari no arriben</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El servidor d'agenda no té correu sortint configurat.</p>
+      <p><span class="lbl">Solució</span> Configura'l cap al teu servidor de correu i torna-ho a provar.</p>
+    </dd>
+    <dt>Després de restaurar, l'usuari no veu la bústia</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Els permisos del <code>Maildir</code> no són de l'usuari.</p>
+      <p><span class="lbl">Solució</span> Torna a assignar-los i comprova-ho amb una prova d'autenticació.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 12 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <p><strong>Demostració en directe</strong> al professorat, amb dues sessions obertes: enviar un correu d'un compte a l'altre, ensenyar el filtre, convidar a una reunió i ensenyar la sincronització amb un client de fora.</p>
+  <p>Un repositori públic a GitHub amb <strong>tres fitxers</strong>:</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Fitxer</th><th>Què hi va</th></tr></thead>
+      <tbody>
+        <tr><td><code>INSTALLATION.md</code></td><td>Manual d'instal·lació: requeriments, servidor de correu, correu web i servidor d'agenda, amb les ordres i les opcions canviades. Ha de servir per repetir-ho.</td></tr>
+        <tr><td><code>CONFIGURATION.md</code></td><td>Manual d'administració: comptes, àlies, altes i baixes, identitats, filtres, calendaris, comparticions, tasques i sincronització. <strong>Amb captures.</strong></td></tr>
+        <tr><td><code>README.md</code></td><td>Descripció, enllaços als altres dos, taula de serveis i ports, mesures de seguretat, procediment de còpia i restauració i la llista de proves omplerta.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Respon al <code>README.md</code>: <strong>què hauries de canviar per obrir aquest correu a Internet, i per què no s'hi obre a l'aula?</strong></p>
+  <p>Per pujar nota: HTTPS amb certificat, unificació de correu i agenda en una sola interfície, o filtres antibrossa al servidor.</p>
+</div>
+
+
+<!-- ============ RÚBRICA ============ -->
+<div class="cq-block" data-kind="rúbrica">
+  <h2>Com es qualifica</h2>
+  <p>Aquesta pràctica és el 60 % de la nota del <a class="cq-ref" href="../index.html">RA5</a>; l'altre 40 % és l'examen tipus test. Cada apartat es puntua a la demostració i amb les evidències del README: la puntuació sencera si funciona, la meitat si funciona amb mancances i zero si no es pot demostrar.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Apartat</th><th>Criteri</th><th>Punts</th></tr></thead>
+      <tbody>
+        <tr><td>Comparació i descripció de les aplicacions web d'escriptori triades</td><td><code>5.1</code></td><td>1</td></tr>
+        <tr><td>Servidor de correu intern instal·lat, amb bústies i ports comprovats</td><td><code>5.2</code></td><td>1,5</td></tr>
+        <tr><td>Correu web instal·lat i integrat amb el servidor de correu</td><td><code>5.2</code> · <code>5.3</code></td><td>2</td></tr>
+        <tr><td>Comptes, àlies, altes i baixes documentats i provats</td><td><code>5.4</code></td><td>1,5</td></tr>
+        <tr><td>Accés al correu verificat entre comptes, amb filtres i contactes</td><td><code>5.5</code></td><td>1,5</td></tr>
+        <tr><td>Calendari web instal·lat, amb calendaris i comparticions</td><td><code>5.6</code></td><td>1,5</td></tr>
+        <tr><td>Prestacions demostrades: cites, repeticions, convidats, tasques i sincronització</td><td><code>5.7</code></td><td>1</td></tr>
+        <tr><td><strong>Total</strong></td><td></td><td><strong>10</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 5.1</span> Aplicacions de correu web. Instal·lació.</p>
+  <p><span class="lbl">Contingut 5.2</span> Gestió d'usuaris.</p>
+  <p><span class="lbl">CA 5.1</span> Descriu diferents aplicacions web d'escriptori.</p>
+  <p><span class="lbl">CA 5.2</span> Instal·la aplicacions per a proveir d'accés web al servei de correu electrònic.</p>
+  <p><span class="lbl">CA 5.3</span> Configura les aplicacions per a integrar-les amb un servidor de correu.</p>
+  <p><span class="lbl">CA 5.4</span> Gestiona els comptes d'usuari.</p>
+  <p><span class="lbl">CA 5.5</span> Verifica l'accés al correu electrònic.</p>
+  <p><span class="lbl">CA 5.6</span> Instal·la aplicacions de calendari web.</p>
+  <p><span class="lbl">CA 5.7</span> Reconeix les prestacions específiques de les aplicacions instal·lades (cites, tasques, entre altres).</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="../activitats/a5-3-agenda-contactes-i-tasques.html">
+    <span class="dir">Anterior · A5.3</span>
+    <span class="ttl">Agenda, contactes i tasques</span></a>
+  <a class="next" href="../index.html">
+    <span class="dir">Has acabat el · RA5</span>
+    <span class="ttl">RA5 · Instal·lació d'aplicacions web d'escriptori</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script>
+  // Dissuasió de la còpia: mai al codi, a les taules ni dins de l'editor.
+  // L'alumnat treballa per SSH i ha de poder enganxar les ordres.
+  (function () {
+    var LLIURE = 'pre, code, .cq-table, [contenteditable="true"]';
+    function copiable(node) {
+      if (node && node.nodeType !== 1) { node = node.parentNode; }
+      return !!(node && node.closest && node.closest(LLIURE));
+    }
+    function seleccioCopiable() {
+      var s = document.getSelection();
+      if (!s || s.rangeCount === 0) { return false; }
+      return copiable(s.getRangeAt(0).commonAncestorContainer);
+    }
+    ['copy', 'cut'].forEach(function (nom) {
+      document.addEventListener(nom, function (e) {
+        if (!seleccioCopiable()) { e.preventDefault(); }
+      });
+    });
+    document.addEventListener('dragstart', function (e) {
+      if (!copiable(e.target)) { e.preventDefault(); }
+    });
+  })();
+
+  // Motor únic per a totes les preguntes single i multi.
+  document.querySelectorAll('.cq-question').forEach(function (question) {
+    var id = question.dataset.id;
+    if (!id) {
+      throw new Error('Falta data-id a una pregunta del quiz.');
+    }
+    var type = question.dataset.type;
+    if (type !== 'single' && type !== 'multi') {
+      throw new Error('data-type invàlid ("' + type + '") a la pregunta "' + id + '".');
+    }
+
+    var options = question.querySelectorAll('.cq-option');
+    var checkBtn = question.querySelector('.cq-check-btn');
+    var feedback = question.querySelector('.cq-feedback');
+
+    options.forEach(function (opt) {
+      opt.addEventListener('click', function () {
+        if (type === 'single') {
+          options.forEach(function (o) { o.classList.remove('cq-selected'); });
+          opt.classList.add('cq-selected');
+        } else {
+          opt.classList.toggle('cq-selected');
+        }
+        options.forEach(function (o) {
+          o.setAttribute('aria-pressed',
+            o.classList.contains('cq-selected') ? 'true' : 'false');
+        });
+      });
+    });
+
+    checkBtn.addEventListener('click', function () {
+      var allCorrect = true;
+      options.forEach(function (opt) {
+        var isCorrect = opt.dataset.correct === 'true';
+        var isSelected = opt.classList.contains('cq-selected');
+        opt.classList.remove('cq-selected');
+        opt.setAttribute('aria-pressed', 'false');
+        if (isCorrect) {
+          opt.classList.add('cq-correct');
+        } else if (isSelected) {
+          opt.classList.add('cq-incorrect');
+        }
+        opt.disabled = true;
+        if (isCorrect !== isSelected) {
+          allCorrect = false;
+        }
+      });
+      feedback.textContent = allCorrect ? 'Correcte!' : 'Incorrecte, revisa les respostes marcades.';
+      feedback.className = 'cq-feedback ' + (allCorrect ? 'ok' : 'ko');
+      checkBtn.disabled = true;
+    });
+  });
+</script>
+
+</body>
+</html>

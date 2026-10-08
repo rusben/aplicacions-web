@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G3.1 · Guia: instal·lar Nextcloud — Aplicacions Web (0228)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* === SINAPSI-CSS INICI =======================================
+   0228 · Aplicacions Web — Identitat visual del mòdul
+   Blau estructural · taronja per als avisos · paper clar
+   per a la lectura · codi en fosc.
+   Aquest bloc és IDÈNTIC a totes les pàgines del mòdul.
+   No l'editis en una sola pàgina: edita'l a totes o extreu-lo
+   a un full compartit (_identitat/sinapsi.css).
+   ============================================================ */
+  :root {
+    --paper:        #FBFCFD;
+    --card:         #FFFFFF;
+    --ink:          #131A22;
+    --muted:        #5C6875;
+    --rule:         #E3E7EC;
+    --accent:       #1D4E89;
+    --accent-hover: #26639F;
+    --accent-soft:  #EFF5FB;
+    --accent-line:  #DCE7F3;
+    --warn:         #C2410C;
+    --warn-soft:    #FEF6EF;
+    --warn-line:    #F0CBAE;
+    --code-bg:      #16202E;
+    --code-ink:     #E2E9F1;
+    --ok:           #0E7A4B;
+    --ok-soft:      #F0FAF4;
+    --ok-line:      #C6E7D6;
+    --ko:           #B4232B;
+    --ko-soft:      #FEF4F4;
+    --ko-line:      #F2CFCF;
+    --font-display: "Ubuntu", -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-body:    "Source Sans 3", -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono:    "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  }
+
+  body {
+    margin: 0;
+    padding: 40px 16px 72px;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ==== Navegació: barra de dalt i pas a la pàgina següent ==== */
+  .cq-nav {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    margin: -40px -16px 26px;
+    padding: 9px 16px;
+    background: rgba(251, 252, 253, .93);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .cq-nav .inner {
+    max-width: 660px;
+    margin: 0 auto;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+  }
+  .cq-nav a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .9rem;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cq-nav a:hover { text-decoration: underline; }
+  .cq-nav .pos {
+    flex: 0 0 auto;
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    letter-spacing: .1em;
+    color: var(--muted);
+  }
+
+  .cq-pager {
+    max-width: 660px;
+    margin: 26px auto 0;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .cq-pager a {
+    display: block;
+    padding: 13px 16px;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    background: var(--card);
+    color: var(--ink);
+    text-decoration: none;
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-pager a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-pager .dir {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: .67rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+  .cq-pager .ttl {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: .92rem;
+    line-height: 1.3;
+  }
+  .cq-pager .next { grid-column: 2; text-align: right; }
+
+  /* Referència a una altra pàgina del mòdul (T2.4, G4.1, A3.2…) */
+  a.cq-ref {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-line);
+  }
+  a.cq-ref:hover { border-bottom-color: var(--accent); }
+
+  /* ==== Capçalera de la pàgina ==== */
+  .cq-header {
+    max-width: 660px;
+    margin: 0 auto 26px;
+  }
+  .cq-header .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .cq-header h1 {
+    margin: 6px 0 4px;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1.15;
+  }
+  .cq-header .lede {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+
+  /* ==== Bloc de contingut: patró únic per a tots els tipus ==== */
+  .cq-block {
+    max-width: 660px;
+    margin: 0 auto 20px;
+    padding: 26px 30px 28px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    position: relative;
+  }
+
+  /* Etiqueta de secció: petita, monoespaiada, com la capçalera
+     d'una fitxa tècnica. El text surt de l'atribut data-kind. */
+  .cq-block::before {
+    content: attr(data-kind);
+    position: absolute;
+    top: -8px;
+    left: 26px;
+    padding: 1px 9px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 20px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .cq-block h2 {
+    margin: 4px 0 14px;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .cq-block p { margin: 0 0 14px; }
+  .cq-block p:last-child { margin-bottom: 0; }
+  .cq-block em { font-style: italic; color: var(--muted); }
+  .cq-block strong { font-weight: 600; }
+  .cq-block ul, .cq-block ol { margin: 0 0 14px; padding-left: 22px; }
+  .cq-block li { margin-bottom: 6px; }
+  .cq-block li:last-child { margin-bottom: 0; }
+  .cq-block a { color: var(--accent); overflow-wrap: anywhere; }
+
+  .cq-block code {
+    font-family: var(--font-mono);
+    font-size: .84em;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    border-radius: 4px;
+    padding: 1px 5px;
+    color: var(--accent);
+  }
+  .cq-block pre {
+    margin: 14px 0 18px;
+    padding: 16px 18px;
+    background: var(--code-bg);
+    color: var(--code-ink);
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: .82rem;
+    line-height: 1.6;
+  }
+  .cq-block pre code { all: unset; font: inherit; }
+  .cq-block pre .c { color: #7E93AB; }   /* comentari dins del codi */
+  .cq-block pre .o { color: #8FD0A5; }   /* sortida esperada */
+
+  /* ---- Figures: captures i esquemes ---- */
+  .cq-block figure { margin: 16px 0 18px; }
+  .cq-block figure img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: #FFF;
+  }
+  .cq-block figcaption {
+    margin-top: 6px;
+    font-size: .86rem;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  /* ---- Variants de color per tipus de bloc ---- */
+  .cq-block[data-kind="objectius"],
+  .cq-block[data-kind="pas a pas"],
+  .cq-block[data-kind="lliurament"],
+  .cq-block[data-kind="resum"] { border-color: var(--accent-line); }
+  .cq-block[data-kind="objectius"]::before,
+  .cq-block[data-kind="pas a pas"]::before,
+  .cq-block[data-kind="lliurament"]::before,
+  .cq-block[data-kind="resum"]::before { border-color: var(--accent-line); color: var(--accent); }
+  .cq-block[data-kind="objectius"] h2,
+  .cq-block[data-kind="pas a pas"] h2,
+  .cq-block[data-kind="lliurament"] h2,
+  .cq-block[data-kind="resum"] h2 { color: var(--accent); }
+
+  .cq-block[data-kind="recordatori"] { background: var(--warn-soft); border-color: #F5DCC8; }
+  .cq-block[data-kind="recordatori"]::before { background: var(--warn-soft); border-color: var(--warn-line); color: var(--warn); }
+  .cq-block[data-kind="recordatori"] h2 { color: var(--warn); }
+
+  .cq-block[data-kind="bones pràctiques"] { background: var(--ok-soft); border-color: var(--ok-line); }
+  .cq-block[data-kind="bones pràctiques"]::before { background: var(--ok-soft); border-color: var(--ok-line); color: var(--ok); }
+  .cq-block[data-kind="bones pràctiques"] h2 { color: var(--ok); }
+
+  .cq-block[data-kind="problemes"] { background: var(--ko-soft); border-color: var(--ko-line); }
+  .cq-block[data-kind="problemes"]::before { background: var(--ko-soft); border-color: var(--ko-line); color: var(--ko); }
+  .cq-block[data-kind="problemes"] h2 { color: var(--ko); }
+
+  /* ==== Traçabilitat amb el currículum ==== */
+  .cq-block[data-kind="currículum"] { background: transparent; }
+  .cq-block[data-kind="currículum"] h2 { color: var(--muted); }
+  .cq-block[data-kind="currículum"] p {
+    margin: 0 0 6px;
+    font-size: .86rem;
+    color: var(--muted);
+  }
+  .cq-block[data-kind="currículum"] p:last-child { margin-bottom: 0; }
+  .cq-block[data-kind="currículum"] .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-right: 6px;
+    white-space: nowrap;
+  }
+
+  /* ==== Diagrama de passos en flux (DORA i similars) ==== */
+  .dora-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
+    margin: 20px 0 22px;
+    flex-wrap: wrap;
+  }
+  .dora-step {
+    flex: 1 1 130px;
+    padding: 14px 12px 12px;
+    border: 1px solid var(--rule);
+    border-top: 2px solid var(--accent);
+    border-radius: 6px;
+    background: var(--paper);
+  }
+  .dora-step .n {
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: .08em;
+  }
+  .dora-step .t {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: .9rem;
+    letter-spacing: .02em;
+    margin: 2px 0 5px;
+  }
+  .dora-step .d { font-size: .8rem; line-height: 1.45; color: var(--muted); }
+  .dora-arrow { align-self: center; color: #B3C2D2; font-size: 1rem; }
+  @media (max-width: 620px) {
+    .dora-arrow { display: none; }
+    .dora-step { flex-basis: 100%; }
+  }
+
+  /* ==== Passos numerats de les guies pas a pas ==== */
+  .cq-steps { counter-reset: step; margin: 4px 0 0; padding: 0; list-style: none; }
+  .cq-steps > li {
+    counter-increment: step;
+    position: relative;
+    padding: 0 0 4px 34px;
+    margin-bottom: 18px;
+  }
+  .cq-steps > li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0; top: 1px;
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    border-radius: 50%;
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--accent);
+  }
+  .cq-steps > li > :first-child { margin-top: 0; }
+
+  /* ==== Problemes: símptoma → causa → solució ==== */
+  .cq-issues { margin: 4px 0 0; }
+  .cq-issues dt {
+    font-weight: 600;
+    margin-top: 16px;
+    color: var(--ko);
+  }
+  .cq-issues dt:first-child { margin-top: 0; }
+  .cq-issues dd { margin: 4px 0 0 0; }
+  .cq-issues dd .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 6px;
+  }
+
+  /* ==== Taula de referència ==== */
+  .cq-tablewrap { overflow-x: auto; margin: 14px 0 4px; }
+  .cq-table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+  .cq-table th, .cq-table td {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .cq-table th {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: .78rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom-color: var(--accent-line);
+    white-space: nowrap;
+  }
+  /* La primera columna sol ser una ordre curta i queda millor sencera, però
+     quan és prosa ha de poder partir-se: si no, la taula no cap al mòbil. */
+  .cq-table td:first-child > code:only-child { white-space: nowrap; }
+  .cq-table tr:last-child td { border-bottom: none; }
+
+  /* ==== Nota de versió de sistema (Ubuntu 26.04) ==== */
+  .cq-note {
+    margin: 14px 0 4px;
+    padding: 10px 14px;
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: 0 6px 6px 0;
+    font-size: .9rem;
+  }
+  .cq-note .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+
+  /* ==== Índex del mòdul (portada) ==== */
+  .cq-index { display: grid; gap: 10px; margin: 4px 0 0; padding: 0; list-style: none; }
+  .cq-index a {
+    display: flex; align-items: baseline; gap: 12px;
+    padding: 13px 16px;
+    border: 1px solid var(--rule); border-radius: 8px;
+    background: var(--paper); color: var(--ink); text-decoration: none;
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-index a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-index .ref {
+    font-family: var(--font-mono); font-size: .74rem; font-weight: 500;
+    color: var(--accent); letter-spacing: .06em; flex: 0 0 auto;
+  }
+  .cq-index .ttl { font-family: var(--font-display); font-weight: 700; font-size: .98rem; }
+  .cq-index .sub { display: block; font-size: .84rem; color: var(--muted); font-weight: 400; font-family: var(--font-body); margin-top: 1px; }
+
+  /* ==== Quiz ==== */
+  .cq-question { margin: 22px 0 0; }
+  .cq-question + .cq-question { padding-top: 22px; border-top: 1px solid var(--rule); }
+  .cq-question .statement { font-weight: 600; margin-bottom: 10px; }
+  .cq-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 14px;
+    margin: 7px 0;
+    border: 1px solid var(--rule);
+    border-radius: 7px;
+    background: var(--card);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .95rem;
+    color: var(--ink);
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-option:hover:not(:disabled) { border-color: #B3C2D2; }
+  .cq-option:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .cq-option.cq-selected { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-option.cq-correct { border-color: var(--ok); background: var(--ok-soft); color: var(--ok); }
+  .cq-option.cq-incorrect { border-color: var(--ko); background: var(--ko-soft); color: var(--ko); }
+  .cq-check-btn {
+    margin-top: 10px;
+    padding: 9px 20px;
+    border: none;
+    border-radius: 7px;
+    background: var(--accent);
+    color: #FFFFFF;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: .88rem;
+    cursor: pointer;
+  }
+  .cq-check-btn:hover:not(:disabled) { background: var(--accent-hover); }
+  .cq-check-btn:disabled { background: #B3C2D2; cursor: default; }
+  .cq-feedback { margin-top: 10px; font-size: .88rem; font-weight: 600; }
+  .cq-feedback.ok { color: var(--ok); }
+  .cq-feedback.ko { color: var(--ko); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  /* ==== Mòbil: la pantalla de 375 px és la mida de treball real ==== */
+  @media (max-width: 620px) {
+    body { padding: 26px 10px 56px; }
+    .cq-nav { margin: -26px -10px 22px; padding: 9px 10px; }
+    .cq-block { padding: 22px 16px 24px; }
+    .cq-block::before { left: 14px; }
+    .cq-table { font-size: .84rem; }
+    .cq-table th, .cq-table td { padding: 8px 8px; }
+    .cq-table th { white-space: normal; }
+    .cq-pager { grid-template-columns: 1fr; }
+    .cq-pager .next { grid-column: 1; text-align: left; }
+  }
+
+  /* ==== Impressió: els alumnes imprimeixen la teoria ==== */
+  @media print {
+    body { background: #FFF; padding: 0; font-size: 11pt; }
+    .cq-block { border-color: #CCC; page-break-inside: avoid; margin-bottom: 12px; }
+    .cq-block pre { background: #F4F4F4; color: #000; border: 1px solid #DDD; }
+    .cq-block pre .c, .cq-block pre .o { color: #555; }
+    .cq-check-btn { display: none; }
+    .cq-nav, .cq-pager { display: none; }
+    a.cq-ref { border-bottom: none; color: inherit; }
+  }
+  /* ==== Contingut no copiable ====
+     Dissuasiu, no una protecció: la prosa és per llegir-la al web o a
+     Moodle, no per copiar-la. El codi, les ordres i les taules SÍ que es
+     copien: l'alumnat treballa per SSH i les ha d'enganxar. L'editor
+     treballa amb contenteditable i queda exclòs. */
+  .cq-header, .cq-block {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  .cq-block pre, .cq-block pre *,
+  .cq-block code, .cq-table, .cq-table *,
+  [contenteditable="true"], [contenteditable="true"] * {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    user-select: text;
+  }
+
+/* === SINAPSI-CSS FI ======================================== */
+</style>
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA3 · Instal·lació de serveis de gestió d'arxius web</a>
+    <span class="pos">G3.1 · 4/9</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA3 · G3.1</div>
+  <h1>Guia: instal·lar Nextcloud</h1>
+  <p class="lede">Nextcloud sobre Apache, MySQL i PHP, amb les dades fora del web i les tasques en segon pla en marxa.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què hi ha en aquesta guia</h2>
+  <p>Documentació oficial: <a href="https://docs.nextcloud.com/server/latest/admin_manual/installation/">Installation</a> · <a href="https://docs.nextcloud.com/server/latest/admin_manual/installation/system_requirements.html">requeriments del sistema</a></p>
+  <ul>
+    <li>Punt de partida: un escriptori d'IsardVDI amb Ubuntu a punt (<a class="cq-ref" href="../../RA1/guies/g1-1-entorn-de-laboratori.html">G1.1</a>) i la pila LAMP de <a class="cq-ref" href="../../RA1/guies/g1-2-pila-lamp.html">G1.2</a>.</li>
+    <li>Resultat: Nextcloud a <code>http://nuvol.internal</code>, amb les dades a <code>/var/ncdata</code> i el cron cada cinc minuts.</li>
+    <li>La base de dades es diu <code>ncdb</code> i l'usuari <code>ncuser</code>.</li>
+  </ul>
+  <div class="cq-note"><span class="lbl">Primer, els requeriments</span>
+    Nextcloud admet unes versions concretes de PHP. Mira la pàgina de requeriments de la versió que baixis i compara-la amb <code>php -v</code>. Si la versió d'Ubuntu de l'escriptori porta un PHP massa nou, fes l'escriptori amb la versió anterior d'Ubuntu i canvia el número a les rutes de <code>/etc/php/…</code> d'aquesta guia.</div>
+</div>
+
+<!-- ============ 2 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Preparar el servidor</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Instal·la la pila i les extensions</strong> que demana Nextcloud:</p>
+<pre>sudo apt update
+sudo apt install -y apache2 mysql-server libapache2-mod-php \
+  php-mysql php-gd php-curl php-mbstring php-intl php-xml \
+  php-zip php-bcmath php-gmp php-imagick unzip</pre>
+    </li>
+    <li>
+      <p><strong>Puja els límits de PHP</strong>: els fitxers grans i les miniatures ho demanen.</p>
+<pre>sudo nano /etc/php/8.5/apache2/conf.d/99-nextcloud.ini</pre>
+<pre>memory_limit = 512M
+upload_max_filesize = 2G
+post_max_size = 2G
+max_execution_time = 3600
+output_buffering = Off</pre>
+    </li>
+    <li>
+      <p><strong>Activa els mòduls d'Apache</strong> que necessita i reinicia:</p>
+<pre>sudo a2enmod rewrite headers env dir mime
+sudo systemctl restart apache2</pre>
+    </li>
+    <li>
+      <p><strong>Crea la base de dades i el seu usuari:</strong></p>
+<pre>sudo mysql</pre>
+<pre>CREATE DATABASE ncdb
+  CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE USER 'ncuser'@'localhost' IDENTIFIED BY 'Canvia-la-2026';
+GRANT ALL PRIVILEGES ON ncdb.* TO 'ncuser'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;</pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 3 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Posar-hi el codi i el directori de dades</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Baixa i descomprimeix</strong> l'última versió:</p>
+<pre>cd /tmp
+wget https://download.nextcloud.com/server/releases/latest.zip
+sudo unzip -q latest.zip -d /var/www
+sudo mv /var/www/nextcloud /var/www/nuvol.internal</pre>
+    </li>
+    <li>
+      <p><strong>Crea el directori de dades fora de l'arrel web.</strong> És el punt més important de la instal·lació:</p>
+<pre>sudo mkdir /var/ncdata
+sudo chown -R www-data:www-data /var/ncdata /var/www/nuvol.internal
+sudo chmod 750 /var/ncdata</pre>
+    </li>
+    <li>
+      <p><strong>Comprova l'espai</strong> del disc on aniran els fitxers:</p>
+<pre>df -h /var/ncdata</pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 4 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Host virtual i instal·lador web</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Escriu el host virtual:</strong></p>
+<pre>sudo nano /etc/apache2/sites-available/nuvol.internal.conf</pre>
+<pre>&lt;VirtualHost *:80&gt;
+    ServerName nuvol.internal
+    DocumentRoot /var/www/nuvol.internal
+
+    &lt;Directory /var/www/nuvol.internal&gt;
+        AllowOverride All
+        Require all granted
+    &lt;/Directory&gt;
+
+    ErrorLog ${APACHE_LOG_DIR}/nuvol.internal_error.log
+    CustomLog ${APACHE_LOG_DIR}/nuvol.internal_access.log combined
+&lt;/VirtualHost&gt;</pre>
+    </li>
+    <li>
+      <p><strong>Activa'l i resol el nom:</strong></p>
+<pre>sudo a2ensite nuvol.internal.conf
+sudo apache2ctl configtest
+sudo systemctl reload apache2
+echo '127.0.0.1 nuvol.internal' | sudo tee -a /etc/hosts</pre>
+    </li>
+    <li>
+      <p><strong>Obre <code>http://nuvol.internal</code></strong> i omple l'assistent: compte d'administrador, <strong>carpeta de dades</strong> <code>/var/ncdata</code>, i MySQL amb <code>ncdb</code>, <code>ncuser</code> i la contrasenya.</p>
+    </li>
+    <li>
+      <p><strong>Espera que acabi</strong> la instal·lació de les aplicacions recomanades i entra al tauler.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 5 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Tasques en segon pla i accés des d'una altra màquina</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Programa el cron</strong> amb l'usuari d'Apache, cada cinc minuts:</p>
+<pre>sudo crontab -u www-data -e</pre>
+<pre>*/5 * * * * php -f /var/www/nuvol.internal/cron.php</pre>
+    </li>
+    <li>
+      <p><strong>Tria «Cron» com a mètode</strong> a <strong>Configuració → Paràmetres bàsics</strong>. Si hi diu que fa massa estona que no s'executa, revisa la línia anterior.</p>
+    </li>
+    <li>
+      <p><strong>Autoritza el nom o la IP</strong> amb què s'hi entrarà des d'una altra màquina. Des de la carpeta del lloc:</p>
+<pre>cd /var/www/nuvol.internal
+sudo -u www-data php occ config:system:get trusted_domains
+sudo -u www-data php occ config:system:set \
+  trusted_domains 1 --value=192.168.120.45</pre>
+    </li>
+    <li>
+      <p><strong>Prova-ho</strong> des d'un altre escriptori de la mateixa xarxa: <code>http://192.168.120.45</code> ha de demanar l'inici de sessió.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 6 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>La consola d'administració</h2>
+  <p>L'ordre <code>occ</code> fa des del terminal el que es fa al tauler, i coses que només es poden fer així. S'executa sempre com a <code>www-data</code> i des de la carpeta del lloc.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Ordre</th><th>Fa</th></tr></thead>
+      <tbody>
+        <tr><td><code>occ status</code></td><td>Versió i estat de la instal·lació</td></tr>
+        <tr><td><code>occ user:list</code> · <code>occ user:add</code></td><td>Comptes</td></tr>
+        <tr><td><code>occ group:list</code></td><td>Grups</td></tr>
+        <tr><td><code>occ files:scan --all</code></td><td>Torna a llegir els fitxers i refà l'índex</td></tr>
+        <tr><td><code>occ app:list</code> · <code>occ app:enable nom</code></td><td>Aplicacions</td></tr>
+        <tr><td><code>occ maintenance:mode --on</code></td><td>Manteniment, per fer còpies</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 7 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Còpia i restauració</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Posa el servei en manteniment</strong> i fes la còpia de les dues meitats:</p>
+<pre>cd /var/www/nuvol.internal
+sudo -u www-data php occ maintenance:mode --on
+sudo mysqldump --single-transaction ncdb &gt; ncdb-$(date +%F).sql
+sudo tar -czf nc-$(date +%F).tar.gz \
+  -C /var/www nuvol.internal -C /var ncdata
+sudo -u www-data php occ maintenance:mode --off</pre>
+    </li>
+    <li>
+      <p><strong>Treu la còpia del servidor</strong> cap a un altre escriptori:</p>
+<pre>scp ncdb-*.sql nc-*.tar.gz usuari@192.168.120.46:~/copies/</pre>
+    </li>
+    <li>
+      <p><strong>Per restaurar</strong>, desfés els dos fitxers i torna els permisos:</p>
+<pre>sudo tar -xzf nc-DATA.tar.gz -C /
+sudo mysql ncdb &lt; ncdb-DATA.sql
+sudo chown -R www-data:www-data /var/www/nuvol.internal /var/ncdata</pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 8 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Comprovació de conjunt</h2>
+  <ul>
+    <li><code>curl -I http://nuvol.internal</code> respon i porta a l'inici de sessió.</li>
+    <li><code>curl -I http://nuvol.internal/../ncdata</code> no dona cap fitxer: les dades són fora de l'arrel web.</li>
+    <li><code>sudo -u www-data php occ status</code> diu <code>installed: true</code> i la versió.</li>
+    <li>A <strong>Configuració → Visió general</strong> no hi ha avisos de seguretat ni del cron.</li>
+    <li>Des d'un altre equip de la xarxa, l'adreça autoritzada obre el servei.</li>
+  </ul>
+</div>
+
+<!-- ============ 9 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Les dades, sempre fora de <code>/var/www</code>.</li>
+    <li><code>occ</code> com a <code>www-data</code>: executar-lo com a <code>root</code> deixa fitxers que Apache no podrà escriure.</li>
+    <li>Cron de sistema, no les tasques per AJAX: és l'únic mètode fiable.</li>
+    <li>Quota per defecte per als comptes nous.</li>
+    <li>Una còpia amb el servei en manteniment, i provada.</li>
+  </ul>
+</div>
+
+<!-- ============ 10 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>«Access through untrusted domain»</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> S'hi entra per una adreça que no és a <code>trusted_domains</code>.</p>
+      <p><span class="lbl">Solució</span> Afegeix-la amb <code>occ config:system:set</code>, com al pas anterior.</p>
+    </dd>
+    <dt>La visió general avisa que el cron no s'executa</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> La línia del cron té una ruta equivocada o no és de <code>www-data</code>.</p>
+      <p><span class="lbl">Solució</span> Executa-la a mà i mira l'error: <code>sudo -u www-data php -f /var/www/nuvol.internal/cron.php</code>.</p>
+    </dd>
+    <dt>No es poden pujar fitxers grans</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Els límits de PHP són baixos.</p>
+      <p><span class="lbl">Solució</span> Revisa el fitxer de <code>conf.d</code> del pas 2 i reinicia Apache.</p>
+    </dd>
+    <dt>Els fitxers copiats per SSH no surten al navegador</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> No són a l'índex del servei.</p>
+      <p><span class="lbl">Solució</span> <code>sudo -u www-data php occ files:scan --all</code>.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 11 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Fitxa ràpida</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Peça</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>Codi</td><td><code>/var/www/nuvol.internal</code></td></tr>
+        <tr><td>Dades</td><td><code>/var/ncdata</code>, fora del web</td></tr>
+        <tr><td>Base de dades</td><td><code>ncdb</code> · <code>ncuser</code></td></tr>
+        <tr><td>Consola</td><td><code>sudo -u www-data php occ …</code></td></tr>
+        <tr><td>Cron</td><td><code>*/5 * * * * php -f …/cron.php</code></td></tr>
+        <tr><td>Refer l'índex</td><td><code>occ files:scan --all</code></td></tr>
+        <tr><td>Còpia</td><td><code>mysqldump</code> + <code>tar</code> del codi i de les dades</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="../teoria/t3-3-trobar-ho-i-protegir-ho.html">
+    <span class="dir">Anterior · T3.3</span>
+    <span class="ttl">Trobar-ho i protegir-ho</span></a>
+  <a class="next" href="g3-2-administrar-nextcloud.html">
+    <span class="dir">Següent · G3.2</span>
+    <span class="ttl">Guia: administrar Nextcloud</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script>
+  // Dissuasió de la còpia: mai al codi, a les taules ni dins de l'editor.
+  // L'alumnat treballa per SSH i ha de poder enganxar les ordres.
+  (function () {
+    var LLIURE = 'pre, code, .cq-table, [contenteditable="true"]';
+    function copiable(node) {
+      if (node && node.nodeType !== 1) { node = node.parentNode; }
+      return !!(node && node.closest && node.closest(LLIURE));
+    }
+    function seleccioCopiable() {
+      var s = document.getSelection();
+      if (!s || s.rangeCount === 0) { return false; }
+      return copiable(s.getRangeAt(0).commonAncestorContainer);
+    }
+    ['copy', 'cut'].forEach(function (nom) {
+      document.addEventListener(nom, function (e) {
+        if (!seleccioCopiable()) { e.preventDefault(); }
+      });
+    });
+    document.addEventListener('dragstart', function (e) {
+      if (!copiable(e.target)) { e.preventDefault(); }
+    });
+  })();
+
+  // Motor únic per a totes les preguntes single i multi.
+  document.querySelectorAll('.cq-question').forEach(function (question) {
+    var id = question.dataset.id;
+    if (!id) {
+      throw new Error('Falta data-id a una pregunta del quiz.');
+    }
+    var type = question.dataset.type;
+    if (type !== 'single' && type !== 'multi') {
+      throw new Error('data-type invàlid ("' + type + '") a la pregunta "' + id + '".');
+    }
+
+    var options = question.querySelectorAll('.cq-option');
+    var checkBtn = question.querySelector('.cq-check-btn');
+    var feedback = question.querySelector('.cq-feedback');
+
+    options.forEach(function (opt) {
+      opt.addEventListener('click', function () {
+        if (type === 'single') {
+          options.forEach(function (o) { o.classList.remove('cq-selected'); });
+          opt.classList.add('cq-selected');
+        } else {
+          opt.classList.toggle('cq-selected');
+        }
+        options.forEach(function (o) {
+          o.setAttribute('aria-pressed',
+            o.classList.contains('cq-selected') ? 'true' : 'false');
+        });
+      });
+    });
+
+    checkBtn.addEventListener('click', function () {
+      var allCorrect = true;
+      options.forEach(function (opt) {
+        var isCorrect = opt.dataset.correct === 'true';
+        var isSelected = opt.classList.contains('cq-selected');
+        opt.classList.remove('cq-selected');
+        opt.setAttribute('aria-pressed', 'false');
+        if (isCorrect) {
+          opt.classList.add('cq-correct');
+        } else if (isSelected) {
+          opt.classList.add('cq-incorrect');
+        }
+        opt.disabled = true;
+        if (isCorrect !== isSelected) {
+          allCorrect = false;
+        }
+      });
+      feedback.textContent = allCorrect ? 'Correcte!' : 'Incorrecte, revisa les respostes marcades.';
+      feedback.className = 'cq-feedback ' + (allCorrect ? 'ok' : 'ko');
+      checkBtn.disabled = true;
+    });
+  });
+</script>
+
+</body>
+</html>

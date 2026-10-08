@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T1.4 · Usuaris, grups i rols — Aplicacions Web (0228)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* === SINAPSI-CSS INICI =======================================
+   0228 · Aplicacions Web — Identitat visual del mòdul
+   Blau estructural · taronja per als avisos · paper clar
+   per a la lectura · codi en fosc.
+   Aquest bloc és IDÈNTIC a totes les pàgines del mòdul.
+   No l'editis en una sola pàgina: edita'l a totes o extreu-lo
+   a un full compartit (_identitat/sinapsi.css).
+   ============================================================ */
+  :root {
+    --paper:        #FBFCFD;
+    --card:         #FFFFFF;
+    --ink:          #131A22;
+    --muted:        #5C6875;
+    --rule:         #E3E7EC;
+    --accent:       #1D4E89;
+    --accent-hover: #26639F;
+    --accent-soft:  #EFF5FB;
+    --accent-line:  #DCE7F3;
+    --warn:         #C2410C;
+    --warn-soft:    #FEF6EF;
+    --warn-line:    #F0CBAE;
+    --code-bg:      #16202E;
+    --code-ink:     #E2E9F1;
+    --ok:           #0E7A4B;
+    --ok-soft:      #F0FAF4;
+    --ok-line:      #C6E7D6;
+    --ko:           #B4232B;
+    --ko-soft:      #FEF4F4;
+    --ko-line:      #F2CFCF;
+    --font-display: "Ubuntu", -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-body:    "Source Sans 3", -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono:    "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  }
+
+  body {
+    margin: 0;
+    padding: 40px 16px 72px;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ==== Navegació: barra de dalt i pas a la pàgina següent ==== */
+  .cq-nav {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    margin: -40px -16px 26px;
+    padding: 9px 16px;
+    background: rgba(251, 252, 253, .93);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .cq-nav .inner {
+    max-width: 660px;
+    margin: 0 auto;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+  }
+  .cq-nav a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .9rem;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cq-nav a:hover { text-decoration: underline; }
+  .cq-nav .pos {
+    flex: 0 0 auto;
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    letter-spacing: .1em;
+    color: var(--muted);
+  }
+
+  .cq-pager {
+    max-width: 660px;
+    margin: 26px auto 0;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .cq-pager a {
+    display: block;
+    padding: 13px 16px;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    background: var(--card);
+    color: var(--ink);
+    text-decoration: none;
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-pager a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-pager .dir {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: .67rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+  .cq-pager .ttl {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: .92rem;
+    line-height: 1.3;
+  }
+  .cq-pager .next { grid-column: 2; text-align: right; }
+
+  /* Referència a una altra pàgina del mòdul (T2.4, G4.1, A3.2…) */
+  a.cq-ref {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-line);
+  }
+  a.cq-ref:hover { border-bottom-color: var(--accent); }
+
+  /* ==== Capçalera de la pàgina ==== */
+  .cq-header {
+    max-width: 660px;
+    margin: 0 auto 26px;
+  }
+  .cq-header .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .cq-header h1 {
+    margin: 6px 0 4px;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1.15;
+  }
+  .cq-header .lede {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+
+  /* ==== Bloc de contingut: patró únic per a tots els tipus ==== */
+  .cq-block {
+    max-width: 660px;
+    margin: 0 auto 20px;
+    padding: 26px 30px 28px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    position: relative;
+  }
+
+  /* Etiqueta de secció: petita, monoespaiada, com la capçalera
+     d'una fitxa tècnica. El text surt de l'atribut data-kind. */
+  .cq-block::before {
+    content: attr(data-kind);
+    position: absolute;
+    top: -8px;
+    left: 26px;
+    padding: 1px 9px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 20px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .cq-block h2 {
+    margin: 4px 0 14px;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .cq-block p { margin: 0 0 14px; }
+  .cq-block p:last-child { margin-bottom: 0; }
+  .cq-block em { font-style: italic; color: var(--muted); }
+  .cq-block strong { font-weight: 600; }
+  .cq-block ul, .cq-block ol { margin: 0 0 14px; padding-left: 22px; }
+  .cq-block li { margin-bottom: 6px; }
+  .cq-block li:last-child { margin-bottom: 0; }
+  .cq-block a { color: var(--accent); overflow-wrap: anywhere; }
+
+  .cq-block code {
+    font-family: var(--font-mono);
+    font-size: .84em;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    border-radius: 4px;
+    padding: 1px 5px;
+    color: var(--accent);
+  }
+  .cq-block pre {
+    margin: 14px 0 18px;
+    padding: 16px 18px;
+    background: var(--code-bg);
+    color: var(--code-ink);
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: .82rem;
+    line-height: 1.6;
+  }
+  .cq-block pre code { all: unset; font: inherit; }
+  .cq-block pre .c { color: #7E93AB; }   /* comentari dins del codi */
+  .cq-block pre .o { color: #8FD0A5; }   /* sortida esperada */
+
+  /* ---- Figures: captures i esquemes ---- */
+  .cq-block figure { margin: 16px 0 18px; }
+  .cq-block figure img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: #FFF;
+  }
+  .cq-block figcaption {
+    margin-top: 6px;
+    font-size: .86rem;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  /* ---- Variants de color per tipus de bloc ---- */
+  .cq-block[data-kind="objectius"],
+  .cq-block[data-kind="pas a pas"],
+  .cq-block[data-kind="lliurament"],
+  .cq-block[data-kind="resum"] { border-color: var(--accent-line); }
+  .cq-block[data-kind="objectius"]::before,
+  .cq-block[data-kind="pas a pas"]::before,
+  .cq-block[data-kind="lliurament"]::before,
+  .cq-block[data-kind="resum"]::before { border-color: var(--accent-line); color: var(--accent); }
+  .cq-block[data-kind="objectius"] h2,
+  .cq-block[data-kind="pas a pas"] h2,
+  .cq-block[data-kind="lliurament"] h2,
+  .cq-block[data-kind="resum"] h2 { color: var(--accent); }
+
+  .cq-block[data-kind="recordatori"] { background: var(--warn-soft); border-color: #F5DCC8; }
+  .cq-block[data-kind="recordatori"]::before { background: var(--warn-soft); border-color: var(--warn-line); color: var(--warn); }
+  .cq-block[data-kind="recordatori"] h2 { color: var(--warn); }
+
+  .cq-block[data-kind="bones pràctiques"] { background: var(--ok-soft); border-color: var(--ok-line); }
+  .cq-block[data-kind="bones pràctiques"]::before { background: var(--ok-soft); border-color: var(--ok-line); color: var(--ok); }
+  .cq-block[data-kind="bones pràctiques"] h2 { color: var(--ok); }
+
+  .cq-block[data-kind="problemes"] { background: var(--ko-soft); border-color: var(--ko-line); }
+  .cq-block[data-kind="problemes"]::before { background: var(--ko-soft); border-color: var(--ko-line); color: var(--ko); }
+  .cq-block[data-kind="problemes"] h2 { color: var(--ko); }
+
+  /* ==== Traçabilitat amb el currículum ==== */
+  .cq-block[data-kind="currículum"] { background: transparent; }
+  .cq-block[data-kind="currículum"] h2 { color: var(--muted); }
+  .cq-block[data-kind="currículum"] p {
+    margin: 0 0 6px;
+    font-size: .86rem;
+    color: var(--muted);
+  }
+  .cq-block[data-kind="currículum"] p:last-child { margin-bottom: 0; }
+  .cq-block[data-kind="currículum"] .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-right: 6px;
+    white-space: nowrap;
+  }
+
+  /* ==== Diagrama de passos en flux (DORA i similars) ==== */
+  .dora-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
+    margin: 20px 0 22px;
+    flex-wrap: wrap;
+  }
+  .dora-step {
+    flex: 1 1 130px;
+    padding: 14px 12px 12px;
+    border: 1px solid var(--rule);
+    border-top: 2px solid var(--accent);
+    border-radius: 6px;
+    background: var(--paper);
+  }
+  .dora-step .n {
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: .08em;
+  }
+  .dora-step .t {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: .9rem;
+    letter-spacing: .02em;
+    margin: 2px 0 5px;
+  }
+  .dora-step .d { font-size: .8rem; line-height: 1.45; color: var(--muted); }
+  .dora-arrow { align-self: center; color: #B3C2D2; font-size: 1rem; }
+  @media (max-width: 620px) {
+    .dora-arrow { display: none; }
+    .dora-step { flex-basis: 100%; }
+  }
+
+  /* ==== Passos numerats de les guies pas a pas ==== */
+  .cq-steps { counter-reset: step; margin: 4px 0 0; padding: 0; list-style: none; }
+  .cq-steps > li {
+    counter-increment: step;
+    position: relative;
+    padding: 0 0 4px 34px;
+    margin-bottom: 18px;
+  }
+  .cq-steps > li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0; top: 1px;
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    border-radius: 50%;
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--accent);
+  }
+  .cq-steps > li > :first-child { margin-top: 0; }
+
+  /* ==== Problemes: símptoma → causa → solució ==== */
+  .cq-issues { margin: 4px 0 0; }
+  .cq-issues dt {
+    font-weight: 600;
+    margin-top: 16px;
+    color: var(--ko);
+  }
+  .cq-issues dt:first-child { margin-top: 0; }
+  .cq-issues dd { margin: 4px 0 0 0; }
+  .cq-issues dd .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 6px;
+  }
+
+  /* ==== Taula de referència ==== */
+  .cq-tablewrap { overflow-x: auto; margin: 14px 0 4px; }
+  .cq-table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+  .cq-table th, .cq-table td {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .cq-table th {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: .78rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom-color: var(--accent-line);
+    white-space: nowrap;
+  }
+  /* La primera columna sol ser una ordre curta i queda millor sencera, però
+     quan és prosa ha de poder partir-se: si no, la taula no cap al mòbil. */
+  .cq-table td:first-child > code:only-child { white-space: nowrap; }
+  .cq-table tr:last-child td { border-bottom: none; }
+
+  /* ==== Nota de versió de sistema (Ubuntu 26.04) ==== */
+  .cq-note {
+    margin: 14px 0 4px;
+    padding: 10px 14px;
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: 0 6px 6px 0;
+    font-size: .9rem;
+  }
+  .cq-note .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+
+  /* ==== Índex del mòdul (portada) ==== */
+  .cq-index { display: grid; gap: 10px; margin: 4px 0 0; padding: 0; list-style: none; }
+  .cq-index a {
+    display: flex; align-items: baseline; gap: 12px;
+    padding: 13px 16px;
+    border: 1px solid var(--rule); border-radius: 8px;
+    background: var(--paper); color: var(--ink); text-decoration: none;
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-index a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-index .ref {
+    font-family: var(--font-mono); font-size: .74rem; font-weight: 500;
+    color: var(--accent); letter-spacing: .06em; flex: 0 0 auto;
+  }
+  .cq-index .ttl { font-family: var(--font-display); font-weight: 700; font-size: .98rem; }
+  .cq-index .sub { display: block; font-size: .84rem; color: var(--muted); font-weight: 400; font-family: var(--font-body); margin-top: 1px; }
+
+  /* ==== Quiz ==== */
+  .cq-question { margin: 22px 0 0; }
+  .cq-question + .cq-question { padding-top: 22px; border-top: 1px solid var(--rule); }
+  .cq-question .statement { font-weight: 600; margin-bottom: 10px; }
+  .cq-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 14px;
+    margin: 7px 0;
+    border: 1px solid var(--rule);
+    border-radius: 7px;
+    background: var(--card);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .95rem;
+    color: var(--ink);
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-option:hover:not(:disabled) { border-color: #B3C2D2; }
+  .cq-option:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .cq-option.cq-selected { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-option.cq-correct { border-color: var(--ok); background: var(--ok-soft); color: var(--ok); }
+  .cq-option.cq-incorrect { border-color: var(--ko); background: var(--ko-soft); color: var(--ko); }
+  .cq-check-btn {
+    margin-top: 10px;
+    padding: 9px 20px;
+    border: none;
+    border-radius: 7px;
+    background: var(--accent);
+    color: #FFFFFF;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: .88rem;
+    cursor: pointer;
+  }
+  .cq-check-btn:hover:not(:disabled) { background: var(--accent-hover); }
+  .cq-check-btn:disabled { background: #B3C2D2; cursor: default; }
+  .cq-feedback { margin-top: 10px; font-size: .88rem; font-weight: 600; }
+  .cq-feedback.ok { color: var(--ok); }
+  .cq-feedback.ko { color: var(--ko); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  /* ==== Mòbil: la pantalla de 375 px és la mida de treball real ==== */
+  @media (max-width: 620px) {
+    body { padding: 26px 10px 56px; }
+    .cq-nav { margin: -26px -10px 22px; padding: 9px 10px; }
+    .cq-block { padding: 22px 16px 24px; }
+    .cq-block::before { left: 14px; }
+    .cq-table { font-size: .84rem; }
+    .cq-table th, .cq-table td { padding: 8px 8px; }
+    .cq-table th { white-space: normal; }
+    .cq-pager { grid-template-columns: 1fr; }
+    .cq-pager .next { grid-column: 1; text-align: left; }
+  }
+
+  /* ==== Impressió: els alumnes imprimeixen la teoria ==== */
+  @media print {
+    body { background: #FFF; padding: 0; font-size: 11pt; }
+    .cq-block { border-color: #CCC; page-break-inside: avoid; margin-bottom: 12px; }
+    .cq-block pre { background: #F4F4F4; color: #000; border: 1px solid #DDD; }
+    .cq-block pre .c, .cq-block pre .o { color: #555; }
+    .cq-check-btn { display: none; }
+    .cq-nav, .cq-pager { display: none; }
+    a.cq-ref { border-bottom: none; color: inherit; }
+  }
+  /* ==== Contingut no copiable ====
+     Dissuasiu, no una protecció: la prosa és per llegir-la al web o a
+     Moodle, no per copiar-la. El codi, les ordres i les taules SÍ que es
+     copien: l'alumnat treballa per SSH i les ha d'enganxar. L'editor
+     treballa amb contenteditable i queda exclòs. */
+  .cq-header, .cq-block {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  .cq-block pre, .cq-block pre *,
+  .cq-block code, .cq-table, .cq-table *,
+  [contenteditable="true"], [contenteditable="true"] * {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    user-select: text;
+  }
+
+/* === SINAPSI-CSS FI ======================================== */
+</style>
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA1 · Instal·lació de gestors de continguts</a>
+    <span class="pos">T1.4 · 4/16</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA1 · T1.4</div>
+  <h1>Usuaris, grups i rols</h1>
+  <p class="lede">Qui pot fer què en un lloc on treballen moltes persones.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què sabràs fer en acabar</h2>
+  <ul>
+    <li>Explicar la diferència entre usuari, rol i capacitat.</li>
+    <li>Descriure els cinc rols de WordPress.</li>
+    <li>Triar el rol adequat per a cada persona segons la feina.</li>
+    <li>Aplicar el principi de mínim privilegi.</li>
+    <li>Distingir un rol d'un grup i saber quan cal cadascun.</li>
+    <li>Explicar com es controla qui llegeix i qui escriu en un fòrum.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Usuari, rol i capacitat</h2>
+  <p>Un <strong>usuari</strong> és una persona amb nom d'usuari, correu i contrasenya. Una <strong>capacitat</strong> és un permís concret: publicar entrades, editar pàgines, instal·lar extensions. Un <strong>rol</strong> és un paquet de capacitats amb nom, que s'assigna als usuaris.</p>
+  <p>Assignar rols en lloc de permisos solts fa la gestió senzilla: quan entra una redactora nova, se li dona el rol «Autor» i ja té exactament el que necessita.</p>
+</div>
+
+<!-- ============ 3 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>Els cinc rols de WordPress</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Rol</th><th>Pot</th><th>No pot</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Administrador</strong></td><td>Tot: usuaris, temes, extensions, configuració</td><td>—</td></tr>
+        <tr><td><strong>Editor</strong></td><td>Publicar i editar entrades i pàgines de tothom; moderar comentaris</td><td>Tocar usuaris, temes o extensions</td></tr>
+        <tr><td><strong>Autor</strong></td><td>Publicar i editar les seves entrades; pujar imatges</td><td>Editar el contingut d'altres; crear pàgines</td></tr>
+        <tr><td><strong>Col·laborador</strong></td><td>Escriure les seves entrades</td><td>Publicar-les ni pujar imatges</td></tr>
+        <tr><td><strong>Subscriptor</strong></td><td>Editar el seu perfil; comentar on calgui registre</td><td>Crear contingut</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Els noms en anglès (<em>Administrator, Editor, Author, Contributor, Subscriber</em>) són els que surten a la documentació oficial.</p>
+</div>
+
+<!-- ============ 4 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>Qui pot fer cada tasca</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Tasca</th><th>Admin.</th><th>Editor</th><th>Autor</th><th>Col·lab.</th></tr></thead>
+      <tbody>
+        <tr><td>Escriure entrades</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
+        <tr><td>Publicar entrades</td><td>Sí</td><td>Sí</td><td>Sí</td><td>No</td></tr>
+        <tr><td>Editar entrades d'altres</td><td>Sí</td><td>Sí</td><td>No</td><td>No</td></tr>
+        <tr><td>Crear pàgines i categories</td><td>Sí</td><td>Sí</td><td>No</td><td>No</td></tr>
+        <tr><td>Canviar tema i ginys</td><td>Sí</td><td>No</td><td>No</td><td>No</td></tr>
+        <tr><td>Gestionar usuaris i extensions</td><td>Sí</td><td>No</td><td>No</td><td>No</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Rols i grups</h2>
+  <p>Un <strong>rol</strong> diu <em>què</em> pot fer una persona. Un <strong>grup</strong> diu <em>a quin col·lectiu</em> pertany: «Redacció», «Famílies», «2n SMX». Els grups serveixen per donar accés a uns continguts concrets a molta gent alhora, sense canviar-ne el rol.</p>
+  <p>Molts gestors porten grups de sèrie; WordPress no, i els afegeix amb una extensió. Quan els rols de sèrie no encaixen, també es pot crear un <strong>rol personalitzat</strong> triant-ne les capacitats una a una.</p>
+</div>
+
+<!-- ============ TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Fòrums i regles d'accés</h2>
+  <p>Un <strong>fòrum</strong> és l'espai on els usuaris obren temes i hi responen. Té els seus propis rols, independents dels del gestor: qui administra els fòrums, qui modera, qui participa, qui només llegeix i qui està bloquejat.</p>
+  <p>Les <strong>regles d'accés</strong> combinen tres decisions: la <strong>visibilitat</strong> de cada fòrum (públic, privat per a registrats o ocult), el <strong>rol per defecte</strong> de qui es registra i si es pot escriure <strong>sense compte</strong>. Un fòrum obert a anònims s'omple de correu brossa en pocs dies.</p>
+</div>
+
+<!-- ============ 5 · EXEMPLE ============ -->
+<div class="cq-block" data-kind="exemple">
+  <h2>La revista de l'institut</h2>
+  <p>La cap de redacció revisa i publica: <strong>Editor</strong>. Tres alumnes escriuen articles que ella ha d'aprovar: <strong>Col·laborador</strong>. Un professor que publica la seva secció sense revisió: <strong>Autor</strong>. Les famílies que volen comentar: <strong>Subscriptor</strong>. Només una persona, la que manté el servidor, és <strong>Administradora</strong>.</p>
+</div>
+
+<!-- ============ 6 · CAS REAL ============ -->
+<div class="cq-block" data-kind="cas real">
+  <h2>Rols a altres aplicacions</h2>
+  <p>La idea es repeteix a totes les aplicacions del mòdul. Moodle té <strong>gestor, professor, professor sense permís d'edició, estudiant i convidat</strong>, i el rol es pot donar a tot el lloc o només en un curs. Nextcloud treballa amb <strong>grups</strong> i permisos per carpeta compartida. Canvien els noms; el principi és el mateix.</p>
+</div>
+
+<!-- ============ 7 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Provar un rol sense adivinar</h2>
+  <p>La manera fiable de saber què veu un rol és entrar-hi. Crea un usuari de prova per a cada rol, obre una finestra privada del navegador i inicia-hi sessió: el tauler només mostrarà els menús que aquell rol pot fer servir.</p>
+</div>
+
+<!-- ============ 8 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li><strong>Mínim privilegi</strong>: dona el rol més baix que permeti fer la feina.</li>
+    <li>Com menys administradors, millor; mai un compte d'administrador compartit.</li>
+    <li>Un compte per persona, amb el seu correu: així queda registrat qui ha fet cada canvi.</li>
+    <li>Revisa i esborra els comptes de qui ja no participa.</li>
+    <li>Registre obert només si el lloc el necessita, i amb el rol més baix per defecte.</li>
+  </ul>
+</div>
+
+<!-- ============ 9 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>Tothom és administrador «per no tenir problemes»</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Es confon comoditat amb gestió.</p>
+      <p><span class="lbl">Solució</span> Qualsevol compte robat podria esborrar el lloc. Assigna el rol mínim.</p>
+    </dd>
+    <dt>Un col·laborador no pot afegir imatges</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El rol no té la capacitat de pujar fitxers.</p>
+      <p><span class="lbl">Solució</span> És el comportament previst: o un editor les afegeix, o se li dona el rol d'autor.</p>
+    </dd>
+    <dt>El fòrum «privat» es llegeix sense iniciar sessió</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> S'ha deixat la visibilitat en públic, o la pàgina que el mostra no respecta la restricció.</p>
+      <p><span class="lbl">Solució</span> Revisa la visibilitat de cada fòrum i prova-ho sempre des d'una finestra privada.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 10 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Resum</h2>
+  <ul>
+    <li>Capacitat: un permís. Rol: un paquet de capacitats. Usuari: la persona.</li>
+    <li>WordPress: administrador, editor, autor, col·laborador i subscriptor.</li>
+    <li>El col·laborador escriu però no publica; l'autor publica el seu.</li>
+    <li>Mínim privilegi: el rol més baix que permeti fer la feina.</li>
+    <li>El rol diu què pots fer; el grup, a quins continguts arribes.</li>
+    <li>Fòrum: visibilitat, rol per defecte i escriptura anònima decideixen qui hi entra.</li>
+  </ul>
+</div>
+
+<!-- ============ 11 · QUIZ ============ -->
+<div class="cq-block" data-kind="quiz">
+  <h2>Comprova el que has après</h2>
+  <div class="cq-question" data-id="t1-4-collab" data-type="single">
+    <div class="statement">Qui pot escriure entrades però no publicar-les?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Autor</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Col·laborador</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Subscriptor</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Editor</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-4-editor" data-type="single">
+    <div class="statement">Una persona ha de revisar i publicar els articles de tots, però no tocar extensions. Quin rol?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Administrador</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Editor</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Autor</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Col·laborador</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-4-minim" data-type="single">
+    <div class="statement">Què diu el principi de mínim privilegi?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Cada usuari ha de tenir només els permisos que necessita</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Hi ha d'haver com a mínim dos administradors</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Els usuaris han de tenir la contrasenya més curta possible</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Tots els usuaris tenen el mateix rol</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-4-grup" data-type="single">
+    <div class="statement">Vols que una pàgina només la llegeixin els 12 membres de la redacció, que tenen rols diferents. Què fas servir?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Canviar-los a tots el rol a administrador</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Un grup «Redacció» amb accés a la pàgina</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Una contrasenya compartida per a tots</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Una categoria nova</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-4-forum" data-type="multi">
+    <div class="statement">Quines decisions formen les regles d'accés d'un fòrum?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">La visibilitat de cada fòrum</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">El rol que rep qui es registra</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Si es pot escriure sense compte</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">El color dels temes</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 1.2</span> Creació d'usuaris i grups d'usuaris.</p>
+  <p><span class="lbl">CA 1.2</span> Gestiona usuaris amb rols diferents.</p>
+  <p><span class="lbl">CA 1.8</span> Habilita fòrums i estableix regles d'accés.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="t1-3-gestors-de-continguts.html">
+    <span class="dir">Anterior · T1.3</span>
+    <span class="ttl">Gestors de continguts</span></a>
+  <a class="next" href="t1-5-mantenir-un-gestor.html">
+    <span class="dir">Següent · T1.5</span>
+    <span class="ttl">Mantenir un gestor de continguts</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script>
+  // Dissuasió de la còpia: mai al codi, a les taules ni dins de l'editor.
+  // L'alumnat treballa per SSH i ha de poder enganxar les ordres.
+  (function () {
+    var LLIURE = 'pre, code, .cq-table, [contenteditable="true"]';
+    function copiable(node) {
+      if (node && node.nodeType !== 1) { node = node.parentNode; }
+      return !!(node && node.closest && node.closest(LLIURE));
+    }
+    function seleccioCopiable() {
+      var s = document.getSelection();
+      if (!s || s.rangeCount === 0) { return false; }
+      return copiable(s.getRangeAt(0).commonAncestorContainer);
+    }
+    ['copy', 'cut'].forEach(function (nom) {
+      document.addEventListener(nom, function (e) {
+        if (!seleccioCopiable()) { e.preventDefault(); }
+      });
+    });
+    document.addEventListener('dragstart', function (e) {
+      if (!copiable(e.target)) { e.preventDefault(); }
+    });
+  })();
+
+  // Motor únic per a totes les preguntes single i multi.
+  document.querySelectorAll('.cq-question').forEach(function (question) {
+    var id = question.dataset.id;
+    if (!id) {
+      throw new Error('Falta data-id a una pregunta del quiz.');
+    }
+    var type = question.dataset.type;
+    if (type !== 'single' && type !== 'multi') {
+      throw new Error('data-type invàlid ("' + type + '") a la pregunta "' + id + '".');
+    }
+
+    var options = question.querySelectorAll('.cq-option');
+    var checkBtn = question.querySelector('.cq-check-btn');
+    var feedback = question.querySelector('.cq-feedback');
+
+    options.forEach(function (opt) {
+      opt.addEventListener('click', function () {
+        if (type === 'single') {
+          options.forEach(function (o) { o.classList.remove('cq-selected'); });
+          opt.classList.add('cq-selected');
+        } else {
+          opt.classList.toggle('cq-selected');
+        }
+        options.forEach(function (o) {
+          o.setAttribute('aria-pressed',
+            o.classList.contains('cq-selected') ? 'true' : 'false');
+        });
+      });
+    });
+
+    checkBtn.addEventListener('click', function () {
+      var allCorrect = true;
+      options.forEach(function (opt) {
+        var isCorrect = opt.dataset.correct === 'true';
+        var isSelected = opt.classList.contains('cq-selected');
+        opt.classList.remove('cq-selected');
+        opt.setAttribute('aria-pressed', 'false');
+        if (isCorrect) {
+          opt.classList.add('cq-correct');
+        } else if (isSelected) {
+          opt.classList.add('cq-incorrect');
+        }
+        opt.disabled = true;
+        if (isCorrect !== isSelected) {
+          allCorrect = false;
+        }
+      });
+      feedback.textContent = allCorrect ? 'Correcte!' : 'Incorrecte, revisa les respostes marcades.';
+      feedback.className = 'cq-feedback ' + (allCorrect ? 'ok' : 'ko');
+      checkBtn.disabled = true;
+    });
+  });
+</script>
+
+</body>
+</html>

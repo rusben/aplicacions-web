@@ -1,0 +1,1940 @@
+<style>
+/* ============================================================
+   MARC DE REVISIÓ
+   El llenç del document conserva la identitat SINAPSI exacta.
+   Aquest marc és a part i s'adapta al tema de qui mira.
+   ============================================================ */
+:root {
+  --sx-bg:     #E7ECF2;
+  --sx-panel:  #FFFFFF;
+  --sx-line:   #D3DDE7;
+  --sx-ink:    #212E3A;
+  --sx-dim:    #5F6E7D;
+  --sx-accent: #1D4E89;
+  --sx-shadow: 0 1px 2px rgba(16,30,48,.06), 0 12px 32px rgba(16,30,48,.10);
+  --sx-display: "Ubuntu", -apple-system, "Segoe UI", Roboto, sans-serif;
+  --sx-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sx-bg:     #0E1620;
+    --sx-panel:  #16202C;
+    --sx-line:   #26323F;
+    --sx-ink:    #C7D4E1;
+    --sx-dim:    #7C8B9B;
+    --sx-accent: #74A9E4;
+    --sx-shadow: 0 1px 2px rgba(0,0,0,.30), 0 14px 40px rgba(0,0,0,.42);
+  }
+}
+:root[data-theme="dark"] {
+  --sx-bg:     #0E1620;
+  --sx-panel:  #16202C;
+  --sx-line:   #26323F;
+  --sx-ink:    #C7D4E1;
+  --sx-dim:    #7C8B9B;
+  --sx-accent: #74A9E4;
+  --sx-shadow: 0 1px 2px rgba(0,0,0,.30), 0 14px 40px rgba(0,0,0,.42);
+}
+:root[data-theme="light"] {
+  --sx-bg:     #E7ECF2;
+  --sx-panel:  #FFFFFF;
+  --sx-line:   #D3DDE7;
+  --sx-ink:    #212E3A;
+  --sx-dim:    #5F6E7D;
+  --sx-accent: #1D4E89;
+  --sx-shadow: 0 1px 2px rgba(16,30,48,.06), 0 12px 32px rgba(16,30,48,.10);
+}
+
+.sx-app {
+  min-height: 100vh;
+  background: var(--sx-bg);
+  color: var(--sx-ink);
+  font-family: var(--sx-display);
+  display: grid;
+  grid-template-columns: 286px minmax(0, 1fr);
+  align-items: start;
+}
+
+/* ---- Rail de navegació ---- */
+.sx-rail {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 26px 18px 32px;
+  background: var(--sx-panel);
+  border-right: 1px solid var(--sx-line);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.sx-brand .sx-eyebrow {
+  font-family: var(--sx-mono);
+  font-size: 10.5px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--sx-accent);
+}
+.sx-brand h1 {
+  margin: 5px 0 2px;
+  font-size: 1.32rem;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.sx-brand p { margin: 0; font-size: .84rem; color: var(--sx-dim); }
+
+.sx-group { display: flex; flex-direction: column; gap: 6px; }
+.sx-group > h2 {
+  margin: 0 0 2px;
+  font-family: var(--sx-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--sx-dim);
+}
+.sx-group ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 3px; }
+
+.sx-nav-item {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background .12s ease, border-color .12s ease;
+}
+.sx-nav-item:hover { background: color-mix(in srgb, var(--sx-accent) 8%, transparent); }
+.sx-nav-item:focus-visible { outline: 2px solid var(--sx-accent); outline-offset: 2px; }
+.sx-nav-item[aria-current="true"] {
+  background: color-mix(in srgb, var(--sx-accent) 13%, transparent);
+  border-color: color-mix(in srgb, var(--sx-accent) 38%, transparent);
+}
+.sx-ref {
+  font-family: var(--sx-mono);
+  font-size: .7rem;
+  font-weight: 500;
+  letter-spacing: .05em;
+  color: var(--sx-accent);
+  flex: 0 0 auto;
+}
+.sx-nav-txt { display: flex; flex-direction: column; min-width: 0; }
+.sx-nav-ttl { font-size: .88rem; font-weight: 500; line-height: 1.3; }
+.sx-nav-sub { font-size: .74rem; color: var(--sx-dim); line-height: 1.35; margin-top: 1px; }
+
+.sx-foot {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--sx-line);
+  font-size: .74rem;
+  line-height: 1.5;
+  color: var(--sx-dim);
+}
+
+/* ---- Llenç del document ---- */
+.sx-canvas { padding: 30px 26px 60px; min-width: 0; }
+.sx-paper {
+  max-width: 760px;
+  margin: 0 auto;
+  border: 1px solid var(--sx-line);
+  border-radius: 12px;
+  box-shadow: var(--sx-shadow);
+  overflow: hidden;
+}
+.sx-page[hidden] { display: none; }
+
+/* ---- Mòbil: el rail passa a ser una tira horitzontal ---- */
+@media (max-width: 900px) {
+  .sx-app { grid-template-columns: minmax(0, 1fr); }
+  .sx-rail {
+    position: static;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 14px 16px;
+    border-right: none;
+    border-bottom: 1px solid var(--sx-line);
+  }
+  .sx-brand, .sx-foot { display: none; }
+  .sx-group { flex-direction: row; align-items: center; gap: 8px; }
+  .sx-group > h2 { flex: 0 0 auto; }
+  .sx-group ul { flex-direction: row; }
+  .sx-nav-item { padding: 6px 11px; }
+  .sx-nav-txt { display: none; }
+  .sx-canvas { padding: 16px 12px 40px; }
+  .sx-paper { border-radius: 9px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* === SINAPSI-CSS INICI =======================================
+   0228 · Aplicacions Web — Identitat visual del mòdul
+   Blau estructural · taronja per als avisos · paper clar
+   per a la lectura · codi en fosc.
+   Aquest bloc és IDÈNTIC a totes les pàgines del mòdul.
+   No l'editis en una sola pàgina: edita'l a totes o extreu-lo
+   a un full compartit (_identitat/sinapsi.css).
+   ============================================================ */
+  .sx-paper {
+    --paper:        #FBFCFD;
+    --card:         #FFFFFF;
+    --ink:          #131A22;
+    --muted:        #5C6875;
+    --rule:         #E3E7EC;
+    --accent:       #1D4E89;
+    --accent-hover: #26639F;
+    --accent-soft:  #EFF5FB;
+    --accent-line:  #DCE7F3;
+    --warn:         #C2410C;
+    --warn-soft:    #FEF6EF;
+    --warn-line:    #F0CBAE;
+    --code-bg:      #16202E;
+    --code-ink:     #E2E9F1;
+    --ok:           #0E7A4B;
+    --ok-soft:      #F0FAF4;
+    --ok-line:      #C6E7D6;
+    --ko:           #B4232B;
+    --ko-soft:      #FEF4F4;
+    --ko-line:      #F2CFCF;
+    --font-display: "Ubuntu", -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-body:    "Source Sans 3", -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono:    "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  }
+
+  .sx-paper {
+    padding: 40px 22px 56px;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ==== Navegació: barra de dalt i pas a la pàgina següent ==== */
+  .cq-nav {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    margin: -40px -16px 26px;
+    padding: 9px 16px;
+    background: rgba(251, 252, 253, .93);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .cq-nav .inner {
+    max-width: 660px;
+    margin: 0 auto;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+  }
+  .cq-nav a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .9rem;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cq-nav a:hover { text-decoration: underline; }
+  .cq-nav .pos {
+    flex: 0 0 auto;
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    letter-spacing: .1em;
+    color: var(--muted);
+  }
+
+  .cq-pager {
+    max-width: 660px;
+    margin: 26px auto 0;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .cq-pager a {
+    display: block;
+    padding: 13px 16px;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    background: var(--card);
+    color: var(--ink);
+    text-decoration: none;
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-pager a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-pager .dir {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: .67rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+  .cq-pager .ttl {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: .92rem;
+    line-height: 1.3;
+  }
+  .cq-pager .next { grid-column: 2; text-align: right; }
+
+  /* Referència a una altra pàgina del mòdul (T2.4, G4.1, A3.2…) */
+  a.cq-ref {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-line);
+  }
+  a.cq-ref:hover { border-bottom-color: var(--accent); }
+
+  /* ==== Capçalera de la pàgina ==== */
+  .cq-header {
+    max-width: 660px;
+    margin: 0 auto 26px;
+  }
+  .cq-header .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .cq-header h1 {
+    margin: 6px 0 4px;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1.15;
+  }
+  .cq-header .lede {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+
+  /* ==== Bloc de contingut: patró únic per a tots els tipus ==== */
+  .cq-block {
+    max-width: 660px;
+    margin: 0 auto 20px;
+    padding: 26px 30px 28px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    position: relative;
+  }
+
+  /* Etiqueta de secció: petita, monoespaiada, com la capçalera
+     d'una fitxa tècnica. El text surt de l'atribut data-kind. */
+  .cq-block::before {
+    content: attr(data-kind);
+    position: absolute;
+    top: -8px;
+    left: 26px;
+    padding: 1px 9px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 20px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .cq-block h2 {
+    margin: 4px 0 14px;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .cq-block p { margin: 0 0 14px; }
+  .cq-block p:last-child { margin-bottom: 0; }
+  .cq-block em { font-style: italic; color: var(--muted); }
+  .cq-block strong { font-weight: 600; }
+  .cq-block ul, .cq-block ol { margin: 0 0 14px; padding-left: 22px; }
+  .cq-block li { margin-bottom: 6px; }
+  .cq-block li:last-child { margin-bottom: 0; }
+  .cq-block a { color: var(--accent); overflow-wrap: anywhere; }
+
+  .cq-block code {
+    font-family: var(--font-mono);
+    font-size: .84em;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    border-radius: 4px;
+    padding: 1px 5px;
+    color: var(--accent);
+  }
+  .cq-block pre {
+    margin: 14px 0 18px;
+    padding: 16px 18px;
+    background: var(--code-bg);
+    color: var(--code-ink);
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: .82rem;
+    line-height: 1.6;
+  }
+  .cq-block pre code { all: unset; font: inherit; }
+  .cq-block pre .c { color: #7E93AB; }   /* comentari dins del codi */
+  .cq-block pre .o { color: #8FD0A5; }   /* sortida esperada */
+
+  /* ---- Figures: captures i esquemes ---- */
+  .cq-block figure { margin: 16px 0 18px; }
+  .cq-block figure img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: #FFF;
+  }
+  .cq-block figcaption {
+    margin-top: 6px;
+    font-size: .86rem;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  /* ---- Variants de color per tipus de bloc ---- */
+  .cq-block[data-kind="objectius"],
+  .cq-block[data-kind="pas a pas"],
+  .cq-block[data-kind="lliurament"],
+  .cq-block[data-kind="resum"] { border-color: var(--accent-line); }
+  .cq-block[data-kind="objectius"]::before,
+  .cq-block[data-kind="pas a pas"]::before,
+  .cq-block[data-kind="lliurament"]::before,
+  .cq-block[data-kind="resum"]::before { border-color: var(--accent-line); color: var(--accent); }
+  .cq-block[data-kind="objectius"] h2,
+  .cq-block[data-kind="pas a pas"] h2,
+  .cq-block[data-kind="lliurament"] h2,
+  .cq-block[data-kind="resum"] h2 { color: var(--accent); }
+
+  .cq-block[data-kind="recordatori"] { background: var(--warn-soft); border-color: #F5DCC8; }
+  .cq-block[data-kind="recordatori"]::before { background: var(--warn-soft); border-color: var(--warn-line); color: var(--warn); }
+  .cq-block[data-kind="recordatori"] h2 { color: var(--warn); }
+
+  .cq-block[data-kind="bones pràctiques"] { background: var(--ok-soft); border-color: var(--ok-line); }
+  .cq-block[data-kind="bones pràctiques"]::before { background: var(--ok-soft); border-color: var(--ok-line); color: var(--ok); }
+  .cq-block[data-kind="bones pràctiques"] h2 { color: var(--ok); }
+
+  .cq-block[data-kind="problemes"] { background: var(--ko-soft); border-color: var(--ko-line); }
+  .cq-block[data-kind="problemes"]::before { background: var(--ko-soft); border-color: var(--ko-line); color: var(--ko); }
+  .cq-block[data-kind="problemes"] h2 { color: var(--ko); }
+
+  /* ==== Traçabilitat amb el currículum ==== */
+  .cq-block[data-kind="currículum"] { background: transparent; }
+  .cq-block[data-kind="currículum"] h2 { color: var(--muted); }
+  .cq-block[data-kind="currículum"] p {
+    margin: 0 0 6px;
+    font-size: .86rem;
+    color: var(--muted);
+  }
+  .cq-block[data-kind="currículum"] p:last-child { margin-bottom: 0; }
+  .cq-block[data-kind="currículum"] .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-right: 6px;
+    white-space: nowrap;
+  }
+
+  /* ==== Diagrama de passos en flux (DORA i similars) ==== */
+  .dora-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
+    margin: 20px 0 22px;
+    flex-wrap: wrap;
+  }
+  .dora-step {
+    flex: 1 1 130px;
+    padding: 14px 12px 12px;
+    border: 1px solid var(--rule);
+    border-top: 2px solid var(--accent);
+    border-radius: 6px;
+    background: var(--paper);
+  }
+  .dora-step .n {
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: .08em;
+  }
+  .dora-step .t {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: .9rem;
+    letter-spacing: .02em;
+    margin: 2px 0 5px;
+  }
+  .dora-step .d { font-size: .8rem; line-height: 1.45; color: var(--muted); }
+  .dora-arrow { align-self: center; color: #B3C2D2; font-size: 1rem; }
+  @media (max-width: 620px) {
+    .dora-arrow { display: none; }
+    .dora-step { flex-basis: 100%; }
+  }
+
+  /* ==== Passos numerats de les guies pas a pas ==== */
+  .cq-steps { counter-reset: step; margin: 4px 0 0; padding: 0; list-style: none; }
+  .cq-steps > li {
+    counter-increment: step;
+    position: relative;
+    padding: 0 0 4px 34px;
+    margin-bottom: 18px;
+  }
+  .cq-steps > li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0; top: 1px;
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    border-radius: 50%;
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--accent);
+  }
+  .cq-steps > li > :first-child { margin-top: 0; }
+
+  /* ==== Problemes: símptoma → causa → solució ==== */
+  .cq-issues { margin: 4px 0 0; }
+  .cq-issues dt {
+    font-weight: 600;
+    margin-top: 16px;
+    color: var(--ko);
+  }
+  .cq-issues dt:first-child { margin-top: 0; }
+  .cq-issues dd { margin: 4px 0 0 0; }
+  .cq-issues dd .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 6px;
+  }
+
+  /* ==== Taula de referència ==== */
+  .cq-tablewrap { overflow-x: auto; margin: 14px 0 4px; }
+  .cq-table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+  .cq-table th, .cq-table td {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .cq-table th {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: .78rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom-color: var(--accent-line);
+    white-space: nowrap;
+  }
+  /* La primera columna sol ser una ordre curta i queda millor sencera, però
+     quan és prosa ha de poder partir-se: si no, la taula no cap al mòbil. */
+  .cq-table td:first-child > code:only-child { white-space: nowrap; }
+  .cq-table tr:last-child td { border-bottom: none; }
+
+  /* ==== Nota de versió de sistema (Ubuntu 26.04) ==== */
+  .cq-note {
+    margin: 14px 0 4px;
+    padding: 10px 14px;
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: 0 6px 6px 0;
+    font-size: .9rem;
+  }
+  .cq-note .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+
+  /* ==== Índex del mòdul (portada) ==== */
+  .cq-index { display: grid; gap: 10px; margin: 4px 0 0; padding: 0; list-style: none; }
+  .cq-index a {
+    display: flex; align-items: baseline; gap: 12px;
+    padding: 13px 16px;
+    border: 1px solid var(--rule); border-radius: 8px;
+    background: var(--paper); color: var(--ink); text-decoration: none;
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-index a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-index .ref {
+    font-family: var(--font-mono); font-size: .74rem; font-weight: 500;
+    color: var(--accent); letter-spacing: .06em; flex: 0 0 auto;
+  }
+  .cq-index .ttl { font-family: var(--font-display); font-weight: 700; font-size: .98rem; }
+  .cq-index .sub { display: block; font-size: .84rem; color: var(--muted); font-weight: 400; font-family: var(--font-body); margin-top: 1px; }
+
+  /* ==== Quiz ==== */
+  .cq-question { margin: 22px 0 0; }
+  .cq-question + .cq-question { padding-top: 22px; border-top: 1px solid var(--rule); }
+  .cq-question .statement { font-weight: 600; margin-bottom: 10px; }
+  .cq-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 14px;
+    margin: 7px 0;
+    border: 1px solid var(--rule);
+    border-radius: 7px;
+    background: var(--card);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .95rem;
+    color: var(--ink);
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-option:hover:not(:disabled) { border-color: #B3C2D2; }
+  .cq-option:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .cq-option.cq-selected { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-option.cq-correct { border-color: var(--ok); background: var(--ok-soft); color: var(--ok); }
+  .cq-option.cq-incorrect { border-color: var(--ko); background: var(--ko-soft); color: var(--ko); }
+  .cq-check-btn {
+    margin-top: 10px;
+    padding: 9px 20px;
+    border: none;
+    border-radius: 7px;
+    background: var(--accent);
+    color: #FFFFFF;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: .88rem;
+    cursor: pointer;
+  }
+  .cq-check-btn:hover:not(:disabled) { background: var(--accent-hover); }
+  .cq-check-btn:disabled { background: #B3C2D2; cursor: default; }
+  .cq-feedback { margin-top: 10px; font-size: .88rem; font-weight: 600; }
+  .cq-feedback.ok { color: var(--ok); }
+  .cq-feedback.ko { color: var(--ko); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  /* ==== Mòbil: la pantalla de 375 px és la mida de treball real ==== */
+  @media (max-width: 620px) {
+    body { padding: 26px 10px 56px; }
+    .cq-nav { margin: -26px -10px 22px; padding: 9px 10px; }
+    .cq-block { padding: 22px 16px 24px; }
+    .cq-block::before { left: 14px; }
+    .cq-table { font-size: .84rem; }
+    .cq-table th, .cq-table td { padding: 8px 8px; }
+    .cq-table th { white-space: normal; }
+    .cq-pager { grid-template-columns: 1fr; }
+    .cq-pager .next { grid-column: 1; text-align: left; }
+  }
+
+  /* ==== Impressió: els alumnes imprimeixen la teoria ==== */
+  @media print {
+    body { background: #FFF; padding: 0; font-size: 11pt; }
+    .cq-block { border-color: #CCC; page-break-inside: avoid; margin-bottom: 12px; }
+    .cq-block pre { background: #F4F4F4; color: #000; border: 1px solid #DDD; }
+    .cq-block pre .c, .cq-block pre .o { color: #555; }
+    .cq-check-btn { display: none; }
+    .cq-nav, .cq-pager { display: none; }
+    a.cq-ref { border-bottom: none; color: inherit; }
+  }
+  /* ==== Contingut no copiable ====
+     Dissuasiu, no una protecció: la prosa és per llegir-la al web o a
+     Moodle, no per copiar-la. El codi, les ordres i les taules SÍ que es
+     copien: l'alumnat treballa per SSH i les ha d'enganxar. L'editor
+     treballa amb contenteditable i queda exclòs. */
+  .cq-header, .cq-block {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  .cq-block pre, .cq-block pre *,
+  .cq-block code, .cq-table, .cq-table *,
+  [contenteditable="true"], [contenteditable="true"] * {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    user-select: text;
+  }
+
+
+</style>
+
+<div class="sx-app">
+  <nav class="sx-rail" aria-label="Pàgines del RAX">
+    <div class="sx-brand">
+      <div class="sx-eyebrow">CFGM SMX · 0228</div>
+      <h1>Aplicacions Web</h1>
+      <p>RAX · HTML i CSS</p>
+    </div>
+
+    <div class="sx-group">
+      <h2>Teoria</h2>
+      <ul>
+        <li><button class="sx-nav-item" data-target="p-tx-1"><span class="sx-ref">TX.1</span><span class="sx-nav-txt"><span class="sx-nav-ttl">Capses i disposició</span><span class="sx-nav-sub">Model de capsa, position, Flexbox i Grid</span></span></button></li>
+      </ul>
+    </div>
+
+    <div class="sx-group">
+      <h2>Guies</h2>
+      <ul>
+        <li><button class="sx-nav-item" data-target="p-gx-1"><span class="sx-ref">GX.1</span><span class="sx-nav-txt"><span class="sx-nav-ttl">Guia: repositori i GitHub Pages</span><span class="sx-nav-sub">Clonar per SSH i publicar-hi un web estàtic</span></span></button></li>
+      </ul>
+    </div>
+
+    <div class="sx-group">
+      <h2>Activitats</h2>
+      <ul>
+        <li><button class="sx-nav-item" data-target="p-ax-1"><span class="sx-ref">AX.1</span><span class="sx-nav-txt"><span class="sx-nav-ttl">Targeta Pokémon</span><span class="sx-nav-sub">Donar estil només amb CSS</span></span></button></li>
+        <li><button class="sx-nav-item" data-target="p-ax-2"><span class="sx-ref">AX.2</span><span class="sx-nav-txt"><span class="sx-nav-ttl">Landing page</span><span class="sx-nav-sub">Menú, imatge destacada, botó i peu</span></span></button></li>
+        <li><button class="sx-nav-item" data-target="p-ax-3"><span class="sx-ref">AX.3</span><span class="sx-nav-txt"><span class="sx-nav-ttl">Zoo interactiu</span><span class="sx-nav-sub">Grid i Flexbox cara a cara</span></span></button></li>
+      </ul>
+    </div>
+
+    <div class="sx-group">
+      <h2>Pràctica</h2>
+      <ul>
+        <li><button class="sx-nav-item" data-target="p-px-1"><span class="sx-ref">PX.1</span><span class="sx-nav-txt"><span class="sx-nav-ttl">Pràctica: web HTML5</span><span class="sx-nav-sub">Tres pàgines semàntiques i adaptades al mòbil</span></span></button></li>
+        <li><button class="sx-nav-item" data-target="p-px-2"><span class="sx-ref">PX.2</span><span class="sx-nav-txt"><span class="sx-nav-ttl">Pràctica: botigues virtuals</span><span class="sx-nav-sub">Dues plataformes de comerç electrònic comparades</span></span></button></li>
+      </ul>
+    </div>
+
+    <div class="sx-foot">
+      Previsualització per revisar abans de pujar-ho a Moodle. El document es veu
+      sempre en clar, tal com el veurà l'alumnat.
+    </div>
+  </nav>
+
+  <main class="sx-canvas">
+    <section class="sx-page" id="p-tx-1" hidden>
+      <div class="sx-paper">
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RAX · TX.1</div>
+  <h1>Capses i disposició</h1>
+  <p class="lede">Cada element és una capsa: com es mesura, com es mou i com es reparteix l'espai.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què sabràs fer en acabar</h2>
+  <ul>
+    <li>Explicar les quatre capes del model de capsa.</li>
+    <li>Calcular l'amplada real d'un element i fer servir <code>box-sizing</code>.</li>
+    <li>Triar el valor de <code>position</code> adequat per a cada cas.</li>
+    <li>Distribuir elements amb Flexbox i amb Grid.</li>
+    <li>Adaptar una pàgina al mòbil amb <em>media queries</em>.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>El model de capsa</h2>
+  <p>El navegador tracta cada element com una capsa rectangular amb quatre capes, de dins cap a fora:</p>
+  <figure>
+    <img src="../img/box-model.gif" alt="Model de capsa: contingut, padding, border i margin" loading="lazy">
+  </figure>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Capa</th><th>Propietat</th><th>Com és</th></tr></thead>
+      <tbody>
+        <tr><td>Contingut</td><td><code>width</code>, <code>height</code></td><td>On hi ha el text o la imatge</td></tr>
+        <tr><td>Farciment</td><td><code>padding</code></td><td>Espai interior; agafa el fons de l'element</td></tr>
+        <tr><td>Vora</td><td><code>border</code></td><td>La línia; gruix, estil i color</td></tr>
+        <tr><td>Marge</td><td><code>margin</code></td><td>Espai exterior, transparent; pot ser negatiu</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 3 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Quant ocupa de debò</h2>
+  <p>Per defecte (<code>box-sizing: content-box</code>) l'amplada només compta el contingut, i el farciment i la vora s'hi sumen. Amb <code>border-box</code>, l'amplada que escrius ja ho inclou tot menys el marge.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th><code>width: 200px; padding: 20px; border: 5px</code></th><th>Amplada visible</th></tr></thead>
+      <tbody>
+        <tr><td><code>content-box</code></td><td>200 + 40 + 10 = <strong>250 px</strong></td></tr>
+        <tr><td><code>border-box</code></td><td><strong>200 px</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <figure>
+    <img src="../img/box-sizing-comparison.png" alt="Comparació entre content-box i border-box" loading="lazy">
+  </figure>
+  <p>Per això gairebé tots els projectes comencen amb aquesta regla:</p>
+<pre>*, *::before, *::after {
+  box-sizing: border-box;
+}</pre>
+</div>
+
+<!-- ============ 4 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Posicionar amb position</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Valor</th><th>Referència</th><th>Surt del flux?</th></tr></thead>
+      <tbody>
+        <tr><td><code>static</code></td><td>Cap: ignora <code>top</code> i <code>left</code>; és el valor per defecte</td><td>No</td></tr>
+        <tr><td><code>relative</code></td><td>La seva posició normal</td><td>No: deixa el forat</td></tr>
+        <tr><td><code>absolute</code></td><td>L'avantpassat posicionat més proper, o la pàgina</td><td>Sí</td></tr>
+        <tr><td><code>fixed</code></td><td>La finestra; no es mou en fer scroll</td><td>Sí</td></tr>
+        <tr><td><code>sticky</code></td><td>Relatiu fins a un llindar; després, fix</td><td>No</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <figure>
+    <img src="../img/absolute-relative.png" alt="Un element absolute dins d'un pare relative" loading="lazy">
+  </figure>
+  <p>La parella habitual és un pare amb <code>relative</code> i un fill amb <code>absolute</code>: el fill es col·loca respecte del pare, per exemple un text sobre una imatge.</p>
+</div>
+
+<!-- ============ 5 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Flexbox i Grid</h2>
+  <p>Per repartir espai entre elements no cal <code>position</code>: hi ha dos sistemes pensats per a això.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th></th><th>Flexbox</th><th>Grid</th></tr></thead>
+      <tbody>
+        <tr><td>Dimensions</td><td>Una: fila <em>o</em> columna</td><td>Dues: files <em>i</em> columnes</td></tr>
+        <tr><td>S'activa amb</td><td><code>display: flex</code></td><td><code>display: grid</code></td></tr>
+        <tr><td>Propietats clau</td><td><code>justify-content</code>, <code>align-items</code>, <code>flex-wrap</code>, <code>gap</code></td><td><code>grid-template-columns</code>, <code>grid-template-areas</code>, <code>gap</code></td></tr>
+        <tr><td>Ideal per</td><td>Menús, barres, targetes en fila</td><td>L'estructura de tota la pàgina</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 6 · EXEMPLE ============ -->
+<div class="cq-block" data-kind="exemple">
+  <h2>Centrar i fer una graella</h2>
+  <p>Centrar una capsa horitzontalment i verticalment dins de la pantalla:</p>
+<pre>.contenidor {
+  display: flex;
+  justify-content: center;  /* eix horitzontal */
+  align-items: center;      /* eix vertical */
+  min-height: 100vh;
+}</pre>
+  <p>Una graella de targetes que s'adapta sola a l'amplada:</p>
+<pre>.targetes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}</pre>
+</div>
+
+<!-- ============ 7 · CAS REAL ============ -->
+<div class="cq-block" data-kind="cas real">
+  <h2>Una pàgina que es veu bé al mòbil</h2>
+  <p>Més de la meitat de les visites arriben des del mòbil. Les <em>media queries</em> apliquen regles només a partir d'una amplada: es dissenya per a pantalla petita i s'amplia per a la gran (<em>mobile first</em>). Els temes dels gestors de continguts ja ho fan, i el CSS addicional ha de respectar-ho.</p>
+<pre>.pagina { display: block; }
+
+@media (min-width: 768px) {
+  .pagina {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+  }
+}</pre>
+</div>
+
+<!-- ============ 8 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Veure la capsa a l'inspector</h2>
+  <p>A l'inspector del navegador, la pestanya <strong>Disposició</strong> dibuixa el model de capsa de l'element seleccionat amb els valors de cada capa. Els contenidors <code>flex</code> i <code>grid</code> porten una etiqueta al costat: si hi fas clic, el navegador en pinta les línies sobre la pàgina.</p>
+</div>
+
+<!-- ============ 9 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Posa <code>box-sizing: border-box</code> a tot el document.</li>
+    <li>Grid per a l'estructura, Flexbox per als components.</li>
+    <li>Deixa <code>position: absolute</code> per a detalls, no per maquetar la pàgina.</li>
+    <li>Prova sempre la pàgina a 375 px d'amplada.</li>
+    <li>Deixa prou farciment als botons perquè es puguin tocar amb el dit.</li>
+  </ul>
+</div>
+
+<!-- ============ 10 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>Dues columnes al 50 % no hi caben</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Amb <code>content-box</code>, el farciment i la vora se sumen al 50 %.</p>
+      <p><span class="lbl">Solució</span> Fes servir <code>border-box</code> o <code>gap</code> amb Grid.</p>
+    </dd>
+    <dt>L'element <code>absolute</code> se'n va a la cantonada de la pàgina</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Cap avantpassat té <code>position</code> diferent de <code>static</code>.</p>
+      <p><span class="lbl">Solució</span> Posa <code>position: relative</code> al pare que ha de fer de referència.</p>
+    </dd>
+    <dt><code>justify-content</code> no fa res</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> S'ha posat als fills, no al contenidor.</p>
+      <p><span class="lbl">Solució</span> Les propietats de Flexbox i Grid van al contenidor.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 11 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Resum</h2>
+  <ul>
+    <li>Capsa: contingut, <code>padding</code>, <code>border</code> i <code>margin</code>.</li>
+    <li><code>border-box</code> fa que l'amplada escrita sigui l'amplada real.</li>
+    <li><code>relative</code> es mou des del seu lloc; <code>absolute</code>, respecte del pare posicionat; <code>fixed</code>, respecte de la finestra.</li>
+    <li>Flexbox reparteix en una dimensió; Grid, en dues.</li>
+    <li>Les <em>media queries</em> adapten la pàgina a cada pantalla.</li>
+  </ul>
+</div>
+
+<!-- ============ 12 · QUIZ ============ -->
+<div class="cq-block" data-kind="quiz">
+  <h2>Comprova el que has après</h2>
+  <div class="cq-question" data-id="tx-1-amplada" data-type="single">
+    <div class="statement">Amb <code>content-box</code>, <code>width: 300px</code>, <code>padding: 10px</code> i <code>border: 5px</code>, quant fa d'ample la capsa visible?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">300 px</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">310 px</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">330 px</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">315 px</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="tx-1-fixed" data-type="single">
+    <div class="statement">Quin valor manté un element al mateix lloc de la finestra quan fas scroll?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>relative</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>absolute</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true"><code>fixed</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>static</code></button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="tx-1-grid" data-type="single">
+    <div class="statement">Vols l'estructura de tota una pàgina en files i columnes. Què tries?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Flexbox</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Grid</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>position: absolute</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>display: inline-block</code></button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="tx-1-contenidor" data-type="single">
+    <div class="statement">On es posa <code>justify-content: center</code>?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Al contenidor que té <code>display: flex</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">A cada fill</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Al <code>body</code> sempre</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">A l'etiqueta <code>html</code></button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+</div>
+      </div>
+    </section>
+
+    <section class="sx-page" id="p-gx-1" hidden>
+      <div class="sx-paper">
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RAX · GX.1</div>
+  <h1>Guia: repositori i GitHub Pages</h1>
+  <p class="lede">Crear un repositori, clonar-lo per SSH i publicar-hi un web estàtic.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què hi ha en aquesta guia</h2>
+  <p>Documentació oficial: <a href="https://docs.github.com/repositories">Repositoris a GitHub</a> · <a href="https://docs.github.com/authentication/connecting-to-github-with-ssh">Connectar-se per SSH</a> · <a href="https://docs.github.com/pages">GitHub Pages</a></p>
+  <ul>
+    <li>Punt de partida: un compte de GitHub i una clau SSH pròpia (una VM d'IsardVDI o l'equip personal).</li>
+    <li>Resultat: un repositori públic amb el web pujat i publicat a una adreça <code>https://usuari.github.io/repositori/</code>.</li>
+    <li>Necessària per a totes les activitats i la pràctica d'aquest RA: <a class="cq-ref" href="../activitats/ax-1-targeta-pokemon.html">AX.1</a> a <a class="cq-ref" href="../practiques/px-2-botigues-virtuals.html">PX.2</a>.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Crear el repositori i connectar-hi una clau SSH</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Genera una clau SSH</strong> si encara no en tens cap a la màquina on treballes:</p>
+<pre>ssh-keygen -t ed25519 -C "el-teu-correu@exemple.cat"
+<span class="c"># Prem Retorn tres vegades per deixar el camí i la frase de pas per defecte</span></pre>
+    </li>
+    <li>
+      <p><strong>Copia la clau pública</strong> i enganxa-la a GitHub, a <strong>Settings → SSH and GPG keys → New SSH key</strong>:</p>
+<pre>cat ~/.ssh/id_ed25519.pub</pre>
+    </li>
+    <li>
+      <p><strong>Comprova la connexió:</strong></p>
+<pre>ssh -T git@github.com
+<span class="o">Hi username! You've successfully authenticated...</span></pre>
+    </li>
+    <li>
+      <p><strong>Crea el repositori</strong> des de github.com, amb <strong>New repository</strong>: nom curt, públic, sense plantilla de <code>.gitignore</code> ni llicència de moment.</p>
+    </li>
+    <li>
+      <p><strong>Clona'l per SSH</strong> a la carpeta on treballaràs:</p>
+<pre>git clone git@github.com:usuari/repositori.git
+cd repositori</pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 3 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Pujar el web i publicar-lo amb GitHub Pages</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Afegeix els fitxers</strong> del web (com a mínim <code>index.html</code>) dins de la carpeta clonada, amb les subcarpetes de CSS i imatges que calguin.</p>
+    </li>
+    <li>
+      <p><strong>Puja'ls al repositori:</strong></p>
+<pre>git add .
+git commit -m "Primera versió del web"
+git push</pre>
+    </li>
+    <li>
+      <p><strong>Activa GitHub Pages:</strong> a la pàgina del repositori, <strong>Settings → Pages → Branch: main</strong> i desa. GitHub triga un o dos minuts a publicar-la.</p>
+    </li>
+    <li>
+      <p><strong>Obre l'adreça publicada</strong>, que apareix a la mateixa pantalla un cop llesta: <code>https://usuari.github.io/repositori/</code>.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 4 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com saps que ha quedat bé</h2>
+  <ul>
+    <li>L'adreça <code>https://usuari.github.io/repositori/</code> mostra el mateix web que en local.</li>
+    <li>Els enllaços entre pàgines i les imatges funcionen publicats, no només en local.</li>
+    <li><code>git status</code> no mostra cap canvi pendent de pujar.</li>
+  </ul>
+</div>
+
+<!-- ============ 5 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Rutes relatives i noms en minúscula</h2>
+  <p>Enllaça sempre amb rutes relatives (<code>contacte.html</code>, <code>css/estils.css</code>), mai absolutes (<code>/contacte.html</code>): en local i a GitHub Pages la pàgina no viu a la mateixa arrel.</p>
+  <p>Fes servir noms de fitxer i de carpeta sempre en minúscula. El sistema de fitxers en local sol ignorar majúscules i minúscules, però els servidors de GitHub Pages no: un enllaç a <code>Images/foto.jpg</code> quan la carpeta es diu <code>images</code> falla només un cop publicat.</p>
+</div>
+
+<!-- ============ 6 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>La pàgina publicada dona un error 404</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Encara no has activat GitHub Pages, o el fitxer principal no es diu <code>index.html</code>.</p>
+      <p><span class="lbl">Solució</span> Revisa <strong>Settings → Pages</strong> i el nom del fitxer a l'arrel del repositori.</p>
+    </dd>
+    <dt>No surt una imatge a GitHub Pages però sí en local</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El nom de la carpeta o del fitxer no coincideix exactament en majúscules i minúscules amb l'enllaç de l'HTML.</p>
+      <p><span class="lbl">Solució</span> Fes-los coincidir: per exemple, <code>images</code> i no <code>Images</code>.</p>
+    </dd>
+    <dt><code>git push</code> demana usuari i contrasenya, o el rebutja</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El repositori s'ha clonat per HTTPS en lloc de per SSH, o la clau SSH no s'ha afegit a GitHub.</p>
+      <p><span class="lbl">Solució</span> Comprova l'adreça remota amb <code>git remote -v</code>: ha de començar per <code>git@github.com:</code>. Si no, torna a clonar per SSH.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 7 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Ficha ràpida</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Pas</th><th>Ordre o lloc</th></tr></thead>
+      <tbody>
+        <tr><td>Generar i afegir la clau SSH</td><td><code>ssh-keygen</code> i Settings → SSH and GPG keys</td></tr>
+        <tr><td>Clonar el repositori</td><td><code>git clone git@github.com:usuari/repositori.git</code></td></tr>
+        <tr><td>Pujar els canvis</td><td><code>git add . && git commit -m "…" && git push</code></td></tr>
+        <tr><td>Activar la publicació</td><td>Settings → Pages → Branch: main</td></tr>
+        <tr><td>Adreça publicada</td><td><code>https://usuari.github.io/repositori/</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+      </div>
+    </section>
+
+    <section class="sx-page" id="p-ax-1" hidden>
+      <div class="sx-paper">
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RAX · AX.1</div>
+  <h1>Targeta Pokémon</h1>
+  <p class="lede">Donar estil a un HTML que no es pot tocar: només amb CSS.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Teories <a class="cq-ref" href="../../RA1/teoria/t1-2-html-i-css.html">T1.2</a> (selectors i propietats) i <a class="cq-ref" href="../teoria/tx-1-capses-i-disposicio.html">TX.1</a> (model de capsa i Flexbox). Per al repositori, <a class="cq-ref" href="../guies/gx-1-github-pages.html">GX.1</a>.</p>
+  <p>Faràs una targeta visualment atractiva a partir d'una estructura HTML fixa, escrivint només el fitxer <code>styles.css</code> amb selectors de classe.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <ul>
+    <li>Visual Studio Code i un navegador.</li>
+    <li>Un repositori nou a GitHub anomenat <code>pokemon</code>, amb <code>README.md</code> i llicència GPL v3, clonat per SSH.</li>
+    <li>La imatge <a href="../img/bulbasaur.png">bulbasaur.png</a>, desada a la carpeta <code>images</code>.</li>
+  </ul>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>L'HTML, que no es pot modificar</h2>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="ca"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Targeta de Pokémon&lt;/title&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="pokemon-card"&gt;
+    &lt;img class="pokemon-image" src="images/bulbasaur.png"
+         alt="Imatge del Pokémon"&gt;
+    &lt;div class="pokemon-info"&gt;
+      &lt;h2 class="pokemon-name"&gt;Bulbasaur&lt;/h2&gt;
+      &lt;p class="pokemon-type plant"&gt;Planta&lt;/p&gt;
+      &lt;p class="pokemon-type poison"&gt;Verí&lt;/p&gt;
+      &lt;p class="pokemon-description"&gt;
+        Bulbasaur és un Pokémon de tipus Planta i Verí. És fàcil
+        distingir-lo per la llavor que té a l'esquena, que creix a
+        mesura que ell ho fa.
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Què has de fer</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Classe</th><th>Estil que ha de tenir</th></tr></thead>
+      <tbody>
+        <tr><td><code>.pokemon-card</code></td><td>Fons gris clar, cantonades arrodonides, ombra, farciment, centrada horitzontalment i verticalment a la pantalla</td></tr>
+        <tr><td><code>.pokemon-image</code></td><td>Amplada màxima, cantonades arrodonides i marge inferior</td></tr>
+        <tr><td><code>.pokemon-info</code></td><td>Fons verd clar, cantonades arrodonides i farciment</td></tr>
+        <tr><td><code>.pokemon-name</code></td><td>Tipus de lletra distintiu i color que contrasti</td></tr>
+        <tr><td><code>.pokemon-type</code></td><td>Un color per tipus (<code>.plant</code>, <code>.poison</code>) i marge inferior</td></tr>
+        <tr><td><code>.pokemon-description</code></td><td>Lletra més petita que el nom i color gris</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Crear i clonar el repositori per SSH</td><td>Guia <a class="cq-ref" href="../guies/gx-1-github-pages.html">GX.1</a></td></tr>
+        <tr><td>Selectors de classe i propietats de color i lletra</td><td>Teoria <a class="cq-ref" href="../../RA1/teoria/t1-2-html-i-css.html">T1.2</a></td></tr>
+        <tr><td>Farciment, vores i marges</td><td>Teoria <a class="cq-ref" href="../teoria/tx-1-capses-i-disposicio.html">TX.1</a>, model de capsa</td></tr>
+        <tr><td>Centrar la targeta a la pantalla</td><td>Teoria <a class="cq-ref" href="../teoria/tx-1-capses-i-disposicio.html">TX.1</a>, exemple de Flexbox</td></tr>
+        <tr><td>Publicar-la a GitHub Pages</td><td>Pas a pas del lliurament</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 6 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>Dues classes al mateix element</h2>
+  <p><code>class="pokemon-type plant"</code> vol dir que l'element té dues classes. <code>.pokemon-type</code> dona l'estil comú a tots els tipus i <code>.plant</code> només el color propi. Així no es repeteix el mateix CSS.</p>
+</div>
+
+<!-- ============ 7 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Provar abans d'escriure</h2>
+  <p>A l'inspector del navegador pots escriure propietats sobre <code>.pokemon-card</code> i veure'n l'efecte a l'instant. Quan t'agradi, copia-les a <code>styles.css</code>.</p>
+</div>
+
+<!-- ============ 8 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li><code>index.html</code> és idèntic a l'original.</li>
+    <li>La targeta queda centrada tant en pantalla gran com a 375 px d'amplada.</li>
+    <li>Tots els estils fan servir selectors de classe.</li>
+    <li>La pàgina publicada a GitHub Pages es veu igual que en local.</li>
+  </ul>
+</div>
+
+<!-- ============ 9 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>No surt la imatge a GitHub Pages però sí en local</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El nom de la carpeta o del fitxer no coincideix en majúscules i minúscules.</p>
+      <p><span class="lbl">Solució</span> GitHub Pages distingeix <code>Images</code> d'<code>images</code>: fes-los coincidir.</p>
+    </dd>
+    <dt>La targeta no es centra verticalment</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El contenidor flex no té alçada.</p>
+      <p><span class="lbl">Solució</span> Dona <code>min-height: 100vh</code> al <code>body</code>.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 10 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Publica els canvis</strong> des de la carpeta del repositori:</p>
+<pre>git add .
+git commit -m "Descripció dels canvis"
+git push</pre>
+    </li>
+    <li>
+      <p><strong>Activa GitHub Pages:</strong> <strong>Settings → Pages → Branch: main</strong> i desa.</p>
+    </li>
+    <li>
+      <p><strong>Copia l'adreça publicada</strong> al camp <strong>Website</strong> de la secció <strong>About</strong> del repositori.</p>
+    </li>
+  </ol>
+  <p>Entrega l'enllaç al repositori. Respon al <code>README.md</code>: <strong>quina propietat has fet servir per centrar la targeta i per què funciona?</strong></p>
+</div>
+      </div>
+    </section>
+
+    <section class="sx-page" id="p-ax-2" hidden>
+      <div class="sx-paper">
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RAX · AX.2</div>
+  <h1>Landing page</h1>
+  <p class="lede">Una pàgina de producte amb menú, imatge destacada, botó d'acció i peu.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Teories <a class="cq-ref" href="../../RA1/teoria/t1-2-html-i-css.html">T1.2</a> i <a class="cq-ref" href="../teoria/tx-1-capses-i-disposicio.html">TX.1</a>, sobretot <code>position</code> i Flexbox. Per al repositori, <a class="cq-ref" href="../guies/gx-1-github-pages.html">GX.1</a>.</p>
+  <p>Donaràs estil a una <em>landing page</em> amb una estructura HTML fixa, escrivint només <code>styles.css</code>.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <ul>
+    <li>Un repositori nou a GitHub anomenat <code>landing-page</code>, amb <code>README.md</code> i llicència GPL v3.</li>
+    <li>La imatge <a href="../img/product.png">product.png</a>, desada a la carpeta <code>images</code>.</li>
+  </ul>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>L'HTML, que no es pot modificar</h2>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="ca"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Landing Page&lt;/title&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header class="main-header"&gt;
+    &lt;nav class="navbar"&gt;
+      &lt;ul class="nav-list"&gt;
+        &lt;li class="nav-item"&gt;&lt;a href="#home" class="nav-link"&gt;Inici&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="nav-item"&gt;
+          &lt;a href="#features" class="nav-link"&gt;Característiques&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="nav-item"&gt;
+          &lt;a href="#contact" class="nav-link"&gt;Contacte&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;div class="landing-container"&gt;
+    &lt;header class="header"&gt;
+      &lt;h1 class="product-title"&gt;Producte Innovador&lt;/h1&gt;
+      &lt;p class="product-subtitle"&gt;La millor solució per a tu&lt;/p&gt;
+    &lt;/header&gt;
+    &lt;section class="hero-section"&gt;
+      &lt;img class="hero-image" src="images/product.png"
+           alt="Imatge del producte"&gt;
+      &lt;p class="hero-text"&gt;Descobreix els beneficis d'aquest producte!&lt;/p&gt;
+    &lt;/section&gt;
+    &lt;section class="description-section"&gt;
+      &lt;p class="product-description"&gt;
+        Descobreix el nostre producte innovador, dissenyat per millorar
+        la teva vida diària. Amb tecnologia avançada i materials de
+        primera qualitat, aquest producte és perfecte per a tothom.
+      &lt;/p&gt;
+    &lt;/section&gt;
+    &lt;footer class="footer"&gt;
+      &lt;a href="#" class="cta-button"&gt;Compra ara&lt;/a&gt;
+    &lt;/footer&gt;
+  &lt;/div&gt;
+
+  &lt;footer class="main-footer"&gt;
+    &lt;p class="footer-text"&gt;© 2026 Producte Innovador.&lt;/p&gt;
+    &lt;ul class="footer-links"&gt;
+      &lt;li&gt;&lt;a href="#privacy" class="footer-link"&gt;Privacitat&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#terms" class="footer-link"&gt;Termes&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#contact" class="footer-link"&gt;Contacte&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Què has de fer</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Classe</th><th>Estil que ha de tenir</th></tr></thead>
+      <tbody>
+        <tr><td><code>.navbar</code></td><td>Fons fosc, farciment, enllaços en una sola línia, en blanc, amb canvi de color en passar-hi el ratolí</td></tr>
+        <tr><td><code>.landing-container</code></td><td>Fons suau, contingut centrat i farciment general</td></tr>
+        <tr><td><code>.header</code> i <code>.product-subtitle</code></td><td>Títol amb lletra distintiva; subtítol més petit i gris</td></tr>
+        <tr><td><code>.hero-image</code></td><td>Amplada màxima, cantonades arrodonides i marge inferior</td></tr>
+        <tr><td><code>.hero-text</code></td><td><strong>Posat damunt de la imatge</strong>, amb fons negre semitransparent, text blanc i farciment</td></tr>
+        <tr><td><code>.product-description</code></td><td>Lletra més petita, gris i marge inferior</td></tr>
+        <tr><td><code>.cta-button</code></td><td>Fons de color viu, text blanc, cantonades arrodonides i canvi de color amb el ratolí</td></tr>
+        <tr><td><code>.main-footer</code></td><td>Fons fosc, farciment, text i enllaços centrats en blanc, amb canvi de color amb el ratolí</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Menú en una línia</td><td>Teoria <a class="cq-ref" href="../../RA1/teoria/t1-2-html-i-css.html">T1.2</a>, bloc i en línia; o Flexbox a <a class="cq-ref" href="../teoria/tx-1-capses-i-disposicio.html">TX.1</a></td></tr>
+        <tr><td>Canvi de color amb el ratolí</td><td>Teoria <a class="cq-ref" href="../../RA1/teoria/t1-2-html-i-css.html">T1.2</a>, exemple del menú (<code>:hover</code>)</td></tr>
+        <tr><td>Text damunt de la imatge</td><td>Teoria <a class="cq-ref" href="../teoria/tx-1-capses-i-disposicio.html">TX.1</a>, parella <code>relative</code> i <code>absolute</code></td></tr>
+        <tr><td>Fons semitransparent</td><td>Color amb canal alfa: <code>rgba(0, 0, 0, 0.6)</code></td></tr>
+        <tr><td>Repositori i GitHub Pages</td><td>Guia <a class="cq-ref" href="../guies/gx-1-github-pages.html">GX.1</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 6 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>Qui fa de referència</h2>
+  <p>Un element amb <code>position: absolute</code> es col·loca respecte de l'avantpassat posicionat més proper. Si no n'hi ha cap, ho fa respecte de la pàgina. Pensa quin element de l'HTML ha de fer de pare del text damunt de la imatge.</p>
+</div>
+
+<!-- ============ 7 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Llistes sense punts</h2>
+  <p>Les <code>ul</code> porten pics i marge a l'esquerra de sèrie. A l'inspector veuràs que venen de l'estil del navegador: <code>list-style</code>, <code>padding</code> i <code>margin</code> les treuen.</p>
+</div>
+
+<!-- ============ 8 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li><code>index.html</code> és idèntic a l'original.</li>
+    <li>El text de la imatge queda damunt de la imatge també a 375 px d'amplada.</li>
+    <li>El menú, el botó i els enllaços del peu canvien de color amb el ratolí.</li>
+    <li>La pàgina es veu publicada a GitHub Pages.</li>
+  </ul>
+</div>
+
+<!-- ============ 9 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>El text de la imatge se'n va a dalt de tot de la pàgina</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Cap element pare té <code>position</code>.</p>
+      <p><span class="lbl">Solució</span> Posa <code>position: relative</code> a <code>.hero-section</code>.</p>
+    </dd>
+    <dt>Els enllaços del menú surten un sota l'altre</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Els <code>li</code> són elements de bloc.</p>
+      <p><span class="lbl">Solució</span> Posa <code>display: flex</code> a <code>.nav-list</code>.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 10 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Publica els canvis</strong> des de la carpeta del repositori:</p>
+<pre>git add .
+git commit -m "Descripció dels canvis"
+git push</pre>
+    </li>
+    <li>
+      <p><strong>Activa GitHub Pages:</strong> <strong>Settings → Pages → Branch: main</strong> i desa.</p>
+    </li>
+    <li>
+      <p><strong>Copia l'adreça publicada</strong> al camp <strong>Website</strong> de la secció <strong>About</strong> del repositori.</p>
+    </li>
+  </ol>
+  <p>Entrega l'enllaç al repositori. Respon al <code>README.md</code>: <strong>quin element fa de referència del text damunt de la imatge i què passaria si li treguessis el <code>position</code>?</strong></p>
+</div>
+      </div>
+    </section>
+
+    <section class="sx-page" id="p-ax-3" hidden>
+      <div class="sx-paper">
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RAX · AX.3</div>
+  <h1>Zoo interactiu</h1>
+  <p class="lede">Els mateixos animals en graella o en fila: Grid i Flexbox cara a cara.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Teoria <a class="cq-ref" href="../teoria/tx-1-capses-i-disposicio.html">TX.1</a>, Flexbox i Grid. Per al repositori, <a class="cq-ref" href="../guies/gx-1-github-pages.html">GX.1</a>.</p>
+  <p>Faràs un zoo virtual on els animals es distribueixen amb Grid, i un botó els passa a Flexbox per comparar com reparteix l'espai cada sistema.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <ul>
+    <li>Un repositori nou a GitHub anomenat <code>zoo</code>.</li>
+    <li>Almenys sis imatges d'animals amb llicència lliure, per exemple de Wikimedia Commons, a la carpeta <code>images</code>.</li>
+  </ul>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Punt de partida</h2>
+  <p>Estructura HTML; afegeix-hi animals fins a sis com a mínim:</p>
+<pre>&lt;header&gt;
+  &lt;h1&gt;Benvingut al Zoo Interactiu!&lt;/h1&gt;
+  &lt;p&gt;Explora els nostres animals i canvia com es mostren!&lt;/p&gt;
+&lt;/header&gt;
+&lt;main&gt;
+  &lt;section class="zoo-grid"&gt;
+    &lt;div class="animal"&gt;
+      &lt;img src="images/lleo.jpg" alt="Lleó"&gt;
+      &lt;h2&gt;Lleó&lt;/h2&gt;
+      &lt;p&gt;El rei de la sabana.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;!-- més animals aquí --&gt;
+  &lt;/section&gt;
+&lt;/main&gt;
+&lt;footer&gt;
+  &lt;button id="toggle-layout"&gt;Canvia a Flex&lt;/button&gt;
+&lt;/footer&gt;
+&lt;script src="script.js"&gt;&lt;/script&gt;</pre>
+  <p>El botó alterna una classe; tot el canvi d'aspecte ha d'estar al CSS:</p>
+<pre>// script.js
+const zoo = document.querySelector('.zoo-grid');
+const boto = document.getElementById('toggle-layout');
+
+boto.addEventListener('click', () =&gt; {
+  zoo.classList.toggle('mode-flex');
+  boto.textContent = zoo.classList.contains('mode-flex')
+    ? 'Canvia a Grid' : 'Canvia a Flex';
+});</pre>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Què has de fer</h2>
+  <ol>
+    <li>Distribueix els animals amb <code>display: grid</code> i columnes que s'adaptin soles a l'amplada.</li>
+    <li>Escriu la regla <code>.zoo-grid.mode-flex</code> amb <code>display: flex</code>, <code>flex-wrap</code> i centrat.</li>
+    <li>Dona a cada targeta ombra, cantonades arrodonides i una imatge retallada a la mateixa alçada amb <code>object-fit</code>.</li>
+    <li>Afegeix una animació en passar-hi el ratolí: <code>transform: scale(1.05)</code> amb <code>transition</code>.</li>
+    <li>Opcional: en clicar un animal, mostra més informació.</li>
+  </ol>
+</div>
+
+<!-- ============ 5 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Graella que s'adapta sola</td><td>Teoria <a class="cq-ref" href="../teoria/tx-1-capses-i-disposicio.html">TX.1</a>, exemple <code>repeat(auto-fit, …)</code></td></tr>
+        <tr><td>Fila que salta de línia</td><td>Teoria <a class="cq-ref" href="../teoria/tx-1-capses-i-disposicio.html">TX.1</a>, taula Flexbox i Grid</td></tr>
+        <tr><td>Selector amb dues classes</td><td>Teoria <a class="cq-ref" href="../../RA1/teoria/t1-2-html-i-css.html">T1.2</a>, selectors</td></tr>
+        <tr><td>Repositori i GitHub Pages</td><td>Guia <a class="cq-ref" href="../guies/gx-1-github-pages.html">GX.1</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 6 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>El JavaScript no dona estil</h2>
+  <p>La versió anterior d'aquest exercici canviava l'estil des del JavaScript. Ara el botó només posa o treu una classe: el disseny continua sencer al CSS, que és on es busca quan alguna cosa no es veu bé.</p>
+</div>
+
+<!-- ============ 7 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Veure la graella</h2>
+  <p>A l'inspector, al costat de <code>.zoo-grid</code> surt l'etiqueta <code>grid</code> o <code>flex</code>. Si hi fas clic, el navegador dibuixa les columnes i els espais: fes-ho en els dos modes i compara.</p>
+</div>
+
+<!-- ============ 8 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li>En mode Grid totes les targetes d'una fila fan la mateixa amplada.</li>
+    <li>En mode Flex salten de línia i queden centrades.</li>
+    <li>A 375 px es veu una sola columna sense desbordament horitzontal.</li>
+    <li>Les imatges tenen totes la mateixa alçada sense deformar-se.</li>
+  </ul>
+</div>
+
+<!-- ============ 9 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>El botó no fa res</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> <code>script.js</code> no es carrega o s'executa abans que existeixin els elements.</p>
+      <p><span class="lbl">Solució</span> Mira la consola (F12) i deixa el <code>&lt;script&gt;</code> al final del <code>body</code>.</p>
+    </dd>
+    <dt>Les imatges surten deformades</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Tenen amplada i alçada fixes sense retallar.</p>
+      <p><span class="lbl">Solució</span> Afegeix <code>object-fit: cover</code>.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 10 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Publica els canvis</strong> des de la carpeta del repositori:</p>
+<pre>git add .
+git commit -m "Descripció dels canvis"
+git push</pre>
+    </li>
+    <li>
+      <p><strong>Activa GitHub Pages:</strong> <strong>Settings → Pages → Branch: main</strong> i desa.</p>
+    </li>
+    <li>
+      <p><strong>Copia l'adreça publicada</strong> al camp <strong>Website</strong> de la secció <strong>About</strong> del repositori.</p>
+    </li>
+  </ol>
+  <p>Entrega l'enllaç. Respon al <code>README.md</code>: <strong>en quin cas triaries Grid i en quin Flexbox? Posa-hi una captura de cada mode.</strong></p>
+</div>
+      </div>
+    </section>
+
+    <section class="sx-page" id="p-px-1" hidden>
+      <div class="sx-paper">
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RAX · PX.1</div>
+  <h1>Pràctica: web HTML5</h1>
+  <p class="lede">Un web propi de tres pàgines, semàntic, animat i adaptat al mòbil.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Teories <a class="cq-ref" href="../../RA1/teoria/t1-2-html-i-css.html">T1.2</a> i <a class="cq-ref" href="../teoria/tx-1-capses-i-disposicio.html">TX.1</a> senceres i les activitats <a class="cq-ref" href="../activitats/ax-1-targeta-pokemon.html">AX.1</a> a <a class="cq-ref" href="../activitats/ax-3-zoo-interactiu.html">AX.3</a>.</p>
+  <p>Faràs un projecte complet només amb HTML5 i CSS, sobre un tema que triïs, i en documentaràs les decisions de disseny.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <ul>
+    <li>Un repositori nou a GitHub amb GitHub Pages activat.</li>
+    <li>Carpetes separades per a CSS i imatges.</li>
+    <li>Tema lliure: bloc personal, web d'empresa, catàleg de productes…</li>
+  </ul>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Què has de fer</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Apartat</th><th>Requisits</th><th>Punts</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Layout</strong></td><td>Esquema dibuixat al README. Etiquetes semàntiques (<code>header</code>, <code>nav</code>, <code>main</code>, <code>section</code>, <code>article</code>, <code>footer</code>). Sense <code>&lt;br&gt;</code> ni marcs.</td><td>2,5</td></tr>
+        <tr><td><strong>Navegació</strong></td><td>Dins de <code>&lt;nav&gt;</code>, fixa o enganxosa, amb efecte a <code>:hover</code> i adaptació al mòbil.</td><td>1,5</td></tr>
+        <tr><td><strong>Continguts i estil</strong></td><td>Tres pàgines com a mínim, amb un sol <code>styles.css</code> extern i estils per a lletra, colors, marges, imatges i enllaços.</td><td>2</td></tr>
+        <tr><td><strong>Visualització i animació</strong></td><td>Un efecte (carrusel, paral·laxi o transicions) i animacions amb <code>@keyframes</code>, <code>transition</code> o <code>transform</code>.</td><td>1,5</td></tr>
+        <tr><td><strong>Disseny adaptable</strong></td><td><em>Media queries</em> per a pantalla petita, mitjana i gran.</td><td>1</td></tr>
+        <tr><td><strong>Codi net</strong></td><td>Indentació, comentaris on calgui i fitxers ordenats. HTML sense errors al validador del W3C.</td><td>1,5</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Extres valorats: tipus de lletra propis, icones SVG, formulari de contacte i multimèdia.</p>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Etiquetes semàntiques</td><td>Teoria <a class="cq-ref" href="../../RA1/teoria/t1-2-html-i-css.html">T1.2</a>, taula d'etiquetes</td></tr>
+        <tr><td>Estructura de la pàgina</td><td>Teoria <a class="cq-ref" href="../teoria/tx-1-capses-i-disposicio.html">TX.1</a>, Grid</td></tr>
+        <tr><td>Menú enganxós</td><td>Teoria <a class="cq-ref" href="../teoria/tx-1-capses-i-disposicio.html">TX.1</a>, <code>position: sticky</code></td></tr>
+        <tr><td>Adaptació al mòbil</td><td>Teoria <a class="cq-ref" href="../teoria/tx-1-capses-i-disposicio.html">TX.1</a>, <em>media queries</em></td></tr>
+        <tr><td>Publicació</td><td>Guia <a class="cq-ref" href="../guies/gx-1-github-pages.html">GX.1</a> i lliurament d'<a class="cq-ref" href="../activitats/ax-1-targeta-pokemon.html">AX.1</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>Primer el dibuix</h2>
+  <p>Dibuixa el layout en paper abans d'escriure codi: quines zones hi ha, com es col·loquen en pantalla gran i com s'apilen al mòbil. Amb el dibuix fet, les <code>grid-template-areas</code> gairebé s'escriuen soles.</p>
+</div>
+
+<!-- ============ 6 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Provar-ho com un mòbil</h2>
+  <p>A Firefox, <strong>Ctrl+Maj+M</strong> obre la vista adaptable: tria un mòbil de 375 px i recorre totes les pàgines. Si apareix barra de desplaçament horitzontal, alguna cosa té una amplada fixa massa gran.</p>
+</div>
+
+<!-- ============ 7 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li>El <a href="https://validator.w3.org/">validador del W3C</a> no dona errors a cap pàgina.</li>
+    <li>Les tres pàgines comparteixen el mateix <code>styles.css</code>.</li>
+    <li>A 375 px no hi ha desplaçament horitzontal i el menú es pot fer servir.</li>
+    <li>El web es veu publicat a GitHub Pages.</li>
+  </ul>
+</div>
+
+<!-- ============ 8 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>Les <em>media queries</em> no s'apliquen al mòbil</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Falta la metaetiqueta <code>viewport</code>.</p>
+      <p><span class="lbl">Solució</span> Afegeix-la al <code>head</code> de totes les pàgines.</p>
+    </dd>
+    <dt>Els enllaços entre pàgines funcionen en local però no a GitHub Pages</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Rutes absolutes que comencen per <code>/</code>.</p>
+      <p><span class="lbl">Solució</span> Fes servir rutes relatives: <code>contacte.html</code>.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 9 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <p>L'enllaç al repositori amb GitHub Pages activat. El <code>README.md</code> ha de tenir: descripció i tema, esquema del layout, decisions d'estil i propietats CSS usades, efectes i animacions, com has fet el disseny adaptable i captures del resultat.</p>
+  <p>Respon-hi també: <strong>quina part del teu CSS canviaries per adaptar aquest disseny a un tema de WordPress amb el CSS addicional?</strong></p>
+</div>
+
+<!-- ============ QUALIFICACIÓ ============ -->
+<div class="cq-block" data-kind="qualificació">
+  <h2>Com es qualifica</h2>
+  <p>Aquesta pràctica és una de les dues principals del <a class="cq-ref" href="../index.html">RAX</a> i és el 30 % de la seva nota. Cada apartat es puntua amb les evidències del README i el resultat publicat: la puntuació sencera si funciona, la meitat si funciona amb mancances i zero si no es pot demostrar.</p>
+</div>
+      </div>
+    </section>
+
+    <section class="sx-page" id="p-px-2" hidden>
+      <div class="sx-paper">
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RAX · PX.2</div>
+  <h1>Pràctica: botigues virtuals</h1>
+  <p class="lede">Dues plataformes de comerç electrònic, la mateixa botiga i una comparació honesta.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Teories <a class="cq-ref" href="../../RA1/teoria/t1-3-gestors-de-continguts.html">T1.3</a> i <a class="cq-ref" href="../../RA1/teoria/t1-5-mantenir-un-gestor.html">T1.5</a>. Les guies <a class="cq-ref" href="../../RA1/guies/g1-2-pila-lamp.html">G1.2</a> i <a class="cq-ref" href="../../RA1/guies/g1-3-wordpress.html">G1.3</a> et serveixen per a qualsevol aplicació PHP.</p>
+  <p>Instal·laràs almenys dues plataformes de botiga, les configuraràs amb el mateix catàleg i compararàs quina és més fàcil d'instal·lar, de fer servir i de mantenir.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <ul>
+    <li>Una màquina nova a IsardVDI amb la pila LAMP, i un host virtual i una base de dades per botiga.</li>
+    <li>Plataformes a triar: <strong>WooCommerce</strong> (sobre WordPress), <strong>PrestaShop</strong>, <strong>OpenCart</strong>, <strong>CubeCart</strong> o <strong>Zen Cart</strong>.</li>
+  </ul>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Què has de fer a cada botiga</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Requisit</th><th>Detall</th></tr></thead>
+      <tbody>
+        <tr><td>Aparença</td><td>Canviar el tema i personalitzar colors, tipus de lletra o disposició</td></tr>
+        <tr><td>Categories</td><td>Tres categories principals</td></tr>
+        <tr><td>Productes</td><td>Tres per categoria, amb nom, descripció de dues o tres frases i preu</td></tr>
+        <tr><td>Divisa</td><td>Una divisa configurada que es vegi bé a tots els preus</td></tr>
+        <tr><td>Idiomes</td><td>Dos idiomes com a mínim, amb nom i descripció de productes traduïts</td></tr>
+        <tr><td>Clients</td><td>Registre d'usuaris i subscripció al butlletí</td></tr>
+        <tr><td>Usabilitat</td><td>Qualsevol producte a <strong>tres clics o menys</strong> des de la portada</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Pila LAMP, host virtual i base de dades per botiga</td><td>Guia <a class="cq-ref" href="../../RA1/guies/g1-2-pila-lamp.html">G1.2</a></td></tr>
+        <tr><td>Requeriments de cada plataforma</td><td>La documentació oficial de cadascuna</td></tr>
+        <tr><td>WooCommerce</td><td>Guia <a class="cq-ref" href="../../RA1/guies/g1-3-wordpress.html">G1.3</a>, extensions</td></tr>
+        <tr><td>Què és una botiga sobre un CMS</td><td>Teoria <a class="cq-ref" href="../../RA1/teoria/t1-3-gestors-de-continguts.html">T1.3</a>, cas real</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>Requeriments abans d'instal·lar</h2>
+  <p>Cada plataforma demana unes versions concretes de PHP i unes extensions. Mira-les a la documentació abans de començar: Ubuntu 26.04 porta PHP 8.5, i una plataforma que encara no el suporti fallarà a mitja instal·lació. Anota-ho a la comparació.</p>
+</div>
+
+<!-- ============ 6 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Comptar clics</h2>
+  <p>Demana a un company que trobi un producte concret a la teva botiga sense ajuda i compta els clics. És la manera real de comprovar la regla dels tres clics.</p>
+</div>
+
+<!-- ============ 7 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li>Les dues botigues tenen 3 categories i 9 productes amb preu a la divisa triada.</li>
+    <li>Un client nou es pot registrar i subscriure al butlletí.</li>
+    <li>El canvi d'idioma tradueix nom i descripció dels productes.</li>
+    <li>Cada producte és a tres clics o menys de la portada.</li>
+  </ul>
+</div>
+
+<!-- ============ 8 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>L'instal·lador diu que falta una extensió de PHP</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> La plataforma en demana alguna que no porta la pila bàsica.</p>
+      <p><span class="lbl">Solució</span> Instal·la el paquet <code>php-…</code> que falti i reinicia Apache.</p>
+    </dd>
+    <dt>Les dues botigues es barregen</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Comparteixen host virtual o base de dades.</p>
+      <p><span class="lbl">Solució</span> Una carpeta, un host virtual i una base de dades per botiga.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 9 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <p><strong>Demostració en directe</strong> de les botigues, explicant on és cada funció i quines dificultats has resolt.</p>
+  <p>Un repositori públic a GitHub amb tot a <code>README.md</code> (sense PDF): plataformes amb versió i entorn, captures de cada requisit i una <strong>reflexió comparativa de 150 paraules com a mínim</strong>: quina és més intuïtiva i per què, quines dificultats has trobat i si compleixen la regla dels tres clics.</p>
+  <p>Per pujar nota: una tercera plataforma i una taula comparativa de facilitat d'instal·lació, personalització, escalabilitat i extensions.</p>
+</div>
+
+
+<!-- ============ QUALIFICACIÓ ============ -->
+<div class="cq-block" data-kind="qualificació">
+  <h2>Com es qualifica</h2>
+  <p>Aquesta pràctica és una de les dues principals del <a class="cq-ref" href="../index.html">RAX</a> i és el 30 % de la seva nota. Cada apartat es puntua a la demostració i amb les evidències del README: la puntuació sencera si funciona, la meitat si funciona amb mancances i zero si no es pot demostrar.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Apartat</th><th>Punts</th></tr></thead>
+      <tbody>
+        <tr><td>Dues plataformes instal·lades amb els requeriments comprovats</td><td>2</td></tr>
+        <tr><td>Aparença personalitzada a cada botiga</td><td>1,5</td></tr>
+        <tr><td>Catàleg: categories, productes i divisa</td><td>2</td></tr>
+        <tr><td>Botiga en dos idiomes amb productes traduïts</td><td>1</td></tr>
+        <tr><td>Registre de clients i subscripció al butlletí</td><td>1</td></tr>
+        <tr><td>Proves de funcionament i regla dels tres clics</td><td>1</td></tr>
+        <tr><td>Comparació raonada de requeriments, ús i manteniment</td><td>1,5</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>10</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+(function () {
+  var items = Array.prototype.slice.call(document.querySelectorAll('.sx-nav-item'));
+
+  function show(id, push) {
+    var found = false;
+    items.forEach(function (btn) {
+      var on = btn.dataset.target === id;
+      btn.setAttribute('aria-current', on ? 'true' : 'false');
+      var page = document.getElementById(btn.dataset.target);
+      if (page) { page.hidden = !on; }
+      if (on) { found = true; }
+    });
+    if (!found) { return false; }
+    // En alguns iframes amb sandbox, replaceState llança SecurityError.
+    // La navegació ha de continuar funcionant igualment.
+    if (push) {
+      try {
+        if (location.hash !== '#' + id) { history.replaceState(null, '', '#' + id); }
+      } catch (e) { /* enllaç directe no disponible; no és crític */ }
+    }
+    window.scrollTo(0, 0);
+    return true;
+  }
+
+  items.forEach(function (btn) {
+    btn.addEventListener('click', function () { show(btn.dataset.target, true); });
+  });
+
+  // Enllaç directe a una pàgina concreta: .../#p-t2
+  var initial = '';
+  try { initial = location.hash.replace('#', ''); } catch (e) { /* ignora */ }
+  if (!initial || !show(initial, false)) { show(items[0].dataset.target, false); }
+  window.addEventListener('hashchange', function () {
+    show(location.hash.replace('#', ''), false);
+  });
+})();
+
+// Motor del quiz — idèntic al de les pàgines reals.
+// Dissuasió de la còpia: mai al codi, a les taules ni dins de l'editor.
+  // L'alumnat treballa per SSH i ha de poder enganxar les ordres.
+  (function () {
+    var LLIURE = 'pre, code, .cq-table, [contenteditable="true"]';
+    function copiable(node) {
+      if (node && node.nodeType !== 1) { node = node.parentNode; }
+      return !!(node && node.closest && node.closest(LLIURE));
+    }
+    function seleccioCopiable() {
+      var s = document.getSelection();
+      if (!s || s.rangeCount === 0) { return false; }
+      return copiable(s.getRangeAt(0).commonAncestorContainer);
+    }
+    ['copy', 'cut'].forEach(function (nom) {
+      document.addEventListener(nom, function (e) {
+        if (!seleccioCopiable()) { e.preventDefault(); }
+      });
+    });
+    document.addEventListener('dragstart', function (e) {
+      if (!copiable(e.target)) { e.preventDefault(); }
+    });
+  })();
+
+  // Motor únic per a totes les preguntes single i multi.
+  document.querySelectorAll('.cq-question').forEach(function (question) {
+    var id = question.dataset.id;
+    if (!id) {
+      throw new Error('Falta data-id a una pregunta del quiz.');
+    }
+    var type = question.dataset.type;
+    if (type !== 'single' && type !== 'multi') {
+      throw new Error('data-type invàlid ("' + type + '") a la pregunta "' + id + '".');
+    }
+
+    var options = question.querySelectorAll('.cq-option');
+    var checkBtn = question.querySelector('.cq-check-btn');
+    var feedback = question.querySelector('.cq-feedback');
+
+    options.forEach(function (opt) {
+      opt.addEventListener('click', function () {
+        if (type === 'single') {
+          options.forEach(function (o) { o.classList.remove('cq-selected'); });
+          opt.classList.add('cq-selected');
+        } else {
+          opt.classList.toggle('cq-selected');
+        }
+        options.forEach(function (o) {
+          o.setAttribute('aria-pressed',
+            o.classList.contains('cq-selected') ? 'true' : 'false');
+        });
+      });
+    });
+
+    checkBtn.addEventListener('click', function () {
+      var allCorrect = true;
+      options.forEach(function (opt) {
+        var isCorrect = opt.dataset.correct === 'true';
+        var isSelected = opt.classList.contains('cq-selected');
+        opt.classList.remove('cq-selected');
+        opt.setAttribute('aria-pressed', 'false');
+        if (isCorrect) {
+          opt.classList.add('cq-correct');
+        } else if (isSelected) {
+          opt.classList.add('cq-incorrect');
+        }
+        opt.disabled = true;
+        if (isCorrect !== isSelected) {
+          allCorrect = false;
+        }
+      });
+      feedback.textContent = allCorrect ? 'Correcte!' : 'Incorrecte, revisa les respostes marcades.';
+      feedback.className = 'cq-feedback ' + (allCorrect ? 'ok' : 'ko');
+      checkBtn.disabled = true;
+    });
+  });
+</script>

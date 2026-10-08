@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rúbriques de seguiment — 0228 Aplicacions web</title>
+<style>
+/* === SINAPSI-CSS INICI =======================================
+   0228 · Aplicacions Web — Identitat visual del mòdul
+   Blau estructural · taronja per als avisos · paper clar
+   per a la lectura · codi en fosc.
+   Aquest bloc és IDÈNTIC a totes les pàgines del mòdul.
+   No l'editis en una sola pàgina: edita'l a totes o extreu-lo
+   a un full compartit (_identitat/sinapsi.css).
+   ============================================================ */
+  :root {
+    --paper:        #FBFCFD;
+    --card:         #FFFFFF;
+    --ink:          #131A22;
+    --muted:        #5C6875;
+    --rule:         #E3E7EC;
+    --accent:       #1D4E89;
+    --accent-hover: #26639F;
+    --accent-soft:  #EFF5FB;
+    --accent-line:  #DCE7F3;
+    --warn:         #C2410C;
+    --warn-soft:    #FEF6EF;
+    --warn-line:    #F0CBAE;
+    --code-bg:      #16202E;
+    --code-ink:     #E2E9F1;
+    --ok:           #0E7A4B;
+    --ok-soft:      #F0FAF4;
+    --ok-line:      #C6E7D6;
+    --ko:           #B4232B;
+    --ko-soft:      #FEF4F4;
+    --ko-line:      #F2CFCF;
+    --font-display: "Ubuntu", -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-body:    "Source Sans 3", -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono:    "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  }
+
+  body {
+    margin: 0;
+    padding: 40px 16px 72px;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ==== Navegació: barra de dalt i pas a la pàgina següent ==== */
+  .cq-nav {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    margin: -40px -16px 26px;
+    padding: 9px 16px;
+    background: rgba(251, 252, 253, .93);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .cq-nav .inner {
+    max-width: 660px;
+    margin: 0 auto;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+  }
+  .cq-nav a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .9rem;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cq-nav a:hover { text-decoration: underline; }
+  .cq-nav .pos {
+    flex: 0 0 auto;
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    letter-spacing: .1em;
+    color: var(--muted);
+  }
+
+  .cq-pager {
+    max-width: 660px;
+    margin: 26px auto 0;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .cq-pager a {
+    display: block;
+    padding: 13px 16px;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    background: var(--card);
+    color: var(--ink);
+    text-decoration: none;
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-pager a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-pager .dir {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: .67rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+  .cq-pager .ttl {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: .92rem;
+    line-height: 1.3;
+  }
+  .cq-pager .next { grid-column: 2; text-align: right; }
+
+  /* Referència a una altra pàgina del mòdul (T2.4, G4.1, A3.2…) */
+  a.cq-ref {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-line);
+  }
+  a.cq-ref:hover { border-bottom-color: var(--accent); }
+
+  /* ==== Capçalera de la pàgina ==== */
+  .cq-header {
+    max-width: 660px;
+    margin: 0 auto 26px;
+  }
+  .cq-header .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .cq-header h1 {
+    margin: 6px 0 4px;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1.15;
+  }
+  .cq-header .lede {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+
+  /* ==== Bloc de contingut: patró únic per a tots els tipus ==== */
+  .cq-block {
+    max-width: 660px;
+    margin: 0 auto 20px;
+    padding: 26px 30px 28px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    position: relative;
+  }
+
+  /* Etiqueta de secció: petita, monoespaiada, com la capçalera
+     d'una fitxa tècnica. El text surt de l'atribut data-kind. */
+  .cq-block::before {
+    content: attr(data-kind);
+    position: absolute;
+    top: -8px;
+    left: 26px;
+    padding: 1px 9px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 20px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .cq-block h2 {
+    margin: 4px 0 14px;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .cq-block p { margin: 0 0 14px; }
+  .cq-block p:last-child { margin-bottom: 0; }
+  .cq-block em { font-style: italic; color: var(--muted); }
+  .cq-block strong { font-weight: 600; }
+  .cq-block ul, .cq-block ol { margin: 0 0 14px; padding-left: 22px; }
+  .cq-block li { margin-bottom: 6px; }
+  .cq-block li:last-child { margin-bottom: 0; }
+  .cq-block a { color: var(--accent); overflow-wrap: anywhere; }
+
+  .cq-block code {
+    font-family: var(--font-mono);
+    font-size: .84em;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    border-radius: 4px;
+    padding: 1px 5px;
+    color: var(--accent);
+  }
+  .cq-block pre {
+    margin: 14px 0 18px;
+    padding: 16px 18px;
+    background: var(--code-bg);
+    color: var(--code-ink);
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: .82rem;
+    line-height: 1.6;
+  }
+  .cq-block pre code { all: unset; font: inherit; }
+  .cq-block pre .c { color: #7E93AB; }   /* comentari dins del codi */
+  .cq-block pre .o { color: #8FD0A5; }   /* sortida esperada */
+
+  /* ---- Figures: captures i esquemes ---- */
+  .cq-block figure { margin: 16px 0 18px; }
+  .cq-block figure img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: #FFF;
+  }
+  .cq-block figcaption {
+    margin-top: 6px;
+    font-size: .86rem;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  /* ---- Variants de color per tipus de bloc ---- */
+  .cq-block[data-kind="objectius"],
+  .cq-block[data-kind="pas a pas"],
+  .cq-block[data-kind="lliurament"],
+  .cq-block[data-kind="resum"] { border-color: var(--accent-line); }
+  .cq-block[data-kind="objectius"]::before,
+  .cq-block[data-kind="pas a pas"]::before,
+  .cq-block[data-kind="lliurament"]::before,
+  .cq-block[data-kind="resum"]::before { border-color: var(--accent-line); color: var(--accent); }
+  .cq-block[data-kind="objectius"] h2,
+  .cq-block[data-kind="pas a pas"] h2,
+  .cq-block[data-kind="lliurament"] h2,
+  .cq-block[data-kind="resum"] h2 { color: var(--accent); }
+
+  .cq-block[data-kind="recordatori"] { background: var(--warn-soft); border-color: #F5DCC8; }
+  .cq-block[data-kind="recordatori"]::before { background: var(--warn-soft); border-color: var(--warn-line); color: var(--warn); }
+  .cq-block[data-kind="recordatori"] h2 { color: var(--warn); }
+
+  .cq-block[data-kind="bones pràctiques"] { background: var(--ok-soft); border-color: var(--ok-line); }
+  .cq-block[data-kind="bones pràctiques"]::before { background: var(--ok-soft); border-color: var(--ok-line); color: var(--ok); }
+  .cq-block[data-kind="bones pràctiques"] h2 { color: var(--ok); }
+
+  .cq-block[data-kind="problemes"] { background: var(--ko-soft); border-color: var(--ko-line); }
+  .cq-block[data-kind="problemes"]::before { background: var(--ko-soft); border-color: var(--ko-line); color: var(--ko); }
+  .cq-block[data-kind="problemes"] h2 { color: var(--ko); }
+
+  /* ==== Traçabilitat amb el currículum ==== */
+  .cq-block[data-kind="currículum"] { background: transparent; }
+  .cq-block[data-kind="currículum"] h2 { color: var(--muted); }
+  .cq-block[data-kind="currículum"] p {
+    margin: 0 0 6px;
+    font-size: .86rem;
+    color: var(--muted);
+  }
+  .cq-block[data-kind="currículum"] p:last-child { margin-bottom: 0; }
+  .cq-block[data-kind="currículum"] .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-right: 6px;
+    white-space: nowrap;
+  }
+
+  /* ==== Diagrama de passos en flux (DORA i similars) ==== */
+  .dora-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
+    margin: 20px 0 22px;
+    flex-wrap: wrap;
+  }
+  .dora-step {
+    flex: 1 1 130px;
+    padding: 14px 12px 12px;
+    border: 1px solid var(--rule);
+    border-top: 2px solid var(--accent);
+    border-radius: 6px;
+    background: var(--paper);
+  }
+  .dora-step .n {
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: .08em;
+  }
+  .dora-step .t {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: .9rem;
+    letter-spacing: .02em;
+    margin: 2px 0 5px;
+  }
+  .dora-step .d { font-size: .8rem; line-height: 1.45; color: var(--muted); }
+  .dora-arrow { align-self: center; color: #B3C2D2; font-size: 1rem; }
+  @media (max-width: 620px) {
+    .dora-arrow { display: none; }
+    .dora-step { flex-basis: 100%; }
+  }
+
+  /* ==== Passos numerats de les guies pas a pas ==== */
+  .cq-steps { counter-reset: step; margin: 4px 0 0; padding: 0; list-style: none; }
+  .cq-steps > li {
+    counter-increment: step;
+    position: relative;
+    padding: 0 0 4px 34px;
+    margin-bottom: 18px;
+  }
+  .cq-steps > li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0; top: 1px;
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    border-radius: 50%;
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--accent);
+  }
+  .cq-steps > li > :first-child { margin-top: 0; }
+
+  /* ==== Problemes: símptoma → causa → solució ==== */
+  .cq-issues { margin: 4px 0 0; }
+  .cq-issues dt {
+    font-weight: 600;
+    margin-top: 16px;
+    color: var(--ko);
+  }
+  .cq-issues dt:first-child { margin-top: 0; }
+  .cq-issues dd { margin: 4px 0 0 0; }
+  .cq-issues dd .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 6px;
+  }
+
+  /* ==== Taula de referència ==== */
+  .cq-tablewrap { overflow-x: auto; margin: 14px 0 4px; }
+  .cq-table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+  .cq-table th, .cq-table td {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .cq-table th {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: .78rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom-color: var(--accent-line);
+    white-space: nowrap;
+  }
+  /* La primera columna sol ser una ordre curta i queda millor sencera, però
+     quan és prosa ha de poder partir-se: si no, la taula no cap al mòbil. */
+  .cq-table td:first-child > code:only-child { white-space: nowrap; }
+  .cq-table tr:last-child td { border-bottom: none; }
+
+  /* ==== Nota de versió de sistema (Ubuntu 26.04) ==== */
+  .cq-note {
+    margin: 14px 0 4px;
+    padding: 10px 14px;
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: 0 6px 6px 0;
+    font-size: .9rem;
+  }
+  .cq-note .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+
+  /* ==== Índex del mòdul (portada) ==== */
+  .cq-index { display: grid; gap: 10px; margin: 4px 0 0; padding: 0; list-style: none; }
+  .cq-index a {
+    display: flex; align-items: baseline; gap: 12px;
+    padding: 13px 16px;
+    border: 1px solid var(--rule); border-radius: 8px;
+    background: var(--paper); color: var(--ink); text-decoration: none;
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-index a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-index .ref {
+    font-family: var(--font-mono); font-size: .74rem; font-weight: 500;
+    color: var(--accent); letter-spacing: .06em; flex: 0 0 auto;
+  }
+  .cq-index .ttl { font-family: var(--font-display); font-weight: 700; font-size: .98rem; }
+  .cq-index .sub { display: block; font-size: .84rem; color: var(--muted); font-weight: 400; font-family: var(--font-body); margin-top: 1px; }
+
+  /* ==== Quiz ==== */
+  .cq-question { margin: 22px 0 0; }
+  .cq-question + .cq-question { padding-top: 22px; border-top: 1px solid var(--rule); }
+  .cq-question .statement { font-weight: 600; margin-bottom: 10px; }
+  .cq-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 14px;
+    margin: 7px 0;
+    border: 1px solid var(--rule);
+    border-radius: 7px;
+    background: var(--card);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .95rem;
+    color: var(--ink);
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-option:hover:not(:disabled) { border-color: #B3C2D2; }
+  .cq-option:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .cq-option.cq-selected { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-option.cq-correct { border-color: var(--ok); background: var(--ok-soft); color: var(--ok); }
+  .cq-option.cq-incorrect { border-color: var(--ko); background: var(--ko-soft); color: var(--ko); }
+  .cq-check-btn {
+    margin-top: 10px;
+    padding: 9px 20px;
+    border: none;
+    border-radius: 7px;
+    background: var(--accent);
+    color: #FFFFFF;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: .88rem;
+    cursor: pointer;
+  }
+  .cq-check-btn:hover:not(:disabled) { background: var(--accent-hover); }
+  .cq-check-btn:disabled { background: #B3C2D2; cursor: default; }
+  .cq-feedback { margin-top: 10px; font-size: .88rem; font-weight: 600; }
+  .cq-feedback.ok { color: var(--ok); }
+  .cq-feedback.ko { color: var(--ko); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  /* ==== Mòbil: la pantalla de 375 px és la mida de treball real ==== */
+  @media (max-width: 620px) {
+    body { padding: 26px 10px 56px; }
+    .cq-nav { margin: -26px -10px 22px; padding: 9px 10px; }
+    .cq-block { padding: 22px 16px 24px; }
+    .cq-block::before { left: 14px; }
+    .cq-table { font-size: .84rem; }
+    .cq-table th, .cq-table td { padding: 8px 8px; }
+    .cq-table th { white-space: normal; }
+    .cq-pager { grid-template-columns: 1fr; }
+    .cq-pager .next { grid-column: 1; text-align: left; }
+  }
+
+  /* ==== Impressió: els alumnes imprimeixen la teoria ==== */
+  @media print {
+    body { background: #FFF; padding: 0; font-size: 11pt; }
+    .cq-block { border-color: #CCC; page-break-inside: avoid; margin-bottom: 12px; }
+    .cq-block pre { background: #F4F4F4; color: #000; border: 1px solid #DDD; }
+    .cq-block pre .c, .cq-block pre .o { color: #555; }
+    .cq-check-btn { display: none; }
+    .cq-nav, .cq-pager { display: none; }
+    a.cq-ref { border-bottom: none; color: inherit; }
+  }
+  /* ==== Contingut no copiable ====
+     Dissuasiu, no una protecció: la prosa és per llegir-la al web o a
+     Moodle, no per copiar-la. El codi, les ordres i les taules SÍ que es
+     copien: l'alumnat treballa per SSH i les ha d'enganxar. L'editor
+     treballa amb contenteditable i queda exclòs. */
+  .cq-header, .cq-block {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  .cq-block pre, .cq-block pre *,
+  .cq-block code, .cq-table, .cq-table *,
+  [contenteditable="true"], [contenteditable="true"] * {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    user-select: text;
+  }
+
+/* === SINAPSI-CSS FI ======================================== */
+
+
+  .rub { max-width: 1080px; }
+  .rub-avis {
+    max-width: 1080px; margin: 0 auto 20px; padding: 12px 18px;
+    background: var(--warn-soft); border: 1px solid var(--warn-line);
+    border-radius: 8px; font-size: .88rem; color: var(--warn); }
+  .rub-avis strong { font-weight: 600; }
+  .rub-meta { font-size: .88rem; color: var(--muted); margin: 0 0 14px; }
+  .rub-table { border-collapse: collapse; width: 100%; table-layout: fixed;
+               font-size: .88rem; line-height: 1.45; }
+  .rub-table th, .rub-table td {
+    border: 1px solid var(--rule); padding: 10px 12px; text-align: left;
+    vertical-align: top; }
+  .rub-table thead th {
+    background: var(--accent-soft); border-color: var(--accent-line);
+    font-family: var(--font-display); color: var(--accent); }
+  .rub-table thead th .pts {
+    display: block; font-family: var(--font-mono); font-size: 1.05rem;
+    font-weight: 700; line-height: 1.2; }
+  .rub-table thead th .lvl { font-size: .78rem; font-weight: 500; }
+  .rub-table thead th:first-child { background: var(--card); color: var(--muted);
+                                    border-color: var(--rule); }
+  .rub-table col.c0 { width: 17%; }
+  .rub-table col.c1, .rub-table col.c2, .rub-table col.c3, .rub-table col.c4 {
+    width: 20.75%; }
+  .rub-table td.dim { background: var(--paper); font-family: var(--font-display);
+                      font-weight: 700; color: var(--ink); }
+  .rub-table td.n10 { background: var(--ok-soft); }
+  .rub-table td.n0  { background: var(--ko-soft); }
+  .rub-legend { list-style: none; margin: 4px 0 0; padding: 0; }
+  .rub-legend li { display: grid; grid-template-columns: 110px 1fr; gap: 12px;
+                   margin-bottom: 8px; }
+  .rub-legend .p { font-family: var(--font-mono); font-weight: 700;
+                   color: var(--accent); }
+  .rub-trac { font-size: .85rem; }
+  .rub-trac .dimcol { font-family: var(--font-display); font-weight: 600; }
+  .rub-trac .fora { color: var(--warn); }
+  @media print {
+    .rub { max-width: none; border: none; padding: 0; }
+    .rub-avis { display: none; }
+  }
+
+</style>
+</head>
+<body>
+<header class="cq-header">
+  <div class="eyebrow">CFGM SMX · Mòdul 0228 · ús intern</div>
+  <h1>Rúbriques de seguiment</h1>
+  <p class="lede">Una rúbrica per resultat d'aprenentatge i alumne. No té pes a la nota: serveix per al seguiment de les activitats i per a la retroacció a l'alumnat. La nota del RA són la pràctica principal (60 %), amb la rúbrica de la seva pàgina, i l'examen tipus test a Moodle (40 %).</p>
+</header>
+
+<div class="rub-avis"><strong>Document de programació.</strong> La rúbrica es qualifica a Moodle, no en aquesta pàgina: aquí hi ha el text que s'hi carrega i la traçabilitat que el sosté. No es publica al web de l'alumnat.</div>
+
+<div class="cq-block rub" data-kind="com s'usa">
+  <h2>Com es fa servir</h2>
+  <p>La rúbrica s'actualitza mentre dura el RA i es tanca quan s'acaba. Qualificar un alumne és triar un nivell a cada dimensió i desar. Cada dimensió val un terç i el nivell es decideix amb dos criteris alhora: <strong>què aconsegueix</strong> l'alumne i <strong>amb quant suport</strong>.</p>
+  <ul class="rub-legend">
+    <li><span class="p">10 · Excel·lent</span><span>Compleix els requisits amb autonomia i corregeix els seus errors.</span></li>
+    <li><span class="p">7,5 · Assolit</span><span>Compleix els requisits essencials i gairebé tots els previstos amb suport puntual.</span></li>
+    <li><span class="p">5 · Bàsic</span><span>Aconsegueix el funcionament mínim amb suport freqüent i/o deixa aspectes secundaris incomplets.</span></li>
+    <li><span class="p">0 · No assolit</span><span>No aconsegueix el funcionament essencial ni amb el suport habitual.</span></li>
+  </ul>
+  <p>Si no hi ha hagut prou ocasió d'observar una dimensió, no s'hi posa un 0: queda <strong>pendent de verificació</strong> fins que l'alumne en faci una demostració pràctica breu o una verificació equivalent.</p>
+  <p>Els comentaris són opcionals. Només s&#x27;escriuen davant d&#x27;una incidència, una situació excepcional o informació que valgui la pena deixar registrada.</p>
+</div>
+
+<div class="cq-block rub" data-kind="RA1 · rúbrica">
+  <h2>RA1 · Gestors de continguts</h2>
+  <p class="rub-meta">Això, i res més, és el que es veu en qualificar.</p>
+<div class="cq-tablewrap"><table class="rub-table">
+<colgroup><col class="c0"><col class="c1"><col class="c2"><col class="c3"><col class="c4"></colgroup>
+<thead><tr><th>Dimensió</th>
+<th><span class="pts">10</span><span class="lvl">Excel·lent</span></th>
+<th><span class="pts">7,5</span><span class="lvl">Assolit</span></th>
+<th><span class="pts">5</span><span class="lvl">Bàsic</span></th>
+<th><span class="pts">0</span><span class="lvl">No assolit</span></th>
+</tr></thead><tbody>
+<tr><td class="dim">Comprèn i justifica</td>
+<td class="n10">Explica com funciona l&#x27;aplicació web i justifica els requeriments i les decisions amb autonomia.</td>
+<td>Explica el funcionament i justifica les decisions principals amb suport puntual.</td>
+<td>Reconeix les peces bàsiques, però li costa justificar les decisions sense ajuda.</td>
+<td class="n0">No identifica els elements essencials d&#x27;una aplicació web ni amb el suport habitual.</td>
+</tr>
+<tr><td class="dim">Instal·la i personalitza</td>
+<td class="n10">Instal·la i configura el gestor, els usuaris i l&#x27;aparença amb autonomia i resol els errors que apareixen.</td>
+<td>Instal·la i configura els elements essencials amb suport puntual.</td>
+<td>Aconsegueix un lloc funcional bàsic amb suport freqüent.</td>
+<td class="n0">No aconsegueix un lloc funcional ni amb el suport habitual.</td>
+</tr>
+<tr><td class="dim">Manté, protegeix i verifica</td>
+<td class="n10">Actualitza, protegeix, copia i prova el lloc pel seu compte i corregeix les incidències.</td>
+<td>Actualitza, copia i prova el lloc i resol les incidències habituals amb suport puntual.</td>
+<td>Fa les tasques de manteniment quan se li recorden i resol els errors coneguts amb suport freqüent.</td>
+<td class="n0">No sap mantenir ni comprovar el lloc ni amb el suport habitual.</td>
+</tr>
+</tbody></table></div>
+</div>
+<div class="cq-block rub" data-kind="traçabilitat">
+  <h2>D'on surt la nota del RA1</h2>
+  <p class="rub-meta">Cada criteri i cada contingut del RA, la dimensió de la rúbrica que el recull, les pàgines que el treballen i l'instrument que l'avalua. Les dues últimes columnes surten del <code>MAP</code> i del <code>PROVA</code> de <code>curriculum.py</code>: no s'escriuen a mà. Els continguts s'ancoren a la teoria, que és on s'expliquen. </p>
+  <div class="cq-tablewrap"><table class="cq-table rub-trac">
+    <thead><tr><th>Criteri</th><th>Enunciat</th><th>Dimensió</th><th>On es treballa</th><th>Instrument</th></tr></thead><tbody>
+    <tr><td><code>1.1</code></td><td>Identifica els requeriments necessaris per instal·lar gestors de continguts.</td><td class="dimcol">Comprèn i justifica</td><td>T1.1 · T1.3 · G1.1 · G1.2 · A1.1 · A1.2 · P1.1</td><td>Pràctica P1.1 · Examen tipus test</td></tr>
+    <tr><td><code>1.4</code></td><td>Realitza proves de funcionament.</td><td class="dimcol">Comprèn i justifica</td><td>T1.5 · G1.2 · G1.4 · A1.1 · A1.2 · P1.1</td><td>Pràctica P1.1 · Examen tipus test</td></tr>
+    <tr><td><code>1.2</code></td><td>Gestiona usuaris amb rols diferents.</td><td class="dimcol">Instal·la i personalitza</td><td>T1.4 · G1.3 · A1.3 · A1.5 · P1.1</td><td>Pràctica P1.1 · Examen tipus test</td></tr>
+    <tr><td><code>1.3</code></td><td>Personalitza la interfície del gestor de continguts.</td><td class="dimcol">Instal·la i personalitza</td><td>T1.2 · T1.3 · G1.3 · A1.4 · P1.1</td><td>Pràctica P1.1 · Examen tipus test</td></tr>
+    <tr><td><code>1.6</code></td><td>Instal·la i configura els mòduls i menús necessaris.</td><td class="dimcol">Instal·la i personalitza</td><td>T1.3 · G1.3 · A1.4 · P1.1</td><td>Pràctica P1.1 · Examen tipus test</td></tr>
+    <tr><td><code>1.8</code></td><td>Habilita fòrums i estableix regles d&#x27;accés.</td><td class="dimcol">Instal·la i personalitza</td><td>T1.4 · G1.3 · A1.5 · P1.1</td><td>Pràctica P1.1 · Examen tipus test</td></tr>
+    <tr><td><code>1.5</code></td><td>Realitza tasques d&#x27;actualització del gestor de continguts, especialment les de seguretat.</td><td class="dimcol">Manté, protegeix i verifica</td><td>T1.5 · G1.3 · A1.6 · P1.1</td><td>Pràctica P1.1 · Examen tipus test</td></tr>
+    <tr><td><code>1.7</code></td><td>Activa i configura els mecanismes de seguretat proporcionats pel propi gestor de continguts.</td><td class="dimcol">Manté, protegeix i verifica</td><td>T1.5 · G1.3 · A1.6 · P1.1</td><td>Pràctica P1.1 · Examen tipus test</td></tr>
+    <tr><td><code>1.9</code></td><td>Realitza proves de funcionament.</td><td class="dimcol">Manté, protegeix i verifica</td><td>T1.5 · G1.3 · G1.4 · A1.6 · P1.1</td><td>Pràctica P1.1 · Examen tipus test</td></tr>
+    <tr><td><code>1.10</code></td><td>Realitza còpies de seguretat dels continguts del gestor.</td><td class="dimcol">Manté, protegeix i verifica</td><td>T1.5 · G1.3 · G1.4 · A1.6 · P1.1</td><td>Pràctica P1.1 · Examen tipus test</td></tr>
+    <tr><td><code>C 1.1</code></td><td>Instal·lació en sistemes operatius lliures i propietaris.</td><td class="dimcol">Comprèn i justifica</td><td>T1.1 · T1.3 · G1.1 · G1.2 · G1.3 · G1.4 · A1.1 · A1.2 · P1.1</td><td>—</td></tr>
+    <tr><td><code>C 1.2</code></td><td>Creació d&#x27;usuaris i grups d&#x27;usuaris.</td><td class="dimcol">Instal·la i personalitza</td><td>T1.4 · G1.3 · A1.3 · A1.5 · P1.1</td><td>—</td></tr>
+    <tr><td><code>C 1.3</code></td><td>Utilització de la interfície gràfica. Personalització de l&#x27;entorn. Funcionalitats proporcionades pel gestor de continguts. Sindicació.</td><td class="dimcol">Instal·la i personalitza</td><td>T1.2 · T1.3 · G1.3 · A1.4 · A1.5 · P1.1</td><td>—</td></tr>
+    <tr><td><code>C 1.4</code></td><td>Funcionament dels gestors de continguts.</td><td class="dimcol">Comprèn i justifica</td><td>T1.1 · T1.3 · A1.1 · A1.2 · P1.1</td><td>—</td></tr>
+    <tr><td><code>C 1.5</code></td><td>Actualitzacions del gestor de continguts. Configuració de mòduls i menús.</td><td class="dimcol">Manté, protegeix i verifica</td><td>T1.3 · T1.5 · G1.3 · A1.4 · A1.6 · P1.1</td><td>—</td></tr>
+    </tbody></table></div>
+  <h2>Què s'observa a l'aula</h2>
+  <p class="rub-meta">La taula diu quins criteris es treballen. Això diu quina conducta mira el professor per decidir el nivell.</p>
+  <p><span class="lbl">Comprèn i justifica</span> Com compara estàtic i dinàmic a A1.1, la taula de requeriments i l&#x27;inventari de l&#x27;A1.2, i com respon la pregunta final de cada lliurament.</p>
+  <p><span class="lbl">Instal·la i personalitza</span> Els rols, el rol personalitzat i el grup de l&#x27;A1.3, la interfície, els menús i els fils de l&#x27;A1.4 i les regles d&#x27;accés del fòrum de l&#x27;A1.5.</p>
+  <p><span class="lbl">Manté, protegeix i verifica</span> A l&#x27;A1.6, la taula d&#x27;actualitzacions, els mecanismes de seguretat, la còpia que sap restaurar i les tres passades de la llista de proves.</p>
+</div>
+
+<div class="cq-block rub" data-kind="RA2 · rúbrica">
+  <h2>RA2 · Sistemes de gestió d'aprenentatge</h2>
+  <p class="rub-meta">Això, i res més, és el que es veu en qualificar.</p>
+<div class="cq-tablewrap"><table class="rub-table">
+<colgroup><col class="c0"><col class="c1"><col class="c2"><col class="c3"><col class="c4"></colgroup>
+<thead><tr><th>Dimensió</th>
+<th><span class="pts">10</span><span class="lvl">Excel·lent</span></th>
+<th><span class="pts">7,5</span><span class="lvl">Assolit</span></th>
+<th><span class="pts">5</span><span class="lvl">Bàsic</span></th>
+<th><span class="pts">0</span><span class="lvl">No assolit</span></th>
+</tr></thead><tbody>
+<tr><td class="dim">Comprèn i justifica</td>
+<td class="n10">Explica l&#x27;estructura del campus i la jerarquia de directoris generada i justifica les decisions d&#x27;administració amb autonomia.</td>
+<td>Explica l&#x27;estructura del lloc i justifica les decisions principals amb suport puntual.</td>
+<td>Reconeix les parts del campus, però li costa dir on va cada cosa sense ajuda.</td>
+<td class="n0">No distingeix el codi, les dades i la base de dades ni amb el suport habitual.</td>
+</tr>
+<tr><td class="dim">Administra el campus</td>
+<td class="n10">Configura el lloc, els usuaris, els cursos i les activitats de comunicació amb autonomia i resol els errors que apareixen.</td>
+<td>Configura els elements essencials del campus amb suport puntual.</td>
+<td>Aconsegueix un campus funcional bàsic amb suport freqüent.</td>
+<td class="n0">No aconsegueix un campus utilitzable ni amb el suport habitual.</td>
+</tr>
+<tr><td class="dim">Manté, protegeix i verifica</td>
+<td class="n10">Copia, restaura, mou cursos, llegeix els informes i tanca el lloc pel seu compte i corregeix les incidències.</td>
+<td>Fa les còpies, les restauracions i les comprovacions amb suport puntual.</td>
+<td>Fa les tasques de manteniment quan se li recorden i amb suport freqüent.</td>
+<td class="n0">No sap copiar, restaurar ni comprovar el campus ni amb el suport habitual.</td>
+</tr>
+</tbody></table></div>
+</div>
+<div class="cq-block rub" data-kind="traçabilitat">
+  <h2>D'on surt la nota del RA2</h2>
+  <p class="rub-meta">Cada criteri i cada contingut del RA, la dimensió de la rúbrica que el recull, les pàgines que el treballen i l'instrument que l'avalua. Les dues últimes columnes surten del <code>MAP</code> i del <code>PROVA</code> de <code>curriculum.py</code>: no s'escriuen a mà. Els continguts s'ancoren a la teoria, que és on s'expliquen. </p>
+  <div class="cq-tablewrap"><table class="cq-table rub-trac">
+    <thead><tr><th>Criteri</th><th>Enunciat</th><th>Dimensió</th><th>On es treballa</th><th>Instrument</th></tr></thead><tbody>
+    <tr><td><code>2.1</code></td><td>Reconeix l&#x27;estructura del lloc i la jerarquia de directoris generada.</td><td class="dimcol">Comprèn i justifica</td><td>T2.2 · G2.1 · A2.1 · P2.1</td><td>Pràctica P2.1 · Examen tipus test</td></tr>
+    <tr><td><code>2.2</code></td><td>Realitza modificacions en l&#x27;estètica o aspecte del lloc.</td><td class="dimcol">Administra el campus</td><td>T2.2 · G2.2 · A2.1 · P2.1</td><td>Pràctica P2.1 · Examen tipus test</td></tr>
+    <tr><td><code>2.3</code></td><td>Manipula i genera perfils personalitzats.</td><td class="dimcol">Administra el campus</td><td>T2.1 · G2.2 · A2.2 · P2.1</td><td>Pràctica P2.1 · Examen tipus test</td></tr>
+    <tr><td><code>2.4</code></td><td>Comprova la funcionalitat de les comunicacions mitjançant fòrums, consultes, entre d&#x27;altres.</td><td class="dimcol">Administra el campus</td><td>T2.1 · G2.2 · A2.2 · P2.1</td><td>Pràctica P2.1 · Examen tipus test</td></tr>
+    <tr><td><code>2.5</code></td><td>Importa i exporta continguts en diferents formats.</td><td class="dimcol">Manté, protegeix i verifica</td><td>T2.3 · G2.2 · A2.3 · P2.1</td><td>Pràctica P2.1 · Examen tipus test</td></tr>
+    <tr><td><code>2.6</code></td><td>Realitza còpies de seguretat i restauracions.</td><td class="dimcol">Manté, protegeix i verifica</td><td>T2.3 · G2.2 · A2.3 · P2.1</td><td>Pràctica P2.1 · Examen tipus test</td></tr>
+    <tr><td><code>2.7</code></td><td>Realitza informes d&#x27;accés i utilització del lloc.</td><td class="dimcol">Manté, protegeix i verifica</td><td>T2.3 · G2.2 · A2.3 · P2.1</td><td>Pràctica P2.1 · Examen tipus test</td></tr>
+    <tr><td><code>2.8</code></td><td>Comprova la seguretat del lloc.</td><td class="dimcol">Manté, protegeix i verifica</td><td>T2.3 · G2.2 · A2.3 · P2.1</td><td>Pràctica P2.1 · Examen tipus test</td></tr>
+    <tr><td><code>C 2.1</code></td><td>Elements lògics: comunicació, materials i activitats.</td><td class="dimcol">Comprèn i justifica</td><td>T2.1 · P2.1</td><td>—</td></tr>
+    <tr><td><code>C 2.2</code></td><td>Instal·lació en sistemes operatius lliures i propietaris. Modes de registre. Interfície gràfica associada. Personalització de l&#x27;entorn. Navegació i edició.</td><td class="dimcol">Administra el campus</td><td>T2.1 · T2.2 · T2.3 · G2.1 · G2.2 · A2.1 · A2.3 · P2.1</td><td>—</td></tr>
+    <tr><td><code>C 2.3</code></td><td>Creació de cursos seguint especificacions. Gestió d&#x27;usuaris i grups. Activació de funcionalitats.</td><td class="dimcol">Administra el campus</td><td>G2.2 · A2.2 · P2.1</td><td>—</td></tr>
+    </tbody></table></div>
+  <h2>Què s'observa a l'aula</h2>
+  <p class="rub-meta">La taula diu quins criteris es treballen. Això diu quina conducta mira el professor per decidir el nivell.</p>
+  <p><span class="lbl">Comprèn i justifica</span> Com explica a l&#x27;A2.1 on acaba un fitxer pujat, i com respon la pregunta final de cada lliurament.</p>
+  <p><span class="lbl">Administra el campus</span> L&#x27;aspecte i les normatives de l&#x27;A2.1, i els cursos, la càrrega d&#x27;usuaris, els grups i el fòrum de l&#x27;A2.2.</p>
+  <p><span class="lbl">Manté, protegeix i verifica</span> A l&#x27;A2.3, el curs que mou amb un .mbz, la còpia que sap restaurar, els informes que interpreta i com justifica el bloqueig d&#x27;IP.</p>
+</div>
+
+<div class="cq-block rub" data-kind="RA3 · rúbrica">
+  <h2>RA3 · Serveis de gestió d'arxius web</h2>
+  <p class="rub-meta">Això, i res més, és el que es veu en qualificar.</p>
+<div class="cq-tablewrap"><table class="rub-table">
+<colgroup><col class="c0"><col class="c1"><col class="c2"><col class="c3"><col class="c4"></colgroup>
+<thead><tr><th>Dimensió</th>
+<th><span class="pts">10</span><span class="lvl">Excel·lent</span></th>
+<th><span class="pts">7,5</span><span class="lvl">Assolit</span></th>
+<th><span class="pts">5</span><span class="lvl">Bàsic</span></th>
+<th><span class="pts">0</span><span class="lvl">No assolit</span></th>
+</tr></thead><tbody>
+<tr><td class="dim">Comprèn i justifica</td>
+<td class="n10">Explica la utilitat d&#x27;un servei de gestió d&#x27;arxius web, compara aplicacions i justifica la triada amb autonomia.</td>
+<td>Explica la utilitat del servei i compara aplicacions amb suport puntual.</td>
+<td>Reconeix per a què serveix, però li costa comparar-lo amb altres solucions.</td>
+<td class="n0">No distingeix un gestor d&#x27;arxius web d&#x27;una carpeta compartida ni amb el suport habitual.</td>
+</tr>
+<tr><td class="dim">Instal·la i comparteix</td>
+<td class="n10">Instal·la i adapta el gestor, crea comptes i grups i munta els recursos compartits amb autonomia.</td>
+<td>Instal·la el gestor i configura comptes i comparticions amb suport puntual.</td>
+<td>Arriba a un servei funcional bàsic amb suport freqüent.</td>
+<td class="n0">No aconsegueix un servei utilitzable ni amb el suport habitual.</td>
+</tr>
+<tr><td class="dim">Ordena, troba i protegeix</td>
+<td class="n10">Aplica criteris d&#x27;indexació i informació addicional i comprova la seguretat del gestor pel seu compte.</td>
+<td>Etiqueta, documenta i fa les comprovacions de seguretat amb suport puntual.</td>
+<td>Ordena i comprova quan se li recorda i amb suport freqüent.</td>
+<td class="n0">No aplica cap criteri d&#x27;ordre ni comprova la seguretat ni amb el suport habitual.</td>
+</tr>
+</tbody></table></div>
+</div>
+<div class="cq-block rub" data-kind="traçabilitat">
+  <h2>D'on surt la nota del RA3</h2>
+  <p class="rub-meta">Cada criteri i cada contingut del RA, la dimensió de la rúbrica que el recull, les pàgines que el treballen i l'instrument que l'avalua. Les dues últimes columnes surten del <code>MAP</code> i del <code>PROVA</code> de <code>curriculum.py</code>: no s'escriuen a mà. Els continguts s'ancoren a la teoria, que és on s'expliquen. </p>
+  <div class="cq-tablewrap"><table class="cq-table rub-trac">
+    <thead><tr><th>Criteri</th><th>Enunciat</th><th>Dimensió</th><th>On es treballa</th><th>Instrument</th></tr></thead><tbody>
+    <tr><td><code>3.1</code></td><td>Estableix la utilitat d&#x27;un servei de gestió d&#x27;arxius web.</td><td class="dimcol">Comprèn i justifica</td><td>T3.1 · A3.1 · P3.1</td><td>Pràctica P3.1 · Examen tipus test</td></tr>
+    <tr><td><code>3.2</code></td><td>Descriu diferents aplicacions de gestió d&#x27;arxius web.</td><td class="dimcol">Comprèn i justifica</td><td>T3.1 · A3.1 · P3.1</td><td>Pràctica P3.1 · Examen tipus test</td></tr>
+    <tr><td><code>3.3</code></td><td>Instal·la i adapta una eina de gestió d&#x27;arxius web.</td><td class="dimcol">Instal·la i comparteix</td><td>G3.1 · A3.1 · P3.1</td><td>Pràctica P3.1 · Examen tipus test</td></tr>
+    <tr><td><code>3.4</code></td><td>Crea i classifica comptes d&#x27;usuari en funció dels seus permisos.</td><td class="dimcol">Instal·la i comparteix</td><td>T3.2 · G3.2 · A3.2 · P3.1</td><td>Pràctica P3.1 · Examen tipus test</td></tr>
+    <tr><td><code>3.5</code></td><td>Gestiona arxius i directoris.</td><td class="dimcol">Instal·la i comparteix</td><td>T3.2 · G3.2 · A3.2 · A3.3 · P3.1</td><td>Pràctica P3.1 · Examen tipus test</td></tr>
+    <tr><td><code>3.6</code></td><td>Utilitza arxius d&#x27;informació addicional.</td><td class="dimcol">Ordena, troba i protegeix</td><td>T3.3 · G3.2 · A3.3 · P3.1</td><td>Pràctica P3.1 · Examen tipus test</td></tr>
+    <tr><td><code>3.7</code></td><td>Aplica criteris d&#x27;indexació sobre els arxius i directoris.</td><td class="dimcol">Ordena, troba i protegeix</td><td>T3.3 · G3.2 · A3.3 · P3.1</td><td>Pràctica P3.1 · Examen tipus test</td></tr>
+    <tr><td><code>3.8</code></td><td>Comprova la seguretat del gestor d&#x27;arxius.</td><td class="dimcol">Ordena, troba i protegeix</td><td>T3.3 · G3.1 · G3.2 · A3.3 · P3.1</td><td>Pràctica P3.1 · Examen tipus test</td></tr>
+    <tr><td><code>C 3.1</code></td><td>Instal·lació. Navegació i operacions bàsiques. Administració del gestor.</td><td class="dimcol">Comprèn i justifica, Instal·la i comparteix</td><td>T3.1 · T3.3 · G3.1 · G3.2 · A3.1 · A3.3 · P3.1</td><td>—</td></tr>
+    <tr><td><code>C 3.2</code></td><td>Usuaris i permisos. Tipus d&#x27;usuari.</td><td class="dimcol">Instal·la i comparteix</td><td>T3.2 · G3.2 · A3.2 · P3.1</td><td>—</td></tr>
+    <tr><td><code>C 3.3</code></td><td>Creació de recursos compartits.</td><td class="dimcol">Instal·la i comparteix</td><td>T3.2 · G3.2 · A3.2 · P3.1</td><td>—</td></tr>
+    </tbody></table></div>
+  <h2>Què s'observa a l'aula</h2>
+  <p class="rub-meta">La taula diu quins criteris es treballen. Això diu quina conducta mira el professor per decidir el nivell.</p>
+  <p><span class="lbl">Comprèn i justifica</span> La taula comparativa de l&#x27;A3.1 i com respon la pregunta final de cada lliurament.</p>
+  <p><span class="lbl">Instal·la i comparteix</span> La instal·lació amb les dades fora del web de l&#x27;A3.1 i la matriu de permisos de l&#x27;A3.2.</p>
+  <p><span class="lbl">Ordena, troba i protegeix</span> Els criteris d&#x27;indexació, les etiquetes i l&#x27;informe de seguretat de l&#x27;A3.3.</p>
+</div>
+
+<div class="cq-block rub" data-kind="RA4 · rúbrica">
+  <h2>RA4 · Aplicacions d'ofimàtica web</h2>
+  <p class="rub-meta">Això, i res més, és el que es veu en qualificar.</p>
+<div class="cq-tablewrap"><table class="rub-table">
+<colgroup><col class="c0"><col class="c1"><col class="c2"><col class="c3"><col class="c4"></colgroup>
+<thead><tr><th>Dimensió</th>
+<th><span class="pts">10</span><span class="lvl">Excel·lent</span></th>
+<th><span class="pts">7,5</span><span class="lvl">Assolit</span></th>
+<th><span class="pts">5</span><span class="lvl">Bàsic</span></th>
+<th><span class="pts">0</span><span class="lvl">No assolit</span></th>
+</tr></thead><tbody>
+<tr><td class="dim">Comprèn i tria</td>
+<td class="n10">Explica la utilitat de l&#x27;ofimàtica web, descriu les aplicacions i justifica la suite triada amb autonomia.</td>
+<td>Descriu les aplicacions i justifica la tria amb suport puntual.</td>
+<td>Reconeix per a què serveix cada aplicació, però li costa justificar la tria.</td>
+<td class="n0">No distingeix l&#x27;ofimàtica web de la d&#x27;escriptori ni amb el suport habitual.</td>
+</tr>
+<tr><td class="dim">Desplega i treballa en equip</td>
+<td class="n10">Desplega l&#x27;entorn, domina les prestacions de cada aplicació i treballa de manera col·laborativa amb autonomia.</td>
+<td>Fa servir les aplicacions i treballa amb els companys amb suport puntual.</td>
+<td>Aconsegueix el resultat bàsic amb suport freqüent i poca col·laboració real.</td>
+<td class="n0">No arriba a fer servir les aplicacions de manera col·laborativa ni amb el suport habitual.</td>
+</tr>
+<tr><td class="dim">Gestiona accessos i protegeix</td>
+<td class="n10">Gestiona comptes i permisos i aplica criteris de seguretat i de protecció de dades pel seu compte.</td>
+<td>Gestiona els permisos i aplica les mesures de seguretat amb suport puntual.</td>
+<td>Comparteix i protegeix quan se li recorda i amb suport freqüent.</td>
+<td class="n0">No controla qui accedeix als documents ni amb el suport habitual.</td>
+</tr>
+</tbody></table></div>
+</div>
+<div class="cq-block rub" data-kind="traçabilitat">
+  <h2>D'on surt la nota del RA4</h2>
+  <p class="rub-meta">Cada criteri i cada contingut del RA, la dimensió de la rúbrica que el recull, les pàgines que el treballen i l'instrument que l'avalua. Les dues últimes columnes surten del <code>MAP</code> i del <code>PROVA</code> de <code>curriculum.py</code>: no s'escriuen a mà. Els continguts s'ancoren a la teoria, que és on s'expliquen. </p>
+  <div class="cq-tablewrap"><table class="cq-table rub-trac">
+    <thead><tr><th>Criteri</th><th>Enunciat</th><th>Dimensió</th><th>On es treballa</th><th>Instrument</th></tr></thead><tbody>
+    <tr><td><code>4.1</code></td><td>Estableix la utilitat de les aplicacions d&#x27;ofimàtica web.</td><td class="dimcol">Comprèn i tria</td><td>T4.1 · A4.1 · P4.1</td><td>Pràctica P4.1 · Examen tipus test</td></tr>
+    <tr><td><code>4.2</code></td><td>Descriu diferents aplicacions d&#x27;ofimàtica web (processador de textos, full de càlcul, entre altres).</td><td class="dimcol">Comprèn i tria</td><td>T4.1 · A4.1 · P4.1</td><td>Pràctica P4.1 · Examen tipus test</td></tr>
+    <tr><td><code>4.3</code></td><td>Instal·la aplicacions d&#x27;ofimàtica web.</td><td class="dimcol">Desplega i treballa en equip</td><td>T4.1 · G4.1 · A4.1 · P4.1</td><td>Pràctica P4.1 · Examen tipus test</td></tr>
+    <tr><td><code>4.6</code></td><td>Reconeix les prestacions específiques de cadascuna de les aplicacions instal·lades.</td><td class="dimcol">Desplega i treballa en equip</td><td>T4.2 · G4.1 · G4.2 · A4.2 · P4.1</td><td>Pràctica P4.1 · Examen tipus test</td></tr>
+    <tr><td><code>4.7</code></td><td>Utilitza les aplicacions de forma col·laborativa.</td><td class="dimcol">Desplega i treballa en equip</td><td>T4.2 · G4.1 · G4.2 · A4.2 · P4.1</td><td>Pràctica P4.1 · Examen tipus test</td></tr>
+    <tr><td><code>4.4</code></td><td>Gestiona els comptes d&#x27;usuari.</td><td class="dimcol">Gestiona accessos i protegeix</td><td>T4.3 · A4.3 · P4.1</td><td>Pràctica P4.1 · Examen tipus test</td></tr>
+    <tr><td><code>4.5</code></td><td>Aplica criteris de seguretat en l&#x27;accés dels usuaris.</td><td class="dimcol">Gestiona accessos i protegeix</td><td>T4.3 · A4.3 · P4.1</td><td>Pràctica P4.1 · Examen tipus test</td></tr>
+    <tr><td><code>C 4.1</code></td><td>Instal·lació. Utilització de les aplicacions instal·lades.</td><td class="dimcol">Comprèn i tria, Desplega i treballa en equip</td><td>T4.1 · T4.2 · G4.1 · G4.2 · A4.1 · A4.2 · P4.1</td><td>—</td></tr>
+    <tr><td><code>C 4.2</code></td><td>Gestió d&#x27;usuaris i permisos associats.</td><td class="dimcol">Gestiona accessos i protegeix</td><td>T4.3 · A4.3 · P4.1</td><td>—</td></tr>
+    <tr><td><code>C 4.3</code></td><td>Comprovació de la seguretat.</td><td class="dimcol">Gestiona accessos i protegeix</td><td>T4.3 · A4.3 · P4.1</td><td>—</td></tr>
+    </tbody></table></div>
+  <h2>Què s'observa a l'aula</h2>
+  <p class="rub-meta">La taula diu quins criteris es treballen. Això diu quina conducta mira el professor per decidir el nivell.</p>
+  <p><span class="lbl">Comprèn i tria</span> La taula comparativa i la recomanació de l&#x27;A4.1, i com respon la pregunta final de cada lliurament.</p>
+  <p><span class="lbl">Desplega i treballa en equip</span> L&#x27;entorn i el complement de l&#x27;A4.1, i els suggeriments, els comentaris i l&#x27;historial de l&#x27;A4.2.</p>
+  <p><span class="lbl">Gestiona accessos i protegeix</span> La taula d&#x27;accessos, la matriu de proves i l&#x27;auditoria de comparticions de l&#x27;A4.3.</p>
+</div>
+
+<div class="cq-block rub" data-kind="RA5 · rúbrica">
+  <h2>RA5 · Aplicacions web d'escriptori</h2>
+  <p class="rub-meta">Això, i res més, és el que es veu en qualificar.</p>
+<div class="cq-tablewrap"><table class="rub-table">
+<colgroup><col class="c0"><col class="c1"><col class="c2"><col class="c3"><col class="c4"></colgroup>
+<thead><tr><th>Dimensió</th>
+<th><span class="pts">10</span><span class="lvl">Excel·lent</span></th>
+<th><span class="pts">7,5</span><span class="lvl">Assolit</span></th>
+<th><span class="pts">5</span><span class="lvl">Bàsic</span></th>
+<th><span class="pts">0</span><span class="lvl">No assolit</span></th>
+</tr></thead><tbody>
+<tr><td class="dim">Comprèn i descriu</td>
+<td class="n10">Descriu les aplicacions web d&#x27;escriptori i explica el camí d&#x27;un correu i el funcionament d&#x27;una agenda amb autonomia.</td>
+<td>Descriu les aplicacions i explica el funcionament amb suport puntual.</td>
+<td>Reconeix les peces, però li costa explicar com encaixen sense ajuda.</td>
+<td class="n0">No distingeix el client del servidor ni amb el suport habitual.</td>
+</tr>
+<tr><td class="dim">Instal·la i integra</td>
+<td class="n10">Instal·la el servidor, el correu web i el calendari i els integra i verifica pel seu compte.</td>
+<td>Instal·la i integra les aplicacions amb suport puntual.</td>
+<td>Arriba a un servei funcional bàsic amb suport freqüent.</td>
+<td class="n0">No aconsegueix un correu web utilitzable ni amb el suport habitual.</td>
+</tr>
+<tr><td class="dim">Gestiona i aprofita</td>
+<td class="n10">Gestiona els comptes i treu partit de les prestacions de cada aplicació amb autonomia.</td>
+<td>Gestiona els comptes i fa servir les prestacions principals amb suport puntual.</td>
+<td>Crea comptes i esdeveniments quan se li indica, amb suport freqüent.</td>
+<td class="n0">No sap donar d&#x27;alta ni de baixa un compte ni amb el suport habitual.</td>
+</tr>
+</tbody></table></div>
+</div>
+<div class="cq-block rub" data-kind="traçabilitat">
+  <h2>D'on surt la nota del RA5</h2>
+  <p class="rub-meta">Cada criteri i cada contingut del RA, la dimensió de la rúbrica que el recull, les pàgines que el treballen i l'instrument que l'avalua. Les dues últimes columnes surten del <code>MAP</code> i del <code>PROVA</code> de <code>curriculum.py</code>: no s'escriuen a mà. Els continguts s'ancoren a la teoria, que és on s'expliquen. </p>
+  <div class="cq-tablewrap"><table class="cq-table rub-trac">
+    <thead><tr><th>Criteri</th><th>Enunciat</th><th>Dimensió</th><th>On es treballa</th><th>Instrument</th></tr></thead><tbody>
+    <tr><td><code>5.1</code></td><td>Descriu diferents aplicacions web d&#x27;escriptori.</td><td class="dimcol">Comprèn i descriu</td><td>T5.1 · P5.1</td><td>Pràctica P5.1 · Examen tipus test</td></tr>
+    <tr><td><code>5.2</code></td><td>Instal·la aplicacions per a proveir d&#x27;accés web al servei de correu electrònic.</td><td class="dimcol">Instal·la i integra</td><td>G5.2 · A5.2 · P5.1</td><td>Pràctica P5.1 · Examen tipus test</td></tr>
+    <tr><td><code>5.3</code></td><td>Configura les aplicacions per a integrar-les amb un servidor de correu.</td><td class="dimcol">Instal·la i integra</td><td>T5.2 · G5.1 · G5.2 · A5.1 · A5.2 · P5.1</td><td>Pràctica P5.1 · Examen tipus test</td></tr>
+    <tr><td><code>5.5</code></td><td>Verifica l&#x27;accés al correu electrònic.</td><td class="dimcol">Instal·la i integra</td><td>T5.2 · G5.2 · A5.2 · P5.1</td><td>Pràctica P5.1 · Examen tipus test</td></tr>
+    <tr><td><code>5.6</code></td><td>Instal·la aplicacions de calendari web.</td><td class="dimcol">Instal·la i integra</td><td>T5.3 · G5.3 · A5.3 · P5.1</td><td>Pràctica P5.1 · Examen tipus test</td></tr>
+    <tr><td><code>5.4</code></td><td>Gestiona els comptes d&#x27;usuari.</td><td class="dimcol">Gestiona i aprofita</td><td>G5.1 · A5.1 · A5.2 · P5.1</td><td>Pràctica P5.1 · Examen tipus test</td></tr>
+    <tr><td><code>5.7</code></td><td>Reconeix les prestacions específiques de les aplicacions instal·lades (cites, tasques, entre altres).</td><td class="dimcol">Gestiona i aprofita</td><td>T5.3 · G5.3 · A5.3 · P5.1</td><td>Pràctica P5.1 · Examen tipus test</td></tr>
+    <tr><td><code>C 5.1</code></td><td>Aplicacions de correu web. Instal·lació.</td><td class="dimcol">Comprèn i descriu, Instal·la i integra</td><td>T5.1 · T5.2 · T5.3 · G5.1 · G5.2 · G5.3 · A5.1 · A5.2 · A5.3 · P5.1</td><td>—</td></tr>
+    <tr><td><code>C 5.2</code></td><td>Gestió d&#x27;usuaris.</td><td class="dimcol">Gestiona i aprofita</td><td>G5.1 · G5.2 · G5.3 · A5.1 · A5.2 · A5.3 · P5.1</td><td>—</td></tr>
+    </tbody></table></div>
+  <h2>Què s'observa a l'aula</h2>
+  <p class="rub-meta">La taula diu quins criteris es treballen. Això diu quina conducta mira el professor per decidir el nivell.</p>
+  <p><span class="lbl">Comprèn i descriu</span> Com explica a l&#x27;A5.1 per què encara no pot llegir el correu al navegador, i les capçaleres que sap interpretar.</p>
+  <p><span class="lbl">Instal·la i integra</span> La integració del client amb el servidor a l&#x27;A5.2 i les proves entre dos comptes; el calendari sincronitzat de l&#x27;A5.3.</p>
+  <p><span class="lbl">Gestiona i aprofita</span> Les altes, els àlies i la baixa de l&#x27;A5.1, i els convidats, les repeticions i les tasques de l&#x27;A5.3.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T1.3 · Gestors de continguts — Aplicacions Web (0228)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* === SINAPSI-CSS INICI =======================================
+   0228 · Aplicacions Web — Identitat visual del mòdul
+   Blau estructural · taronja per als avisos · paper clar
+   per a la lectura · codi en fosc.
+   Aquest bloc és IDÈNTIC a totes les pàgines del mòdul.
+   No l'editis en una sola pàgina: edita'l a totes o extreu-lo
+   a un full compartit (_identitat/sinapsi.css).
+   ============================================================ */
+  :root {
+    --paper:        #FBFCFD;
+    --card:         #FFFFFF;
+    --ink:          #131A22;
+    --muted:        #5C6875;
+    --rule:         #E3E7EC;
+    --accent:       #1D4E89;
+    --accent-hover: #26639F;
+    --accent-soft:  #EFF5FB;
+    --accent-line:  #DCE7F3;
+    --warn:         #C2410C;
+    --warn-soft:    #FEF6EF;
+    --warn-line:    #F0CBAE;
+    --code-bg:      #16202E;
+    --code-ink:     #E2E9F1;
+    --ok:           #0E7A4B;
+    --ok-soft:      #F0FAF4;
+    --ok-line:      #C6E7D6;
+    --ko:           #B4232B;
+    --ko-soft:      #FEF4F4;
+    --ko-line:      #F2CFCF;
+    --font-display: "Ubuntu", -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-body:    "Source Sans 3", -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono:    "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  }
+
+  body {
+    margin: 0;
+    padding: 40px 16px 72px;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ==== Navegació: barra de dalt i pas a la pàgina següent ==== */
+  .cq-nav {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    margin: -40px -16px 26px;
+    padding: 9px 16px;
+    background: rgba(251, 252, 253, .93);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .cq-nav .inner {
+    max-width: 660px;
+    margin: 0 auto;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+  }
+  .cq-nav a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .9rem;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cq-nav a:hover { text-decoration: underline; }
+  .cq-nav .pos {
+    flex: 0 0 auto;
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    letter-spacing: .1em;
+    color: var(--muted);
+  }
+
+  .cq-pager {
+    max-width: 660px;
+    margin: 26px auto 0;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .cq-pager a {
+    display: block;
+    padding: 13px 16px;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    background: var(--card);
+    color: var(--ink);
+    text-decoration: none;
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-pager a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-pager .dir {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: .67rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+  .cq-pager .ttl {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: .92rem;
+    line-height: 1.3;
+  }
+  .cq-pager .next { grid-column: 2; text-align: right; }
+
+  /* Referència a una altra pàgina del mòdul (T2.4, G4.1, A3.2…) */
+  a.cq-ref {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-line);
+  }
+  a.cq-ref:hover { border-bottom-color: var(--accent); }
+
+  /* ==== Capçalera de la pàgina ==== */
+  .cq-header {
+    max-width: 660px;
+    margin: 0 auto 26px;
+  }
+  .cq-header .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .cq-header h1 {
+    margin: 6px 0 4px;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1.15;
+  }
+  .cq-header .lede {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+
+  /* ==== Bloc de contingut: patró únic per a tots els tipus ==== */
+  .cq-block {
+    max-width: 660px;
+    margin: 0 auto 20px;
+    padding: 26px 30px 28px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    position: relative;
+  }
+
+  /* Etiqueta de secció: petita, monoespaiada, com la capçalera
+     d'una fitxa tècnica. El text surt de l'atribut data-kind. */
+  .cq-block::before {
+    content: attr(data-kind);
+    position: absolute;
+    top: -8px;
+    left: 26px;
+    padding: 1px 9px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 20px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .cq-block h2 {
+    margin: 4px 0 14px;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .cq-block p { margin: 0 0 14px; }
+  .cq-block p:last-child { margin-bottom: 0; }
+  .cq-block em { font-style: italic; color: var(--muted); }
+  .cq-block strong { font-weight: 600; }
+  .cq-block ul, .cq-block ol { margin: 0 0 14px; padding-left: 22px; }
+  .cq-block li { margin-bottom: 6px; }
+  .cq-block li:last-child { margin-bottom: 0; }
+  .cq-block a { color: var(--accent); overflow-wrap: anywhere; }
+
+  .cq-block code {
+    font-family: var(--font-mono);
+    font-size: .84em;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    border-radius: 4px;
+    padding: 1px 5px;
+    color: var(--accent);
+  }
+  .cq-block pre {
+    margin: 14px 0 18px;
+    padding: 16px 18px;
+    background: var(--code-bg);
+    color: var(--code-ink);
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: .82rem;
+    line-height: 1.6;
+  }
+  .cq-block pre code { all: unset; font: inherit; }
+  .cq-block pre .c { color: #7E93AB; }   /* comentari dins del codi */
+  .cq-block pre .o { color: #8FD0A5; }   /* sortida esperada */
+
+  /* ---- Figures: captures i esquemes ---- */
+  .cq-block figure { margin: 16px 0 18px; }
+  .cq-block figure img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: #FFF;
+  }
+  .cq-block figcaption {
+    margin-top: 6px;
+    font-size: .86rem;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  /* ---- Variants de color per tipus de bloc ---- */
+  .cq-block[data-kind="objectius"],
+  .cq-block[data-kind="pas a pas"],
+  .cq-block[data-kind="lliurament"],
+  .cq-block[data-kind="resum"] { border-color: var(--accent-line); }
+  .cq-block[data-kind="objectius"]::before,
+  .cq-block[data-kind="pas a pas"]::before,
+  .cq-block[data-kind="lliurament"]::before,
+  .cq-block[data-kind="resum"]::before { border-color: var(--accent-line); color: var(--accent); }
+  .cq-block[data-kind="objectius"] h2,
+  .cq-block[data-kind="pas a pas"] h2,
+  .cq-block[data-kind="lliurament"] h2,
+  .cq-block[data-kind="resum"] h2 { color: var(--accent); }
+
+  .cq-block[data-kind="recordatori"] { background: var(--warn-soft); border-color: #F5DCC8; }
+  .cq-block[data-kind="recordatori"]::before { background: var(--warn-soft); border-color: var(--warn-line); color: var(--warn); }
+  .cq-block[data-kind="recordatori"] h2 { color: var(--warn); }
+
+  .cq-block[data-kind="bones pràctiques"] { background: var(--ok-soft); border-color: var(--ok-line); }
+  .cq-block[data-kind="bones pràctiques"]::before { background: var(--ok-soft); border-color: var(--ok-line); color: var(--ok); }
+  .cq-block[data-kind="bones pràctiques"] h2 { color: var(--ok); }
+
+  .cq-block[data-kind="problemes"] { background: var(--ko-soft); border-color: var(--ko-line); }
+  .cq-block[data-kind="problemes"]::before { background: var(--ko-soft); border-color: var(--ko-line); color: var(--ko); }
+  .cq-block[data-kind="problemes"] h2 { color: var(--ko); }
+
+  /* ==== Traçabilitat amb el currículum ==== */
+  .cq-block[data-kind="currículum"] { background: transparent; }
+  .cq-block[data-kind="currículum"] h2 { color: var(--muted); }
+  .cq-block[data-kind="currículum"] p {
+    margin: 0 0 6px;
+    font-size: .86rem;
+    color: var(--muted);
+  }
+  .cq-block[data-kind="currículum"] p:last-child { margin-bottom: 0; }
+  .cq-block[data-kind="currículum"] .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-right: 6px;
+    white-space: nowrap;
+  }
+
+  /* ==== Diagrama de passos en flux (DORA i similars) ==== */
+  .dora-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
+    margin: 20px 0 22px;
+    flex-wrap: wrap;
+  }
+  .dora-step {
+    flex: 1 1 130px;
+    padding: 14px 12px 12px;
+    border: 1px solid var(--rule);
+    border-top: 2px solid var(--accent);
+    border-radius: 6px;
+    background: var(--paper);
+  }
+  .dora-step .n {
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: .08em;
+  }
+  .dora-step .t {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: .9rem;
+    letter-spacing: .02em;
+    margin: 2px 0 5px;
+  }
+  .dora-step .d { font-size: .8rem; line-height: 1.45; color: var(--muted); }
+  .dora-arrow { align-self: center; color: #B3C2D2; font-size: 1rem; }
+  @media (max-width: 620px) {
+    .dora-arrow { display: none; }
+    .dora-step { flex-basis: 100%; }
+  }
+
+  /* ==== Passos numerats de les guies pas a pas ==== */
+  .cq-steps { counter-reset: step; margin: 4px 0 0; padding: 0; list-style: none; }
+  .cq-steps > li {
+    counter-increment: step;
+    position: relative;
+    padding: 0 0 4px 34px;
+    margin-bottom: 18px;
+  }
+  .cq-steps > li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0; top: 1px;
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    border-radius: 50%;
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--accent);
+  }
+  .cq-steps > li > :first-child { margin-top: 0; }
+
+  /* ==== Problemes: símptoma → causa → solució ==== */
+  .cq-issues { margin: 4px 0 0; }
+  .cq-issues dt {
+    font-weight: 600;
+    margin-top: 16px;
+    color: var(--ko);
+  }
+  .cq-issues dt:first-child { margin-top: 0; }
+  .cq-issues dd { margin: 4px 0 0 0; }
+  .cq-issues dd .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 6px;
+  }
+
+  /* ==== Taula de referència ==== */
+  .cq-tablewrap { overflow-x: auto; margin: 14px 0 4px; }
+  .cq-table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+  .cq-table th, .cq-table td {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .cq-table th {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: .78rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom-color: var(--accent-line);
+    white-space: nowrap;
+  }
+  /* La primera columna sol ser una ordre curta i queda millor sencera, però
+     quan és prosa ha de poder partir-se: si no, la taula no cap al mòbil. */
+  .cq-table td:first-child > code:only-child { white-space: nowrap; }
+  .cq-table tr:last-child td { border-bottom: none; }
+
+  /* ==== Nota de versió de sistema (Ubuntu 26.04) ==== */
+  .cq-note {
+    margin: 14px 0 4px;
+    padding: 10px 14px;
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: 0 6px 6px 0;
+    font-size: .9rem;
+  }
+  .cq-note .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+
+  /* ==== Índex del mòdul (portada) ==== */
+  .cq-index { display: grid; gap: 10px; margin: 4px 0 0; padding: 0; list-style: none; }
+  .cq-index a {
+    display: flex; align-items: baseline; gap: 12px;
+    padding: 13px 16px;
+    border: 1px solid var(--rule); border-radius: 8px;
+    background: var(--paper); color: var(--ink); text-decoration: none;
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-index a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-index .ref {
+    font-family: var(--font-mono); font-size: .74rem; font-weight: 500;
+    color: var(--accent); letter-spacing: .06em; flex: 0 0 auto;
+  }
+  .cq-index .ttl { font-family: var(--font-display); font-weight: 700; font-size: .98rem; }
+  .cq-index .sub { display: block; font-size: .84rem; color: var(--muted); font-weight: 400; font-family: var(--font-body); margin-top: 1px; }
+
+  /* ==== Quiz ==== */
+  .cq-question { margin: 22px 0 0; }
+  .cq-question + .cq-question { padding-top: 22px; border-top: 1px solid var(--rule); }
+  .cq-question .statement { font-weight: 600; margin-bottom: 10px; }
+  .cq-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 14px;
+    margin: 7px 0;
+    border: 1px solid var(--rule);
+    border-radius: 7px;
+    background: var(--card);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .95rem;
+    color: var(--ink);
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-option:hover:not(:disabled) { border-color: #B3C2D2; }
+  .cq-option:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .cq-option.cq-selected { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-option.cq-correct { border-color: var(--ok); background: var(--ok-soft); color: var(--ok); }
+  .cq-option.cq-incorrect { border-color: var(--ko); background: var(--ko-soft); color: var(--ko); }
+  .cq-check-btn {
+    margin-top: 10px;
+    padding: 9px 20px;
+    border: none;
+    border-radius: 7px;
+    background: var(--accent);
+    color: #FFFFFF;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: .88rem;
+    cursor: pointer;
+  }
+  .cq-check-btn:hover:not(:disabled) { background: var(--accent-hover); }
+  .cq-check-btn:disabled { background: #B3C2D2; cursor: default; }
+  .cq-feedback { margin-top: 10px; font-size: .88rem; font-weight: 600; }
+  .cq-feedback.ok { color: var(--ok); }
+  .cq-feedback.ko { color: var(--ko); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  /* ==== Mòbil: la pantalla de 375 px és la mida de treball real ==== */
+  @media (max-width: 620px) {
+    body { padding: 26px 10px 56px; }
+    .cq-nav { margin: -26px -10px 22px; padding: 9px 10px; }
+    .cq-block { padding: 22px 16px 24px; }
+    .cq-block::before { left: 14px; }
+    .cq-table { font-size: .84rem; }
+    .cq-table th, .cq-table td { padding: 8px 8px; }
+    .cq-table th { white-space: normal; }
+    .cq-pager { grid-template-columns: 1fr; }
+    .cq-pager .next { grid-column: 1; text-align: left; }
+  }
+
+  /* ==== Impressió: els alumnes imprimeixen la teoria ==== */
+  @media print {
+    body { background: #FFF; padding: 0; font-size: 11pt; }
+    .cq-block { border-color: #CCC; page-break-inside: avoid; margin-bottom: 12px; }
+    .cq-block pre { background: #F4F4F4; color: #000; border: 1px solid #DDD; }
+    .cq-block pre .c, .cq-block pre .o { color: #555; }
+    .cq-check-btn { display: none; }
+    .cq-nav, .cq-pager { display: none; }
+    a.cq-ref { border-bottom: none; color: inherit; }
+  }
+  /* ==== Contingut no copiable ====
+     Dissuasiu, no una protecció: la prosa és per llegir-la al web o a
+     Moodle, no per copiar-la. El codi, les ordres i les taules SÍ que es
+     copien: l'alumnat treballa per SSH i les ha d'enganxar. L'editor
+     treballa amb contenteditable i queda exclòs. */
+  .cq-header, .cq-block {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  .cq-block pre, .cq-block pre *,
+  .cq-block code, .cq-table, .cq-table *,
+  [contenteditable="true"], [contenteditable="true"] * {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    user-select: text;
+  }
+
+/* === SINAPSI-CSS FI ======================================== */
+</style>
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA1 · Instal·lació de gestors de continguts</a>
+    <span class="pos">T1.3 · 3/16</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA1 · T1.3</div>
+  <h1>Gestors de continguts</h1>
+  <p class="lede">Publicar i mantenir un web sense escriure cada pàgina a mà.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què sabràs fer en acabar</h2>
+  <ul>
+    <li>Explicar què és un gestor de continguts (CMS) i per què s'utilitza.</li>
+    <li>Identificar els requeriments per instal·lar-lo en un sistema lliure o propietari.</li>
+    <li>Explicar què passa dins del servidor quan es demana una pàgina.</li>
+    <li>Comparar WordPress, Joomla, Drupal i MediaWiki.</li>
+    <li>Distingir entrades, pàgines, categories, menús i ginys, i saber on es configuren.</li>
+    <li>Explicar què fan els temes i les extensions.</li>
+    <li>Dir què és la sindicació RSS.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Què és un CMS</h2>
+  <p>Un <strong>gestor de continguts</strong> (<em>Content Management System</em>) és una aplicació web per crear, organitzar i publicar continguts des del navegador. El contingut viu a la base de dades i el CMS construeix cada pàgina en el moment de demanar-la, amb el disseny del tema.</p>
+  <p>Separa tres feines que abans feia una sola persona: qui <strong>escriu</strong>, qui <strong>dissenya</strong> i qui <strong>administra</strong> el servidor. Així, una redactora pot publicar sense saber HTML.</p>
+</div>
+
+<!-- ============ 3 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>Els més coneguts</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>CMS</th><th>Punt fort</th><th>Web</th></tr></thead>
+      <tbody>
+        <tr><td><strong>WordPress</strong></td><td>El més estès; blocs, webs corporatives i botigues amb WooCommerce</td><td><a href="https://wordpress.org">wordpress.org</a></td></tr>
+        <tr><td><strong>Joomla</strong></td><td>Webs amb molts usuaris i continguts multilingües de sèrie</td><td><a href="https://www.joomla.org">joomla.org</a></td></tr>
+        <tr><td><strong>Drupal</strong></td><td>Llocs grans i complexos; administracions públiques</td><td><a href="https://www.drupal.org">drupal.org</a></td></tr>
+        <tr><td><strong>MediaWiki</strong></td><td>Wikis amb historial de canvis; el de Viquipèdia</td><td><a href="https://www.mediawiki.org">mediawiki.org</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Tots quatre són lliures, fets en PHP i funcionen sobre una pila LAMP. N'hi ha de propietaris i allotjats, com Wix o Squarespace, però no s'hi controla el servidor ni les dades.</p>
+</div>
+
+<!-- ============ TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Què cal per instal·lar-lo</h2>
+  <p>Abans d'instal·lar un gestor es miren els seus <strong>requeriments</strong> a la documentació oficial. Si el servidor no els compleix, la instal·lació falla a mitges o el lloc funciona amb errors.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Requeriment</th><th>Què es comprova</th></tr></thead>
+      <tbody>
+        <tr><td>Servidor web</td><td>Apache o nginx, amb reescriptura d'adreces per als enllaços amigables</td></tr>
+        <tr><td>Llenguatge</td><td>La versió de PHP que suporta i les extensions que demana</td></tr>
+        <tr><td>Base de dades</td><td>MySQL, amb una base de dades i un usuari propis</td></tr>
+        <tr><td>Recursos</td><td>Espai de disc, mida màxima de pujada i memòria de PHP</td></tr>
+        <tr><td>Xifratge</td><td>HTTPS amb un certificat vàlid quan es publica</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Sistemes lliures i propietaris</h2>
+  <p>Un gestor en PHP s'instal·la igual en un sistema <strong>lliure</strong> que en un de <strong>propietari</strong>: els requeriments són els mateixos, però cada peça s'obté i es configura d'una altra manera.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Peça</th><th>Sistema lliure (LAMP)</th><th>Sistema propietari (WIMP)</th></tr></thead>
+      <tbody>
+        <tr><td>Sistema operatiu</td><td>Ubuntu, Debian</td><td>Windows Server</td></tr>
+        <tr><td>Servidor web</td><td>Apache o nginx</td><td>IIS</td></tr>
+        <tr><td>PHP</td><td>Paquets de la distribució</td><td>PHP per a Windows, connectat a IIS per FastCGI</td></tr>
+        <tr><td>Base de dades</td><td>MySQL des dels paquets</td><td>MySQL amb l'instal·lador de Windows</td></tr>
+        <tr><td>Enllaços amigables</td><td><code>.htaccess</code> i <code>mod_rewrite</code></td><td>Mòdul URL Rewrite i <code>web.config</code></td></tr>
+        <tr><td>Llicència</td><td>Sense cost</td><td>Llicència del sistema</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>La majoria d'allotjaments fan servir Linux, i la documentació dels gestors hi està pensada. Per això al laboratori es fa servir LAMP.</p>
+</div>
+
+<!-- ============ TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Com funciona per dins</h2>
+  <p>Quan el navegador demana una adreça, el servidor web no busca cap fitxer amb aquell nom: passa la petició a un únic programa d'entrada del gestor. Aquest carrega el <strong>nucli</strong> i les <strong>extensions</strong> actives, interpreta l'adreça, consulta a la <strong>base de dades</strong> quin contingut toca i el passa al <strong>tema</strong>, que hi posa l'HTML i el CSS.</p>
+  <p>Les extensions no modifiquen el nucli: s'enganxen a punts previstos del procés, els <strong>ganxos</strong> (<em>hooks</em>), per afegir o canviar el que surt. Per això es poden activar i desactivar sense tocar res més.</p>
+  <p>La configuració del lloc, els usuaris i els menús també són a la base de dades. Només les dades de connexió a la base de dades són en un fitxer.</p>
+</div>
+
+<!-- ============ 4 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Com s'organitza el contingut</h2>
+  <p>Tot es gestiona des de la <strong>interfície gràfica</strong> del tauler, sense tocar fitxers. Aquestes són les peces i on es configuren:</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Peça</th><th>Què és</th><th>A WordPress</th></tr></thead>
+      <tbody>
+        <tr><td>Entrada</td><td>Contingut datat que s'ordena per data; té comentaris</td><td>Entrades</td></tr>
+        <tr><td>Pàgina</td><td>Contingut estable, sense data: «Qui som», «Contacte»</td><td>Pàgines</td></tr>
+        <tr><td>Categoria i etiqueta</td><td>Classifiquen les entrades per tema</td><td>Entrades → Categories</td></tr>
+        <tr><td>Mèdia</td><td>Imatges i fitxers pujats</td><td>Mèdia</td></tr>
+        <tr><td>Menú</td><td>Enllaços de navegació del lloc</td><td>Aparença → Editor</td></tr>
+        <tr><td>Giny (bloc)</td><td>Peça reutilitzable: cercador, darreres entrades, calendari</td><td>Editor del lloc</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Temes, extensions i sindicació</h2>
+  <p>El <strong>tema</strong> decideix l'aspecte: plantilles HTML i CSS que envolten el contingut. Canviar de tema canvia el disseny i manté els continguts.</p>
+  <p>Les <strong>extensions</strong> (<em>plugins</em>) afegeixen funcions: formularis, botiga, traduccions, còpies de seguretat. Cadascuna és codi de tercers que s'executa al servidor, i per tant s'ha de triar i actualitzar amb cura.</p>
+  <p>La <strong>sindicació</strong> publica les últimes entrades en un fitxer RSS o Atom. Un lector de notícies o un altre web s'hi subscriu i rep els continguts nous sense visitar la pàgina.</p>
+</div>
+
+<!-- ============ 6 · EXEMPLE ============ -->
+<div class="cq-block" data-kind="exemple">
+  <h2>El mateix text, dues aparences</h2>
+  <p>Una escola publica una entrada «Jornada de portes obertes». Amb el tema per defecte surt amb fons blanc i lletra negra. L'administrador activa un tema amb els colors del centre: l'entrada no s'ha tocat, però tot el web ha canviat. Si instal·la una extensió de traducció, la mateixa entrada pot tenir versió en castellà i en anglès.</p>
+</div>
+
+<!-- ============ 7 · CAS REAL ============ -->
+<div class="cq-block" data-kind="cas real">
+  <h2>Botigues virtuals</h2>
+  <p>Un CMS amb una extensió de comerç electrònic és una botiga: <strong>WooCommerce</strong> converteix WordPress en una botiga amb productes, categories, carret i pagaments. També hi ha aplicacions fetes només per vendre, com <strong>PrestaShop</strong> o <strong>OpenCart</strong>. Totes s'instal·len igual que un CMS i demanen el mateix: una pila LAMP, una base de dades i un usuari administrador.</p>
+</div>
+
+<!-- ============ 8 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Trobar el feed d'un web</h2>
+  <p>Afegeix <code>/feed/</code> a l'adreça d'un lloc WordPress i veuràs el fitxer RSS: text XML amb el títol, l'enllaç i la data de cada entrada. És el que llegeix un lector de notícies.</p>
+</div>
+
+<!-- ============ 9 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Tria el CMS pel que ha de fer el lloc, no per costum.</li>
+    <li>Fes servir temes i extensions del directori oficial i amb actualitzacions recents.</li>
+    <li>Instal·la només les extensions que facin falta: cada una és codi que s'executa.</li>
+    <li>Pàgines per al contingut estable; entrades per a les notícies.</li>
+  </ul>
+</div>
+
+<!-- ============ 10 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>Fer una entrada per a «Contacte»</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Es confon entrada amb pàgina.</p>
+      <p><span class="lbl">Solució</span> El contingut que no caduca va en una pàgina i s'enllaça des del menú.</p>
+    </dd>
+    <dt>Canviar de tema i perdre els retocs</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> S'havien fet editant els fitxers del tema anterior.</p>
+      <p><span class="lbl">Solució</span> Els retocs van al CSS addicional o a un tema fill.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 11 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Resum</h2>
+  <ul>
+    <li>Un CMS publica continguts des del navegador; el contingut és a la base de dades.</li>
+    <li>Abans d'instal·lar, es comproven els requeriments: servidor web, PHP, base de dades, recursos i HTTPS.</li>
+    <li>S'instal·la en sistemes lliures (LAMP) o propietaris (Windows Server amb IIS); canvia la manera, no els requeriments.</li>
+    <li>Cada pàgina es construeix en el moment: nucli, extensions, base de dades i tema.</li>
+    <li>WordPress, Joomla, Drupal i MediaWiki: lliures, en PHP i sobre LAMP.</li>
+    <li>Entrades amb data, pàgines estables, categories, menús i ginys.</li>
+    <li>El tema decideix l'aspecte; les extensions afegeixen funcions.</li>
+    <li>La sindicació RSS publica les novetats perquè altres s'hi subscriguin.</li>
+  </ul>
+</div>
+
+<!-- ============ 12 · QUIZ ============ -->
+<div class="cq-block" data-kind="quiz">
+  <h2>Comprova el que has après</h2>
+  <div class="cq-question" data-id="t1-3-requeriments" data-type="single">
+    <div class="statement">L'instal·lador d'un gestor s'atura dient que falta una extensió de PHP. Què s'havia d'haver fet abans?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Canviar de sistema operatiu, perquè només funciona en Windows</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Comprovar els requeriments a la documentació oficial i instal·lar el que faltava</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Instal·lar una extensió del gestor que ho arregli</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-3-dins" data-type="single">
+    <div class="statement">Algú demana <code>/qui-som/</code> a un lloc fet amb un gestor. On és el text de la pàgina?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">En un fitxer <code>qui-som.html</code> del servidor</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">A la base de dades; el gestor el llegeix i el tema el converteix en HTML</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Al navegador del visitant</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Dins del tema</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-3-wimp" data-type="single">
+    <div class="statement">Què canvia en instal·lar un gestor en Windows Server en lloc de Linux?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Els requeriments del gestor</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Com s'instal·la i es configura cada peça, com IIS en lloc d'Apache</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">El llenguatge en què està fet el gestor</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Res: només funciona en Linux</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-3-pagina" data-type="single">
+    <div class="statement">«Política de privacitat» ha de ser…</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Una entrada</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Una pàgina</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Una categoria</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Un giny</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-3-tema" data-type="single">
+    <div class="statement">Canvies el tema d'un WordPress. Què passa amb les entrades?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">S'esborren</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Es mantenen i es mostren amb el nou disseny</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Cal tornar-les a escriure</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Queden en esborrany</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-3-rss" data-type="single">
+    <div class="statement">Per a què serveix la sindicació RSS?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Per fer còpies de seguretat</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Perquè altres programes rebin les entrades noves</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Per traduir el lloc</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Per accelerar la càrrega</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-3-extensions" data-type="single">
+    <div class="statement">Quina afirmació sobre les extensions és certa?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Només canvien l'aspecte del lloc</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Són codi que s'executa al servidor i cal mantenir actualitzat</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">No es poden desinstal·lar</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Només existeixen per a Drupal</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 1.1</span> Instal·lació en sistemes operatius lliures i propietaris.</p>
+  <p><span class="lbl">Contingut 1.3</span> Utilització de la interfície gràfica. Personalització de l'entorn. Funcionalitats proporcionades pel gestor de continguts. Sindicació.</p>
+  <p><span class="lbl">Contingut 1.4</span> Funcionament dels gestors de continguts.</p>
+  <p><span class="lbl">Contingut 1.5</span> Actualitzacions del gestor de continguts. Configuració de mòduls i menús.</p>
+  <p><span class="lbl">CA 1.1</span> Identifica els requeriments necessaris per instal·lar gestors de continguts.</p>
+  <p><span class="lbl">CA 1.3</span> Personalitza la interfície del gestor de continguts.</p>
+  <p><span class="lbl">CA 1.6</span> Instal·la i configura els mòduls i menús necessaris.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="t1-2-html-i-css.html">
+    <span class="dir">Anterior · T1.2</span>
+    <span class="ttl">HTML i CSS</span></a>
+  <a class="next" href="t1-4-usuaris-i-rols.html">
+    <span class="dir">Següent · T1.4</span>
+    <span class="ttl">Usuaris, grups i rols</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script>
+  // Dissuasió de la còpia: mai al codi, a les taules ni dins de l'editor.
+  // L'alumnat treballa per SSH i ha de poder enganxar les ordres.
+  (function () {
+    var LLIURE = 'pre, code, .cq-table, [contenteditable="true"]';
+    function copiable(node) {
+      if (node && node.nodeType !== 1) { node = node.parentNode; }
+      return !!(node && node.closest && node.closest(LLIURE));
+    }
+    function seleccioCopiable() {
+      var s = document.getSelection();
+      if (!s || s.rangeCount === 0) { return false; }
+      return copiable(s.getRangeAt(0).commonAncestorContainer);
+    }
+    ['copy', 'cut'].forEach(function (nom) {
+      document.addEventListener(nom, function (e) {
+        if (!seleccioCopiable()) { e.preventDefault(); }
+      });
+    });
+    document.addEventListener('dragstart', function (e) {
+      if (!copiable(e.target)) { e.preventDefault(); }
+    });
+  })();
+
+  // Motor únic per a totes les preguntes single i multi.
+  document.querySelectorAll('.cq-question').forEach(function (question) {
+    var id = question.dataset.id;
+    if (!id) {
+      throw new Error('Falta data-id a una pregunta del quiz.');
+    }
+    var type = question.dataset.type;
+    if (type !== 'single' && type !== 'multi') {
+      throw new Error('data-type invàlid ("' + type + '") a la pregunta "' + id + '".');
+    }
+
+    var options = question.querySelectorAll('.cq-option');
+    var checkBtn = question.querySelector('.cq-check-btn');
+    var feedback = question.querySelector('.cq-feedback');
+
+    options.forEach(function (opt) {
+      opt.addEventListener('click', function () {
+        if (type === 'single') {
+          options.forEach(function (o) { o.classList.remove('cq-selected'); });
+          opt.classList.add('cq-selected');
+        } else {
+          opt.classList.toggle('cq-selected');
+        }
+        options.forEach(function (o) {
+          o.setAttribute('aria-pressed',
+            o.classList.contains('cq-selected') ? 'true' : 'false');
+        });
+      });
+    });
+
+    checkBtn.addEventListener('click', function () {
+      var allCorrect = true;
+      options.forEach(function (opt) {
+        var isCorrect = opt.dataset.correct === 'true';
+        var isSelected = opt.classList.contains('cq-selected');
+        opt.classList.remove('cq-selected');
+        opt.setAttribute('aria-pressed', 'false');
+        if (isCorrect) {
+          opt.classList.add('cq-correct');
+        } else if (isSelected) {
+          opt.classList.add('cq-incorrect');
+        }
+        opt.disabled = true;
+        if (isCorrect !== isSelected) {
+          allCorrect = false;
+        }
+      });
+      feedback.textContent = allCorrect ? 'Correcte!' : 'Incorrecte, revisa les respostes marcades.';
+      feedback.className = 'cq-feedback ' + (allCorrect ? 'ok' : 'ko');
+      checkBtn.disabled = true;
+    });
+  });
+</script>
+
+</body>
+</html>

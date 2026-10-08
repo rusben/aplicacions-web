@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P2.1 · Pràctica: portal Moodle — Aplicacions Web (0228)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* === SINAPSI-CSS INICI =======================================
+   0228 · Aplicacions Web — Identitat visual del mòdul
+   Blau estructural · taronja per als avisos · paper clar
+   per a la lectura · codi en fosc.
+   Aquest bloc és IDÈNTIC a totes les pàgines del mòdul.
+   No l'editis en una sola pàgina: edita'l a totes o extreu-lo
+   a un full compartit (_identitat/sinapsi.css).
+   ============================================================ */
+  :root {
+    --paper:        #FBFCFD;
+    --card:         #FFFFFF;
+    --ink:          #131A22;
+    --muted:        #5C6875;
+    --rule:         #E3E7EC;
+    --accent:       #1D4E89;
+    --accent-hover: #26639F;
+    --accent-soft:  #EFF5FB;
+    --accent-line:  #DCE7F3;
+    --warn:         #C2410C;
+    --warn-soft:    #FEF6EF;
+    --warn-line:    #F0CBAE;
+    --code-bg:      #16202E;
+    --code-ink:     #E2E9F1;
+    --ok:           #0E7A4B;
+    --ok-soft:      #F0FAF4;
+    --ok-line:      #C6E7D6;
+    --ko:           #B4232B;
+    --ko-soft:      #FEF4F4;
+    --ko-line:      #F2CFCF;
+    --font-display: "Ubuntu", -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-body:    "Source Sans 3", -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono:    "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  }
+
+  body {
+    margin: 0;
+    padding: 40px 16px 72px;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ==== Navegació: barra de dalt i pas a la pàgina següent ==== */
+  .cq-nav {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    margin: -40px -16px 26px;
+    padding: 9px 16px;
+    background: rgba(251, 252, 253, .93);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .cq-nav .inner {
+    max-width: 660px;
+    margin: 0 auto;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+  }
+  .cq-nav a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .9rem;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cq-nav a:hover { text-decoration: underline; }
+  .cq-nav .pos {
+    flex: 0 0 auto;
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    letter-spacing: .1em;
+    color: var(--muted);
+  }
+
+  .cq-pager {
+    max-width: 660px;
+    margin: 26px auto 0;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .cq-pager a {
+    display: block;
+    padding: 13px 16px;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    background: var(--card);
+    color: var(--ink);
+    text-decoration: none;
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-pager a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-pager .dir {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: .67rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+  .cq-pager .ttl {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: .92rem;
+    line-height: 1.3;
+  }
+  .cq-pager .next { grid-column: 2; text-align: right; }
+
+  /* Referència a una altra pàgina del mòdul (T2.4, G4.1, A3.2…) */
+  a.cq-ref {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-line);
+  }
+  a.cq-ref:hover { border-bottom-color: var(--accent); }
+
+  /* ==== Capçalera de la pàgina ==== */
+  .cq-header {
+    max-width: 660px;
+    margin: 0 auto 26px;
+  }
+  .cq-header .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .cq-header h1 {
+    margin: 6px 0 4px;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1.15;
+  }
+  .cq-header .lede {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+
+  /* ==== Bloc de contingut: patró únic per a tots els tipus ==== */
+  .cq-block {
+    max-width: 660px;
+    margin: 0 auto 20px;
+    padding: 26px 30px 28px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    position: relative;
+  }
+
+  /* Etiqueta de secció: petita, monoespaiada, com la capçalera
+     d'una fitxa tècnica. El text surt de l'atribut data-kind. */
+  .cq-block::before {
+    content: attr(data-kind);
+    position: absolute;
+    top: -8px;
+    left: 26px;
+    padding: 1px 9px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 20px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .cq-block h2 {
+    margin: 4px 0 14px;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .cq-block p { margin: 0 0 14px; }
+  .cq-block p:last-child { margin-bottom: 0; }
+  .cq-block em { font-style: italic; color: var(--muted); }
+  .cq-block strong { font-weight: 600; }
+  .cq-block ul, .cq-block ol { margin: 0 0 14px; padding-left: 22px; }
+  .cq-block li { margin-bottom: 6px; }
+  .cq-block li:last-child { margin-bottom: 0; }
+  .cq-block a { color: var(--accent); overflow-wrap: anywhere; }
+
+  .cq-block code {
+    font-family: var(--font-mono);
+    font-size: .84em;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    border-radius: 4px;
+    padding: 1px 5px;
+    color: var(--accent);
+  }
+  .cq-block pre {
+    margin: 14px 0 18px;
+    padding: 16px 18px;
+    background: var(--code-bg);
+    color: var(--code-ink);
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: .82rem;
+    line-height: 1.6;
+  }
+  .cq-block pre code { all: unset; font: inherit; }
+  .cq-block pre .c { color: #7E93AB; }   /* comentari dins del codi */
+  .cq-block pre .o { color: #8FD0A5; }   /* sortida esperada */
+
+  /* ---- Figures: captures i esquemes ---- */
+  .cq-block figure { margin: 16px 0 18px; }
+  .cq-block figure img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: #FFF;
+  }
+  .cq-block figcaption {
+    margin-top: 6px;
+    font-size: .86rem;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  /* ---- Variants de color per tipus de bloc ---- */
+  .cq-block[data-kind="objectius"],
+  .cq-block[data-kind="pas a pas"],
+  .cq-block[data-kind="lliurament"],
+  .cq-block[data-kind="resum"] { border-color: var(--accent-line); }
+  .cq-block[data-kind="objectius"]::before,
+  .cq-block[data-kind="pas a pas"]::before,
+  .cq-block[data-kind="lliurament"]::before,
+  .cq-block[data-kind="resum"]::before { border-color: var(--accent-line); color: var(--accent); }
+  .cq-block[data-kind="objectius"] h2,
+  .cq-block[data-kind="pas a pas"] h2,
+  .cq-block[data-kind="lliurament"] h2,
+  .cq-block[data-kind="resum"] h2 { color: var(--accent); }
+
+  .cq-block[data-kind="recordatori"] { background: var(--warn-soft); border-color: #F5DCC8; }
+  .cq-block[data-kind="recordatori"]::before { background: var(--warn-soft); border-color: var(--warn-line); color: var(--warn); }
+  .cq-block[data-kind="recordatori"] h2 { color: var(--warn); }
+
+  .cq-block[data-kind="bones pràctiques"] { background: var(--ok-soft); border-color: var(--ok-line); }
+  .cq-block[data-kind="bones pràctiques"]::before { background: var(--ok-soft); border-color: var(--ok-line); color: var(--ok); }
+  .cq-block[data-kind="bones pràctiques"] h2 { color: var(--ok); }
+
+  .cq-block[data-kind="problemes"] { background: var(--ko-soft); border-color: var(--ko-line); }
+  .cq-block[data-kind="problemes"]::before { background: var(--ko-soft); border-color: var(--ko-line); color: var(--ko); }
+  .cq-block[data-kind="problemes"] h2 { color: var(--ko); }
+
+  /* ==== Traçabilitat amb el currículum ==== */
+  .cq-block[data-kind="currículum"] { background: transparent; }
+  .cq-block[data-kind="currículum"] h2 { color: var(--muted); }
+  .cq-block[data-kind="currículum"] p {
+    margin: 0 0 6px;
+    font-size: .86rem;
+    color: var(--muted);
+  }
+  .cq-block[data-kind="currículum"] p:last-child { margin-bottom: 0; }
+  .cq-block[data-kind="currículum"] .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-right: 6px;
+    white-space: nowrap;
+  }
+
+  /* ==== Diagrama de passos en flux (DORA i similars) ==== */
+  .dora-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
+    margin: 20px 0 22px;
+    flex-wrap: wrap;
+  }
+  .dora-step {
+    flex: 1 1 130px;
+    padding: 14px 12px 12px;
+    border: 1px solid var(--rule);
+    border-top: 2px solid var(--accent);
+    border-radius: 6px;
+    background: var(--paper);
+  }
+  .dora-step .n {
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: .08em;
+  }
+  .dora-step .t {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: .9rem;
+    letter-spacing: .02em;
+    margin: 2px 0 5px;
+  }
+  .dora-step .d { font-size: .8rem; line-height: 1.45; color: var(--muted); }
+  .dora-arrow { align-self: center; color: #B3C2D2; font-size: 1rem; }
+  @media (max-width: 620px) {
+    .dora-arrow { display: none; }
+    .dora-step { flex-basis: 100%; }
+  }
+
+  /* ==== Passos numerats de les guies pas a pas ==== */
+  .cq-steps { counter-reset: step; margin: 4px 0 0; padding: 0; list-style: none; }
+  .cq-steps > li {
+    counter-increment: step;
+    position: relative;
+    padding: 0 0 4px 34px;
+    margin-bottom: 18px;
+  }
+  .cq-steps > li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0; top: 1px;
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    border-radius: 50%;
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--accent);
+  }
+  .cq-steps > li > :first-child { margin-top: 0; }
+
+  /* ==== Problemes: símptoma → causa → solució ==== */
+  .cq-issues { margin: 4px 0 0; }
+  .cq-issues dt {
+    font-weight: 600;
+    margin-top: 16px;
+    color: var(--ko);
+  }
+  .cq-issues dt:first-child { margin-top: 0; }
+  .cq-issues dd { margin: 4px 0 0 0; }
+  .cq-issues dd .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 6px;
+  }
+
+  /* ==== Taula de referència ==== */
+  .cq-tablewrap { overflow-x: auto; margin: 14px 0 4px; }
+  .cq-table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+  .cq-table th, .cq-table td {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .cq-table th {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: .78rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom-color: var(--accent-line);
+    white-space: nowrap;
+  }
+  /* La primera columna sol ser una ordre curta i queda millor sencera, però
+     quan és prosa ha de poder partir-se: si no, la taula no cap al mòbil. */
+  .cq-table td:first-child > code:only-child { white-space: nowrap; }
+  .cq-table tr:last-child td { border-bottom: none; }
+
+  /* ==== Nota de versió de sistema (Ubuntu 26.04) ==== */
+  .cq-note {
+    margin: 14px 0 4px;
+    padding: 10px 14px;
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: 0 6px 6px 0;
+    font-size: .9rem;
+  }
+  .cq-note .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+
+  /* ==== Índex del mòdul (portada) ==== */
+  .cq-index { display: grid; gap: 10px; margin: 4px 0 0; padding: 0; list-style: none; }
+  .cq-index a {
+    display: flex; align-items: baseline; gap: 12px;
+    padding: 13px 16px;
+    border: 1px solid var(--rule); border-radius: 8px;
+    background: var(--paper); color: var(--ink); text-decoration: none;
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-index a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-index .ref {
+    font-family: var(--font-mono); font-size: .74rem; font-weight: 500;
+    color: var(--accent); letter-spacing: .06em; flex: 0 0 auto;
+  }
+  .cq-index .ttl { font-family: var(--font-display); font-weight: 700; font-size: .98rem; }
+  .cq-index .sub { display: block; font-size: .84rem; color: var(--muted); font-weight: 400; font-family: var(--font-body); margin-top: 1px; }
+
+  /* ==== Quiz ==== */
+  .cq-question { margin: 22px 0 0; }
+  .cq-question + .cq-question { padding-top: 22px; border-top: 1px solid var(--rule); }
+  .cq-question .statement { font-weight: 600; margin-bottom: 10px; }
+  .cq-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 14px;
+    margin: 7px 0;
+    border: 1px solid var(--rule);
+    border-radius: 7px;
+    background: var(--card);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .95rem;
+    color: var(--ink);
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-option:hover:not(:disabled) { border-color: #B3C2D2; }
+  .cq-option:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .cq-option.cq-selected { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-option.cq-correct { border-color: var(--ok); background: var(--ok-soft); color: var(--ok); }
+  .cq-option.cq-incorrect { border-color: var(--ko); background: var(--ko-soft); color: var(--ko); }
+  .cq-check-btn {
+    margin-top: 10px;
+    padding: 9px 20px;
+    border: none;
+    border-radius: 7px;
+    background: var(--accent);
+    color: #FFFFFF;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: .88rem;
+    cursor: pointer;
+  }
+  .cq-check-btn:hover:not(:disabled) { background: var(--accent-hover); }
+  .cq-check-btn:disabled { background: #B3C2D2; cursor: default; }
+  .cq-feedback { margin-top: 10px; font-size: .88rem; font-weight: 600; }
+  .cq-feedback.ok { color: var(--ok); }
+  .cq-feedback.ko { color: var(--ko); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  /* ==== Mòbil: la pantalla de 375 px és la mida de treball real ==== */
+  @media (max-width: 620px) {
+    body { padding: 26px 10px 56px; }
+    .cq-nav { margin: -26px -10px 22px; padding: 9px 10px; }
+    .cq-block { padding: 22px 16px 24px; }
+    .cq-block::before { left: 14px; }
+    .cq-table { font-size: .84rem; }
+    .cq-table th, .cq-table td { padding: 8px 8px; }
+    .cq-table th { white-space: normal; }
+    .cq-pager { grid-template-columns: 1fr; }
+    .cq-pager .next { grid-column: 1; text-align: left; }
+  }
+
+  /* ==== Impressió: els alumnes imprimeixen la teoria ==== */
+  @media print {
+    body { background: #FFF; padding: 0; font-size: 11pt; }
+    .cq-block { border-color: #CCC; page-break-inside: avoid; margin-bottom: 12px; }
+    .cq-block pre { background: #F4F4F4; color: #000; border: 1px solid #DDD; }
+    .cq-block pre .c, .cq-block pre .o { color: #555; }
+    .cq-check-btn { display: none; }
+    .cq-nav, .cq-pager { display: none; }
+    a.cq-ref { border-bottom: none; color: inherit; }
+  }
+  /* ==== Contingut no copiable ====
+     Dissuasiu, no una protecció: la prosa és per llegir-la al web o a
+     Moodle, no per copiar-la. El codi, les ordres i les taules SÍ que es
+     copien: l'alumnat treballa per SSH i les ha d'enganxar. L'editor
+     treballa amb contenteditable i queda exclòs. */
+  .cq-header, .cq-block {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  .cq-block pre, .cq-block pre *,
+  .cq-block code, .cq-table, .cq-table *,
+  [contenteditable="true"], [contenteditable="true"] * {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    user-select: text;
+  }
+
+/* === SINAPSI-CSS FI ======================================== */
+</style>
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA2 · Instal·lació de sistemes de gestió d'aprenentatge</a>
+    <span class="pos">P2.1 · 9/9</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA2 · P2.1</div>
+  <h1>Pràctica: portal Moodle</h1>
+  <p class="lede">Un campus virtual complet: instal·lat, configurat, amb cursos, usuaris, comunicació, còpies i seguretat.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Les teories <a class="cq-ref" href="../teoria/t2-1-plataformes-d-aprenentatge.html">T2.1</a>, <a class="cq-ref" href="../teoria/t2-2-un-moodle-per-dins.html">T2.2</a> i <a class="cq-ref" href="../teoria/t2-3-mantenir-un-moodle.html">T2.3</a>, i les activitats <a class="cq-ref" href="../activitats/a2-1-moodle-a-punt.html">A2.1</a>, <a class="cq-ref" href="../activitats/a2-2-cursos-usuaris-i-activitats.html">A2.2</a> i <a class="cq-ref" href="../activitats/a2-3-copies-informes-i-seguretat.html">A2.3</a>, que en són l'assaig. Les guies <a class="cq-ref" href="../guies/g2-1-instal-lar-moodle.html">G2.1</a> i <a class="cq-ref" href="../guies/g2-2-administrar-moodle.html">G2.2</a> són els manuals que consultaràs; per a la pila i el host virtual, <a class="cq-ref" href="../../RA1/guies/g1-2-pila-lamp.html">G1.2</a>.</p>
+  <p>És la pràctica principal del <a class="cq-ref" href="../index.html">RA2</a>. Muntaràs el Moodle d'un centre imaginari i l'administraràs: estructura, usuaris, cursos, comunicació, còpies, informes i seguretat. Has de documentar cada pas amb captures.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Element</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>Màquina</td><td>Escriptori <strong>nou</strong> a IsardVDI, anomenat <code>p2-1-cognom</code></td></tr>
+        <tr><td>Sistema</td><td>Ubuntu 26.04 LTS, o 24.04 LTS si la versió de Moodle encara no admet el seu PHP</td></tr>
+        <tr><td>Pila</td><td>Apache, MySQL i PHP</td></tr>
+        <tr><td>Nom del lloc</td><td><code>moodle.internal</code>, resolt amb <code>/etc/hosts</code></td></tr>
+        <tr><td>Dades</td><td><code>/var/moodledata</code>, fora de l'arrel web</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Ets l'administrador del campus d'una escola de formació. Tria'n la temàtica: informàtica, idiomes, música, socorrisme… Els cursos i els continguts han de ser coherents amb aquesta escola.</p>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 1: requeriments, instal·lació i estructura</h2>
+  <ol>
+    <li>Fes la <strong>fitxa de requeriments</strong> de la versió de Moodle que instal·laràs: PHP, base de dades, extensions, <code>max_input_vars</code> i espai. Compara-la amb l'inventari del servidor.</li>
+    <li>Instal·la Moodle amb el codi a <code>/var/www/moodle.internal</code>, les dades a <code>/var/moodledata</code> i el cron en marxa.</li>
+    <li>Explica la <strong>jerarquia de directoris</strong> generada: què hi ha al codi, què hi ha a <code>moodledata</code> i què va a la base de dades. Ensenya on acaba un fitxer que puja un alumne.</li>
+    <li>Deixa l'informe d'<strong>entorn</strong> sense cap requisit obligatori en vermell.</li>
+  </ol>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 2: configuració inicial i aparença</h2>
+  <ol>
+    <li>Perfil de l'administrador: correu propi, contrasenya nova i avatar.</li>
+    <li>Nom llarg i curt del lloc, i portada <strong>tancada</strong> als usuaris no autenticats.</li>
+    <li>Zona horària correcta i idioma del lloc, amb el paquet d'idioma instal·lat. Justifica per què la zona horària és crítica per a les entregues.</li>
+    <li><strong>Normativa de contrasenyes</strong>: mínim vuit caràcters, amb majúscules, minúscules i xifres.</li>
+    <li>Instal·la un <strong>tema nou</strong>, activa'l i personalitza la capçalera, el peu i la portada. Afegeix el logotip de l'escola.</li>
+  </ol>
+</div>
+
+<!-- ============ 5 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 3: usuaris, grups i perfils</h2>
+  <ol>
+    <li>Crea un usuari <strong>manual</strong> que farà de professor.</li>
+    <li>Crea <strong>deu alumnes de cop</strong> amb un fitxer CSV, i esborra'n dos amb accions en bloc.</li>
+    <li>Crea un <strong>camp de perfil personalitzat</strong> (per exemple, «Grup de matí o tarda») i omple'l en alguns comptes.</li>
+    <li>Crea una <strong>cohort</strong> o uns grups dins d'un curs i reparteix-hi els alumnes.</li>
+    <li>Revisa els <strong>modes de registre</strong>: decideix si es permet l'alta per correu electrònic i justifica-ho.</li>
+  </ol>
+  <p>Model de fitxer per a la càrrega massiva:</p>
+<pre>username,firstname,lastname,email,password
+apinyol,Anna,Pinyol,apinyol@exemple.internal,Abc123!
+jsegura,Jordi,Segura,jsegura@exemple.internal,Abc123!</pre>
+</div>
+
+<!-- ============ 6 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 4: cursos, continguts i comunicació</h2>
+  <ol>
+    <li>Un curs <strong>A</strong> amb tres temes, obert: accessible sense iniciar sessió.</li>
+    <li>Un curs <strong>B</strong> amb cinc temes i inscripció manual, amb el professor i els alumnes matriculats.</li>
+    <li>Al curs A, afegeix <strong>recursos</strong> (fitxer, pàgina, URL) i <strong>activitats</strong>, entre elles una <strong>tasca</strong> amb entrega de PDF i data límit.</li>
+    <li>Activitats de <strong>comunicació</strong>: un fòrum amb debat començat, una <strong>consulta</strong> votada per diversos alumnes i un missatge entre dos usuaris.</li>
+    <li>Un <strong>qüestionari</strong> amb preguntes de dues categories del banc de preguntes, respost per un alumne.</li>
+    <li><strong>Qualificacions</strong>: el qualificador ha de mostrar les notes de la tasca i del qüestionari, amb el càlcul configurat. Crea una <strong>insígnia</strong> i atorga-la.</li>
+  </ol>
+</div>
+
+<!-- ============ 7 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 5: importar, exportar, còpies i seguretat</h2>
+  <ol>
+    <li><strong>Importa</strong> el contingut del curs A dins del curs B i explica què s'ha copiat i què no.</li>
+    <li><strong>Exporta</strong> un curs en un fitxer <code>.mbz</code>, intercanvia'l amb un company i <strong>restaura'l</strong> al teu Moodle com a curs nou.</li>
+    <li>Fes una <strong>còpia de seguretat completa del lloc</strong> (codi, dades i base de dades) amb el lloc en manteniment. Simula una avaria esborrant un curs i <strong>restaura-la</strong>.</li>
+    <li><strong>Informes</strong>: ensenya qui ha entrat al lloc, què ha fet un alumne dins d'un curs i quins registres queden d'un esborrat.</li>
+    <li><strong>Seguretat</strong>: bloqueja una adreça IP, repassa les normatives del lloc i l'informe de comprovacions de seguretat, i justifica cada decisió.</li>
+  </ol>
+</div>
+
+<!-- ============ 8 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 6: proves de funcionament</h2>
+  <p>Escriu una <strong>llista de proves</strong> d'almenys deu files i passa-la dues vegades: quan acabis de configurar-ho tot i després de restaurar la còpia.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Prova</th><th>Com</th><th>Resultat esperat</th></tr></thead>
+      <tbody>
+        <tr><td>La portada no s'obre sense sessió</td><td>Finestra privada</td><td>Demana iniciar sessió</td></tr>
+        <tr><td>El curs A és accessible</td><td>Finestra privada</td><td>Es veu el contingut</td></tr>
+        <tr><td>Un alumne entrega la tasca</td><td>Sessió d'alumne</td><td>Queda registrada amb data</td></tr>
+        <tr><td>El cron s'executa</td><td>Notificacions</td><td>Sense avisos</td></tr>
+        <tr><td>…</td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 9 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Escriptori, pila i host virtual</td><td>Guies <a class="cq-ref" href="../../RA1/guies/g1-1-entorn-de-laboratori.html">G1.1</a> i <a class="cq-ref" href="../../RA1/guies/g1-2-pila-lamp.html">G1.2</a></td></tr>
+        <tr><td>Instal·lar Moodle, moodledata i cron</td><td>Guia <a class="cq-ref" href="../guies/g2-1-instal-lar-moodle.html">G2.1</a> i activitat <a class="cq-ref" href="../activitats/a2-1-moodle-a-punt.html">A2.1</a></td></tr>
+        <tr><td>Què és cada part i on va cada fitxer</td><td>Teoria <a class="cq-ref" href="../teoria/t2-2-un-moodle-per-dins.html">T2.2</a></td></tr>
+        <tr><td>Lloc, usuaris, cursos, inscripcions i aspecte</td><td>Guia <a class="cq-ref" href="../guies/g2-2-administrar-moodle.html">G2.2</a> i activitat <a class="cq-ref" href="../activitats/a2-2-cursos-usuaris-i-activitats.html">A2.2</a></td></tr>
+        <tr><td>Rols, perfils i elements lògics</td><td>Teoria <a class="cq-ref" href="../teoria/t2-1-plataformes-d-aprenentatge.html">T2.1</a></td></tr>
+        <tr><td>Còpies, importacions, informes i seguretat</td><td>Teoria <a class="cq-ref" href="../teoria/t2-3-mantenir-un-moodle.html">T2.3</a>, guia <a class="cq-ref" href="../guies/g2-2-administrar-moodle.html">G2.2</a> i activitat <a class="cq-ref" href="../activitats/a2-3-copies-informes-i-seguretat.html">A2.3</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 10 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>Dades de persones</h2>
+  <p>Un campus guarda notes, entregues i registres d'accés de persones. Fes servir noms i correus inventats, mai dades reals de companys, i no publiquis captures amb adreces o contrasenyes que facis servir de debò.</p>
+</div>
+
+<!-- ============ 11 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Mirar-ho com a alumne</h2>
+  <p>Moodle permet canviar de rol dins d'un curs per veure'l com el veu un estudiant, però no és el mateix que iniciar-hi sessió: el canvi de rol no mostra els problemes d'inscripció ni de visibilitat del curs. Fes totes dues proves i compara-les.</p>
+</div>
+
+<!-- ============ 12 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li><code>curl -I http://moodle.internal/</code> respon <code>200</code> i sense sessió no es veu la portada.</li>
+    <li>El fitxer d'un alumne apareix dins de <code>/var/moodledata</code> i no a la carpeta del codi.</li>
+    <li>L'informe d'entorn no té cap requisit obligatori en vermell i les notificacions no avisen del cron.</li>
+    <li>El curs restaurat del company té els temes, els recursos i les activitats de l'original.</li>
+    <li>Després de restaurar la còpia del lloc, el curs esborrat hi torna a ser amb les notes.</li>
+    <li>L'IP bloquejada no pot arribar al lloc.</li>
+  </ul>
+</div>
+
+<!-- ============ 13 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>La càrrega del CSV falla a la primera línia</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> La capçalera no té els noms de camp que espera Moodle, o el fitxer no és UTF-8.</p>
+      <p><span class="lbl">Solució</span> Copia la capçalera de l'exemple i desa el fitxer en UTF-8 sense BOM.</p>
+    </dd>
+    <dt>La restauració del <code>.mbz</code> d'un company s'atura</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El seu Moodle és d'una versió més nova que el teu.</p>
+      <p><span class="lbl">Solució</span> Poseu-vos d'acord en la versió abans d'exportar, o restaura'l en un Moodle de la mateixa versió.</p>
+    </dd>
+    <dt>Després de restaurar el lloc, surt un error de connexió</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> La base de dades restaurada no coincideix amb el que diu la configuració, o l'usuari de MySQL no existeix.</p>
+      <p><span class="lbl">Solució</span> Revisa el nom de la base, l'usuari i la contrasenya, i torna a carregar el bolcat.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 14 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <p><strong>Demostració en directe</strong> al professorat, amb el campus en marxa i les sessions de professor i d'alumne preparades.</p>
+  <p>Un repositori públic a GitHub amb un <code>README.md</code> organitzat per fases: fitxa de requeriments, captures de cada pas, explicació de la jerarquia de directoris, fitxer CSV utilitzat, cursos i inscripcions, activitats de comunicació, procediment d'importació i exportació, còpia i restauració, informes llegits, mesures de seguretat justificades i la llista de proves omplerta.</p>
+  <p>Respon-hi també: <strong>si demà haguessis de moure aquest Moodle a un altre servidor, quines tres coses t'enduries i en quin ordre les restauraries?</strong></p>
+  <p>Per pujar nota: autenticació per un mètode diferent del manual, restauració automatitzada amb <code>admin/cli</code> o un informe propi amb el constructor d'informes.</p>
+</div>
+
+
+<!-- ============ RÚBRICA ============ -->
+<div class="cq-block" data-kind="rúbrica">
+  <h2>Com es qualifica</h2>
+  <p>Aquesta pràctica és el 60 % de la nota del <a class="cq-ref" href="../index.html">RA2</a>; l'altre 40 % és l'examen tipus test. Cada apartat es puntua a la demostració i amb les evidències del README: la puntuació sencera si funciona, la meitat si funciona amb mancances i zero si no es pot demostrar.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Apartat</th><th>Criteri</th><th>Punts</th></tr></thead>
+      <tbody>
+        <tr><td>Instal·lació correcta i estructura del lloc i dels directoris explicada</td><td><code>2.1</code></td><td>1,5</td></tr>
+        <tr><td>Configuració inicial del lloc: nom, idioma, zona horària i normatives</td><td><code>2.2</code></td><td>1</td></tr>
+        <tr><td>Aparença personalitzada: tema, logotip, capçalera, peu i portada</td><td><code>2.2</code></td><td>1</td></tr>
+        <tr><td>Usuaris manuals i massius, grups i perfils personalitzats</td><td><code>2.3</code></td><td>1,5</td></tr>
+        <tr><td>Cursos amb els temes demanats, inscripcions i activació de funcionalitats</td><td><code>2.3</code></td><td>1</td></tr>
+        <tr><td>Comunicació provada: fòrum, consulta i missatgeria</td><td><code>2.4</code></td><td>1</td></tr>
+        <tr><td>Importació i exportació de cursos entre llocs</td><td><code>2.5</code></td><td>1</td></tr>
+        <tr><td>Còpia de seguretat del lloc i restauració provada</td><td><code>2.6</code></td><td>1</td></tr>
+        <tr><td>Informes d'accés i utilització interpretats</td><td><code>2.7</code></td><td>0,5</td></tr>
+        <tr><td>Seguretat del lloc comprovada i justificada</td><td><code>2.8</code></td><td>0,5</td></tr>
+        <tr><td><strong>Total</strong></td><td></td><td><strong>10</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 2.1</span> Elements lògics: comunicació, materials i activitats.</p>
+  <p><span class="lbl">Contingut 2.2</span> Instal·lació en sistemes operatius lliures i propietaris. Modes de registre. Interfície gràfica associada. Personalització de l'entorn. Navegació i edició.</p>
+  <p><span class="lbl">Contingut 2.3</span> Creació de cursos seguint especificacions. Gestió d'usuaris i grups. Activació de funcionalitats.</p>
+  <p><span class="lbl">CA 2.1</span> Reconeix l'estructura del lloc i la jerarquia de directoris generada.</p>
+  <p><span class="lbl">CA 2.2</span> Realitza modificacions en l'estètica o aspecte del lloc.</p>
+  <p><span class="lbl">CA 2.3</span> Manipula i genera perfils personalitzats.</p>
+  <p><span class="lbl">CA 2.4</span> Comprova la funcionalitat de les comunicacions mitjançant fòrums, consultes, entre d'altres.</p>
+  <p><span class="lbl">CA 2.5</span> Importa i exporta continguts en diferents formats.</p>
+  <p><span class="lbl">CA 2.6</span> Realitza còpies de seguretat i restauracions.</p>
+  <p><span class="lbl">CA 2.7</span> Realitza informes d'accés i utilització del lloc.</p>
+  <p><span class="lbl">CA 2.8</span> Comprova la seguretat del lloc.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="../activitats/a2-3-copies-informes-i-seguretat.html">
+    <span class="dir">Anterior · A2.3</span>
+    <span class="ttl">Còpies, informes i seguretat</span></a>
+  <a class="next" href="../index.html">
+    <span class="dir">Has acabat el · RA2</span>
+    <span class="ttl">RA2 · Instal·lació de sistemes de gestió d'aprenentatge</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script>
+  // Dissuasió de la còpia: mai al codi, a les taules ni dins de l'editor.
+  // L'alumnat treballa per SSH i ha de poder enganxar les ordres.
+  (function () {
+    var LLIURE = 'pre, code, .cq-table, [contenteditable="true"]';
+    function copiable(node) {
+      if (node && node.nodeType !== 1) { node = node.parentNode; }
+      return !!(node && node.closest && node.closest(LLIURE));
+    }
+    function seleccioCopiable() {
+      var s = document.getSelection();
+      if (!s || s.rangeCount === 0) { return false; }
+      return copiable(s.getRangeAt(0).commonAncestorContainer);
+    }
+    ['copy', 'cut'].forEach(function (nom) {
+      document.addEventListener(nom, function (e) {
+        if (!seleccioCopiable()) { e.preventDefault(); }
+      });
+    });
+    document.addEventListener('dragstart', function (e) {
+      if (!copiable(e.target)) { e.preventDefault(); }
+    });
+  })();
+
+  // Motor únic per a totes les preguntes single i multi.
+  document.querySelectorAll('.cq-question').forEach(function (question) {
+    var id = question.dataset.id;
+    if (!id) {
+      throw new Error('Falta data-id a una pregunta del quiz.');
+    }
+    var type = question.dataset.type;
+    if (type !== 'single' && type !== 'multi') {
+      throw new Error('data-type invàlid ("' + type + '") a la pregunta "' + id + '".');
+    }
+
+    var options = question.querySelectorAll('.cq-option');
+    var checkBtn = question.querySelector('.cq-check-btn');
+    var feedback = question.querySelector('.cq-feedback');
+
+    options.forEach(function (opt) {
+      opt.addEventListener('click', function () {
+        if (type === 'single') {
+          options.forEach(function (o) { o.classList.remove('cq-selected'); });
+          opt.classList.add('cq-selected');
+        } else {
+          opt.classList.toggle('cq-selected');
+        }
+        options.forEach(function (o) {
+          o.setAttribute('aria-pressed',
+            o.classList.contains('cq-selected') ? 'true' : 'false');
+        });
+      });
+    });
+
+    checkBtn.addEventListener('click', function () {
+      var allCorrect = true;
+      options.forEach(function (opt) {
+        var isCorrect = opt.dataset.correct === 'true';
+        var isSelected = opt.classList.contains('cq-selected');
+        opt.classList.remove('cq-selected');
+        opt.setAttribute('aria-pressed', 'false');
+        if (isCorrect) {
+          opt.classList.add('cq-correct');
+        } else if (isSelected) {
+          opt.classList.add('cq-incorrect');
+        }
+        opt.disabled = true;
+        if (isCorrect !== isSelected) {
+          allCorrect = false;
+        }
+      });
+      feedback.textContent = allCorrect ? 'Correcte!' : 'Incorrecte, revisa les respostes marcades.';
+      feedback.className = 'cq-feedback ' + (allCorrect ? 'ok' : 'ko');
+      checkBtn.disabled = true;
+    });
+  });
+</script>
+
+</body>
+</html>

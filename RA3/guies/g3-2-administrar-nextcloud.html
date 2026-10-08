@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G3.2 · Guia: administrar Nextcloud — Aplicacions Web (0228)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* === SINAPSI-CSS INICI =======================================
+   0228 · Aplicacions Web — Identitat visual del mòdul
+   Blau estructural · taronja per als avisos · paper clar
+   per a la lectura · codi en fosc.
+   Aquest bloc és IDÈNTIC a totes les pàgines del mòdul.
+   No l'editis en una sola pàgina: edita'l a totes o extreu-lo
+   a un full compartit (_identitat/sinapsi.css).
+   ============================================================ */
+  :root {
+    --paper:        #FBFCFD;
+    --card:         #FFFFFF;
+    --ink:          #131A22;
+    --muted:        #5C6875;
+    --rule:         #E3E7EC;
+    --accent:       #1D4E89;
+    --accent-hover: #26639F;
+    --accent-soft:  #EFF5FB;
+    --accent-line:  #DCE7F3;
+    --warn:         #C2410C;
+    --warn-soft:    #FEF6EF;
+    --warn-line:    #F0CBAE;
+    --code-bg:      #16202E;
+    --code-ink:     #E2E9F1;
+    --ok:           #0E7A4B;
+    --ok-soft:      #F0FAF4;
+    --ok-line:      #C6E7D6;
+    --ko:           #B4232B;
+    --ko-soft:      #FEF4F4;
+    --ko-line:      #F2CFCF;
+    --font-display: "Ubuntu", -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-body:    "Source Sans 3", -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono:    "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  }
+
+  body {
+    margin: 0;
+    padding: 40px 16px 72px;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ==== Navegació: barra de dalt i pas a la pàgina següent ==== */
+  .cq-nav {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    margin: -40px -16px 26px;
+    padding: 9px 16px;
+    background: rgba(251, 252, 253, .93);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .cq-nav .inner {
+    max-width: 660px;
+    margin: 0 auto;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+  }
+  .cq-nav a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .9rem;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cq-nav a:hover { text-decoration: underline; }
+  .cq-nav .pos {
+    flex: 0 0 auto;
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    letter-spacing: .1em;
+    color: var(--muted);
+  }
+
+  .cq-pager {
+    max-width: 660px;
+    margin: 26px auto 0;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .cq-pager a {
+    display: block;
+    padding: 13px 16px;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    background: var(--card);
+    color: var(--ink);
+    text-decoration: none;
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-pager a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-pager .dir {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: .67rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+  .cq-pager .ttl {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: .92rem;
+    line-height: 1.3;
+  }
+  .cq-pager .next { grid-column: 2; text-align: right; }
+
+  /* Referència a una altra pàgina del mòdul (T2.4, G4.1, A3.2…) */
+  a.cq-ref {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-line);
+  }
+  a.cq-ref:hover { border-bottom-color: var(--accent); }
+
+  /* ==== Capçalera de la pàgina ==== */
+  .cq-header {
+    max-width: 660px;
+    margin: 0 auto 26px;
+  }
+  .cq-header .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .cq-header h1 {
+    margin: 6px 0 4px;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1.15;
+  }
+  .cq-header .lede {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+
+  /* ==== Bloc de contingut: patró únic per a tots els tipus ==== */
+  .cq-block {
+    max-width: 660px;
+    margin: 0 auto 20px;
+    padding: 26px 30px 28px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    position: relative;
+  }
+
+  /* Etiqueta de secció: petita, monoespaiada, com la capçalera
+     d'una fitxa tècnica. El text surt de l'atribut data-kind. */
+  .cq-block::before {
+    content: attr(data-kind);
+    position: absolute;
+    top: -8px;
+    left: 26px;
+    padding: 1px 9px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 20px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .cq-block h2 {
+    margin: 4px 0 14px;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .cq-block p { margin: 0 0 14px; }
+  .cq-block p:last-child { margin-bottom: 0; }
+  .cq-block em { font-style: italic; color: var(--muted); }
+  .cq-block strong { font-weight: 600; }
+  .cq-block ul, .cq-block ol { margin: 0 0 14px; padding-left: 22px; }
+  .cq-block li { margin-bottom: 6px; }
+  .cq-block li:last-child { margin-bottom: 0; }
+  .cq-block a { color: var(--accent); overflow-wrap: anywhere; }
+
+  .cq-block code {
+    font-family: var(--font-mono);
+    font-size: .84em;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    border-radius: 4px;
+    padding: 1px 5px;
+    color: var(--accent);
+  }
+  .cq-block pre {
+    margin: 14px 0 18px;
+    padding: 16px 18px;
+    background: var(--code-bg);
+    color: var(--code-ink);
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: .82rem;
+    line-height: 1.6;
+  }
+  .cq-block pre code { all: unset; font: inherit; }
+  .cq-block pre .c { color: #7E93AB; }   /* comentari dins del codi */
+  .cq-block pre .o { color: #8FD0A5; }   /* sortida esperada */
+
+  /* ---- Figures: captures i esquemes ---- */
+  .cq-block figure { margin: 16px 0 18px; }
+  .cq-block figure img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: #FFF;
+  }
+  .cq-block figcaption {
+    margin-top: 6px;
+    font-size: .86rem;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  /* ---- Variants de color per tipus de bloc ---- */
+  .cq-block[data-kind="objectius"],
+  .cq-block[data-kind="pas a pas"],
+  .cq-block[data-kind="lliurament"],
+  .cq-block[data-kind="resum"] { border-color: var(--accent-line); }
+  .cq-block[data-kind="objectius"]::before,
+  .cq-block[data-kind="pas a pas"]::before,
+  .cq-block[data-kind="lliurament"]::before,
+  .cq-block[data-kind="resum"]::before { border-color: var(--accent-line); color: var(--accent); }
+  .cq-block[data-kind="objectius"] h2,
+  .cq-block[data-kind="pas a pas"] h2,
+  .cq-block[data-kind="lliurament"] h2,
+  .cq-block[data-kind="resum"] h2 { color: var(--accent); }
+
+  .cq-block[data-kind="recordatori"] { background: var(--warn-soft); border-color: #F5DCC8; }
+  .cq-block[data-kind="recordatori"]::before { background: var(--warn-soft); border-color: var(--warn-line); color: var(--warn); }
+  .cq-block[data-kind="recordatori"] h2 { color: var(--warn); }
+
+  .cq-block[data-kind="bones pràctiques"] { background: var(--ok-soft); border-color: var(--ok-line); }
+  .cq-block[data-kind="bones pràctiques"]::before { background: var(--ok-soft); border-color: var(--ok-line); color: var(--ok); }
+  .cq-block[data-kind="bones pràctiques"] h2 { color: var(--ok); }
+
+  .cq-block[data-kind="problemes"] { background: var(--ko-soft); border-color: var(--ko-line); }
+  .cq-block[data-kind="problemes"]::before { background: var(--ko-soft); border-color: var(--ko-line); color: var(--ko); }
+  .cq-block[data-kind="problemes"] h2 { color: var(--ko); }
+
+  /* ==== Traçabilitat amb el currículum ==== */
+  .cq-block[data-kind="currículum"] { background: transparent; }
+  .cq-block[data-kind="currículum"] h2 { color: var(--muted); }
+  .cq-block[data-kind="currículum"] p {
+    margin: 0 0 6px;
+    font-size: .86rem;
+    color: var(--muted);
+  }
+  .cq-block[data-kind="currículum"] p:last-child { margin-bottom: 0; }
+  .cq-block[data-kind="currículum"] .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-right: 6px;
+    white-space: nowrap;
+  }
+
+  /* ==== Diagrama de passos en flux (DORA i similars) ==== */
+  .dora-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
+    margin: 20px 0 22px;
+    flex-wrap: wrap;
+  }
+  .dora-step {
+    flex: 1 1 130px;
+    padding: 14px 12px 12px;
+    border: 1px solid var(--rule);
+    border-top: 2px solid var(--accent);
+    border-radius: 6px;
+    background: var(--paper);
+  }
+  .dora-step .n {
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: .08em;
+  }
+  .dora-step .t {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: .9rem;
+    letter-spacing: .02em;
+    margin: 2px 0 5px;
+  }
+  .dora-step .d { font-size: .8rem; line-height: 1.45; color: var(--muted); }
+  .dora-arrow { align-self: center; color: #B3C2D2; font-size: 1rem; }
+  @media (max-width: 620px) {
+    .dora-arrow { display: none; }
+    .dora-step { flex-basis: 100%; }
+  }
+
+  /* ==== Passos numerats de les guies pas a pas ==== */
+  .cq-steps { counter-reset: step; margin: 4px 0 0; padding: 0; list-style: none; }
+  .cq-steps > li {
+    counter-increment: step;
+    position: relative;
+    padding: 0 0 4px 34px;
+    margin-bottom: 18px;
+  }
+  .cq-steps > li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0; top: 1px;
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    border-radius: 50%;
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--accent);
+  }
+  .cq-steps > li > :first-child { margin-top: 0; }
+
+  /* ==== Problemes: símptoma → causa → solució ==== */
+  .cq-issues { margin: 4px 0 0; }
+  .cq-issues dt {
+    font-weight: 600;
+    margin-top: 16px;
+    color: var(--ko);
+  }
+  .cq-issues dt:first-child { margin-top: 0; }
+  .cq-issues dd { margin: 4px 0 0 0; }
+  .cq-issues dd .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 6px;
+  }
+
+  /* ==== Taula de referència ==== */
+  .cq-tablewrap { overflow-x: auto; margin: 14px 0 4px; }
+  .cq-table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+  .cq-table th, .cq-table td {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .cq-table th {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: .78rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom-color: var(--accent-line);
+    white-space: nowrap;
+  }
+  /* La primera columna sol ser una ordre curta i queda millor sencera, però
+     quan és prosa ha de poder partir-se: si no, la taula no cap al mòbil. */
+  .cq-table td:first-child > code:only-child { white-space: nowrap; }
+  .cq-table tr:last-child td { border-bottom: none; }
+
+  /* ==== Nota de versió de sistema (Ubuntu 26.04) ==== */
+  .cq-note {
+    margin: 14px 0 4px;
+    padding: 10px 14px;
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: 0 6px 6px 0;
+    font-size: .9rem;
+  }
+  .cq-note .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+
+  /* ==== Índex del mòdul (portada) ==== */
+  .cq-index { display: grid; gap: 10px; margin: 4px 0 0; padding: 0; list-style: none; }
+  .cq-index a {
+    display: flex; align-items: baseline; gap: 12px;
+    padding: 13px 16px;
+    border: 1px solid var(--rule); border-radius: 8px;
+    background: var(--paper); color: var(--ink); text-decoration: none;
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-index a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-index .ref {
+    font-family: var(--font-mono); font-size: .74rem; font-weight: 500;
+    color: var(--accent); letter-spacing: .06em; flex: 0 0 auto;
+  }
+  .cq-index .ttl { font-family: var(--font-display); font-weight: 700; font-size: .98rem; }
+  .cq-index .sub { display: block; font-size: .84rem; color: var(--muted); font-weight: 400; font-family: var(--font-body); margin-top: 1px; }
+
+  /* ==== Quiz ==== */
+  .cq-question { margin: 22px 0 0; }
+  .cq-question + .cq-question { padding-top: 22px; border-top: 1px solid var(--rule); }
+  .cq-question .statement { font-weight: 600; margin-bottom: 10px; }
+  .cq-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 14px;
+    margin: 7px 0;
+    border: 1px solid var(--rule);
+    border-radius: 7px;
+    background: var(--card);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .95rem;
+    color: var(--ink);
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-option:hover:not(:disabled) { border-color: #B3C2D2; }
+  .cq-option:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .cq-option.cq-selected { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-option.cq-correct { border-color: var(--ok); background: var(--ok-soft); color: var(--ok); }
+  .cq-option.cq-incorrect { border-color: var(--ko); background: var(--ko-soft); color: var(--ko); }
+  .cq-check-btn {
+    margin-top: 10px;
+    padding: 9px 20px;
+    border: none;
+    border-radius: 7px;
+    background: var(--accent);
+    color: #FFFFFF;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: .88rem;
+    cursor: pointer;
+  }
+  .cq-check-btn:hover:not(:disabled) { background: var(--accent-hover); }
+  .cq-check-btn:disabled { background: #B3C2D2; cursor: default; }
+  .cq-feedback { margin-top: 10px; font-size: .88rem; font-weight: 600; }
+  .cq-feedback.ok { color: var(--ok); }
+  .cq-feedback.ko { color: var(--ko); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  /* ==== Mòbil: la pantalla de 375 px és la mida de treball real ==== */
+  @media (max-width: 620px) {
+    body { padding: 26px 10px 56px; }
+    .cq-nav { margin: -26px -10px 22px; padding: 9px 10px; }
+    .cq-block { padding: 22px 16px 24px; }
+    .cq-block::before { left: 14px; }
+    .cq-table { font-size: .84rem; }
+    .cq-table th, .cq-table td { padding: 8px 8px; }
+    .cq-table th { white-space: normal; }
+    .cq-pager { grid-template-columns: 1fr; }
+    .cq-pager .next { grid-column: 1; text-align: left; }
+  }
+
+  /* ==== Impressió: els alumnes imprimeixen la teoria ==== */
+  @media print {
+    body { background: #FFF; padding: 0; font-size: 11pt; }
+    .cq-block { border-color: #CCC; page-break-inside: avoid; margin-bottom: 12px; }
+    .cq-block pre { background: #F4F4F4; color: #000; border: 1px solid #DDD; }
+    .cq-block pre .c, .cq-block pre .o { color: #555; }
+    .cq-check-btn { display: none; }
+    .cq-nav, .cq-pager { display: none; }
+    a.cq-ref { border-bottom: none; color: inherit; }
+  }
+  /* ==== Contingut no copiable ====
+     Dissuasiu, no una protecció: la prosa és per llegir-la al web o a
+     Moodle, no per copiar-la. El codi, les ordres i les taules SÍ que es
+     copien: l'alumnat treballa per SSH i les ha d'enganxar. L'editor
+     treballa amb contenteditable i queda exclòs. */
+  .cq-header, .cq-block {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  .cq-block pre, .cq-block pre *,
+  .cq-block code, .cq-table, .cq-table *,
+  [contenteditable="true"], [contenteditable="true"] * {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    user-select: text;
+  }
+
+/* === SINAPSI-CSS FI ======================================== */
+</style>
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA3 · Instal·lació de serveis de gestió d'arxius web</a>
+    <span class="pos">G3.2 · 5/9</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA3 · G3.2</div>
+  <h1>Guia: administrar Nextcloud</h1>
+  <p class="lede">Comptes, grups, quotes, carpetes d'equip, comparticions, etiquetes i seguretat, des del navegador.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què hi ha en aquesta guia</h2>
+  <p>Documentació oficial: <a href="https://docs.nextcloud.com/server/latest/admin_manual/">Administration Manual</a> · <a href="https://docs.nextcloud.com/server/latest/user_manual/">User Manual</a></p>
+  <ul>
+    <li>Punt de partida: Nextcloud instal·lat i funcionant (<a class="cq-ref" href="g3-1-instal-lar-nextcloud.html">G3.1</a>).</li>
+    <li>Cobreix comptes, grups i quotes, operacions amb fitxers, compartició, carpetes d'equip, etiquetes i cerca, aplicacions i seguretat.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>On és cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Vull</th><th>On</th></tr></thead>
+      <tbody>
+        <tr><td>Comptes, grups i quotes</td><td>Menú del perfil → <strong>Comptes</strong></td></tr>
+        <tr><td>Aplicacions</td><td>Menú del perfil → <strong>Aplicacions</strong></td></tr>
+        <tr><td>Estat, avisos i seguretat</td><td><strong>Configuració → Administració → Visió general</strong></td></tr>
+        <tr><td>Registres del servei</td><td><strong>Configuració → Administració → Registre</strong></td></tr>
+        <tr><td>Normes de compartició</td><td><strong>Configuració → Administració → Compartició</strong></td></tr>
+        <tr><td>Fitxers, etiquetes i comparticions</td><td>Aplicació <strong>Fitxers</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 3 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Comptes, grups i quotes</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Crea un grup</strong> a <strong>Comptes</strong>, amb el botó d'afegir grup: per exemple <code>professorat</code> i <code>1r-smx</code>.</p>
+    </li>
+    <li>
+      <p><strong>Crea els comptes</strong> amb <strong>Compte nou</strong>: nom d'usuari, nom que es veurà, contrasenya o correu, grup i <strong>quota</strong>.</p>
+    </li>
+    <li>
+      <p><strong>Fixa la quota per defecte</strong> dels comptes nous a <strong>Configuració → Administració → Comptes</strong>.</p>
+    </li>
+    <li>
+      <p><strong>Nomena un administrador de grup</strong> des de la fila del compte, a la columna de grups d'administració: gestionarà només el seu grup.</p>
+    </li>
+    <li>
+      <p><strong>Des del terminal</strong>, per crear-ne molts de cop:</p>
+<pre>cd /var/www/nuvol.internal
+sudo -u www-data php occ group:add 1r-smx
+sudo -u www-data php occ user:add --group=1r-smx apinyol
+sudo -u www-data php occ user:setting apinyol files quota 5GB</pre>
+    </li>
+    <li>
+      <p><strong>Desactiva un compte</strong> en lloc d'esborrar-lo quan algú marxa: els fitxers es mantenen.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 4 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Fitxers i carpetes</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Puja fitxers</strong> arrossegant-los a la finestra o amb el botó <strong>+</strong>, que també crea carpetes i documents.</p>
+    </li>
+    <li>
+      <p><strong>Mou i reanomena</strong> amb el menú de tres punts de cada fila. Les operacions es poden fer en bloc seleccionant diverses files.</p>
+    </li>
+    <li>
+      <p><strong>Recupera</strong> el que s'ha esborrat a <strong>Fitxers esborrats</strong>, i les versions anteriors d'un fitxer al panell lateral, pestanya <strong>Versions</strong>.</p>
+    </li>
+    <li>
+      <p><strong>Escriu la descripció de la carpeta</strong>: obre-la i clica a l'espai de text de sobre de la llista. Es guarda com un fitxer <code>Readme.md</code> dins de la carpeta.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 5 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Compartir</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Obre el panell de compartició</strong> amb la icona de compartir de la fila.</p>
+    </li>
+    <li>
+      <p><strong>Amb una persona o un grup:</strong> escriu-ne el nom i tria els permisos al menú de tres punts: <em>permet editar</em>, <em>permet crear</em>, <em>permet esborrar</em>, <em>permet tornar a compartir</em>.</p>
+    </li>
+    <li>
+      <p><strong>Amb un enllaç:</strong> crea l'enllaç i, al seu menú, activa <strong>contrasenya</strong> i <strong>data de caducitat</strong>. Tria què permet: només llegir, pujar i editar, o <strong>només pujar</strong> (bústia d'entregues).</p>
+    </li>
+    <li>
+      <p><strong>Posa les normes del lloc</strong> a <strong>Configuració → Administració → Compartició</strong>: obligar contrasenya als enllaços, caducitat màxima i si es pot tornar a compartir.</p>
+    </li>
+    <li>
+      <p><strong>Revisa les comparticions</strong> obertes a l'apartat <strong>Compartits</strong> de l'aplicació Fitxers.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 6 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Carpetes d'equip</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Activa l'aplicació</strong> <em>Team folders</em> (abans <em>Group folders</em>) des d'<strong>Aplicacions</strong>.</p>
+    </li>
+    <li>
+      <p><strong>Crea la carpeta</strong> a <strong>Configuració → Administració → Carpetes d'equip</strong>, dona-li nom i assigna-hi els grups.</p>
+    </li>
+    <li>
+      <p><strong>Ajusta els permisos</strong> de cada grup sobre la carpeta i, si cal, posa-li quota pròpia.</p>
+    </li>
+    <li>
+      <p><strong>Comprova</strong> que els membres del grup la veuen a l'arrel dels seus fitxers, sense que ningú n'hagi de ser el propietari.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 7 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Etiquetes, comentaris i cerca</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Etiqueta un fitxer</strong> des del panell lateral, pestanya d'etiquetes. Les etiquetes són del lloc: si una altra persona té accés al fitxer, també les veu.</p>
+    </li>
+    <li>
+      <p><strong>Gestiona la llista d'etiquetes</strong> a <strong>Configuració → Administració → Etiquetes</strong>: crea les acordades i esborra les repetides.</p>
+    </li>
+    <li>
+      <p><strong>Escriu comentaris</strong> a la pestanya de comentaris del mateix panell.</p>
+    </li>
+    <li>
+      <p><strong>Cerca</strong> amb la lupa de dalt: per nom, per tipus i per etiqueta. A l'aplicació Fitxers hi ha el filtre per etiquetes.</p>
+    </li>
+    <li>
+      <p><strong>Si has tocat fitxers per fora</strong>, refés l'índex:</p>
+<pre>cd /var/www/nuvol.internal
+sudo -u www-data php occ files:scan --all</pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 8 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Seguretat i manteniment</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Llegeix la visió general</strong>: resol els avisos de seguretat i de configuració que hi surten.</p>
+    </li>
+    <li>
+      <p><strong>Activa la verificació en dos passos</strong> per als administradors des d'<strong>Aplicacions</strong> (Two-Factor TOTP) i configura-la al teu perfil.</p>
+    </li>
+    <li>
+      <p><strong>Revisa els intents fallits</strong> i les IP bloquejades per la protecció contra força bruta al registre del servei.</p>
+    </li>
+    <li>
+      <p><strong>Actualitza</strong> el servei i les aplicacions: a <strong>Visió general</strong> hi surt si hi ha versió nova; fes la còpia abans.</p>
+    </li>
+    <li>
+      <p><strong>Mira l'espai i les quotes</strong> a <strong>Comptes</strong>, ordenant per espai utilitzat.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 9 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Comprovació de conjunt</h2>
+  <ul>
+    <li>Un usuari del grup veu la carpeta d'equip acabada de crear.</li>
+    <li>Un usuari amb permís de només lectura no pot desar cap canvi.</li>
+    <li>L'enllaç públic demana contrasenya i deixa de funcionar passada la data.</li>
+    <li>La cerca per etiqueta troba fitxers de carpetes diferents.</li>
+    <li><code>sudo -u www-data php occ user:list</code> mostra els comptes creats.</li>
+    <li>La visió general no té avisos de seguretat.</li>
+  </ul>
+</div>
+
+<!-- ============ 10 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Comparteix amb grups i carpetes d'equip; deixa el compte personal per al que és personal.</li>
+    <li>Obliga contrasenya i caducitat als enllaços públics des de la configuració del lloc.</li>
+    <li>Llista d'etiquetes tancada i descripció a cada carpeta d'equip.</li>
+    <li>Desactiva els comptes, no els esborris, fins que sàpigues on van els seus fitxers.</li>
+    <li>Repassa la visió general cada vegada que actualitzis.</li>
+  </ul>
+</div>
+
+<!-- ============ 11 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>Un usuari no veu la carpeta compartida</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> S'ha compartit amb un altre compte o el grup no és el seu.</p>
+      <p><span class="lbl">Solució</span> Revisa el panell de compartició i els grups del compte.</p>
+    </dd>
+    <dt>No deixa crear enllaços públics</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Estan desactivats a la configuració de compartició del lloc.</p>
+      <p><span class="lbl">Solució</span> Activa'ls i posa-hi les normes de contrasenya i caducitat.</p>
+    </dd>
+    <dt>Un compte no pot pujar res</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Ha arribat a la quota.</p>
+      <p><span class="lbl">Solució</span> Puja-li la quota o demana-li que buidi els fitxers esborrats, que també ocupen.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 12 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Fitxa ràpida</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Vull</th><th>On o quina ordre</th></tr></thead>
+      <tbody>
+        <tr><td>Crear grup i compte</td><td>Comptes → Compte nou · <code>occ group:add</code> · <code>occ user:add</code></td></tr>
+        <tr><td>Posar quota</td><td>Comptes → columna Quota · <code>occ user:setting … files quota</code></td></tr>
+        <tr><td>Carpeta d'equip</td><td>Administració → Carpetes d'equip</td></tr>
+        <tr><td>Enllaç amb contrasenya</td><td>Panell de compartició → Enllaç → menú</td></tr>
+        <tr><td>Etiquetes del lloc</td><td>Administració → Etiquetes</td></tr>
+        <tr><td>Refer l'índex</td><td><code>occ files:scan --all</code></td></tr>
+        <tr><td>Estat i seguretat</td><td>Administració → Visió general</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="g3-1-instal-lar-nextcloud.html">
+    <span class="dir">Anterior · G3.1</span>
+    <span class="ttl">Guia: instal·lar Nextcloud</span></a>
+  <a class="next" href="../activitats/a3-1-el-nuvol-a-punt.html">
+    <span class="dir">Següent · A3.1</span>
+    <span class="ttl">El núvol a punt</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script>
+  // Dissuasió de la còpia: mai al codi, a les taules ni dins de l'editor.
+  // L'alumnat treballa per SSH i ha de poder enganxar les ordres.
+  (function () {
+    var LLIURE = 'pre, code, .cq-table, [contenteditable="true"]';
+    function copiable(node) {
+      if (node && node.nodeType !== 1) { node = node.parentNode; }
+      return !!(node && node.closest && node.closest(LLIURE));
+    }
+    function seleccioCopiable() {
+      var s = document.getSelection();
+      if (!s || s.rangeCount === 0) { return false; }
+      return copiable(s.getRangeAt(0).commonAncestorContainer);
+    }
+    ['copy', 'cut'].forEach(function (nom) {
+      document.addEventListener(nom, function (e) {
+        if (!seleccioCopiable()) { e.preventDefault(); }
+      });
+    });
+    document.addEventListener('dragstart', function (e) {
+      if (!copiable(e.target)) { e.preventDefault(); }
+    });
+  })();
+
+  // Motor únic per a totes les preguntes single i multi.
+  document.querySelectorAll('.cq-question').forEach(function (question) {
+    var id = question.dataset.id;
+    if (!id) {
+      throw new Error('Falta data-id a una pregunta del quiz.');
+    }
+    var type = question.dataset.type;
+    if (type !== 'single' && type !== 'multi') {
+      throw new Error('data-type invàlid ("' + type + '") a la pregunta "' + id + '".');
+    }
+
+    var options = question.querySelectorAll('.cq-option');
+    var checkBtn = question.querySelector('.cq-check-btn');
+    var feedback = question.querySelector('.cq-feedback');
+
+    options.forEach(function (opt) {
+      opt.addEventListener('click', function () {
+        if (type === 'single') {
+          options.forEach(function (o) { o.classList.remove('cq-selected'); });
+          opt.classList.add('cq-selected');
+        } else {
+          opt.classList.toggle('cq-selected');
+        }
+        options.forEach(function (o) {
+          o.setAttribute('aria-pressed',
+            o.classList.contains('cq-selected') ? 'true' : 'false');
+        });
+      });
+    });
+
+    checkBtn.addEventListener('click', function () {
+      var allCorrect = true;
+      options.forEach(function (opt) {
+        var isCorrect = opt.dataset.correct === 'true';
+        var isSelected = opt.classList.contains('cq-selected');
+        opt.classList.remove('cq-selected');
+        opt.setAttribute('aria-pressed', 'false');
+        if (isCorrect) {
+          opt.classList.add('cq-correct');
+        } else if (isSelected) {
+          opt.classList.add('cq-incorrect');
+        }
+        opt.disabled = true;
+        if (isCorrect !== isSelected) {
+          allCorrect = false;
+        }
+      });
+      feedback.textContent = allCorrect ? 'Correcte!' : 'Incorrecte, revisa les respostes marcades.';
+      feedback.className = 'cq-feedback ' + (allCorrect ? 'ok' : 'ko');
+      checkBtn.disabled = true;
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T1.2 · HTML i CSS — Aplicacions Web (0228)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* === SINAPSI-CSS INICI =======================================
+   0228 · Aplicacions Web — Identitat visual del mòdul
+   Blau estructural · taronja per als avisos · paper clar
+   per a la lectura · codi en fosc.
+   Aquest bloc és IDÈNTIC a totes les pàgines del mòdul.
+   No l'editis en una sola pàgina: edita'l a totes o extreu-lo
+   a un full compartit (_identitat/sinapsi.css).
+   ============================================================ */
+  :root {
+    --paper:        #FBFCFD;
+    --card:         #FFFFFF;
+    --ink:          #131A22;
+    --muted:        #5C6875;
+    --rule:         #E3E7EC;
+    --accent:       #1D4E89;
+    --accent-hover: #26639F;
+    --accent-soft:  #EFF5FB;
+    --accent-line:  #DCE7F3;
+    --warn:         #C2410C;
+    --warn-soft:    #FEF6EF;
+    --warn-line:    #F0CBAE;
+    --code-bg:      #16202E;
+    --code-ink:     #E2E9F1;
+    --ok:           #0E7A4B;
+    --ok-soft:      #F0FAF4;
+    --ok-line:      #C6E7D6;
+    --ko:           #B4232B;
+    --ko-soft:      #FEF4F4;
+    --ko-line:      #F2CFCF;
+    --font-display: "Ubuntu", -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-body:    "Source Sans 3", -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono:    "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  }
+
+  body {
+    margin: 0;
+    padding: 40px 16px 72px;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ==== Navegació: barra de dalt i pas a la pàgina següent ==== */
+  .cq-nav {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    margin: -40px -16px 26px;
+    padding: 9px 16px;
+    background: rgba(251, 252, 253, .93);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .cq-nav .inner {
+    max-width: 660px;
+    margin: 0 auto;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+  }
+  .cq-nav a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .9rem;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cq-nav a:hover { text-decoration: underline; }
+  .cq-nav .pos {
+    flex: 0 0 auto;
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    letter-spacing: .1em;
+    color: var(--muted);
+  }
+
+  .cq-pager {
+    max-width: 660px;
+    margin: 26px auto 0;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .cq-pager a {
+    display: block;
+    padding: 13px 16px;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    background: var(--card);
+    color: var(--ink);
+    text-decoration: none;
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-pager a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-pager .dir {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: .67rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+  .cq-pager .ttl {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: .92rem;
+    line-height: 1.3;
+  }
+  .cq-pager .next { grid-column: 2; text-align: right; }
+
+  /* Referència a una altra pàgina del mòdul (T2.4, G4.1, A3.2…) */
+  a.cq-ref {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-line);
+  }
+  a.cq-ref:hover { border-bottom-color: var(--accent); }
+
+  /* ==== Capçalera de la pàgina ==== */
+  .cq-header {
+    max-width: 660px;
+    margin: 0 auto 26px;
+  }
+  .cq-header .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .cq-header h1 {
+    margin: 6px 0 4px;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1.15;
+  }
+  .cq-header .lede {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+
+  /* ==== Bloc de contingut: patró únic per a tots els tipus ==== */
+  .cq-block {
+    max-width: 660px;
+    margin: 0 auto 20px;
+    padding: 26px 30px 28px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    position: relative;
+  }
+
+  /* Etiqueta de secció: petita, monoespaiada, com la capçalera
+     d'una fitxa tècnica. El text surt de l'atribut data-kind. */
+  .cq-block::before {
+    content: attr(data-kind);
+    position: absolute;
+    top: -8px;
+    left: 26px;
+    padding: 1px 9px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 20px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .cq-block h2 {
+    margin: 4px 0 14px;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .cq-block p { margin: 0 0 14px; }
+  .cq-block p:last-child { margin-bottom: 0; }
+  .cq-block em { font-style: italic; color: var(--muted); }
+  .cq-block strong { font-weight: 600; }
+  .cq-block ul, .cq-block ol { margin: 0 0 14px; padding-left: 22px; }
+  .cq-block li { margin-bottom: 6px; }
+  .cq-block li:last-child { margin-bottom: 0; }
+  .cq-block a { color: var(--accent); overflow-wrap: anywhere; }
+
+  .cq-block code {
+    font-family: var(--font-mono);
+    font-size: .84em;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    border-radius: 4px;
+    padding: 1px 5px;
+    color: var(--accent);
+  }
+  .cq-block pre {
+    margin: 14px 0 18px;
+    padding: 16px 18px;
+    background: var(--code-bg);
+    color: var(--code-ink);
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: .82rem;
+    line-height: 1.6;
+  }
+  .cq-block pre code { all: unset; font: inherit; }
+  .cq-block pre .c { color: #7E93AB; }   /* comentari dins del codi */
+  .cq-block pre .o { color: #8FD0A5; }   /* sortida esperada */
+
+  /* ---- Figures: captures i esquemes ---- */
+  .cq-block figure { margin: 16px 0 18px; }
+  .cq-block figure img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: #FFF;
+  }
+  .cq-block figcaption {
+    margin-top: 6px;
+    font-size: .86rem;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  /* ---- Variants de color per tipus de bloc ---- */
+  .cq-block[data-kind="objectius"],
+  .cq-block[data-kind="pas a pas"],
+  .cq-block[data-kind="lliurament"],
+  .cq-block[data-kind="resum"] { border-color: var(--accent-line); }
+  .cq-block[data-kind="objectius"]::before,
+  .cq-block[data-kind="pas a pas"]::before,
+  .cq-block[data-kind="lliurament"]::before,
+  .cq-block[data-kind="resum"]::before { border-color: var(--accent-line); color: var(--accent); }
+  .cq-block[data-kind="objectius"] h2,
+  .cq-block[data-kind="pas a pas"] h2,
+  .cq-block[data-kind="lliurament"] h2,
+  .cq-block[data-kind="resum"] h2 { color: var(--accent); }
+
+  .cq-block[data-kind="recordatori"] { background: var(--warn-soft); border-color: #F5DCC8; }
+  .cq-block[data-kind="recordatori"]::before { background: var(--warn-soft); border-color: var(--warn-line); color: var(--warn); }
+  .cq-block[data-kind="recordatori"] h2 { color: var(--warn); }
+
+  .cq-block[data-kind="bones pràctiques"] { background: var(--ok-soft); border-color: var(--ok-line); }
+  .cq-block[data-kind="bones pràctiques"]::before { background: var(--ok-soft); border-color: var(--ok-line); color: var(--ok); }
+  .cq-block[data-kind="bones pràctiques"] h2 { color: var(--ok); }
+
+  .cq-block[data-kind="problemes"] { background: var(--ko-soft); border-color: var(--ko-line); }
+  .cq-block[data-kind="problemes"]::before { background: var(--ko-soft); border-color: var(--ko-line); color: var(--ko); }
+  .cq-block[data-kind="problemes"] h2 { color: var(--ko); }
+
+  /* ==== Traçabilitat amb el currículum ==== */
+  .cq-block[data-kind="currículum"] { background: transparent; }
+  .cq-block[data-kind="currículum"] h2 { color: var(--muted); }
+  .cq-block[data-kind="currículum"] p {
+    margin: 0 0 6px;
+    font-size: .86rem;
+    color: var(--muted);
+  }
+  .cq-block[data-kind="currículum"] p:last-child { margin-bottom: 0; }
+  .cq-block[data-kind="currículum"] .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-right: 6px;
+    white-space: nowrap;
+  }
+
+  /* ==== Diagrama de passos en flux (DORA i similars) ==== */
+  .dora-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
+    margin: 20px 0 22px;
+    flex-wrap: wrap;
+  }
+  .dora-step {
+    flex: 1 1 130px;
+    padding: 14px 12px 12px;
+    border: 1px solid var(--rule);
+    border-top: 2px solid var(--accent);
+    border-radius: 6px;
+    background: var(--paper);
+  }
+  .dora-step .n {
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: .08em;
+  }
+  .dora-step .t {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: .9rem;
+    letter-spacing: .02em;
+    margin: 2px 0 5px;
+  }
+  .dora-step .d { font-size: .8rem; line-height: 1.45; color: var(--muted); }
+  .dora-arrow { align-self: center; color: #B3C2D2; font-size: 1rem; }
+  @media (max-width: 620px) {
+    .dora-arrow { display: none; }
+    .dora-step { flex-basis: 100%; }
+  }
+
+  /* ==== Passos numerats de les guies pas a pas ==== */
+  .cq-steps { counter-reset: step; margin: 4px 0 0; padding: 0; list-style: none; }
+  .cq-steps > li {
+    counter-increment: step;
+    position: relative;
+    padding: 0 0 4px 34px;
+    margin-bottom: 18px;
+  }
+  .cq-steps > li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0; top: 1px;
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    border-radius: 50%;
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--accent);
+  }
+  .cq-steps > li > :first-child { margin-top: 0; }
+
+  /* ==== Problemes: símptoma → causa → solució ==== */
+  .cq-issues { margin: 4px 0 0; }
+  .cq-issues dt {
+    font-weight: 600;
+    margin-top: 16px;
+    color: var(--ko);
+  }
+  .cq-issues dt:first-child { margin-top: 0; }
+  .cq-issues dd { margin: 4px 0 0 0; }
+  .cq-issues dd .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 6px;
+  }
+
+  /* ==== Taula de referència ==== */
+  .cq-tablewrap { overflow-x: auto; margin: 14px 0 4px; }
+  .cq-table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+  .cq-table th, .cq-table td {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .cq-table th {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: .78rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom-color: var(--accent-line);
+    white-space: nowrap;
+  }
+  /* La primera columna sol ser una ordre curta i queda millor sencera, però
+     quan és prosa ha de poder partir-se: si no, la taula no cap al mòbil. */
+  .cq-table td:first-child > code:only-child { white-space: nowrap; }
+  .cq-table tr:last-child td { border-bottom: none; }
+
+  /* ==== Nota de versió de sistema (Ubuntu 26.04) ==== */
+  .cq-note {
+    margin: 14px 0 4px;
+    padding: 10px 14px;
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: 0 6px 6px 0;
+    font-size: .9rem;
+  }
+  .cq-note .lbl {
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+
+  /* ==== Índex del mòdul (portada) ==== */
+  .cq-index { display: grid; gap: 10px; margin: 4px 0 0; padding: 0; list-style: none; }
+  .cq-index a {
+    display: flex; align-items: baseline; gap: 12px;
+    padding: 13px 16px;
+    border: 1px solid var(--rule); border-radius: 8px;
+    background: var(--paper); color: var(--ink); text-decoration: none;
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-index a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-index .ref {
+    font-family: var(--font-mono); font-size: .74rem; font-weight: 500;
+    color: var(--accent); letter-spacing: .06em; flex: 0 0 auto;
+  }
+  .cq-index .ttl { font-family: var(--font-display); font-weight: 700; font-size: .98rem; }
+  .cq-index .sub { display: block; font-size: .84rem; color: var(--muted); font-weight: 400; font-family: var(--font-body); margin-top: 1px; }
+
+  /* ==== Quiz ==== */
+  .cq-question { margin: 22px 0 0; }
+  .cq-question + .cq-question { padding-top: 22px; border-top: 1px solid var(--rule); }
+  .cq-question .statement { font-weight: 600; margin-bottom: 10px; }
+  .cq-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 14px;
+    margin: 7px 0;
+    border: 1px solid var(--rule);
+    border-radius: 7px;
+    background: var(--card);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .95rem;
+    color: var(--ink);
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .cq-option:hover:not(:disabled) { border-color: #B3C2D2; }
+  .cq-option:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .cq-option.cq-selected { border-color: var(--accent); background: var(--accent-soft); }
+  .cq-option.cq-correct { border-color: var(--ok); background: var(--ok-soft); color: var(--ok); }
+  .cq-option.cq-incorrect { border-color: var(--ko); background: var(--ko-soft); color: var(--ko); }
+  .cq-check-btn {
+    margin-top: 10px;
+    padding: 9px 20px;
+    border: none;
+    border-radius: 7px;
+    background: var(--accent);
+    color: #FFFFFF;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: .88rem;
+    cursor: pointer;
+  }
+  .cq-check-btn:hover:not(:disabled) { background: var(--accent-hover); }
+  .cq-check-btn:disabled { background: #B3C2D2; cursor: default; }
+  .cq-feedback { margin-top: 10px; font-size: .88rem; font-weight: 600; }
+  .cq-feedback.ok { color: var(--ok); }
+  .cq-feedback.ko { color: var(--ko); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  /* ==== Mòbil: la pantalla de 375 px és la mida de treball real ==== */
+  @media (max-width: 620px) {
+    body { padding: 26px 10px 56px; }
+    .cq-nav { margin: -26px -10px 22px; padding: 9px 10px; }
+    .cq-block { padding: 22px 16px 24px; }
+    .cq-block::before { left: 14px; }
+    .cq-table { font-size: .84rem; }
+    .cq-table th, .cq-table td { padding: 8px 8px; }
+    .cq-table th { white-space: normal; }
+    .cq-pager { grid-template-columns: 1fr; }
+    .cq-pager .next { grid-column: 1; text-align: left; }
+  }
+
+  /* ==== Impressió: els alumnes imprimeixen la teoria ==== */
+  @media print {
+    body { background: #FFF; padding: 0; font-size: 11pt; }
+    .cq-block { border-color: #CCC; page-break-inside: avoid; margin-bottom: 12px; }
+    .cq-block pre { background: #F4F4F4; color: #000; border: 1px solid #DDD; }
+    .cq-block pre .c, .cq-block pre .o { color: #555; }
+    .cq-check-btn { display: none; }
+    .cq-nav, .cq-pager { display: none; }
+    a.cq-ref { border-bottom: none; color: inherit; }
+  }
+  /* ==== Contingut no copiable ====
+     Dissuasiu, no una protecció: la prosa és per llegir-la al web o a
+     Moodle, no per copiar-la. El codi, les ordres i les taules SÍ que es
+     copien: l'alumnat treballa per SSH i les ha d'enganxar. L'editor
+     treballa amb contenteditable i queda exclòs. */
+  .cq-header, .cq-block {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  .cq-block pre, .cq-block pre *,
+  .cq-block code, .cq-table, .cq-table *,
+  [contenteditable="true"], [contenteditable="true"] * {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    user-select: text;
+  }
+
+/* === SINAPSI-CSS FI ======================================== */
+</style>
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA1 · Instal·lació de gestors de continguts</a>
+    <span class="pos">T1.2 · 2/16</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA1 · T1.2</div>
+  <h1>HTML i CSS</h1>
+  <p class="lede">L'HTML diu què és cada cosa; el CSS diu com s'ha de veure.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què sabràs fer en acabar</h2>
+  <ul>
+    <li>Distingir el paper de l'HTML i el del CSS.</li>
+    <li>Escriure l'esquelet d'un document HTML5 amb etiquetes semàntiques.</li>
+    <li>Aplicar estils amb selectors d'etiqueta, de classe i d'identificador.</li>
+    <li>Diferenciar elements de bloc i elements en línia.</li>
+    <li>Saber on posar el CSS per personalitzar un tema d'un gestor de continguts.</li>
+  </ul>
+  <p>És una presentació pensada per entendre el que genera un gestor de continguts. La disposició de la pàgina i les webs fetes a mà es treballen al <a class="cq-ref" href="../../RAX/index.html">RAX</a>, material complementari.</p>
+</div>
+
+<!-- ============ 2 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Estructura i presentació, per separat</h2>
+  <p><strong>HTML</strong> és un llenguatge de marques: envolta el contingut amb etiquetes que diuen <em>què és</em> cada cosa, un títol, un paràgraf, un enllaç. No diu com es veu.</p>
+  <p><strong>CSS</strong> és el llenguatge d'estils: colors, tipus de lletra, espais i disposició. Separar-los permet canviar tot l'aspecte d'un lloc sense tocar el contingut, i és exactament el que fa un <strong>tema</strong> de WordPress o de Moodle.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th></th><th>HTML</th><th>CSS</th></tr></thead>
+      <tbody>
+        <tr><td>Respon</td><td>Què és aquest element?</td><td>Com s'ha de veure?</td></tr>
+        <tr><td>Tipus</td><td>Llenguatge de marques</td><td>Full d'estils</td></tr>
+        <tr><td>Exemple</td><td><code>&lt;h1&gt;Benvinguts&lt;/h1&gt;</code></td><td><code>h1 { color: navy; }</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 3 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>L'esquelet d'un document</h2>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="ca"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;Títol de la pestanya&lt;/title&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- contingut visible --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Peça</th><th>Funció</th></tr></thead>
+      <tbody>
+        <tr><td><code>&lt;!DOCTYPE html&gt;</code></td><td>Declara HTML5</td></tr>
+        <tr><td><code>lang="ca"</code></td><td>Idioma: ajuda els lectors de pantalla i els cercadors</td></tr>
+        <tr><td><code>&lt;head&gt;</code></td><td>Metadades, títol i enllaç al CSS; no es veu</td></tr>
+        <tr><td><code>viewport</code></td><td>Imprescindible perquè es vegi bé al mòbil</td></tr>
+        <tr><td><code>&lt;body&gt;</code></td><td>Tot el que es mostra</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 4 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>Etiquetes que més faràs servir</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Etiqueta</th><th>Serveix per</th></tr></thead>
+      <tbody>
+        <tr><td><code>&lt;h1&gt;</code>…<code>&lt;h6&gt;</code></td><td>Títols per nivells; un sol <code>h1</code> per pàgina</td></tr>
+        <tr><td><code>&lt;p&gt;</code></td><td>Paràgraf</td></tr>
+        <tr><td><code>&lt;strong&gt;</code> · <code>&lt;em&gt;</code></td><td>Text important · èmfasi</td></tr>
+        <tr><td><code>&lt;ul&gt;</code> · <code>&lt;ol&gt;</code> · <code>&lt;li&gt;</code></td><td>Llista sense ordre · ordenada · element</td></tr>
+        <tr><td><code>&lt;a href="…"&gt;</code></td><td>Enllaç</td></tr>
+        <tr><td><code>&lt;img src="…" alt="…"&gt;</code></td><td>Imatge; <code>alt</code> és obligatori</td></tr>
+        <tr><td><code>&lt;table&gt;</code> · <code>&lt;tr&gt;</code> · <code>&lt;th&gt;</code> · <code>&lt;td&gt;</code></td><td>Taula de dades</td></tr>
+        <tr><td><code>&lt;form&gt;</code> · <code>&lt;label&gt;</code> · <code>&lt;input&gt;</code></td><td>Formulari</td></tr>
+        <tr><td><code>&lt;header&gt;</code> · <code>&lt;nav&gt;</code> · <code>&lt;main&gt;</code></td><td>Capçalera · navegació · contingut principal</td></tr>
+        <tr><td><code>&lt;section&gt;</code> · <code>&lt;article&gt;</code> · <code>&lt;footer&gt;</code></td><td>Secció · peça independent · peu</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Com s'escriu una regla CSS</h2>
+<pre>selector {
+  propietat: valor;
+}</pre>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Selector</th><th>Exemple</th><th>S'aplica a</th></tr></thead>
+      <tbody>
+        <tr><td>D'etiqueta</td><td><code>p { color: #333; }</code></td><td>Tots els <code>&lt;p&gt;</code></td></tr>
+        <tr><td>De classe</td><td><code>.destacat { … }</code></td><td>Els elements amb <code>class="destacat"</code></td></tr>
+        <tr><td>D'identificador</td><td><code>#capcalera { … }</code></td><td>L'únic element amb <code>id="capcalera"</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>El CSS pot anar <strong>en línia</strong> (<code>style="…"</code>), <strong>intern</strong> (<code>&lt;style&gt;</code> al <code>head</code>) o <strong>extern</strong> (<code>styles.css</code> enllaçat). L'extern és el bo: un sol fitxer serveix per a totes les pàgines. Si dues regles xoquen, guanya la més específica: identificador sobre classe, classe sobre etiqueta.</p>
+</div>
+
+<!-- ============ 6 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Elements de bloc i elements en línia</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th></th><th>Bloc</th><th>En línia</th></tr></thead>
+      <tbody>
+        <tr><td>Exemples</td><td><code>div</code>, <code>p</code>, <code>h1</code>, <code>section</code>, <code>ul</code></td><td><code>span</code>, <code>a</code>, <code>strong</code>, <code>img</code>, <code>code</code></td></tr>
+        <tr><td>Ocupa</td><td>Tota l'amplada disponible</td><td>Només el que necessita</td></tr>
+        <tr><td>Comença</td><td>En una línia nova</td><td>A continuació del que hi ha</td></tr>
+        <tr><td><code>width</code> i <code>height</code></td><td>Funcionen</td><td>S'ignoren</td></tr>
+        <tr><td>Pot contenir</td><td>Blocs i elements en línia</td><td>Només elements en línia</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <figure>
+    <img src="../img/boxmodel-block-vs-inline.png" alt="Diferència entre elements de bloc i en línia" loading="lazy">
+  </figure>
+  <p>La propietat <code>display</code> ho canvia: <code>inline-block</code> es col·loca en línia però accepta mides, i és el truc clàssic per a un menú horitzontal.</p>
+</div>
+
+<!-- ============ 7 · EXEMPLE ============ -->
+<div class="cq-block" data-kind="exemple">
+  <h2>Un menú horitzontal</h2>
+<pre>&lt;nav&gt;
+  &lt;a href="#" class="menu"&gt;Inici&lt;/a&gt;
+  &lt;a href="#" class="menu"&gt;Serveis&lt;/a&gt;
+  &lt;a href="#" class="menu"&gt;Contacte&lt;/a&gt;
+&lt;/nav&gt;</pre>
+<pre>.menu {
+  display: inline-block;
+  width: 120px;
+  padding: 10px 0;
+  text-align: center;
+  background: #e3f2fd;
+  text-decoration: none;
+}
+.menu:hover { background: #bbdefb; }</pre>
+</div>
+
+<!-- ============ 8 · CAS REAL ============ -->
+<div class="cq-block" data-kind="cas real">
+  <h2>El CSS addicional d'un tema</h2>
+  <p>Als gestors de continguts no s'edita el fitxer del tema: la pròxima actualització el trepitjaria. WordPress té un apartat de <strong>CSS addicional</strong> i Moodle un camp de <strong>SCSS en brut</strong> on s'afegeixen regles pròpies. Són les mateixes regles d'aquesta pàgina, aplicades sobre les classes que el tema ja posa a l'HTML.</p>
+</div>
+
+<!-- ============ 9 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Inspeccionar qualsevol pàgina</h2>
+  <p>Clic dret sobre un element i <strong>Inspecciona</strong>: veuràs a l'esquerra l'HTML i a la dreta les regles CSS que s'hi apliquen. Pots canviar un valor i veure l'efecte a l'instant, sense tocar cap fitxer. És la manera de trobar la classe que has de fer servir al CSS addicional d'un tema.</p>
+</div>
+
+<!-- ============ 10 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Fes servir etiquetes pel que signifiquen, no per com es veuen.</li>
+    <li>Posa sempre <code>alt</code> a les imatges i <code>label</code> als camps.</li>
+    <li>CSS en fitxer extern, i classes millor que identificadors.</li>
+    <li>Valida l'HTML amb el <a href="https://validator.w3.org/">validador del W3C</a>.</li>
+    <li>No edites els fitxers d'un tema: fes servir el CSS addicional o un tema fill.</li>
+  </ul>
+</div>
+
+<!-- ============ 11 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>L'estil no s'aplica</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> La ruta de <code>&lt;link href&gt;</code> no és correcta, o el selector no coincideix amb la classe.</p>
+      <p><span class="lbl">Solució</span> Mira a la pestanya Xarxa si <code>styles.css</code> dona 404 i, a l'inspector, quines regles arriben a l'element.</p>
+    </dd>
+    <dt><code>width</code> no fa res</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> L'element és en línia.</p>
+      <p><span class="lbl">Solució</span> Canvia-li el <code>display</code> a <code>block</code> o <code>inline-block</code>.</p>
+    </dd>
+    <dt>Un <code>&lt;div&gt;</code> dins d'un <code>&lt;span&gt;</code></dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Un element en línia no pot contenir un bloc.</p>
+      <p><span class="lbl">Solució</span> Canvia el contenidor per un element de bloc.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 12 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Resum</h2>
+  <ul>
+    <li>HTML: estructura i significat. CSS: aspecte.</li>
+    <li>Tot document té <code>doctype</code>, <code>html</code>, <code>head</code> i <code>body</code>.</li>
+    <li>Selectors d'etiqueta, de classe (<code>.</code>) i d'identificador (<code>#</code>).</li>
+    <li>Bloc: ocupa l'amplada i admet mides. En línia: només el seu contingut.</li>
+    <li>Als gestors de continguts, el CSS propi va al CSS addicional del tema.</li>
+  </ul>
+</div>
+
+<!-- ============ 13 · QUIZ ============ -->
+<div class="cq-block" data-kind="quiz">
+  <h2>Comprova el que has après</h2>
+  <div class="cq-question" data-id="t1-2-paper" data-type="single">
+    <div class="statement">Quin llenguatge decideix el color d'un títol?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">HTML</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">CSS</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">PHP</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">HTTP</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-2-classe" data-type="single">
+    <div class="statement">Quin selector s'aplica a <code>&lt;p class="avis"&gt;</code>?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>#avis</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true"><code>.avis</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>avis</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>p#avis</code></button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-2-linia" data-type="multi">
+    <div class="statement">Quins són elements en línia per defecte?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true"><code>span</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true"><code>a</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>div</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>section</code></button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-2-tema" data-type="single">
+    <div class="statement">On poses el CSS per personalitzar un tema de WordPress?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Editant directament el fitxer <code>style.css</code> del tema</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">A l'apartat de CSS addicional, que no es perd en actualitzar</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Dins de cada entrada, amb <code>style</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">A la base de dades</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 1.3</span> Utilització de la interfície gràfica. Personalització de l'entorn. Funcionalitats proporcionades pel gestor de continguts. Sindicació.</p>
+  <p><span class="lbl">CA 1.3</span> Personalitza la interfície del gestor de continguts.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="t1-1-com-funciona-una-aplicacio-web.html">
+    <span class="dir">Anterior · T1.1</span>
+    <span class="ttl">Com funciona una aplicació web</span></a>
+  <a class="next" href="t1-3-gestors-de-continguts.html">
+    <span class="dir">Següent · T1.3</span>
+    <span class="ttl">Gestors de continguts</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script>
+  // Dissuasió de la còpia: mai al codi, a les taules ni dins de l'editor.
+  // L'alumnat treballa per SSH i ha de poder enganxar les ordres.
+  (function () {
+    var LLIURE = 'pre, code, .cq-table, [contenteditable="true"]';
+    function copiable(node) {
+      if (node && node.nodeType !== 1) { node = node.parentNode; }
+      return !!(node && node.closest && node.closest(LLIURE));
+    }
+    function seleccioCopiable() {
+      var s = document.getSelection();
+      if (!s || s.rangeCount === 0) { return false; }
+      return copiable(s.getRangeAt(0).commonAncestorContainer);
+    }
+    ['copy', 'cut'].forEach(function (nom) {
+      document.addEventListener(nom, function (e) {
+        if (!seleccioCopiable()) { e.preventDefault(); }
+      });
+    });
+    document.addEventListener('dragstart', function (e) {
+      if (!copiable(e.target)) { e.preventDefault(); }
+    });
+  })();
+
+  // Motor únic per a totes les preguntes single i multi.
+  document.querySelectorAll('.cq-question').forEach(function (question) {
+    var id = question.dataset.id;
+    if (!id) {
+      throw new Error('Falta data-id a una pregunta del quiz.');
+    }
+    var type = question.dataset.type;
+    if (type !== 'single' && type !== 'multi') {
+      throw new Error('data-type invàlid ("' + type + '") a la pregunta "' + id + '".');
+    }
+
+    var options = question.querySelectorAll('.cq-option');
+    var checkBtn = question.querySelector('.cq-check-btn');
+    var feedback = question.querySelector('.cq-feedback');
+
+    options.forEach(function (opt) {
+      opt.addEventListener('click', function () {
+        if (type === 'single') {
+          options.forEach(function (o) { o.classList.remove('cq-selected'); });
+          opt.classList.add('cq-selected');
+        } else {
+          opt.classList.toggle('cq-selected');
+        }
+        options.forEach(function (o) {
+          o.setAttribute('aria-pressed',
+            o.classList.contains('cq-selected') ? 'true' : 'false');
+        });
+      });
+    });
+
+    checkBtn.addEventListener('click', function () {
+      var allCorrect = true;
+      options.forEach(function (opt) {
+        var isCorrect = opt.dataset.correct === 'true';
+        var isSelected = opt.classList.contains('cq-selected');
+        opt.classList.remove('cq-selected');
+        opt.setAttribute('aria-pressed', 'false');
+        if (isCorrect) {
+          opt.classList.add('cq-correct');
+        } else if (isSelected) {
+          opt.classList.add('cq-incorrect');
+        }
+        opt.disabled = true;
+        if (isCorrect !== isSelected) {
+          allCorrect = false;
+        }
+      });
+      feedback.textContent = allCorrect ? 'Correcte!' : 'Incorrecte, revisa les respostes marcades.';
+      feedback.className = 'cq-feedback ' + (allCorrect ? 'ok' : 'ko');
+      checkBtn.disabled = true;
+    });
+  });
+</script>
+
+</body>
+</html>
