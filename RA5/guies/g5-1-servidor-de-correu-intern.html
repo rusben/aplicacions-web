@@ -591,11 +591,11 @@ sudo postconf -e 'inet_interfaces = loopback-only'
 sudo postconf -e 'mydestination = correu.internal, localhost'
 sudo systemctl restart postfix</pre>
     </li>
-    <li>
+<!--    <li>
       <p><strong>Digues a Dovecot</strong> on són les bústies:</p>
 <pre>sudo nano /etc/dovecot/conf.d/10-mail.conf</pre>
 <pre>mail_location = maildir:~/Maildir</pre>
-    </li>
+    </li> -->
     <li>
       <p><strong>Deixa només IMAP</strong> actiu i reinicia:</p>
 <pre>sudo nano /etc/dovecot/dovecot.conf</pre>
