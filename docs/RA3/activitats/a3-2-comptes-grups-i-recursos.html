@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A3.2 · Comptes, grups i recursos compartits — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA3 · Instal·lació de serveis de gestió d'arxius web</a>
+    <span class="pos">A3.2 · 7/9</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA3 · A3.2</div>
+  <h1>Comptes, grups i recursos compartits</h1>
+  <p class="lede">El núvol d'una associació: qui hi entra, quant espai té i qui pot tocar cada carpeta.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Teoria <a class="cq-ref" href="../teoria/t3-2-comptes-permisos-i-comparticio.html">T3.2</a>. La guia <a class="cq-ref" href="../guies/g3-2-administrar-nextcloud.html">G3.2</a>, apartats de comptes, compartició i carpetes d'equip, és el manual que consultaràs.</p>
+  <p>Crearàs els comptes de l'associació classificats per permisos, muntaràs els recursos compartits que necessita i demostraràs amb proves que cadascú pot fer exactament el que li toca.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <p>L'escriptori de l'<a class="cq-ref" href="a3-1-el-nuvol-a-punt.html">A3.1</a>, amb Nextcloud a <code>nuvol.internal</code>.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Persona</th><th>Què ha de poder fer</th></tr></thead>
+      <tbody>
+        <tr><td>Rosa, secretària</td><td>Administrar el núvol: comptes, quotes i aplicacions</td></tr>
+        <tr><td>Marc i Lia, junta</td><td>Editar els documents de la junta</td></tr>
+        <tr><td>Ona, tresorera</td><td>Editar les factures; ningú més les ha de veure</td></tr>
+        <tr><td>Socis</td><td>Llegir les actes, sense poder canviar-les</td></tr>
+        <tr><td>Gestoria externa</td><td>Rebre un document puntual, sense compte al núvol</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Què has de fer</h2>
+  <ol>
+    <li>Fes una <strong>taula de disseny</strong>: per a cada persona, el tipus d'usuari, el grup, la quota i per què.</li>
+    <li>Crea els <strong>grups</strong> <code>junta</code> i <code>socis</code> i els comptes de la taula. Posa una <strong>quota</strong> a cadascun i una quota per defecte per als comptes nous.</li>
+    <li>Fes de la Rosa <strong>administradora del grup</strong> <code>socis</code> i comprova què pot fer i què no.</li>
+    <li>Munta la <strong>jerarquia de carpetes</strong>: «Actes», «Junta», «Tresoreria» i «Recursos», amb una estructura pensada i explicada.</li>
+    <li>Crea una <strong>carpeta d'equip</strong> per a la junta, compartida amb el grup <code>junta</code> amb permís d'edició.</li>
+    <li>Comparteix «Actes» amb el grup <code>socis</code> en <strong>només lectura</strong>, i «Tresoreria» només amb l'Ona.</li>
+    <li>Crea un <strong>enllaç públic</strong> per a la gestoria amb contrasenya i caducitat de set dies, i una <strong>bústia d'entregues</strong> on els socis puguin pujar documents sense veure els dels altres.</li>
+    <li>Fes una <strong>matriu de proves</strong>: files amb les persones i un visitant sense compte, columnes amb les carpetes, i a cada cel·la què pot fer: res, llegir, editar o esborrar.</li>
+    <li>Simula que la Lia marxa: <strong>desactiva</strong> el seu compte i comprova que els documents de la junta hi continuen.</li>
+  </ol>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Quin tipus d'usuari i quina quota</td><td>Teoria <a class="cq-ref" href="../teoria/t3-2-comptes-permisos-i-comparticio.html">T3.2</a></td></tr>
+        <tr><td>Crear comptes, grups i quotes</td><td>Guia <a class="cq-ref" href="../guies/g3-2-administrar-nextcloud.html">G3.2</a>, «Comptes, grups i quotes»</td></tr>
+        <tr><td>Carpetes d'equip</td><td>Guia <a class="cq-ref" href="../guies/g3-2-administrar-nextcloud.html">G3.2</a>, «Carpetes d'equip»</td></tr>
+        <tr><td>Enllaços, contrasenya, caducitat i bústia</td><td>Guia <a class="cq-ref" href="../guies/g3-2-administrar-nextcloud.html">G3.2</a>, «Compartir»</td></tr>
+        <tr><td>Com ha de ser la jerarquia</td><td>Teoria <a class="cq-ref" href="../teoria/t3-2-comptes-permisos-i-comparticio.html">T3.2</a>, «Recursos compartits i jerarquia»</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>Permís mínim</h2>
+  <p>Els socis han de llegir les actes; si els dones permís d'edició «per si de cas», un dia una acta canviarà i ningú sabrà qui ho ha fet. Cada permís que dones l'has de poder justificar a la taula de disseny.</p>
+</div>
+
+<!-- ============ 6 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Provar-ho des de l'altre costat</h2>
+  <p>Obre una finestra privada i inicia sessió amb cada compte de prova. Intenta editar, esborrar i tornar a compartir. Una captura de l'intent que falla val més que una captura del panell de permisos.</p>
+</div>
+
+<!-- ============ 7 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li><code>sudo -u www-data php occ user:list</code> i <code>occ group:list</code> mostren comptes i grups de la taula.</li>
+    <li>Un soci obre «Actes» i no pot desar cap canvi.</li>
+    <li>L'Ona veu «Tresoreria» i la resta de comptes, no.</li>
+    <li>L'enllaç de la gestoria demana contrasenya i té data de caducitat.</li>
+    <li>A la bústia, un soci puja un fitxer i no veu els que ja hi ha.</li>
+    <li>Amb el compte de la Lia desactivat, la carpeta d'equip continua accessible per a la junta.</li>
+  </ul>
+</div>
+
+<!-- ============ 8 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>No apareix l'opció de carpeta d'equip</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> L'aplicació no està activada.</p>
+      <p><span class="lbl">Solució</span> Activa-la des d'Aplicacions, com explica <a class="cq-ref" href="../guies/g3-2-administrar-nextcloud.html">G3.2</a>.</p>
+    </dd>
+    <dt>L'enllaç públic no deixa posar contrasenya</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Les normes de compartició del lloc ho impedeixen.</p>
+      <p><span class="lbl">Solució</span> Revisa la configuració de compartició de l'administració.</p>
+    </dd>
+    <dt>Un compte no pot pujar res</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Ha arribat a la quota; els fitxers esborrats també ocupen.</p>
+      <p><span class="lbl">Solució</span> Buida'n la paperera o apuja-li la quota, i anota-ho.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 9 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <p>Un repositori a GitHub amb un <code>README.md</code> que tingui la taula de disseny, l'esquema de la jerarquia de carpetes, captures de cada compartició, la matriu de proves amb captures dels intents prohibits i la sortida de les comprovacions.</p>
+  <p>Respon-hi també: <strong>per què la carpeta de la junta ha de ser una carpeta d'equip i no la carpeta personal d'algú?</strong></p>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 3.2</span> Usuaris i permisos. Tipus d'usuari.</p>
+  <p><span class="lbl">Contingut 3.3</span> Creació de recursos compartits.</p>
+  <p><span class="lbl">CA 3.4</span> Crea i classifica comptes d'usuari en funció dels seus permisos.</p>
+  <p><span class="lbl">CA 3.5</span> Gestiona arxius i directoris.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="a3-1-el-nuvol-a-punt.html">
+    <span class="dir">Anterior · A3.1</span>
+    <span class="ttl">El núvol a punt</span></a>
+  <a class="next" href="a3-3-ordenar-trobar-i-protegir.html">
+    <span class="dir">Següent · A3.3</span>
+    <span class="ttl">Ordenar, trobar i protegir</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

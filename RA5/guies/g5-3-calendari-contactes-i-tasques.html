@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>G5.3 · Guia: calendari, contactes i tasques web — Aplicacions Web (0228)</title>
+<title>G5.3 · Guia: calendari, contactes i tasques — Aplicacions Web (0228)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -540,168 +540,176 @@
 
 <header class="cq-header">
   <div class="eyebrow">0228 · Aplicacions Web · RA5 · G5.3</div>
-  <h1>Guia: calendari, contactes i tasques web</h1>
-  <p class="lede">Una agenda al navegador amb les aplicacions de Nextcloud, compartida i sincronitzada amb els clients.</p>
+  <h1>Guia: calendari, contactes i tasques</h1>
+  <p class="lede">Crear un calendari, compartir-lo amb permisos i fer servir cites, convidats i tasques.</p>
 </header>
 
 <!-- ============ 1 · OBJECTIUS ============ -->
 <div class="cq-block" data-kind="objectius">
   <h2>Què hi ha en aquesta guia</h2>
-  <p>Documentació oficial: <a href="https://docs.nextcloud.com/server/latest/user_manual/en/groupware/index.html">Groupware de Nextcloud</a> · <a href="https://docs.nextcloud.com/server/latest/user_manual/en/groupware/sync_ios.html">sincronització amb clients</a></p>
+  <p>Documentació oficial: <a href="https://support.google.com/calendar/answer/37095">crear un calendari</a> · <a href="https://support.google.com/calendar/answer/37082">compartir-lo</a> · <a href="https://support.google.com/contacts">Contactes</a></p>
   <ul>
-    <li>Punt de partida: un Nextcloud instal·lat i en marxa, com el de <a class="cq-ref" href="../../RA3/guies/g3-1-instal-lar-nextcloud.html">G3.1</a>. Pot ser a la mateixa màquina del correu o a una altra.</li>
-    <li>Resultat: calendari, contactes i tasques web, compartits i sincronitzats per CalDAV i CardDAV.</li>
-    <li>El correu web és a <a class="cq-ref" href="g5-2-correu-web-amb-roundcube.html">G5.2</a>; aquí hi ha la part d'agenda.</li>
+    <li>Punt de partida: el compte del centre i un company amb qui compartir.</li>
+    <li>Resultat: un calendari amb esdeveniments que es repeteixen, convidats i recordatoris, compartit amb permisos, més contactes i tasques.</li>
+    <li>No s'instal·la res: tot va al navegador.</li>
   </ul>
 </div>
 
 <!-- ============ 2 · PAS A PAS ============ -->
 <div class="cq-block" data-kind="pas a pas">
-  <h2>Activar les aplicacions</h2>
+  <h2>Crear el calendari</h2>
   <ol class="cq-steps">
     <li>
-      <p><strong>Activa-les</strong> des d'<strong>Aplicacions → Organització</strong>: <em>Calendar</em>, <em>Contacts</em> i <em>Tasks</em>. També es pot fer des del terminal:</p>
-<pre>cd /var/www/nuvol.internal
-sudo -u www-data php occ app:enable calendar
-sudo -u www-data php occ app:enable contacts
-sudo -u www-data php occ app:enable tasks</pre>
+      <p><strong>Obre <code>calendar.google.com</code></strong> amb el compte del centre.</p>
     </li>
     <li>
-      <p><strong>Comprova que surten</strong> al menú superior i que cada usuari les veu.</p>
+      <p><strong>Crea el calendari:</strong> al costat d'<strong>Altres calendaris</strong>, prem <strong>+ → Crea un calendari nou</strong>.</p>
     </li>
     <li>
-      <p><strong>Revisa la configuració de correu del servidor</strong> a <strong>Administració → Paràmetres bàsics</strong>: sense correu sortint, les invitacions als convidats no s'enviaran.</p>
+      <p><strong>Posa-hi el nom</strong> <code>CALENDARI_NOM_COGNOMS</code>, amb les teves dades, i una descripció.</p>
+    </li>
+    <li>
+      <p><strong>Comprova la zona horària</strong> i prem <strong>Crea un calendari</strong>. Pots canviar-ne el color des dels tres punts.</p>
     </li>
   </ol>
 </div>
 
 <!-- ============ 3 · PAS A PAS ============ -->
 <div class="cq-block" data-kind="pas a pas">
-  <h2>Calendaris i esdeveniments</h2>
+  <h2>Afegir esdeveniments i prestacions</h2>
   <ol class="cq-steps">
     <li>
-      <p><strong>Crea els calendaris</strong> amb el botó de calendari nou: un de personal i un d'equip, cadascun amb el seu color.</p>
+      <p><strong>Fes clic en un dia</strong> i tria <strong>Esdeveniment</strong>. Posa títol, data i hora, i escull el calendari nou.</p>
     </li>
     <li>
-      <p><strong>Crea un esdeveniment</strong>: títol, data i hora, lloc i descripció. A les opcions avançades hi ha la <strong>repetició</strong> i el <strong>recordatori</strong>.</p>
+      <p><strong>Afegeix lloc i descripció</strong> perquè qui el vegi sàpiga on és i què hi ha de fer.</p>
     </li>
     <li>
-      <p><strong>Convida persones</strong> des de la pestanya de convidats de l'esdeveniment: reben una invitació i poden acceptar o refusar.</p>
+      <p><strong>Repetició:</strong> el desplegable «No es repeteix» té l'opció <strong>Personalitzat</strong>. Tria la freqüència i, a <strong>Acaba</strong>, una data.</p>
     </li>
     <li>
-      <p><strong>Comparteix el calendari</strong> amb el botó de compartir: amb un usuari o un grup, amb permís de només lectura o d'edició.</p>
+      <p><strong>Convidats:</strong> <strong>Afegeix convidats</strong> i escriu l'adreça del company. Amb <strong>Troba una hora</strong> veus quan són lliures.</p>
     </li>
     <li>
-      <p><strong>Publica'l</strong>, si cal que el vegi gent sense compte: es genera un enllaç públic de només lectura. No ho facis amb el calendari personal.</p>
-    </li>
-    <li>
-      <p><strong>Importa i exporta</strong> amb fitxers <code>.ics</code> des del menú de cada calendari.</p>
+      <p><strong>Recordatori:</strong> <strong>Afegeix una notificació</strong> i tria quant abans l'avisa.</p>
     </li>
   </ol>
 </div>
 
 <!-- ============ 4 · PAS A PAS ============ -->
 <div class="cq-block" data-kind="pas a pas">
-  <h2>Contactes i tasques</h2>
+  <h2>Compartir el calendari</h2>
   <ol class="cq-steps">
     <li>
-      <p><strong>Crea una llibreta d'adreces</strong> a Contactes i afegeix-hi contactes amb nom, correu i telèfon.</p>
+      <p><strong>Obre la configuració:</strong> passa el cursor pel calendari, tres punts, <strong>Configuració i compartició</strong>.</p>
     </li>
     <li>
-      <p><strong>Comparteix la llibreta</strong> amb un grup perquè tothom vegi els mateixos telèfons.</p>
+      <p><strong>Baixa fins a «Comparteix amb persones o grups específics»</strong> i prem <strong>Afegeix persones i grups</strong>.</p>
     </li>
     <li>
-      <p><strong>Importa i exporta</strong> contactes en format <code>.vcf</code>.</p>
+      <p><strong>Escriu l'adreça del company</strong> i tria el permís. Per a la pràctica, <strong>Veure tots els detalls de l'esdeveniment</strong>.</p>
     </li>
     <li>
-      <p><strong>Crea una llista de tasques</strong> a Tasks, amb data límit i prioritat. Les tasques amb data surten al calendari.</p>
-    </li>
-    <li>
-      <p><strong>Comparteix la llista</strong> amb qui hi ha de treballar i marca'n una com a completada per veure com queda.</p>
+      <p><strong>Envia.</strong> El company rep un correu i, quan l'accepta, el calendari surt a la seva columna.</p>
     </li>
   </ol>
 </div>
 
 <!-- ============ 5 · PAS A PAS ============ -->
 <div class="cq-block" data-kind="pas a pas">
-  <h2>Sincronitzar amb un client</h2>
+  <h2>Contactes i tasques</h2>
   <ol class="cq-steps">
     <li>
-      <p><strong>Copia l'adreça CalDAV</strong> del servidor, que és la mateixa per a calendaris i contactes:</p>
-<pre>http://nuvol.internal/remote.php/dav</pre>
+      <p><strong>Contactes:</strong> obre <code>contacts.google.com</code> i prem <strong>Crea un contacte</strong>. Posa nom, correu i telèfon.</p>
     </li>
     <li>
-      <p><strong>Configura el client</strong> (Thunderbird, el calendari del mòbil o un client CalDAV): adreça, nom d'usuari i contrasenya.</p>
+      <p><strong>Grup:</strong> selecciona'n tres, prem <strong>Gestiona les etiquetes</strong> i crea l'etiqueta «professors».</p>
     </li>
     <li>
-      <p><strong>Fes servir una contrasenya d'aplicació</strong> en comptes de la del compte: es crea al perfil de l'usuari i es pot revocar sense canviar res més.</p>
+      <p><strong>Exporta:</strong> <strong>Exporta</strong> i tria format CSV de Google.</p>
     </li>
     <li>
-      <p><strong>Comprova la sincronització</strong> en els dos sentits: crea una cita al client i mira-la al navegador, i a l'inrevés.</p>
+      <p><strong>Tasques:</strong> al panell lateral del calendari, obre Tasques. <strong>Afegeix una tasca</strong> amb una data per cada reserva que has de fer.</p>
     </li>
   </ol>
 </div>
 
-<!-- ============ 6 · COMPROVACIÓ ============ -->
+<!-- ============ 6 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>Permisos de compartició</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Permís</th><th>Per a qui</th></tr></thead>
+      <tbody>
+        <tr><td>Veure només si estàs lliure o ocupat</td><td>Qui només ha de saber la disponibilitat</td></tr>
+        <tr><td>Veure tots els detalls</td><td>Qui consulta l'itinerari, com un company de viatge o el professor</td></tr>
+        <tr><td>Fer canvis als esdeveniments</td><td>Qui ajuda a mantenir el calendari</td></tr>
+        <tr><td>Fer canvis i gestionar l'ús compartit</td><td>Només el responsable del calendari</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 7 · COMPROVACIÓ ============ -->
 <div class="cq-block" data-kind="comprovació">
   <h2>Comprovació de conjunt</h2>
   <ul>
-    <li>Els tres mòduls surten al menú de tots els usuaris.</li>
-    <li>Un esdeveniment repetit apareix totes les setmanes fins a la data de final.</li>
-    <li>El calendari compartit en lectura no deixa que l'altre usuari hi afegeixi res.</li>
-    <li>Un convidat rep la invitació i la seva resposta es veu a l'esdeveniment.</li>
-    <li>Una cita creada al client de fora surt al navegador en pocs segons.</li>
-    <li>Una tasca amb data límit apareix al calendari.</li>
+    <li>El calendari existeix amb el nom correcte.</li>
+    <li>Hi ha un esdeveniment per cada dia, amb lloc i descripció.</li>
+    <li>Un esdeveniment es repeteix i acaba en una data.</li>
+    <li>El company ha rebut la invitació i veu el calendari.</li>
+    <li>Els contactes tenen una etiqueta i s'han exportat.</li>
+    <li>Les tasques tenen una data límit.</li>
   </ul>
 </div>
 
-<!-- ============ 7 · BONES PRÀCTIQUES ============ -->
+<!-- ============ 8 · BONES PRÀCTIQUES ============ -->
 <div class="cq-block" data-kind="bones pràctiques">
   <h2>Criteris professionals</h2>
   <ul>
-    <li>Un calendari per àmbit, no tot en un.</li>
-    <li>Contrasenyes d'aplicació per als clients, i revocar-les quan es perd un dispositiu.</li>
-    <li>Publicar només el que ha de ser públic.</li>
-    <li>Configura el correu sortint del servidor abans de convidar ningú.</li>
-    <li>Exporta una còpia dels calendaris i de les llibretes compartides.</li>
+    <li>Un calendari per viatge o per equip, no tot barrejat.</li>
+    <li>El permís més petit que serveixi.</li>
+    <li>Lloc i descripció a cada esdeveniment.</li>
+    <li>Final a totes les repeticions.</li>
+    <li>Les reserves per fer, a tasques; el que té hora, al calendari.</li>
   </ul>
 </div>
 
-<!-- ============ 8 · PROBLEMES ============ -->
+<!-- ============ 9 · PROBLEMES ============ -->
 <div class="cq-block" data-kind="problemes">
   <h2>Errors habituals</h2>
   <dl class="cq-issues">
-    <dt>El client no connecta</dt>
+    <dt>El company no veu el calendari</dt>
     <dd>
-      <p><span class="lbl">Causa</span> L'adreça no acaba en <code>/remote.php/dav</code> o el nom del servidor no es resol des d'aquell equip.</p>
-      <p><span class="lbl">Solució</span> Copia l'adreça de la configuració de l'aplicació i comprova la resolució del nom.</p>
+      <p><span class="lbl">Causa</span> No ha acceptat la invitació o l'adreça és diferent.</p>
+      <p><span class="lbl">Solució</span> Reenvia la invitació a l'adreça correcta.</p>
     </dd>
-    <dt>Els convidats no reben res</dt>
+    <dt>Els esdeveniments surten amb una altra hora</dt>
     <dd>
-      <p><span class="lbl">Causa</span> El servidor no té correu sortint configurat.</p>
-      <p><span class="lbl">Solució</span> Configura'l als paràmetres bàsics i torna a enviar la invitació.</p>
+      <p><span class="lbl">Causa</span> La zona horària no és la mateixa.</p>
+      <p><span class="lbl">Solució</span> Revisa la zona horària del calendari i de l'esdeveniment.</p>
     </dd>
-    <dt>Els esdeveniments es dupliquen</dt>
+    <dt>No surt «Troba una hora»</dt>
     <dd>
-      <p><span class="lbl">Causa</span> S'ha importat un <code>.ics</code> a més de la sincronització.</p>
-      <p><span class="lbl">Solució</span> Esborra el calendari importat i deixa una sola font.</p>
+      <p><span class="lbl">Causa</span> Els convidats no són del mateix domini o no comparteixen la disponibilitat.</p>
+      <p><span class="lbl">Solució</span> Demana'ls que comparteixin el calendari com a «lliure/ocupat».</p>
     </dd>
   </dl>
 </div>
 
-<!-- ============ 9 · RESUM ============ -->
+<!-- ============ 10 · RESUM ============ -->
 <div class="cq-block" data-kind="resum">
   <h2>Fitxa ràpida</h2>
   <div class="cq-tablewrap">
     <table class="cq-table">
-      <thead><tr><th>Vull</th><th>On o quina ordre</th></tr></thead>
+      <thead><tr><th>Vull</th><th>On</th></tr></thead>
       <tbody>
-        <tr><td>Activar les aplicacions</td><td><code>occ app:enable calendar contacts tasks</code></td></tr>
-        <tr><td>Compartir un calendari</td><td>Menú del calendari → Comparteix</td></tr>
-        <tr><td>Enllaç públic</td><td>Menú del calendari → Publica</td></tr>
-        <tr><td>Exportar</td><td>Menú del calendari → Baixa, en <code>.ics</code></td></tr>
-        <tr><td>Adreça per als clients</td><td><code>/remote.php/dav</code></td></tr>
-        <tr><td>Contrasenya d'aplicació</td><td>Perfil → Seguretat</td></tr>
+        <tr><td>Crear un calendari</td><td><strong>Altres calendaris → + → Crea un calendari nou</strong></td></tr>
+        <tr><td>Repetir un esdeveniment</td><td>Desplegable de repetició → <strong>Personalitzat</strong></td></tr>
+        <tr><td>Convidar algú</td><td><strong>Afegeix convidats</strong> → <strong>Troba una hora</strong></td></tr>
+        <tr><td>Compartir</td><td>Tres punts → <strong>Configuració i compartició</strong></td></tr>
+        <tr><td>Contactes</td><td><code>contacts.google.com</code></td></tr>
+        <tr><td>Tasques</td><td>Panell lateral del calendari</td></tr>
       </tbody>
     </table>
   </div>
@@ -709,12 +717,12 @@ sudo -u www-data php occ app:enable tasks</pre>
 
 <!-- === PEU DE NAVEGACIÓ INICI === -->
 <nav class="cq-pager">
-  <a class="prev" href="g5-2-correu-web-amb-roundcube.html">
+  <a class="prev" href="g5-2-gmail-imap-i-comprovacions.html">
     <span class="dir">Anterior · G5.2</span>
-    <span class="ttl">Guia: correu web amb Roundcube</span></a>
-  <a class="next" href="../activitats/a5-1-busties-al-servidor.html">
+    <span class="ttl">Guia: Gmail, IMAP i comprovacions</span></a>
+  <a class="next" href="../activitats/a5-1-filtres-al-gmail.html">
     <span class="dir">Següent · A5.1</span>
-    <span class="ttl">Bústies al servidor</span></a>
+    <span class="ttl">Filtres al Gmail</span></a>
 </nav>
 <!-- === PEU DE NAVEGACIÓ FI === -->
 

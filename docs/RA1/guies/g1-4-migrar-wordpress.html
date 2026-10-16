@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G1.4 · Guia: migrar WordPress a un allotjament — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA1 · Instal·lació de gestors de continguts</a>
+    <span class="pos">G1.4 · 9/16</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA1 · G1.4</div>
+  <h1>Guia: migrar WordPress a un allotjament</h1>
+  <p class="lede">Del servidor del laboratori a un allotjament públic, sense trencar enllaços ni imatges.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què hi ha en aquesta guia</h2>
+  <p>Documentació oficial: <a href="https://developer.wordpress.org/advanced-administration/upgrade/migrating/">Moving WordPress</a> · <a href="https://developer.wordpress.org/cli/commands/search-replace/">wp search-replace</a></p>
+  <ul>
+    <li>Punt de partida: un WordPress en marxa a <code>http://wordpress.internal</code> (<a class="cq-ref" href="g1-3-wordpress.html">G1.3</a>).</li>
+    <li>Destinació: un allotjament amb PHP, MySQL, un gestor de fitxers o FTP i phpMyAdmin. Els gratuïts com InfinityFree serveixen per a proves.</li>
+    <li>A l'exemple, la nova adreça és <code>https://elmeuweb.exemple.com</code>.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>Què es mou i què canvia</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Peça</th><th>Es copia</th><th>Canvia</th></tr></thead>
+      <tbody>
+        <tr><td>Base de dades</td><td>Bolcat SQL</td><td>L'adreça del lloc, que surt a moltes taules</td></tr>
+        <tr><td>Fitxers</td><td>Tota la carpeta del lloc</td><td><code>wp-config.php</code>: les dades de la base de dades nova</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>L'adreça no es pot canviar amb un simple buscar i substituir: algunes opcions es guarden <strong>serialitzades</strong>, amb la llargada del text al davant, i canviar-ne la llargada les trenca. Per això es fa servir <code>wp search-replace</code>.</p>
+</div>
+
+<!-- ============ 3 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Preparar-ho al servidor local</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Instal·la WP-CLI:</strong></p>
+<pre>cd /tmp
+curl -O https://raw.githubusercontent.com/\
+wp-cli/builds/gh-pages/phar/wp-cli.phar
+php wp-cli.phar --info
+chmod +x wp-cli.phar
+sudo mv wp-cli.phar /usr/local/bin/wp</pre>
+    </li>
+    <li>
+      <p><strong>Genera el bolcat ja amb l'adreça nova.</strong> L'opció <code>--export</code> escriu el fitxer i no toca la base de dades local:</p>
+<pre>cd /var/www/wordpress.internal
+sudo -u www-data wp search-replace \
+  'http://wordpress.internal' 'https://elmeuweb.exemple.com' \
+  --all-tables --export=/tmp/wordpress.sql</pre>
+    </li>
+    <li>
+      <p><strong>Comprimeix els fitxers</strong> del lloc:</p>
+<pre>cd /var/www/wordpress.internal
+sudo zip -qr /tmp/wordpress-fitxers.zip .</pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 4 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Restaurar-ho a l'allotjament</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Crea la base de dades i l'usuari</strong> des del panell de l'allotjament i anota nom, usuari, contrasenya i servidor. Sovint el servidor <strong>no</strong> és <code>localhost</code>.</p>
+    </li>
+    <li>
+      <p><strong>Importa <code>wordpress.sql</code></strong> amb phpMyAdmin: selecciona la base de dades → Importa.</p>
+    </li>
+    <li>
+      <p><strong>Puja i descomprimeix <code>wordpress-fitxers.zip</code></strong> a la carpeta pública, normalment <code>htdocs</code> o <code>public_html</code>.</p>
+    </li>
+    <li>
+      <p><strong>Edita <code>wp-config.php</code></strong> amb les dades noves:</p>
+<pre>define( 'DB_NAME', 'nom_bd_allotjament' );
+define( 'DB_USER', 'usuari_bd_allotjament' );
+define( 'DB_PASSWORD', 'contrasenya_bd_allotjament' );
+define( 'DB_HOST', 'servidor_bd_allotjament' );
+define( 'WP_DEBUG', false );</pre>
+    </li>
+    <li>
+      <p><strong>Entra a <code>/wp-admin</code> i desa</strong> <strong>Configuració → Enllaços permanents</strong> per regenerar el <code>.htaccess</code>.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 5 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Comprovació de conjunt</h2>
+  <ul>
+    <li>La portada carrega per <code>https</code> sense avisos de contingut mixt.</li>
+    <li>Les imatges s'obren des de la nova adreça, no des de <code>wordpress.internal</code>.</li>
+    <li>Els enllaços del menú porten a pàgines que existeixen.</li>
+    <li>Es pot iniciar sessió i el formulari de contacte funciona.</li>
+  </ul>
+</div>
+
+<!-- ============ 6 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Fes la còpia local abans de començar i no l'esborris fins que tot funcioni.</li>
+    <li>Canvia l'adreça amb <code>wp search-replace</code>, no amb un editor de text.</li>
+    <li>Posa <code>WP_DEBUG</code> a <code>false</code> en producció.</li>
+    <li>Si l'allotjament té eina de migració pròpia, llegeix-ne primer els límits de mida.</li>
+  </ul>
+</div>
+
+<!-- ============ 7 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>Error establint la connexió amb la base de dades</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> <code>DB_HOST</code> no és <code>localhost</code> a l'allotjament.</p>
+      <p><span class="lbl">Solució</span> Copia el nom del servidor exacte que dona el panell.</p>
+    </dd>
+    <dt>Les pàgines interiors donen 404</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> No s'ha pujat el <code>.htaccess</code> perquè és un fitxer ocult.</p>
+      <p><span class="lbl">Solució</span> Torna a desar els enllaços permanents perquè WordPress el creï.</p>
+    </dd>
+    <dt>Alguns ginys o opcions del tema s'han buidat</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> L'adreça s'ha canviat amb un buscar i substituir que ha trencat dades serialitzades.</p>
+      <p><span class="lbl">Solució</span> Torna a exportar amb <code>wp search-replace --export</code>.</p>
+    </dd>
+    <dt>La importació de l'SQL falla per mida</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> phpMyAdmin de l'allotjament té un límit de pujada.</p>
+      <p><span class="lbl">Solució</span> Comprimeix el fitxer <code>.sql</code> en <code>.zip</code>; phpMyAdmin l'accepta així.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 8 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Fitxa ràpida</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Pas</th><th>Com</th></tr></thead>
+      <tbody>
+        <tr><td>Bolcat amb adreça nova</td><td><code>wp search-replace VELLA NOVA --all-tables --export=f.sql</code></td></tr>
+        <tr><td>Fitxers</td><td><code>zip -r fitxers.zip .</code></td></tr>
+        <tr><td>Importar la base</td><td>phpMyAdmin → Importa</td></tr>
+        <tr><td>Connexió</td><td>Editar <code>wp-config.php</code></td></tr>
+        <tr><td>Enllaços</td><td>Desar Enllaços permanents</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="g1-3-wordpress.html">
+    <span class="dir">Anterior · G1.3</span>
+    <span class="ttl">Guia: WordPress</span></a>
+  <a class="next" href="../activitats/a1-1-estatic-i-dinamic.html">
+    <span class="dir">Següent · A1.1</span>
+    <span class="ttl">Estàtic i dinàmic</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

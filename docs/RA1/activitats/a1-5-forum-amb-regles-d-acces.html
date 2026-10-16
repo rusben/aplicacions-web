@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A1.5 · Fòrum amb regles d'accés — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA1 · Instal·lació de gestors de continguts</a>
+    <span class="pos">A1.5 · 14/16</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA1 · A1.5</div>
+  <h1>Fòrum amb regles d'accés</h1>
+  <p class="lede">Uns fòrums per a una comunitat: qui llegeix, qui escriu, qui modera i qui es queda fora.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Teoria <a class="cq-ref" href="../teoria/t1-4-usuaris-i-rols.html">T1.4</a>, sobretot «Fòrums i regles d'accés». La guia <a class="cq-ref" href="../guies/g1-3-wordpress.html">G1.3</a>, apartat de fòrums amb bbPress, és el manual que consultaràs.</p>
+  <p>Habilitaràs fòrums al gestor, decidiràs les regles d'accés de cadascun, assignaràs rols de fòrum i demostraràs amb una matriu de proves que les regles es compleixen.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <p>L'escriptori de proves de l'<a class="cq-ref" href="a1-2-requeriments-i-instal-lacio.html">A1.2</a>, amb WordPress a <code>proves.internal</code> i els usuaris de l'<a class="cq-ref" href="a1-3-usuaris-grups-i-rols.html">A1.3</a>.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Fòrum</th><th>Per a qui</th></tr></thead>
+      <tbody>
+        <tr><td>Dubtes generals</td><td>Tothom el pot llegir; només hi escriuen usuaris registrats</td></tr>
+        <tr><td>Socis</td><td>Només usuaris registrats, que hi llegeixen i hi escriuen</td></tr>
+        <tr><td>Moderació</td><td>Només moderadors i administració</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Què has de fer</h2>
+  <ol>
+    <li>Instal·la i activa <strong>bbPress</strong> i crea els tres fòrums amb la visibilitat que correspon a cadascun.</li>
+    <li>Decideix i configura les <strong>regles generals</strong>: rol de fòrum per defecte, publicació anònima, edició de missatges i límit de temps entre missatges. Justifica cada decisió.</li>
+    <li>Assigna rols de fòrum: Marta com a <strong>moderadora</strong>, Aina i Joel com a <strong>participants</strong>, la família com a <strong>espectadora</strong>, i crea un usuari <strong>bloquejat</strong>.</li>
+    <li>Afegeix l'índex de fòrums al menú principal.</li>
+    <li>Publica un tema a cada fòrum i fes que cada usuari hi intenti llegir i respondre.</li>
+    <li>Omple la <strong>matriu de proves</strong>: files amb els usuaris (inclòs un visitant sense sessió), columnes amb els fòrums, i a cada cel·la què pot fer: res, llegir o llegir i escriure.</li>
+    <li>Com a moderadora, tanca un tema i esborra una resposta.</li>
+  </ol>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Visibilitat, regles i rols de fòrum</td><td>Guia <a class="cq-ref" href="../guies/g1-3-wordpress.html">G1.3</a>, «Fòrums amb bbPress»</td></tr>
+        <tr><td>Per què cada decisió</td><td>Teoria <a class="cq-ref" href="../teoria/t1-4-usuaris-i-rols.html">T1.4</a>, «Fòrums i regles d'accés»</td></tr>
+        <tr><td>Afegir-lo al menú</td><td>Guia <a class="cq-ref" href="../guies/g1-3-wordpress.html">G1.3</a>, «Identitat, menús, ginys i sindicació»</td></tr>
+        <tr><td>Usuaris de prova</td><td>Activitat <a class="cq-ref" href="a1-3-usuaris-grups-i-rols.html">A1.3</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>Rol del lloc i rol de fòrum</h2>
+  <p>Són dues coses diferents. Una persona pot ser subscriptora del lloc i moderadora dels fòrums. Revisa sempre tots dos al perfil de l'usuari abans de treure conclusions d'una prova.</p>
+</div>
+
+<!-- ============ 6 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>El que veu un visitant</h2>
+  <p>Obre l'índex de fòrums en una finestra privada, sense iniciar sessió. Un fòrum privat o ocult no hi ha de sortir, i si n'escrius l'adreça directa ha de demanar sessió o donar error. Si el veus, la regla no funciona.</p>
+</div>
+
+<!-- ============ 7 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li><code>curl -s http://proves.internal/forums/ | grep -c Socis</code> dona <code>0</code>: sense sessió no es veu el fòrum de socis.</li>
+    <li>La família llegeix «Socis» però no hi pot respondre.</li>
+    <li>L'usuari bloquejat no pot publicar enlloc.</li>
+    <li>Només Marta i l'administració veuen «Moderació».</li>
+    <li>El tema tancat no admet respostes noves.</li>
+  </ul>
+</div>
+
+<!-- ============ 8 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>L'índex de fòrums dona 404</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Els enllaços permanents no s'han refet després d'activar bbPress.</p>
+      <p><span class="lbl">Solució</span> Torna a desar <strong>Configuració → Enllaços permanents</strong>.</p>
+    </dd>
+    <dt>Un usuari nou no pot escriure</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El rol de fòrum per defecte és espectador, o no se n'ha assignat cap.</p>
+      <p><span class="lbl">Solució</span> Revisa la regla general i el rol de fòrum del seu perfil.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 9 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <p>Un repositori a GitHub amb un <code>README.md</code> que tingui la configuració de cada fòrum, les regles generals justificades, els rols assignats, la matriu de proves amb captures dels intents prohibits i la sortida de les comprovacions.</p>
+  <p>Respon-hi també: <strong>què passaria si permetessis publicar sense compte al fòrum de dubtes, i quina altra mesura podries prendre en lloc de tancar-lo?</strong></p>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 1.2</span> Creació d'usuaris i grups d'usuaris.</p>
+  <p><span class="lbl">Contingut 1.3</span> Utilització de la interfície gràfica. Personalització de l'entorn. Funcionalitats proporcionades pel gestor de continguts. Sindicació.</p>
+  <p><span class="lbl">CA 1.2</span> Gestiona usuaris amb rols diferents.</p>
+  <p><span class="lbl">CA 1.8</span> Habilita fòrums i estableix regles d'accés.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="a1-4-interficie-menus-i-sindicacio.html">
+    <span class="dir">Anterior · A1.4</span>
+    <span class="ttl">Interfície, menús i sindicació</span></a>
+  <a class="next" href="a1-6-actualitzar-protegir-i-copiar.html">
+    <span class="dir">Següent · A1.6</span>
+    <span class="ttl">Actualitzar, protegir i copiar</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

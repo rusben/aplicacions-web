@@ -541,167 +541,157 @@
 <header class="cq-header">
   <div class="eyebrow">0228 · Aplicacions Web · RA5 · T5.1</div>
   <h1>Aplicacions web d'escriptori</h1>
-  <p class="lede">Correu, agenda, contactes i tasques: el programari de sempre, obert amb una adreça.</p>
+  <p class="lede">El correu, l'agenda i els contactes al navegador: què són, qui els serveix i per a qui són.</p>
 </header>
 
 <!-- ============ 1 · OBJECTIUS ============ -->
 <div class="cq-block" data-kind="objectius">
   <h2>Què sabràs fer en acabar</h2>
   <ul>
-    <li>Explicar què és una aplicació web d'escriptori i què la diferencia d'un programa instal·lat.</li>
-    <li>Descriure les més habituals: correu web, calendari, contactes i tasques.</li>
-    <li>Comparar els productes més coneguts de cada tipus.</li>
-    <li>Distingir el <strong>servidor</strong> del <strong>client</strong> en el correu i en el calendari.</li>
-    <li>Identificar els requeriments per instal·lar-ne una.</li>
+    <li>Explicar què és una aplicació web d'escriptori i en què es diferencia d'un programa instal·lat.</li>
+    <li>Distingir el client i el servidor d'una aplicació web.</li>
+    <li>Citar eines de Google, dir per a què serveix cadascuna i a qui va dirigida.</li>
+    <li>Triar entre un servei ja fet i un servidor propi, i justificar-ho.</li>
   </ul>
 </div>
 
 <!-- ============ 2 · TEORIA ============ -->
 <div class="cq-block" data-kind="teoria">
-  <h2>Què són</h2>
-  <p>Una <strong>aplicació web d'escriptori</strong> fa al navegador la feina d'un programa d'escriptori clàssic: llegir el correu, portar l'agenda, guardar els contactes o apuntar tasques. No s'instal·la a l'equip de l'usuari: s'instal·la <strong>una vegada al servidor</strong> i tothom hi entra amb una adreça i un compte.</p>
-  <p>El canvi important és que l'usuari deixa de dependre del seu ordinador: la mateixa bústia i la mateixa agenda es veuen des de l'aula, des de casa i des del mòbil.</p>
+  <h2>Una aplicació dins del navegador</h2>
+  <p>Una aplicació web d'escriptori fa la feina d'un programa de l'ordinador: escriure correus, mirar l'agenda, guardar contactes. La diferència és que s'obre al navegador. El programa i les dades són en un servidor i l'ordinador només mostra la pàgina.</p>
+  <p>Per això funciona igual des de qualsevol equip i no cal instal·lar res. El preu és que sense Internet no sempre va (alguns serveis tenen mode sense connexió) i que les dades són a casa d'un altre.</p>
 </div>
 
 <!-- ============ 3 · REFERÈNCIA ============ -->
 <div class="cq-block" data-kind="referència">
-  <h2>Quines hi ha</h2>
+  <h2>Eines de Google</h2>
   <div class="cq-tablewrap">
     <table class="cq-table">
-      <thead><tr><th>Tipus</th><th>Per a què</th><th>Productes lliures</th></tr></thead>
+      <thead><tr><th>Eina</th><th>Propòsit</th><th>Target</th></tr></thead>
       <tbody>
-        <tr><td><strong>Correu web</strong></td><td>Llegir i enviar correu des del navegador</td><td>Roundcube, SnappyMail, SOGo</td></tr>
-        <tr><td><strong>Calendari</strong></td><td>Cites, esdeveniments i disponibilitat</td><td>Calendar de Nextcloud, SOGo, Radicale amb un client web</td></tr>
-        <tr><td><strong>Contactes</strong></td><td>Llibreta d'adreces compartida</td><td>Contacts de Nextcloud, SOGo</td></tr>
-        <tr><td><strong>Tasques i notes</strong></td><td>Llistes de feina, recordatoris</td><td>Tasks i Notes de Nextcloud</td></tr>
-        <tr><td><strong>Suite completa</strong></td><td>Tot junt, amb un sol compte</td><td>SOGo, Nextcloud Groupware, Zimbra</td></tr>
+        <tr><td><strong>Gmail</strong></td><td>Enviar, rebre i ordenar correu</td><td>Qualsevol persona o organització</td></tr>
+        <tr><td><strong>Google Calendar</strong></td><td>Agenda, cites i reunions amb convidats</td><td>Equips i famílies</td></tr>
+        <tr><td><strong>Google Contactes</strong></td><td>Llibreta d'adreces compartida amb el correu</td><td>Qualsevol usuari</td></tr>
+        <tr><td><strong>Google Tasques</strong></td><td>Llistes de tasques amb data</td><td>Treball personal i d'equip</td></tr>
+        <tr><td><strong>Google Drive</strong></td><td>Guardar i compartir fitxers</td><td>Qualsevol usuari</td></tr>
+        <tr><td><strong>Docs, Sheets i Slides</strong></td><td>Documents, fulls de càlcul i presentacions en col·laboració</td><td>Estudiants i oficines</td></tr>
+        <tr><td><strong>Google Maps</strong></td><td>Mapes, rutes i llocs</td><td>Viatgers i empreses</td></tr>
+        <tr><td><strong>Google Meet</strong></td><td>Videotrucades</td><td>Classes i reunions</td></tr>
       </tbody>
     </table>
   </div>
-  <p>Els serveis comercials com Gmail, Outlook o Google Calendar són el mateix vist des de l'usuari; la diferència és qui té el servidor i les dades.</p>
 </div>
 
 <!-- ============ 4 · TEORIA ============ -->
 <div class="cq-block" data-kind="teoria">
-  <h2>El client no és el servidor</h2>
-  <p>És l'error més comú del RA: <strong>instal·lar un correu web no és muntar un servidor de correu</strong>. Un correu web és un <em>client</em>: no guarda els missatges ni els envia a Internet pel seu compte. Es connecta a un servidor de correu que ja existeix i li demana la bústia.</p>
-  <div class="cq-tablewrap">
-    <table class="cq-table">
-      <thead><tr><th>Peça</th><th>Qui la fa</th><th>Què fa</th></tr></thead>
-      <tbody>
-        <tr><td>Servidor d'enviament</td><td>Postfix</td><td>Rep els missatges i els fa arribar al destinatari</td></tr>
-        <tr><td>Servidor de bústies</td><td>Dovecot</td><td>Guarda les bústies i les serveix als clients</td></tr>
-        <tr><td>Client</td><td>Roundcube, Thunderbird, el mòbil</td><td>Ensenya els missatges i en deixa escriure</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <p>Amb el calendari passa igual: el client web ensenya l'agenda que guarda un servidor, i per això el mateix calendari es pot obrir des del mòbil.</p>
+  <h2>Client i servidor</h2>
+  <p>El <strong>client</strong> és el navegador: demana pàgines i mostra el resultat. El <strong>servidor</strong> és l'ordinador de Google que guarda els missatges i els esdeveniments i respon a cada petició.</p>
+  <p>Quan obres Gmail, el navegador demana la teva safata d'entrada i el servidor la hi envia. Quan esborres un missatge, el servidor és qui l'esborra: per això el canvi es veu al mòbil i a l'ordinador alhora.</p>
 </div>
 
 <!-- ============ 5 · TEORIA ============ -->
 <div class="cq-block" data-kind="teoria">
-  <h2>Què cal per instal·lar-ne una</h2>
+  <h2>Servei ja fet o servidor propi</h2>
   <div class="cq-tablewrap">
     <table class="cq-table">
-      <thead><tr><th>Requeriment</th><th>Per què</th></tr></thead>
+      <thead><tr><th></th><th>Servei ja fet (Google)</th><th>Servidor propi</th></tr></thead>
       <tbody>
-        <tr><td>Servidor web i PHP</td><td>La majoria de correus web són aplicacions PHP</td></tr>
-        <tr><td>Base de dades</td><td>Guarda comptes locals, preferències i la llibreta d'adreces</td></tr>
-        <tr><td>Un servidor de correu accessible</td><td>Sense bústies no hi ha res a ensenyar</td></tr>
-        <tr><td>Ports oberts cap al servidor de correu</td><td>El client s'hi connecta per IMAP i per SMTP</td></tr>
-        <tr><td>HTTPS</td><td>Hi viatgen contrasenyes i missatges</td></tr>
+        <tr><td>Posada en marxa</td><td>Un compte i ja funciona</td><td>Cal instal·lar i configurar</td></tr>
+        <tr><td>Manteniment</td><td>El fa el proveïdor</td><td>El fas tu: actualitzacions i còpies</td></tr>
+        <tr><td>Control de les dades</td><td>Les té el proveïdor</td><td>Les tens tu</td></tr>
+        <tr><td>Cost</td><td>Gratuït o per llicència</td><td>Màquina, temps i coneixements</td></tr>
       </tbody>
     </table>
   </div>
+  <p>En aquest RA treballem amb Google perquè és el servei que fa servir el centre: <strong>no s'instal·la cap servidor de correu</strong>. Les idees de fons són les mateixes que en un servidor propi, i <a class="cq-ref" href="t5-2-com-viatja-un-correu.html">T5.2</a> les explica.</p>
 </div>
 
 <!-- ============ 6 · EXEMPLE ============ -->
 <div class="cq-block" data-kind="exemple">
-  <h2>La mateixa bústia des de tres llocs</h2>
-  <p>La Berta llegeix el correu de la feina al navegador de l'aula, i a la tarda l'obre al mòbil. Ha llegit un missatge al matí i al mòbil ja surt com a llegit: els missatges no són a cap dels dos aparells, són al servidor, i tots dos clients en mostren l'estat.</p>
+  <h2>Una gestoria passa al navegador</h2>
+  <p>Una gestoria té cinc persones, cada una amb el correu al seu ordinador. Quan una estava de vacances, ningú veia els seus missatges. Passen a Gmail, Calendar i Drive: cada persona entra des d'on sigui, l'agenda de l'equip és única i els clients reben resposta encara que algú no hi sigui.</p>
 </div>
 
-<!-- ============ 7 · CAS REAL ============ -->
-<div class="cq-block" data-kind="cas real">
-  <h2>La petita empresa</h2>
-  <p>Una empresa de deu persones vol correu amb el seu domini i una agenda compartida per veure qui té visites. Amb un servidor propi, un correu web i un calendari en té prou, i no depèn de cap servei extern. A canvi, algú ha de mantenir el servidor, les còpies i la reputació del domini perquè els seus correus no acabin a la carpeta de brossa.</p>
-</div>
-
-<!-- ============ 8 · BONES PRÀCTIQUES ============ -->
+<!-- ============ 7 · BONES PRÀCTIQUES ============ -->
 <div class="cq-block" data-kind="bones pràctiques">
   <h2>Criteris professionals</h2>
   <ul>
-    <li>Primer el servidor de correu, després el client web: sense bústies no es pot provar res.</li>
-    <li>Tria el producte pel que ha de fer: un correu web senzill no és una suite de treball en grup.</li>
-    <li>HTTPS sempre que hi hagi contrasenyes pel mig.</li>
-    <li>Un compte per persona, també al servidor de correu.</li>
+    <li>Dues passes en entrar al compte, sempre.</li>
+    <li>Compartir amb persones concretes, no amb «qualsevol que tingui l'enllaç».</li>
+    <li>Un compte per persona: mai compartir contrasenyes.</li>
+    <li>Saber qui té accés a cada recurs i revisar-ho de tant en tant.</li>
   </ul>
 </div>
 
-<!-- ============ 9 · PROBLEMES ============ -->
+<!-- ============ 8 · PROBLEMES ============ -->
 <div class="cq-block" data-kind="problemes">
   <h2>Errors habituals</h2>
   <dl class="cq-issues">
-    <dt>Instal·lar el correu web i esperar rebre correu</dt>
+    <dt>No puc entrar des d'un ordinador nou</dt>
     <dd>
-      <p><span class="lbl">Causa</span> S'ha confós el client amb el servidor.</p>
-      <p><span class="lbl">Solució</span> Munta primer el servidor de correu i connecta-hi el client.</p>
+      <p><span class="lbl">Causa</span> La verificació en dues passes demana el mòbil o un codi.</p>
+      <p><span class="lbl">Solució</span> Tingues a mà el segon pas abans de canviar d'equip.</p>
     </dd>
-    <dt>Crear els comptes només al correu web</dt>
+    <dt>Algú que no havia de veure un document el veu</dt>
     <dd>
-      <p><span class="lbl">Causa</span> Es pensa que el client té usuaris propis.</p>
-      <p><span class="lbl">Solució</span> Els comptes viuen al servidor de correu; el client només els autentica contra ell.</p>
+      <p><span class="lbl">Causa</span> S'ha compartit amb un enllaç obert a tothom.</p>
+      <p><span class="lbl">Solució</span> Canvia l'accés a persones concretes.</p>
+    </dd>
+    <dt>La pàgina va lenta o no carrega</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Connexió dolenta o una extensió del navegador que molesta.</p>
+      <p><span class="lbl">Solució</span> Prova en una finestra privada, sense extensions.</p>
     </dd>
   </dl>
 </div>
 
-<!-- ============ 10 · RESUM ============ -->
+<!-- ============ 9 · RESUM ============ -->
 <div class="cq-block" data-kind="resum">
   <h2>Resum</h2>
   <ul>
-    <li>Una aplicació web d'escriptori fa al navegador la feina d'un programa instal·lat, i viu al servidor.</li>
-    <li>N'hi ha de correu, de calendari, de contactes i de tasques, i suites que ho porten tot.</li>
-    <li>El correu web és un client: el servidor de correu és una altra cosa i va a part.</li>
-    <li>Demana servidor web, PHP, base de dades, accés al servidor de correu i HTTPS.</li>
+    <li>Una aplicació web d'escriptori s'usa des del navegador; la feina es fa al servidor.</li>
+    <li>El client demana, el servidor guarda i respon.</li>
+    <li>Gmail, Calendar, Contactes, Tasques, Drive, Docs, Sheets, Maps i Meet formen la suite de Google.</li>
+    <li>Un servei ja fet s'engega de seguida; un servidor propi dona control, però dona feina.</li>
   </ul>
 </div>
 
-<!-- ============ 11 · QUIZ ============ -->
+<!-- ============ 10 · QUIZ ============ -->
 <div class="cq-block" data-kind="quiz">
   <h2>Comprova el que has après</h2>
   <div class="cq-question" data-id="t5-1-client" data-type="single">
-    <div class="statement">Instal·les Roundcube en un servidor sense res més. Què hi podràs llegir?</div>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">El correu de qualsevol adreça</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Res: cal un servidor de correu amb bústies al qual connectar-se</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Només el correu de l'administrador</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Els missatges que hi guardi la base de dades</button>
+    <div class="statement">Quina part d'una aplicació web és el navegador?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">El client</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">El servidor</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">La base de dades</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">El protocol</button>
     <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
     <div class="cq-feedback" role="status" aria-live="polite"></div>
   </div>
-  <div class="cq-question" data-id="t5-1-tipus" data-type="multi">
-    <div class="statement">Quines són aplicacions web d'escriptori?</div>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Un correu web</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Un calendari al navegador</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Una llibreta de contactes compartida</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Un servidor DNS</button>
+  <div class="cq-question" data-id="t5-1-eina" data-type="single">
+    <div class="statement">Quina eina de Google es fa servir per planificar una ruta?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Google Maps</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Gmail</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Google Meet</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Google Tasques</button>
     <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
     <div class="cq-feedback" role="status" aria-live="polite"></div>
   </div>
-  <div class="cq-question" data-id="t5-1-estat" data-type="single">
-    <div class="statement">Llegeixes un missatge al navegador i al mòbil també surt com a llegit. Per què?</div>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Perquè el missatge és al servidor i tots dos clients en mostren l'estat</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Perquè el navegador ho envia al mòbil</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Perquè el missatge s'ha duplicat</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">És casualitat</button>
+  <div class="cq-question" data-id="t5-1-avantatge" data-type="single">
+    <div class="statement">Quin és un avantatge d'una aplicació web?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Funciona des de qualsevol equip sense instal·lar-hi res</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Funciona igual sense cap connexió</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Les dades sempre són a l'ordinador</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">No necessita cap servidor</button>
     <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
     <div class="cq-feedback" role="status" aria-live="polite"></div>
   </div>
-  <div class="cq-question" data-id="t5-1-requeriments" data-type="single">
-    <div class="statement">Quin requeriment és propi d'un correu web i no d'un gestor de continguts?</div>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Servidor web amb PHP</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Poder connectar-se a un servidor de correu per IMAP i SMTP</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Una base de dades</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Espai de disc</button>
+  <div class="cq-question" data-id="t5-1-compartir" data-type="single">
+    <div class="statement">Un document conté dades d'un client. Com l'has de compartir?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Amb les persones concretes que l'han de veure</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Amb qualsevol que tingui l'enllaç</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Enviant-lo a tothom per correu</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Pujant-lo a una pàgina pública</button>
     <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
     <div class="cq-feedback" role="status" aria-live="polite"></div>
   </div>

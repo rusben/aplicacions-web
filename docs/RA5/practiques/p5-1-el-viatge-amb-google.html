@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P5.1 · Pràctica: organitza un viatge amb Google — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA5 · Instal·lació d'aplicacions web d'escriptori</a>
+    <span class="pos">P5.1 · 10/10</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA5 · P5.1</div>
+  <h1>Pràctica: organitza un viatge amb Google</h1>
+  <p class="lede">Correu, calendari, mapes i full de càlcul per organitzar un viatge de set dies amb 1.500 €.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Les teories <a class="cq-ref" href="../teoria/t5-1-aplicacions-web-d-escriptori.html">T5.1</a>, <a class="cq-ref" href="../teoria/t5-2-com-viatja-un-correu.html">T5.2</a> i <a class="cq-ref" href="../teoria/t5-3-calendaris-contactes-i-tasques.html">T5.3</a>, i les activitats <a class="cq-ref" href="../activitats/a5-1-filtres-al-gmail.html">A5.1</a>, <a class="cq-ref" href="../activitats/a5-2-correu-entre-dos-comptes.html">A5.2</a> i <a class="cq-ref" href="../activitats/a5-3-agenda-del-viatge.html">A5.3</a>, que en són l'assaig. Les guies <a class="cq-ref" href="../guies/g5-1-gmail-etiquetes-i-filtres.html">G5.1</a>, <a class="cq-ref" href="../guies/g5-2-gmail-imap-i-comprovacions.html">G5.2</a> i <a class="cq-ref" href="../guies/g5-3-calendari-contactes-i-tasques.html">G5.3</a> són els manuals que consultaràs.</p>
+  <p>És la pràctica principal del <a class="cq-ref" href="../index.html">RA5</a>. Organitzaràs un viatge de set dies amb les eines de Google: correu preparat i comprovat, calendari compartit, ruta i pressupost. No s'instal·la cap servidor.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Element</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>Compte</td><td>El compte del centre, i el d'un company o companya per a les proves</td></tr>
+        <tr><td>Correu</td><td>Gmail al navegador</td></tr>
+        <tr><td>Calendari</td><td>Google Calendar, amb el calendari <code>CALENDARI_NOM_COGNOMS</code></td></tr>
+        <tr><td>Ruta</td><td>Google Maps, país a escollir, <strong>almenys set dies</strong>, anada i tornada</td></tr>
+        <tr><td>Pressupost</td><td><strong>1.500 €</strong> per a transport, allotjament i menjar, en un full de càlcul</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>El país i les parades són lliures, però han de tenir sentit: no es pot dormir a Tòquio un dia i a Lima el següent.</p>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 1: el correu</h2>
+  <ol>
+    <li>Fes un llistat de <strong>sis eines de Google</strong> amb propòsit i públic (<em>eina, propòsit, target</em>).</li>
+    <li>Explica la <strong>diferència entre IMAP i POP3</strong> en un màxim de cinc línies.</li>
+    <li>Crea l'etiqueta <strong>institut</strong> i posa-li el color verd.</li>
+    <li>Crea els <strong>cinc filtres</strong>: «puig» a «institut», «publicitat» a «promocions» sense passar per l'entrada, i dos professors com a importants.</li>
+    <li>Activa la <strong>resposta automàtica de vacances</strong> amb «Estic de vacances!».</li>
+  </ol>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 2: comprovar l'accés</h2>
+  <ol>
+    <li>Mira si l'accés <strong>IMAP</strong> és actiu i fes una taula amb els paràmetres de cada servei.</li>
+    <li>Obre <strong>dues sessions</strong> i envia un missatge d'un compte a l'altre. Ha d'arribar amb l'etiqueta que toca.</li>
+    <li>Respon-hi i comprova que la resposta torna.</li>
+    <li>Obre l'<strong>original</strong> d'un missatge i explica què diuen SPF, DKIM i DMARC.</li>
+    <li>Passa una <strong>llista de proves</strong> d'almenys deu files, amb els filtres i la resposta automàtica.</li>
+  </ol>
+</div>
+
+<!-- ============ 5 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 3: el viatge</h2>
+  <ol>
+    <li>Dibuixa a Google Maps la <strong>ruta</strong> de set dies, amb transport i parades. Guarda l'enllaç.</li>
+    <li>Crea al full de càlcul el <strong>pressupost</strong>: transport, allotjament, menjar i total, amb fórmules i una cel·la amb <code>IF</code> que digui si hi cap.</li>
+    <li>Comparteix el full amb el professorat amb el permís de <strong>veure</strong>.</li>
+    <li>Crea el calendari <code>CALENDARI_NOM_COGNOMS</code> amb la <strong>data d'inici i de final</strong> i un esdeveniment per dia, amb lloc i activitats.</li>
+    <li>Demostra les <strong>prestacions</strong>: un esdeveniment repetit amb final, un convidat que respon i un recordatori.</li>
+    <li>Crea una <strong>llista de tasques</strong> amb les reserves i les dates límit.</li>
+    <li>Comparteix el calendari amb un company amb el permís de <strong>veure tots els detalls</strong>.</li>
+  </ol>
+</div>
+
+<!-- ============ 6 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 4: permisos i proves</h2>
+  <ol>
+    <li>Comprova qui té accés al full i al calendari, i treu els permisos que no calguin.</li>
+    <li>Comprova que la <strong>verificació en dues passes</strong> és activa al teu compte.</li>
+    <li>Passa una <strong>llista de proves</strong> d'almenys deu files per al calendari: repetició, convidat, recordatori, tasques, permisos i ruta.</li>
+    <li><strong>Extra:</strong> munta una <em>escape room</em> al full de càlcul i un itinerari en HTML.</li>
+  </ol>
+</div>
+
+<!-- ============ 7 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Etiquetes, filtres i vacances</td><td>Guia <a class="cq-ref" href="../guies/g5-1-gmail-etiquetes-i-filtres.html">G5.1</a> i activitat <a class="cq-ref" href="../activitats/a5-1-filtres-al-gmail.html">A5.1</a></td></tr>
+        <tr><td>IMAP, capçaleres i prova entre comptes</td><td>Guia <a class="cq-ref" href="../guies/g5-2-gmail-imap-i-comprovacions.html">G5.2</a> i activitat <a class="cq-ref" href="../activitats/a5-2-correu-entre-dos-comptes.html">A5.2</a></td></tr>
+        <tr><td>Calendari, convidats, tasques i permisos</td><td>Guia <a class="cq-ref" href="../guies/g5-3-calendari-contactes-i-tasques.html">G5.3</a> i activitat <a class="cq-ref" href="../activitats/a5-3-agenda-del-viatge.html">A5.3</a></td></tr>
+        <tr><td>Ruta del viatge</td><td>Activitat <a class="cq-ref" href="../activitats/a5-3-agenda-del-viatge.html">A5.3</a></td></tr>
+        <tr><td>Per què cada peça fa el que fa</td><td>Teories <a class="cq-ref" href="../teoria/t5-1-aplicacions-web-d-escriptori.html">T5.1</a>, <a class="cq-ref" href="../teoria/t5-2-com-viatja-un-correu.html">T5.2</a> i <a class="cq-ref" href="../teoria/t5-3-calendaris-contactes-i-tasques.html">T5.3</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 8 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>Captures de pantalla completa</h2>
+  <p>Cada apartat s'ha de documentar amb captures de <strong>tot l'escriptori</strong>, sense retallar. Una captura retallada no demostra de quin compte és ni en quin moment s'ha fet, i l'apartat no es pot valorar.</p>
+</div>
+
+<!-- ============ 9 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>La funció IF en una línia</h2>
+  <p><code>IF</code> té tres parts: una condició, què passa si és certa i què passa si no ho és. Al pressupost serveix per saber si et passes de 1.500 €:</p>
+  <pre>=IF(B5&lt;=1500; "Dins del pressupost"; "T'has passat")</pre>
+  <p>A les configuracions en català, el separador és el punt i coma.</p>
+</div>
+
+<!-- ============ 10 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li>L'etiqueta «institut» és verda i els cinc filtres classifiquen un missatge de prova.</li>
+    <li>Un missatge enviat d'un compte a l'altre arriba amb l'etiqueta correcta.</li>
+    <li>A l'original, SPF, DKIM i DMARC surten explicats.</li>
+    <li>El pressupost no passa de 1.500 € i la cel·la <code>IF</code> ho diu.</li>
+    <li>El calendari té un esdeveniment per dia i una repetició que acaba.</li>
+    <li>El company veu el calendari amb els detalls; el professorat veu el full només per llegir.</li>
+    <li>La ruta té com a mínim set dies i torna al punt de sortida.</li>
+  </ul>
+</div>
+
+<!-- ============ 11 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>Un filtre no es dispara</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Els criteris no coincideixen amb el missatge de prova.</p>
+      <p><span class="lbl">Solució</span> Prova amb una paraula més simple i marca que s'apliqui també als missatges existents.</p>
+    </dd>
+    <dt>El company no veu el calendari</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> No ha acceptat la invitació.</p>
+      <p><span class="lbl">Solució</span> Demana-li que accepti el correu de compartició.</p>
+    </dd>
+    <dt>El pressupost dona error a la fórmula</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El separador no és el del teu idioma.</p>
+      <p><span class="lbl">Solució</span> Canvia la coma pel punt i coma, o al revés.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 12 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <p><strong>Demostració en directe</strong> al professorat, amb dues sessions obertes: enviar un correu d'un compte a l'altre, ensenyar el filtre, convidar el company a un esdeveniment i ensenyar el calendari des de les dues bandes.</p>
+  <p>Un repositori públic a GitHub amb un <strong><code>README.md</code></strong> que tingui:</p>
+  <ul>
+    <li>La taula d'eines de Google, la resposta sobre IMAP i POP3 i l'explicació de <code>IF</code>.</li>
+    <li>Les captures de pantalla completa de cada fase.</li>
+    <li>Els enllaços a la ruta de Maps i al full de càlcul.</li>
+    <li>La llista de proves omplerta.</li>
+  </ul>
+  <p>Respon al <code>README.md</code>: <strong>quina diferència hi ha entre compartir el full amb «qualsevol que tingui l'enllaç» i amb persones concretes, i quina has triat i per què?</strong></p>
+  <p>Per pujar nota: una <em>escape room</em> al full de càlcul amb almenys cinc proves, que mostri «HAS GUANYAT!» en completar-les; o l'itinerari en HTML a GitHub Pages, amb taula de pressupost i imatges.</p>
+</div>
+
+
+<!-- ============ RÚBRICA ============ -->
+<div class="cq-block" data-kind="rúbrica">
+  <h2>Com es qualifica</h2>
+  <p>Aquesta pràctica és el 60 % de la nota del <a class="cq-ref" href="../index.html">RA5</a>; l'altre 40 % és l'examen tipus test. Cada apartat es puntua a la demostració i amb les evidències del README: la puntuació sencera si funciona, la meitat si funciona amb mancances i zero si no es pot demostrar.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Apartat</th><th>Criteri</th><th>Punts</th></tr></thead>
+      <tbody>
+        <tr><td>Eines de Google descrites i diferència entre IMAP i POP3 explicada</td><td><code>5.1</code></td><td>1</td></tr>
+        <tr><td>Correu web preparat: etiquetes, colors i accés IMAP revisat</td><td><code>5.2</code></td><td>1</td></tr>
+        <tr><td>Cinc filtres i resposta automàtica configurats i provats</td><td><code>5.3</code></td><td>1,5</td></tr>
+        <tr><td>Comptes i permisos: calendari compartit amb un company i full amb el professorat</td><td><code>5.4</code></td><td>1,5</td></tr>
+        <tr><td>Accés al correu verificat amb dos comptes i capçaleres</td><td><code>5.5</code></td><td>1,5</td></tr>
+        <tr><td>Calendari del viatge creat, amb dates i activitats de cada dia</td><td><code>5.6</code></td><td>1,5</td></tr>
+        <tr><td>Prestacions demostrades: repeticions, convidats, recordatoris, tasques, ruta i pressupost</td><td><code>5.7</code></td><td>2</td></tr>
+        <tr><td><strong>Total</strong></td><td></td><td><strong>10</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 5.1</span> Aplicacions de correu web. Instal·lació.</p>
+  <p><span class="lbl">Contingut 5.2</span> Gestió d'usuaris.</p>
+  <p><span class="lbl">CA 5.1</span> Descriu diferents aplicacions web d'escriptori.</p>
+  <p><span class="lbl">CA 5.2</span> Instal·la aplicacions per a proveir d'accés web al servei de correu electrònic.</p>
+  <p><span class="lbl">CA 5.3</span> Configura les aplicacions per a integrar-les amb un servidor de correu.</p>
+  <p><span class="lbl">CA 5.4</span> Gestiona els comptes d'usuari.</p>
+  <p><span class="lbl">CA 5.5</span> Verifica l'accés al correu electrònic.</p>
+  <p><span class="lbl">CA 5.6</span> Instal·la aplicacions de calendari web.</p>
+  <p><span class="lbl">CA 5.7</span> Reconeix les prestacions específiques de les aplicacions instal·lades (cites, tasques, entre altres).</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="../activitats/a5-3-agenda-del-viatge.html">
+    <span class="dir">Anterior · A5.3</span>
+    <span class="ttl">Agenda del viatge</span></a>
+  <a class="next" href="../index.html">
+    <span class="dir">Has acabat el · RA5</span>
+    <span class="ttl">RA5 · Instal·lació d'aplicacions web d'escriptori</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AX.3 · Zoo interactiu — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RAX · HTML i CSS</a>
+    <span class="pos">AX.3 · 5/7</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RAX · AX.3</div>
+  <h1>Zoo interactiu</h1>
+  <p class="lede">Els mateixos animals en graella o en fila: Grid i Flexbox cara a cara.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Teoria <a class="cq-ref" href="../teoria/tx-1-capses-i-disposicio.html">TX.1</a>, Flexbox i Grid. Per al repositori, <a class="cq-ref" href="../guies/gx-1-github-pages.html">GX.1</a>.</p>
+  <p>Faràs un zoo virtual on els animals es distribueixen amb Grid, i un botó els passa a Flexbox per comparar com reparteix l'espai cada sistema.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <ul>
+    <li>Un repositori nou a GitHub anomenat <code>zoo</code>.</li>
+    <li>Almenys sis imatges d'animals amb llicència lliure, per exemple de Wikimedia Commons, a la carpeta <code>images</code>.</li>
+  </ul>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Punt de partida</h2>
+  <p>Estructura HTML; afegeix-hi animals fins a sis com a mínim:</p>
+<pre>&lt;header&gt;
+  &lt;h1&gt;Benvingut al Zoo Interactiu!&lt;/h1&gt;
+  &lt;p&gt;Explora els nostres animals i canvia com es mostren!&lt;/p&gt;
+&lt;/header&gt;
+&lt;main&gt;
+  &lt;section class="zoo-grid"&gt;
+    &lt;div class="animal"&gt;
+      &lt;img src="images/lleo.jpg" alt="Lleó"&gt;
+      &lt;h2&gt;Lleó&lt;/h2&gt;
+      &lt;p&gt;El rei de la sabana.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;!-- més animals aquí --&gt;
+  &lt;/section&gt;
+&lt;/main&gt;
+&lt;footer&gt;
+  &lt;button id="toggle-layout"&gt;Canvia a Flex&lt;/button&gt;
+&lt;/footer&gt;
+&lt;script src="script.js"&gt;&lt;/script&gt;</pre>
+  <p>El botó alterna una classe; tot el canvi d'aspecte ha d'estar al CSS:</p>
+<pre>// script.js
+const zoo = document.querySelector('.zoo-grid');
+const boto = document.getElementById('toggle-layout');
+
+boto.addEventListener('click', () =&gt; {
+  zoo.classList.toggle('mode-flex');
+  boto.textContent = zoo.classList.contains('mode-flex')
+    ? 'Canvia a Grid' : 'Canvia a Flex';
+});</pre>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Què has de fer</h2>
+  <ol>
+    <li>Distribueix els animals amb <code>display: grid</code> i columnes que s'adaptin soles a l'amplada.</li>
+    <li>Escriu la regla <code>.zoo-grid.mode-flex</code> amb <code>display: flex</code>, <code>flex-wrap</code> i centrat.</li>
+    <li>Dona a cada targeta ombra, cantonades arrodonides i una imatge retallada a la mateixa alçada amb <code>object-fit</code>.</li>
+    <li>Afegeix una animació en passar-hi el ratolí: <code>transform: scale(1.05)</code> amb <code>transition</code>.</li>
+    <li>Opcional: en clicar un animal, mostra més informació.</li>
+  </ol>
+</div>
+
+<!-- ============ 5 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Graella que s'adapta sola</td><td>Teoria <a class="cq-ref" href="../teoria/tx-1-capses-i-disposicio.html">TX.1</a>, exemple <code>repeat(auto-fit, …)</code></td></tr>
+        <tr><td>Fila que salta de línia</td><td>Teoria <a class="cq-ref" href="../teoria/tx-1-capses-i-disposicio.html">TX.1</a>, taula Flexbox i Grid</td></tr>
+        <tr><td>Selector amb dues classes</td><td>Teoria <a class="cq-ref" href="../../RA1/teoria/t1-2-html-i-css.html">T1.2</a>, selectors</td></tr>
+        <tr><td>Repositori i GitHub Pages</td><td>Guia <a class="cq-ref" href="../guies/gx-1-github-pages.html">GX.1</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 6 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>El JavaScript no dona estil</h2>
+  <p>La versió anterior d'aquest exercici canviava l'estil des del JavaScript. Ara el botó només posa o treu una classe: el disseny continua sencer al CSS, que és on es busca quan alguna cosa no es veu bé.</p>
+</div>
+
+<!-- ============ 7 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Veure la graella</h2>
+  <p>A l'inspector, al costat de <code>.zoo-grid</code> surt l'etiqueta <code>grid</code> o <code>flex</code>. Si hi fas clic, el navegador dibuixa les columnes i els espais: fes-ho en els dos modes i compara.</p>
+</div>
+
+<!-- ============ 8 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li>En mode Grid totes les targetes d'una fila fan la mateixa amplada.</li>
+    <li>En mode Flex salten de línia i queden centrades.</li>
+    <li>A 375 px es veu una sola columna sense desbordament horitzontal.</li>
+    <li>Les imatges tenen totes la mateixa alçada sense deformar-se.</li>
+  </ul>
+</div>
+
+<!-- ============ 9 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>El botó no fa res</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> <code>script.js</code> no es carrega o s'executa abans que existeixin els elements.</p>
+      <p><span class="lbl">Solució</span> Mira la consola (F12) i deixa el <code>&lt;script&gt;</code> al final del <code>body</code>.</p>
+    </dd>
+    <dt>Les imatges surten deformades</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Tenen amplada i alçada fixes sense retallar.</p>
+      <p><span class="lbl">Solució</span> Afegeix <code>object-fit: cover</code>.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 10 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Publica els canvis</strong> des de la carpeta del repositori:</p>
+<pre>git add .
+git commit -m "Descripció dels canvis"
+git push</pre>
+    </li>
+    <li>
+      <p><strong>Activa GitHub Pages:</strong> <strong>Settings → Pages → Branch: main</strong> i desa.</p>
+    </li>
+    <li>
+      <p><strong>Copia l'adreça publicada</strong> al camp <strong>Website</strong> de la secció <strong>About</strong> del repositori.</p>
+    </li>
+  </ol>
+  <p>Entrega l'enllaç. Respon al <code>README.md</code>: <strong>en quin cas triaries Grid i en quin Flexbox? Posa-hi una captura de cada mode.</strong></p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="ax-2-landing-page.html">
+    <span class="dir">Anterior · AX.2</span>
+    <span class="ttl">Landing page</span></a>
+  <a class="next" href="../practiques/px-1-web-html5.html">
+    <span class="dir">Següent · PX.1</span>
+    <span class="ttl">Pràctica: web HTML5</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

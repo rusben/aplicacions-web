@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G5.2 · Guia: correu web amb Roundcube — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA5 · Instal·lació d'aplicacions web d'escriptori</a>
+    <span class="pos">G5.2 · 5/10</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA5 · G5.2</div>
+  <h1>Guia: correu web amb Roundcube</h1>
+  <p class="lede">Instal·lar el client web, connectar-lo al servidor de correu i deixar-lo a punt per a l'usuari.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què hi ha en aquesta guia</h2>
+  <p>Documentació oficial: <a href="https://roundcube.net/doc/">Roundcube</a> · <a href="https://github.com/roundcube/roundcubemail/wiki">wiki del projecte</a></p>
+  <ul>
+    <li>Punt de partida: el servidor de correu de <a class="cq-ref" href="g5-1-servidor-de-correu-intern.html">G5.1</a> a la mateixa màquina, i la pila LAMP de <a class="cq-ref" href="../../RA1/guies/g1-2-pila-lamp.html">G1.2</a>.</li>
+    <li>Resultat: <code>http://correu.internal/roundcube</code>, amb els comptes del servidor de correu.</li>
+    <li>Cobreix la instal·lació, la connexió amb IMAP i SMTP, les preferències de l'usuari, els filtres i la llibreta d'adreces.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Instal·lar Roundcube</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Instal·la els paquets.</strong> L'assistent demana si vol configurar la base de dades: respon que <strong>sí</strong> i apunta la contrasenya.</p>
+<pre>sudo apt update
+sudo apt install -y roundcube roundcube-mysql</pre>
+    </li>
+    <li>
+      <p><strong>Comprova que Apache ja el serveix</strong>: el paquet deixa la configuració activada.</p>
+<pre>ls /etc/apache2/conf-enabled/ | grep roundcube
+sudo apache2ctl configtest
+sudo systemctl reload apache2</pre>
+    </li>
+    <li>
+      <p><strong>Obre <code>http://correu.internal/roundcube</code></strong>: ha de sortir la pantalla d'inici de sessió.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 3 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Connectar-lo amb el servidor de correu</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Edita la configuració</strong> del client:</p>
+<pre>sudo nano /etc/roundcube/config.inc.php</pre>
+    </li>
+    <li>
+      <p><strong>Digues a quin servidor IMAP i SMTP s'ha de connectar</strong> i quin domini s'afegeix a l'usuari:</p>
+<pre>$config['imap_host'] = 'localhost:143';
+$config['smtp_host'] = 'localhost:25';
+$config['mail_domain'] = 'correu.internal';
+$config['product_name'] = 'Correu del centre';</pre>
+    </li>
+    <li>
+      <p><strong>Inicia sessió</strong> amb un dels comptes creats a <a class="cq-ref" href="g5-1-servidor-de-correu-intern.html">G5.1</a>: el nom d'usuari i la contrasenya del sistema.</p>
+    </li>
+    <li>
+      <p><strong>Envia un missatge</strong> a un altre compte del servidor i comprova que arriba a la bústia.</p>
+    </li>
+    <li>
+      <p><strong>Si alguna cosa falla</strong>, mira el registre del client i el del correu alhora:</p>
+<pre>sudo tail -f /var/log/roundcube/errors.log /var/log/mail.log</pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 4 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Deixar-lo a punt per a l'usuari</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Identitat i signatura:</strong> a <strong>Configuració → Identitats</strong>, posa el nom que veuran els destinataris i una signatura.</p>
+    </li>
+    <li>
+      <p><strong>Carpetes:</strong> a <strong>Configuració → Carpetes</strong>, crea les que calguin i marca quines es veuen a la llista.</p>
+    </li>
+    <li>
+      <p><strong>Preferències:</strong> idioma, zona horària, com es marquen els missatges com a llegits i què passa en esborrar.</p>
+    </li>
+    <li>
+      <p><strong>Llibreta d'adreces:</strong> afegeix contactes i grups des de <strong>Contactes</strong>; es poden importar i exportar en format <code>.vcf</code>.</p>
+    </li>
+    <li>
+      <p><strong>Filtres</strong> (cal el mòdul del servidor):</p>
+<pre>sudo apt install -y dovecot-sieve dovecot-managesieved</pre>
+      <p>Afegeix <code>managesieve</code> a la llista de connectors de la configuració del client i crea una regla a <strong>Configuració → Filtres</strong>, per exemple moure a una carpeta tot el que porti una paraula a l'assumpte.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 5 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>Opcions de configuració útils</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Opció</th><th>Per a què</th></tr></thead>
+      <tbody>
+        <tr><td><code>imap_host</code></td><td>Servidor i port de les bústies</td></tr>
+        <tr><td><code>smtp_host</code></td><td>Servidor i port d'enviament</td></tr>
+        <tr><td><code>mail_domain</code></td><td>Domini que s'afegeix al nom d'usuari</td></tr>
+        <tr><td><code>plugins</code></td><td>Connectors actius: <code>archive</code>, <code>zipdownload</code>, <code>managesieve</code></td></tr>
+        <tr><td><code>support_url</code></td><td>Enllaç d'ajuda de l'organització</td></tr>
+        <tr><td><code>skin</code></td><td>Aparença del client</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="cq-note"><span class="lbl">Compte</span>
+    El client no té comptes propis: no s'hi crea cap usuari. Qui pot entrar-hi és qui té compte al servidor de correu.</div>
+</div>
+
+<!-- ============ 6 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Comprovació de conjunt</h2>
+  <ul>
+    <li>Cada compte del servidor de correu pot iniciar sessió al client web.</li>
+    <li>Un missatge enviat des del client arriba a la bústia de l'altre usuari i es veu al seu correu web.</li>
+    <li>El missatge enviat queda a la carpeta d'elements enviats.</li>
+    <li>Un missatge enviat des del terminal amb <code>mail</code> apareix al client web.</li>
+    <li>El filtre mou a la carpeta esperada un missatge de prova.</li>
+    <li>Un compte desactivat al sistema ja no pot iniciar sessió.</li>
+  </ul>
+</div>
+
+<!-- ============ 7 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Els comptes es gestionen al servidor de correu, no al client.</li>
+    <li>HTTPS abans de donar-lo a ningú: hi viatgen contrasenyes.</li>
+    <li>Només els connectors que facin falta.</li>
+    <li>Prova sempre amb dos comptes: enviar-te un correu a tu mateix amaga la meitat dels problemes.</li>
+    <li>Mira els dos registres alhora, el del client i el del correu.</li>
+  </ul>
+</div>
+
+<!-- ============ 8 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>«Connexió al servidor fallida»</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> <code>imap_host</code> apunta a un servidor o a un port on no hi ha ningú.</p>
+      <p><span class="lbl">Solució</span> Comprova amb <code>ss -tlnp</code> que el 143 escolta i revisa la configuració.</p>
+    </dd>
+    <dt>Entra però la safata és buida i el terminal diu que hi ha missatges</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Dovecot busca les bústies en un altre lloc.</p>
+      <p><span class="lbl">Solució</span> Revisa <code>mail_location</code> a <a class="cq-ref" href="g5-1-servidor-de-correu-intern.html">G5.1</a>.</p>
+    </dd>
+    <dt>No deixa enviar: «relay access denied»</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> S'envia a un domini que el servidor no serveix.</p>
+      <p><span class="lbl">Solució</span> Al laboratori, envia només a adreces internes.</p>
+    </dd>
+    <dt>No surt la pestanya de filtres</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Falta el connector o el mòdul del servidor.</p>
+      <p><span class="lbl">Solució</span> Instal·la els paquets del pas 5 i afegeix el connector a la configuració.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 9 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Fitxa ràpida</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Vull</th><th>On</th></tr></thead>
+      <tbody>
+        <tr><td>Configurar el client</td><td><code>/etc/roundcube/config.inc.php</code></td></tr>
+        <tr><td>Adreça del correu web</td><td><code>http://correu.internal/roundcube</code></td></tr>
+        <tr><td>Identitat i signatura</td><td>Configuració → Identitats</td></tr>
+        <tr><td>Filtres</td><td>Configuració → Filtres</td></tr>
+        <tr><td>Contactes</td><td>Pestanya Contactes, importa i exporta <code>.vcf</code></td></tr>
+        <tr><td>Errors del client</td><td><code>/var/log/roundcube/errors.log</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="g5-1-servidor-de-correu-intern.html">
+    <span class="dir">Anterior · G5.1</span>
+    <span class="ttl">Guia: servidor de correu intern</span></a>
+  <a class="next" href="g5-3-calendari-contactes-i-tasques.html">
+    <span class="dir">Següent · G5.3</span>
+    <span class="ttl">Guia: calendari, contactes i tasques web</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

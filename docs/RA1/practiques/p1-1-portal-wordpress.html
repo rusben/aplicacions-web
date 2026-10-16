@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P1.1 · Pràctica: portal amb WordPress — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA1 · Instal·lació de gestors de continguts</a>
+    <span class="pos">P1.1 · 16/16</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA1 · P1.1</div>
+  <h1>Pràctica: portal amb WordPress</h1>
+  <p class="lede">Un portal complet de temàtica lliure, instal·lat, configurat, protegit i provat de cap a peus.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Totes les teories del RA, de <a class="cq-ref" href="../teoria/t1-1-com-funciona-una-aplicacio-web.html">T1.1</a> a <a class="cq-ref" href="../teoria/t1-5-mantenir-un-gestor.html">T1.5</a>, i les activitats <a class="cq-ref" href="../activitats/a1-1-estatic-i-dinamic.html">A1.1</a> a <a class="cq-ref" href="../activitats/a1-6-actualitzar-protegir-i-copiar.html">A1.6</a>, que en són l'assaig. Les guies <a class="cq-ref" href="../guies/g1-1-entorn-de-laboratori.html">G1.1</a>, <a class="cq-ref" href="../guies/g1-2-pila-lamp.html">G1.2</a>, <a class="cq-ref" href="../guies/g1-3-wordpress.html">G1.3</a> i <a class="cq-ref" href="../guies/g1-4-migrar-wordpress.html">G1.4</a> són els manuals que consultaràs.</p>
+  <p>És la pràctica principal del <a class="cq-ref" href="../index.html">RA1</a>. Partiràs d'un escriptori buit i hi deixaràs un portal que podria posar-se en producció: amb els requeriments comprovats, contingut propi, usuaris i grups, fòrum, seguretat activada, còpia provada i una llista de proves passada.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Element</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>Màquina</td><td>Escriptori <strong>nou</strong> a IsardVDI, anomenat <code>p1-1-cognom</code></td></tr>
+        <tr><td>Sistema</td><td>Ubuntu 26.04 LTS</td></tr>
+        <tr><td>Pila</td><td>Apache, MySQL i PHP</td></tr>
+        <tr><td>Nom del lloc</td><td><code>portal.internal</code>, resolt amb <code>/etc/hosts</code></td></tr>
+        <tr><td>Base de dades</td><td><code>portaldb</code>, amb l'usuari <code>portaluser</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Tria una temàtica real: una associació, un club, un comerç del barri, un projecte del cicle. El portal ha de semblar fet per a aquell client.</p>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 1: requeriments i instal·lació</h2>
+  <ol>
+    <li>Fes una <strong>fitxa de requeriments</strong> de WordPress amb la documentació oficial: versions de PHP i MySQL, extensions de PHP, mòduls d'Apache i recursos.</li>
+    <li>Prepara l'escriptori i instal·la la pila LAMP. Fes l'<strong>inventari del servidor</strong> i compara'l amb la fitxa: marca cada requeriment com a complert o no.</li>
+    <li>Crea el host virtual, la base de dades i el seu usuari, amb accés només des de <code>localhost</code>.</li>
+    <li>Instal·la WordPress en català, amb un administrador que no es digui <code>admin</code>, i activa els enllaços permanents.</li>
+  </ol>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 2: contingut i aparença</h2>
+  <ol>
+    <li>Identitat del lloc: títol, descripció, icona, zona horària i idioma.</li>
+    <li>Un <strong>tema diferent</strong> del de per defecte, adaptat amb l'editor del lloc i amb <strong>CSS addicional</strong> propi (<a class="cq-ref" href="../teoria/t1-2-html-i-css.html">T1.2</a>).</li>
+    <li>Com a mínim <strong>cinc entrades</strong> en <strong>dues categories</strong>, amb imatges i etiquetes. Una ha de quedar <strong>programada</strong> i una altra amb els comentaris tancats.</li>
+    <li>Com a mínim <strong>tres pàgines</strong> pròpies («Qui som», «Serveis», «Projectes»…), una <strong>portada estàtica</strong>, una pàgina de <strong>contacte</strong> amb un formulari que funcioni i un <strong>mapa</strong> interactiu.</li>
+  </ol>
+</div>
+
+<!-- ============ 5 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 3: mòduls, menús i sindicació</h2>
+  <ol>
+    <li><strong>Menú principal</strong> amb les pàgines i les categories, i un <strong>menú al peu</strong> amb els avisos legals.</li>
+    <li><strong>Ginys</strong> al peu o a la barra lateral: cercador, últimes entrades i un bloc RSS que mostri les notícies d'un altre web.</li>
+    <li>Sindicació configurada: el fil del lloc i el d'una categoria han de funcionar, i t'hi has de subscriure des d'un lector.</li>
+    <li>Portal en <strong>dos idiomes</strong> com a mínim, amb selector al menú i almenys la portada i una entrada traduïdes.</li>
+    <li>Una <strong>extensió que no s'hagi vist a classe</strong>, instal·lada i configurada, amb una explicació de per què la fas servir.</li>
+  </ol>
+</div>
+
+<!-- ============ 6 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 4: usuaris, grups i fòrum</h2>
+  <ol>
+    <li>Un usuari per a cadascun d'aquests rols: <strong>editor</strong>, <strong>autor</strong>, <strong>col·laborador</strong> i <strong>subscriptor</strong>. Justifica per a qui és cada un.</li>
+    <li>Un <strong>rol personalitzat</strong> amb les capacitats que necessiti una feina concreta del teu portal.</li>
+    <li>Un <strong>grup</strong> amb dos usuaris i una pàgina que només pugui llegir aquest grup.</li>
+    <li>Un <strong>fòrum</strong> amb bbPress: un fòrum públic, un de privat per a registrats i un d'ocult per a moderadors, un moderador i un usuari bloquejat.</li>
+    <li>Regles d'accés decidides i justificades: si hi ha registre obert, amb quin rol per defecte, i si es pot escriure sense compte.</li>
+  </ol>
+</div>
+
+<!-- ============ 7 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 5: manteniment, seguretat i còpies</h2>
+  <ol>
+    <li>Fes una <strong>còpia completa</strong> abans de tocar res i guarda-la fora de l'escriptori.</li>
+    <li>Aplica totes les <strong>actualitzacions</strong> pendents del nucli, els temes i les extensions. Registra-les en una taula: element, versió abans i després.</li>
+    <li>Activa els <strong>mecanismes de seguretat</strong> del gestor: actualitzacions automàtiques, rols mínims, cap tema ni extensió sobrant, comentaris moderats, editor de fitxers desactivat i <code>wp-config.php</code> protegit.</li>
+    <li>Deixa <strong>Salut del lloc</strong> sense avisos crítics i comprova la integritat del nucli.</li>
+    <li>Fes la <strong>còpia final</strong>, esborra una pàgina i una extensió, i <strong>restaura</strong> la còpia fins que el portal torni a estar sencer.</li>
+  </ol>
+</div>
+
+<!-- ============ 8 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 6: proves de funcionament</h2>
+  <p>Escriu una <strong>llista de proves</strong> d'almenys deu files i passa-la tres vegades: després d'instal·lar, després d'actualitzar i després de restaurar. Aquest és el model:</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Prova</th><th>Com</th><th>Resultat esperat</th><th>Instal·lació</th><th>Actualització</th><th>Restauració</th></tr></thead>
+      <tbody>
+        <tr><td>La portada carrega</td><td><code>curl -I</code></td><td><code>200</code></td><td>✔</td><td>✔</td><td>✔</td></tr>
+        <tr><td>Enllaç permanent d'una entrada</td><td>Navegador</td><td>Sense <code>?p=</code></td><td></td><td></td><td></td></tr>
+        <tr><td>Col·laborador intenta publicar</td><td>Finestra privada</td><td>No pot</td><td></td><td></td><td></td></tr>
+        <tr><td>Fòrum privat sense sessió</td><td>Finestra privada</td><td>No es veu</td><td></td><td></td><td></td></tr>
+        <tr><td>…</td><td></td><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 9 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Escriptori d'IsardVDI</td><td>Guia <a class="cq-ref" href="../guies/g1-1-entorn-de-laboratori.html">G1.1</a></td></tr>
+        <tr><td>Pila LAMP, inventari, host virtual i base de dades</td><td>Guia <a class="cq-ref" href="../guies/g1-2-pila-lamp.html">G1.2</a></td></tr>
+        <tr><td>Quins requeriments mirar i per què</td><td>Teoria <a class="cq-ref" href="../teoria/t1-3-gestors-de-continguts.html">T1.3</a> i activitat <a class="cq-ref" href="../activitats/a1-2-requeriments-i-instal-lacio.html">A1.2</a></td></tr>
+        <tr><td>Instal·lació, aparença, menús, ginys, sindicació i idiomes</td><td>Guia <a class="cq-ref" href="../guies/g1-3-wordpress.html">G1.3</a> i activitat <a class="cq-ref" href="../activitats/a1-4-interficie-menus-i-sindicacio.html">A1.4</a></td></tr>
+        <tr><td>Rols, rol personalitzat i grups</td><td>Teoria <a class="cq-ref" href="../teoria/t1-4-usuaris-i-rols.html">T1.4</a>, guia <a class="cq-ref" href="../guies/g1-3-wordpress.html">G1.3</a> i activitat <a class="cq-ref" href="../activitats/a1-3-usuaris-grups-i-rols.html">A1.3</a></td></tr>
+        <tr><td>Fòrum i regles d'accés</td><td>Guia <a class="cq-ref" href="../guies/g1-3-wordpress.html">G1.3</a>, fòrums, i activitat <a class="cq-ref" href="../activitats/a1-5-forum-amb-regles-d-acces.html">A1.5</a></td></tr>
+        <tr><td>Actualitzacions, seguretat, còpia i restauració</td><td>Teoria <a class="cq-ref" href="../teoria/t1-5-mantenir-un-gestor.html">T1.5</a>, guia <a class="cq-ref" href="../guies/g1-3-wordpress.html">G1.3</a> i activitat <a class="cq-ref" href="../activitats/a1-6-actualitzar-protegir-i-copiar.html">A1.6</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 10 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>Contingut propi</h2>
+  <p>No es valora un tema de demostració amb el text d'exemple. Tot el contingut l'has d'escriure tu, i les imatges han de ser pròpies o amb una llicència que en permeti l'ús. Indica'n l'origen al README.</p>
+</div>
+
+<!-- ============ 11 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Provar els permisos de debò</h2>
+  <p>Obre una finestra privada per a cada usuari de prova i intenta fer una acció que el seu rol o el seu grup no permet. Una captura de l'intent fallit demostra el permís millor que una captura de la llista d'usuaris. Fes el mateix amb el fòrum, sense iniciar sessió.</p>
+</div>
+
+<!-- ============ 12 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li><code>curl -I http://portal.internal/qui-som/</code> respon <code>200</code>.</li>
+    <li><code>curl -s http://portal.internal/feed/ | grep -c '&lt;item&gt;'</code> compta les entrades publicades, i la programada no hi és.</li>
+    <li><code>sudo -u www-data wp core verify-checksums</code> i <code>wp plugin list --update=available</code> no mostren res pendent.</li>
+    <li>Sense sessió, la pàgina del grup i el fòrum privat no es veuen.</li>
+    <li>El canvi d'idioma porta a la traducció de la mateixa pàgina.</li>
+    <li>Després de restaurar, la pàgina i l'extensió esborrades hi tornen a ser.</li>
+  </ul>
+</div>
+
+<!-- ============ 13 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>Les pàgines donen 404 després de canviar els enllaços permanents</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Falta <code>rewrite</code> o <code>AllowOverride All</code>.</p>
+      <p><span class="lbl">Solució</span> Guia <a class="cq-ref" href="../guies/g1-3-wordpress.html">G1.3</a>, apartat d'enllaços permanents.</p>
+    </dd>
+    <dt>Després de restaurar, WordPress no connecta amb la base de dades</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Has restaurat els fitxers en una màquina on l'usuari de MySQL no existeix o té una altra contrasenya.</p>
+      <p><span class="lbl">Solució</span> Torna a crear l'usuari com diu <a class="cq-ref" href="../guies/g1-2-pila-lamp.html">G1.2</a> amb les dades de <code>wp-config.php</code>.</p>
+    </dd>
+    <dt>Una actualització trenca el lloc</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Una extensió no és compatible amb la versió nova.</p>
+      <p><span class="lbl">Solució</span> Restaura la còpia prèvia o desactiva l'extensió amb <code>wp plugin deactivate</code>, i documenta-ho.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 14 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <p><strong>Demostració en directe</strong> al professorat, explicant cada fase i responent preguntes sobre les decisions preses.</p>
+  <p>Un repositori públic a GitHub amb un <code>README.md</code> organitzat per fases: fitxa de requeriments i inventari, captures de cada funció, extensions usades i per què, usuaris, rols i grups amb la seva justificació, regles del fòrum, taula d'actualitzacions, mecanismes de seguretat, procediment de còpia i restauració i la llista de proves omplerta.</p>
+  <p>Respon-hi també: <strong>quina extensió o tema del teu portal eliminaries primer si haguessis de reduir el risc de seguretat, i per què?</strong></p>
+  <p>Per pujar nota: HTTPS amb un certificat autosignat, publicació a un allotjament seguint <a class="cq-ref" href="../guies/g1-4-migrar-wordpress.html">G1.4</a>, o qualsevol funció que demostri domini tècnic.</p>
+</div>
+
+
+<!-- ============ RÚBRICA ============ -->
+<div class="cq-block" data-kind="rúbrica">
+  <h2>Com es qualifica</h2>
+  <p>Aquesta pràctica és el 60 % de la nota del <a class="cq-ref" href="../index.html">RA1</a>; l'altre 40 % és l'examen tipus test. Cada apartat es puntua a la demostració i amb les evidències del README: la puntuació sencera si funciona, la meitat si funciona amb mancances i zero si no es pot demostrar.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Apartat</th><th>Criteri</th><th>Punts</th></tr></thead>
+      <tbody>
+        <tr><td>Requeriments comprovats i documentats abans d'instal·lar</td><td><code>1.1</code></td><td>0,5</td></tr>
+        <tr><td>Instal·lació: host virtual, base de dades MySQL, WordPress i enllaços permanents</td><td><code>1.1</code></td><td>1</td></tr>
+        <tr><td>Contingut: entrades, categories, pàgines, publicació programada i comentaris</td><td><code>1.3</code></td><td>1</td></tr>
+        <tr><td>Aparença: tema diferent, identitat del lloc i CSS addicional</td><td><code>1.3</code></td><td>1</td></tr>
+        <tr><td>Menús, ginys, sindicació i extensions configurades</td><td><code>1.6</code></td><td>1,5</td></tr>
+        <tr><td>Usuaris i grups amb rols diferents, provats amb intents fallits</td><td><code>1.2</code></td><td>1</td></tr>
+        <tr><td>Fòrum amb zona pública i zona restringida, amb regles d'accés</td><td><code>1.8</code></td><td>1</td></tr>
+        <tr><td>Actualitzacions aplicades i registrades</td><td><code>1.5</code></td><td>0,5</td></tr>
+        <tr><td>Mecanismes de seguretat del gestor activats i justificats</td><td><code>1.7</code></td><td>1</td></tr>
+        <tr><td>Còpia de seguretat completa i restauració provada</td><td><code>1.10</code></td><td>1</td></tr>
+        <tr><td>Llista de proves de funcionament passada abans i després dels canvis</td><td><code>1.4</code> · <code>1.9</code></td><td>0,5</td></tr>
+        <tr><td><strong>Total</strong></td><td></td><td><strong>10</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 1.1</span> Instal·lació en sistemes operatius lliures i propietaris.</p>
+  <p><span class="lbl">Contingut 1.2</span> Creació d'usuaris i grups d'usuaris.</p>
+  <p><span class="lbl">Contingut 1.3</span> Utilització de la interfície gràfica. Personalització de l'entorn. Funcionalitats proporcionades pel gestor de continguts. Sindicació.</p>
+  <p><span class="lbl">Contingut 1.4</span> Funcionament dels gestors de continguts.</p>
+  <p><span class="lbl">Contingut 1.5</span> Actualitzacions del gestor de continguts. Configuració de mòduls i menús.</p>
+  <p><span class="lbl">CA 1.1</span> Identifica els requeriments necessaris per instal·lar gestors de continguts.</p>
+  <p><span class="lbl">CA 1.2</span> Gestiona usuaris amb rols diferents.</p>
+  <p><span class="lbl">CA 1.3</span> Personalitza la interfície del gestor de continguts.</p>
+  <p><span class="lbl">CA 1.4</span> Realitza proves de funcionament.</p>
+  <p><span class="lbl">CA 1.5</span> Realitza tasques d'actualització del gestor de continguts, especialment les de seguretat.</p>
+  <p><span class="lbl">CA 1.6</span> Instal·la i configura els mòduls i menús necessaris.</p>
+  <p><span class="lbl">CA 1.7</span> Activa i configura els mecanismes de seguretat proporcionats pel propi gestor de continguts.</p>
+  <p><span class="lbl">CA 1.8</span> Habilita fòrums i estableix regles d'accés.</p>
+  <p><span class="lbl">CA 1.9</span> Realitza proves de funcionament.</p>
+  <p><span class="lbl">CA 1.10</span> Realitza còpies de seguretat dels continguts del gestor.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="../activitats/a1-6-actualitzar-protegir-i-copiar.html">
+    <span class="dir">Anterior · A1.6</span>
+    <span class="ttl">Actualitzar, protegir i copiar</span></a>
+  <a class="next" href="../index.html">
+    <span class="dir">Has acabat el · RA1</span>
+    <span class="ttl">RA1 · Instal·lació de gestors de continguts</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

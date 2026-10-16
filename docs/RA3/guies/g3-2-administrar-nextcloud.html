@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G3.2 · Guia: administrar Nextcloud — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA3 · Instal·lació de serveis de gestió d'arxius web</a>
+    <span class="pos">G3.2 · 5/9</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA3 · G3.2</div>
+  <h1>Guia: administrar Nextcloud</h1>
+  <p class="lede">Comptes, grups, quotes, carpetes d'equip, comparticions, etiquetes i seguretat, des del navegador.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què hi ha en aquesta guia</h2>
+  <p>Documentació oficial: <a href="https://docs.nextcloud.com/server/latest/admin_manual/">Administration Manual</a> · <a href="https://docs.nextcloud.com/server/latest/user_manual/">User Manual</a></p>
+  <ul>
+    <li>Punt de partida: Nextcloud instal·lat i funcionant (<a class="cq-ref" href="g3-1-instal-lar-nextcloud.html">G3.1</a>).</li>
+    <li>Cobreix comptes, grups i quotes, operacions amb fitxers, compartició, carpetes d'equip, etiquetes i cerca, aplicacions i seguretat.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>On és cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Vull</th><th>On</th></tr></thead>
+      <tbody>
+        <tr><td>Comptes, grups i quotes</td><td>Menú del perfil → <strong>Comptes</strong></td></tr>
+        <tr><td>Aplicacions</td><td>Menú del perfil → <strong>Aplicacions</strong></td></tr>
+        <tr><td>Estat, avisos i seguretat</td><td><strong>Configuració → Administració → Visió general</strong></td></tr>
+        <tr><td>Registres del servei</td><td><strong>Configuració → Administració → Registre</strong></td></tr>
+        <tr><td>Normes de compartició</td><td><strong>Configuració → Administració → Compartició</strong></td></tr>
+        <tr><td>Fitxers, etiquetes i comparticions</td><td>Aplicació <strong>Fitxers</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 3 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Comptes, grups i quotes</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Crea un grup</strong> a <strong>Comptes</strong>, amb el botó d'afegir grup: per exemple <code>professorat</code> i <code>1r-smx</code>.</p>
+    </li>
+    <li>
+      <p><strong>Crea els comptes</strong> amb <strong>Compte nou</strong>: nom d'usuari, nom que es veurà, contrasenya o correu, grup i <strong>quota</strong>.</p>
+    </li>
+    <li>
+      <p><strong>Fixa la quota per defecte</strong> dels comptes nous a <strong>Configuració → Administració → Comptes</strong>.</p>
+    </li>
+    <li>
+      <p><strong>Nomena un administrador de grup</strong> des de la fila del compte, a la columna de grups d'administració: gestionarà només el seu grup.</p>
+    </li>
+    <li>
+      <p><strong>Des del terminal</strong>, per crear-ne molts de cop:</p>
+<pre>cd /var/www/nuvol.internal
+sudo -u www-data php occ group:add 1r-smx
+sudo -u www-data php occ user:add --group=1r-smx apinyol
+sudo -u www-data php occ user:setting apinyol files quota 5GB</pre>
+    </li>
+    <li>
+      <p><strong>Desactiva un compte</strong> en lloc d'esborrar-lo quan algú marxa: els fitxers es mantenen.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 4 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Fitxers i carpetes</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Puja fitxers</strong> arrossegant-los a la finestra o amb el botó <strong>+</strong>, que també crea carpetes i documents.</p>
+    </li>
+    <li>
+      <p><strong>Mou i reanomena</strong> amb el menú de tres punts de cada fila. Les operacions es poden fer en bloc seleccionant diverses files.</p>
+    </li>
+    <li>
+      <p><strong>Recupera</strong> el que s'ha esborrat a <strong>Fitxers esborrats</strong>, i les versions anteriors d'un fitxer al panell lateral, pestanya <strong>Versions</strong>.</p>
+    </li>
+    <li>
+      <p><strong>Escriu la descripció de la carpeta</strong>: obre-la i clica a l'espai de text de sobre de la llista. Es guarda com un fitxer <code>Readme.md</code> dins de la carpeta.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 5 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Compartir</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Obre el panell de compartició</strong> amb la icona de compartir de la fila.</p>
+    </li>
+    <li>
+      <p><strong>Amb una persona o un grup:</strong> escriu-ne el nom i tria els permisos al menú de tres punts: <em>permet editar</em>, <em>permet crear</em>, <em>permet esborrar</em>, <em>permet tornar a compartir</em>.</p>
+    </li>
+    <li>
+      <p><strong>Amb un enllaç:</strong> crea l'enllaç i, al seu menú, activa <strong>contrasenya</strong> i <strong>data de caducitat</strong>. Tria què permet: només llegir, pujar i editar, o <strong>només pujar</strong> (bústia d'entregues).</p>
+    </li>
+    <li>
+      <p><strong>Posa les normes del lloc</strong> a <strong>Configuració → Administració → Compartició</strong>: obligar contrasenya als enllaços, caducitat màxima i si es pot tornar a compartir.</p>
+    </li>
+    <li>
+      <p><strong>Revisa les comparticions</strong> obertes a l'apartat <strong>Compartits</strong> de l'aplicació Fitxers.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 6 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Carpetes d'equip</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Activa l'aplicació</strong> <em>Team folders</em> (abans <em>Group folders</em>) des d'<strong>Aplicacions</strong>.</p>
+    </li>
+    <li>
+      <p><strong>Crea la carpeta</strong> a <strong>Configuració → Administració → Carpetes d'equip</strong>, dona-li nom i assigna-hi els grups.</p>
+    </li>
+    <li>
+      <p><strong>Ajusta els permisos</strong> de cada grup sobre la carpeta i, si cal, posa-li quota pròpia.</p>
+    </li>
+    <li>
+      <p><strong>Comprova</strong> que els membres del grup la veuen a l'arrel dels seus fitxers, sense que ningú n'hagi de ser el propietari.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 7 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Etiquetes, comentaris i cerca</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Etiqueta un fitxer</strong> des del panell lateral, pestanya d'etiquetes. Les etiquetes són del lloc: si una altra persona té accés al fitxer, també les veu.</p>
+    </li>
+    <li>
+      <p><strong>Gestiona la llista d'etiquetes</strong> a <strong>Configuració → Administració → Etiquetes</strong>: crea les acordades i esborra les repetides.</p>
+    </li>
+    <li>
+      <p><strong>Escriu comentaris</strong> a la pestanya de comentaris del mateix panell.</p>
+    </li>
+    <li>
+      <p><strong>Cerca</strong> amb la lupa de dalt: per nom, per tipus i per etiqueta. A l'aplicació Fitxers hi ha el filtre per etiquetes.</p>
+    </li>
+    <li>
+      <p><strong>Si has tocat fitxers per fora</strong>, refés l'índex:</p>
+<pre>cd /var/www/nuvol.internal
+sudo -u www-data php occ files:scan --all</pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 8 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Seguretat i manteniment</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Llegeix la visió general</strong>: resol els avisos de seguretat i de configuració que hi surten.</p>
+    </li>
+    <li>
+      <p><strong>Activa la verificació en dos passos</strong> per als administradors des d'<strong>Aplicacions</strong> (Two-Factor TOTP) i configura-la al teu perfil.</p>
+    </li>
+    <li>
+      <p><strong>Revisa els intents fallits</strong> i les IP bloquejades per la protecció contra força bruta al registre del servei.</p>
+    </li>
+    <li>
+      <p><strong>Actualitza</strong> el servei i les aplicacions: a <strong>Visió general</strong> hi surt si hi ha versió nova; fes la còpia abans.</p>
+    </li>
+    <li>
+      <p><strong>Mira l'espai i les quotes</strong> a <strong>Comptes</strong>, ordenant per espai utilitzat.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 9 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Comprovació de conjunt</h2>
+  <ul>
+    <li>Un usuari del grup veu la carpeta d'equip acabada de crear.</li>
+    <li>Un usuari amb permís de només lectura no pot desar cap canvi.</li>
+    <li>L'enllaç públic demana contrasenya i deixa de funcionar passada la data.</li>
+    <li>La cerca per etiqueta troba fitxers de carpetes diferents.</li>
+    <li><code>sudo -u www-data php occ user:list</code> mostra els comptes creats.</li>
+    <li>La visió general no té avisos de seguretat.</li>
+  </ul>
+</div>
+
+<!-- ============ 10 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Comparteix amb grups i carpetes d'equip; deixa el compte personal per al que és personal.</li>
+    <li>Obliga contrasenya i caducitat als enllaços públics des de la configuració del lloc.</li>
+    <li>Llista d'etiquetes tancada i descripció a cada carpeta d'equip.</li>
+    <li>Desactiva els comptes, no els esborris, fins que sàpigues on van els seus fitxers.</li>
+    <li>Repassa la visió general cada vegada que actualitzis.</li>
+  </ul>
+</div>
+
+<!-- ============ 11 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>Un usuari no veu la carpeta compartida</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> S'ha compartit amb un altre compte o el grup no és el seu.</p>
+      <p><span class="lbl">Solució</span> Revisa el panell de compartició i els grups del compte.</p>
+    </dd>
+    <dt>No deixa crear enllaços públics</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Estan desactivats a la configuració de compartició del lloc.</p>
+      <p><span class="lbl">Solució</span> Activa'ls i posa-hi les normes de contrasenya i caducitat.</p>
+    </dd>
+    <dt>Un compte no pot pujar res</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Ha arribat a la quota.</p>
+      <p><span class="lbl">Solució</span> Puja-li la quota o demana-li que buidi els fitxers esborrats, que també ocupen.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 12 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Fitxa ràpida</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Vull</th><th>On o quina ordre</th></tr></thead>
+      <tbody>
+        <tr><td>Crear grup i compte</td><td>Comptes → Compte nou · <code>occ group:add</code> · <code>occ user:add</code></td></tr>
+        <tr><td>Posar quota</td><td>Comptes → columna Quota · <code>occ user:setting … files quota</code></td></tr>
+        <tr><td>Carpeta d'equip</td><td>Administració → Carpetes d'equip</td></tr>
+        <tr><td>Enllaç amb contrasenya</td><td>Panell de compartició → Enllaç → menú</td></tr>
+        <tr><td>Etiquetes del lloc</td><td>Administració → Etiquetes</td></tr>
+        <tr><td>Refer l'índex</td><td><code>occ files:scan --all</code></td></tr>
+        <tr><td>Estat i seguretat</td><td>Administració → Visió general</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="g3-1-instal-lar-nextcloud.html">
+    <span class="dir">Anterior · G3.1</span>
+    <span class="ttl">Guia: instal·lar Nextcloud</span></a>
+  <a class="next" href="../activitats/a3-1-el-nuvol-a-punt.html">
+    <span class="dir">Següent · A3.1</span>
+    <span class="ttl">El núvol a punt</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

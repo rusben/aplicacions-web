@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A2.3 · Còpies, informes i seguretat — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA2 · Instal·lació de sistemes de gestió d'aprenentatge</a>
+    <span class="pos">A2.3 · 8/9</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA2 · A2.3</div>
+  <h1>Còpies, informes i seguretat</h1>
+  <p class="lede">Moure un curs entre llocs, saber qui ha entrat i tancar el lloc a qui no hi ha de ser.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Teoria <a class="cq-ref" href="../teoria/t2-3-mantenir-un-moodle.html">T2.3</a>. La guia <a class="cq-ref" href="../guies/g2-2-administrar-moodle.html">G2.2</a> és el manual. Parteixes del Moodle d'<a class="cq-ref" href="a2-2-cursos-usuaris-i-activitats.html">A2.2</a>.</p>
+  <p>Faràs còpies i restauracions, intercanviaràs un curs amb un company, llegiràs els informes d'ús i aplicaràs mesures de seguretat.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <p>El teu Moodle i el d'un company, cadascú a la seva màquina.</p>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Què has de fer</h2>
+  <ol>
+    <li>Fes una còpia de seguretat del curs A, amb usuaris, i descarrega el <code>.mbz</code>.</li>
+    <li>Envia-la a un company i restaura al teu Moodle un curs del seu.</li>
+    <li>Exporta les preguntes d'una categoria del banc en format GIFT i importa-les en un altre curs.</li>
+    <li>Fes la còpia completa del lloc: base de dades, codi i <code>moodledata</code>.</li>
+    <li>Genera un informe dels <strong>registres</strong> d'un alumne i un d'<strong>activitat del curs</strong>.</li>
+    <li>Bloqueja una IP concreta i justifica per què l'has triada.</li>
+    <li>Revisa les <strong>Comprovacions de seguretat</strong> i corregeix tots els avisos que puguis.</li>
+  </ol>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Còpia i restauració de curs</td><td>Guia <a class="cq-ref" href="../guies/g2-2-administrar-moodle.html">G2.2</a>, còpies</td></tr>
+        <tr><td>Còpia del lloc</td><td>Guia <a class="cq-ref" href="../guies/g2-2-administrar-moodle.html">G2.2</a>, còpies</td></tr>
+        <tr><td>Registres i activitat</td><td>Guia <a class="cq-ref" href="../guies/g2-2-administrar-moodle.html">G2.2</a>, informes</td></tr>
+        <tr><td>Quin informe respon cada pregunta</td><td>Teoria <a class="cq-ref" href="../teoria/t2-3-mantenir-un-moodle.html">T2.3</a></td></tr>
+        <tr><td>Blocador d'IP i comprovacions</td><td>Guia <a class="cq-ref" href="../guies/g2-2-administrar-moodle.html">G2.2</a>, seguretat</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>IP bloquejades, no IP permeses</h2>
+  <p>El blocador d'IP té dues llistes. Si escrius l'adreça a <em>IP permeses</em>, Moodle deixa fora tothom excepte aquella adreça, i tu també. Assegura't que tens accés al terminal del servidor abans de provar-ho.</p>
+</div>
+
+<!-- ============ 6 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Què porta un .mbz</h2>
+  <p>Un <code>.mbz</code> és un arxiu comprimit. Copia'l amb un altre nom acabat en <code>.tar.gz</code>, descomprimeix-lo i mira'n el contingut: veuràs un XML per activitat i els fitxers del curs. Si l'has fet amb usuaris, també hi haurà les seves dades.</p>
+</div>
+
+<!-- ============ 7 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li>El curs del company apareix al teu Moodle amb recursos i activitats.</li>
+    <li>Les preguntes importades surten al banc del curs de destinació.</li>
+    <li>Des de la IP bloquejada, Moodle mostra un missatge d'accés denegat.</li>
+    <li>L'informe de comprovacions no té cap element <em>Crític</em>.</li>
+  </ul>
+</div>
+
+<!-- ============ 8 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>La restauració falla per mida</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El <code>.mbz</code> supera <code>upload_max_filesize</code>.</p>
+      <p><span class="lbl">Solució</span> Puja els límits de PHP com a <a class="cq-ref" href="../../RA1/guies/g1-2-pila-lamp.html">G1.2</a> i reinicia Apache.</p>
+    </dd>
+    <dt>T'has quedat fora del lloc</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> La teva IP ha quedat fora de la llista.</p>
+      <p><span class="lbl">Solució</span> Des del terminal, esborra la llista amb <code>php admin/cli/cfg.php --name=allowedip --set=''</code> o <code>--name=blockedip</code>.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 9 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <p>Completa el <code>README.md</code> amb captures i explicació de cada punt, i els dos informes.</p>
+  <p>Respon-hi també: <strong>quina diferència hi ha entre la còpia del curs i la còpia del lloc? Si demà el servidor no arrenca, quina de les dues et salva?</strong></p>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 2.2</span> Instal·lació en sistemes operatius lliures i propietaris. Modes de registre. Interfície gràfica associada. Personalització de l'entorn. Navegació i edició.</p>
+  <p><span class="lbl">CA 2.5</span> Importa i exporta continguts en diferents formats.</p>
+  <p><span class="lbl">CA 2.6</span> Realitza còpies de seguretat i restauracions.</p>
+  <p><span class="lbl">CA 2.7</span> Realitza informes d'accés i utilització del lloc.</p>
+  <p><span class="lbl">CA 2.8</span> Comprova la seguretat del lloc.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="a2-2-cursos-usuaris-i-activitats.html">
+    <span class="dir">Anterior · A2.2</span>
+    <span class="ttl">Cursos, usuaris i activitats</span></a>
+  <a class="next" href="../practiques/p2-1-portal-moodle.html">
+    <span class="dir">Següent · P2.1</span>
+    <span class="ttl">Pràctica: portal Moodle</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

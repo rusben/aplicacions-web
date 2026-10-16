@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T4.1 · Ofimàtica web — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA4 · Aplicacions d'ofimàtica web</a>
+    <span class="pos">T4.1 · 1/9</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA4 · T4.1</div>
+  <h1>Ofimàtica web</h1>
+  <p class="lede">El processador de textos ja no s'instal·la: s'obre amb una adreça i el document viu al servidor.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què sabràs fer en acabar</h2>
+  <ul>
+    <li>Explicar què és una aplicació d'ofimàtica web i quins problemes resol.</li>
+    <li>Comparar-la amb l'ofimàtica d'escriptori.</li>
+    <li>Descriure les aplicacions d'una suite: textos, full de càlcul, presentacions, formularis i llocs web.</li>
+    <li>Distingir una suite allotjada d'una d'autoallotjada.</li>
+    <li>Dir què cal per posar en marxa un entorn d'ofimàtica web.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Què és l'ofimàtica web</h2>
+  <p>Una aplicació d'<strong>ofimàtica web</strong> fa la feina d'un processador de textos, d'un full de càlcul o d'un programa de presentacions, però <strong>s'executa al navegador</strong> i guarda el document al servidor.</p>
+  <p>El canvi important no és on s'executa, sinó que el document deixa de ser un fitxer que va d'un ordinador a un altre: és un <strong>servei amb una adreça</strong>, amb permisos, historial i diverses persones editant-lo alhora.</p>
+</div>
+
+<!-- ============ 3 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>Escriptori o web</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th></th><th>Ofimàtica d'escriptori</th><th>Ofimàtica web</th></tr></thead>
+      <tbody>
+        <tr><td>Instal·lació</td><td>A cada equip</td><td>Cap: navegador i compte</td></tr>
+        <tr><td>On és el document</td><td>Al disc, i les còpies es multipliquen</td><td>Al servidor, amb una sola versió vigent</td></tr>
+        <tr><td>Treball en equip</td><td>S'envien versions per correu</td><td>Diverses persones alhora, amb historial</td></tr>
+        <tr><td>Sense connexió</td><td>Sempre funciona</td><td>Limitat, amb mode fora de línia</td></tr>
+        <tr><td>Funcions avançades</td><td>Més completes</td><td>Suficients per a la major part de la feina</td></tr>
+        <tr><td>Control de les dades</td><td>Són teves</td><td>Depèn de qui tingui el servidor</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 4 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>Què hi ha a una suite</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Aplicació</th><th>Per a què</th><th>A Google</th><th>A Microsoft 365</th></tr></thead>
+      <tbody>
+        <tr><td>Processador de textos</td><td>Informes, actes, cartes</td><td>Documents</td><td>Word</td></tr>
+        <tr><td>Full de càlcul</td><td>Dades, càlculs i gràfics</td><td>Fulls de càlcul</td><td>Excel</td></tr>
+        <tr><td>Presentacions</td><td>Diapositives</td><td>Presentacions</td><td>PowerPoint</td></tr>
+        <tr><td>Formularis</td><td>Enquestes i recollida de dades</td><td>Formularis</td><td>Forms</td></tr>
+        <tr><td>Llocs web</td><td>Publicar informació sense programar</td><td>Sites</td><td>SharePoint</td></tr>
+        <tr><td>Emmagatzematge</td><td>Guardar i compartir els fitxers</td><td>Drive</td><td>OneDrive</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Allotjada o autoallotjada</h2>
+  <p>En una suite <strong>allotjada</strong> —Google Workspace, Microsoft 365, Zoho— el servidor és de l'empresa proveïdora: no hi ha res a instal·lar ni a mantenir, però les dades hi viuen i cal acceptar-ne les condicions.</p>
+  <p>En una <strong>autoallotjada</strong> —ONLYOFFICE Docs o Collabora Online, connectats a un gestor d'arxius com Nextcloud, o CryptPad— el servidor és teu: controles les dades i has de fer-ne el manteniment i les còpies.</p>
+  <p>La tria no és tècnica, és de context: una escola que no pot enviar dades de l'alumnat a fora triarà autoallotjada; una associació de cinc persones sense servidor, allotjada.</p>
+</div>
+
+<!-- ============ 6 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Posar en marxa l'entorn</h2>
+  <p>Encara que no s'instal·li cap servidor, un entorn d'ofimàtica web s'ha de desplegar: hi ha una feina de posada en marxa que decideix si després funcionarà o no.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Peça</th><th>Què s'hi decideix</th></tr></thead>
+      <tbody>
+        <tr><td>Comptes</td><td>Qui en té, com s'hi entra i qui els administra</td></tr>
+        <tr><td>Estructura de carpetes</td><td>On va cada cosa i qui hi té accés</td></tr>
+        <tr><td>Aplicacions i complements</td><td>Quines s'activen i quins afegits s'instal·len al compte</td></tr>
+        <tr><td>Normes de compartició</td><td>Si es pot compartir fora de l'organització i amb quins permisos</td></tr>
+        <tr><td>Navegador i fora de línia</td><td>Navegador compatible i què es podrà fer sense connexió</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 7 · EXEMPLE ============ -->
+<div class="cq-block" data-kind="exemple">
+  <h2>Les set versions de la memòria</h2>
+  <p>Un equip escriu la memòria anual enviant-se el fitxer per correu. Al final hi ha <code>memoria_final.docx</code>, <code>memoria_final_v2.docx</code> i <code>memoria_final_bona.docx</code>, i ningú sap quina té l'última correcció. Amb un document web n'hi ha un de sol, amb l'historial de qui ha canviat què i quan.</p>
+</div>
+
+<!-- ============ 8 · CAS REAL ============ -->
+<div class="cq-block" data-kind="cas real">
+  <h2>El centre educatiu</h2>
+  <p>Molts centres treballen amb una suite allotjada: el professorat comparteix programacions, l'alumnat entrega treballs i les enquestes es fan amb formularis. A canvi, el centre ha de tenir clar quines dades hi posa i signar les condicions de tractament, perquè les dades de menors són dades personals.</p>
+</div>
+
+<!-- ============ 9 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Tria la suite pel context: qui ha de veure les dades i qui manté el servei.</li>
+    <li>Un document, un lloc: res de còpies amb noms acabats en «bo» o «definitiu».</li>
+    <li>Decideix l'estructura de carpetes i els permisos abans d'omplir-la.</li>
+    <li>Exporta còpies dels documents importants en un format obert.</li>
+  </ul>
+</div>
+
+<!-- ============ 10 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>Fer servir el web com si fos l'escriptori</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Es baixa el document, s'edita i es torna a pujar.</p>
+      <p><span class="lbl">Solució</span> Editar-lo al lloc on és: si es baixa, es perden l'historial i la feina dels altres.</p>
+    </dd>
+    <dt>Pensar que allotjada vol dir «sense feina»</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> No hi ha servidor a mantenir.</p>
+      <p><span class="lbl">Solució</span> Hi ha comptes, permisos, còpies i condicions legals a gestionar igualment.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 11 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Resum</h2>
+  <ul>
+    <li>L'ofimàtica web s'executa al navegador i guarda el document al servidor.</li>
+    <li>Una suite porta textos, full de càlcul, presentacions, formularis, llocs web i emmagatzematge.</li>
+    <li>Allotjada: sense manteniment, dades a fora. Autoallotjada: control i manteniment propis.</li>
+    <li>Encara que no s'instal·li cap servidor, l'entorn es desplega: comptes, carpetes, aplicacions i normes.</li>
+  </ul>
+</div>
+
+<!-- ============ 12 · QUIZ ============ -->
+<div class="cq-block" data-kind="quiz">
+  <h2>Comprova el que has après</h2>
+  <div class="cq-question" data-id="t4-1-utilitat" data-type="single">
+    <div class="statement">Quin és el canvi principal respecte de l'ofimàtica d'escriptori?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Que les funcions són més potents</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Que el document és un servei amb permisos i historial, no un fitxer que es copia</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Que no cal cap compte d'usuari</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Que funciona millor sense connexió</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t4-1-autoallotjada" data-type="single">
+    <div class="statement">Una escola no vol que els documents de l'alumnat surtin dels seus servidors. Quina opció li encaixa?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Una suite autoallotjada, com ONLYOFFICE o Collabora sobre el seu núvol</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Qualsevol suite allotjada, perquè és igual</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Tornar a l'ofimàtica d'escriptori sense compartir res</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Fer servir només formularis</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t4-1-aplicacions" data-type="multi">
+    <div class="statement">Quines aplicacions formen part d'una suite d'ofimàtica web?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Processador de textos</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Full de càlcul</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Formularis</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Servidor DHCP</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t4-1-desplegament" data-type="single">
+    <div class="statement">En una suite allotjada, què s'ha de decidir igualment en posar-la en marxa?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Res: ja ve tot fet</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Comptes, estructura de carpetes, complements i normes de compartició</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">La versió de PHP del servidor</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">La mida del disc dur</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 4.1</span> Instal·lació. Utilització de les aplicacions instal·lades.</p>
+  <p><span class="lbl">CA 4.1</span> Estableix la utilitat de les aplicacions d'ofimàtica web.</p>
+  <p><span class="lbl">CA 4.2</span> Descriu diferents aplicacions d'ofimàtica web (processador de textos, full de càlcul, entre altres).</p>
+  <p><span class="lbl">CA 4.3</span> Instal·la aplicacions d'ofimàtica web.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="../index.html">
+    <span class="dir">Torna a · RA4</span>
+    <span class="ttl">RA4 · Aplicacions d'ofimàtica web</span></a>
+  <a class="next" href="t4-2-treballar-hi-entre-diversos.html">
+    <span class="dir">Següent · T4.2</span>
+    <span class="ttl">Treballar-hi entre diversos</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

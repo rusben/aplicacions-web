@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T1.4 · Usuaris, grups i rols — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA1 · Instal·lació de gestors de continguts</a>
+    <span class="pos">T1.4 · 4/16</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA1 · T1.4</div>
+  <h1>Usuaris, grups i rols</h1>
+  <p class="lede">Qui pot fer què en un lloc on treballen moltes persones.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què sabràs fer en acabar</h2>
+  <ul>
+    <li>Explicar la diferència entre usuari, rol i capacitat.</li>
+    <li>Descriure els cinc rols de WordPress.</li>
+    <li>Triar el rol adequat per a cada persona segons la feina.</li>
+    <li>Aplicar el principi de mínim privilegi.</li>
+    <li>Distingir un rol d'un grup i saber quan cal cadascun.</li>
+    <li>Explicar com es controla qui llegeix i qui escriu en un fòrum.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Usuari, rol i capacitat</h2>
+  <p>Un <strong>usuari</strong> és una persona amb nom d'usuari, correu i contrasenya. Una <strong>capacitat</strong> és un permís concret: publicar entrades, editar pàgines, instal·lar extensions. Un <strong>rol</strong> és un paquet de capacitats amb nom, que s'assigna als usuaris.</p>
+  <p>Assignar rols en lloc de permisos solts fa la gestió senzilla: quan entra una redactora nova, se li dona el rol «Autor» i ja té exactament el que necessita.</p>
+</div>
+
+<!-- ============ 3 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>Els cinc rols de WordPress</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Rol</th><th>Pot</th><th>No pot</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Administrador</strong></td><td>Tot: usuaris, temes, extensions, configuració</td><td>—</td></tr>
+        <tr><td><strong>Editor</strong></td><td>Publicar i editar entrades i pàgines de tothom; moderar comentaris</td><td>Tocar usuaris, temes o extensions</td></tr>
+        <tr><td><strong>Autor</strong></td><td>Publicar i editar les seves entrades; pujar imatges</td><td>Editar el contingut d'altres; crear pàgines</td></tr>
+        <tr><td><strong>Col·laborador</strong></td><td>Escriure les seves entrades</td><td>Publicar-les ni pujar imatges</td></tr>
+        <tr><td><strong>Subscriptor</strong></td><td>Editar el seu perfil; comentar on calgui registre</td><td>Crear contingut</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Els noms en anglès (<em>Administrator, Editor, Author, Contributor, Subscriber</em>) són els que surten a la documentació oficial.</p>
+</div>
+
+<!-- ============ 4 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>Qui pot fer cada tasca</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Tasca</th><th>Admin.</th><th>Editor</th><th>Autor</th><th>Col·lab.</th></tr></thead>
+      <tbody>
+        <tr><td>Escriure entrades</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
+        <tr><td>Publicar entrades</td><td>Sí</td><td>Sí</td><td>Sí</td><td>No</td></tr>
+        <tr><td>Editar entrades d'altres</td><td>Sí</td><td>Sí</td><td>No</td><td>No</td></tr>
+        <tr><td>Crear pàgines i categories</td><td>Sí</td><td>Sí</td><td>No</td><td>No</td></tr>
+        <tr><td>Canviar tema i ginys</td><td>Sí</td><td>No</td><td>No</td><td>No</td></tr>
+        <tr><td>Gestionar usuaris i extensions</td><td>Sí</td><td>No</td><td>No</td><td>No</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Rols i grups</h2>
+  <p>Un <strong>rol</strong> diu <em>què</em> pot fer una persona. Un <strong>grup</strong> diu <em>a quin col·lectiu</em> pertany: «Redacció», «Famílies», «2n SMX». Els grups serveixen per donar accés a uns continguts concrets a molta gent alhora, sense canviar-ne el rol.</p>
+  <p>Molts gestors porten grups de sèrie; WordPress no, i els afegeix amb una extensió. Quan els rols de sèrie no encaixen, també es pot crear un <strong>rol personalitzat</strong> triant-ne les capacitats una a una.</p>
+</div>
+
+<!-- ============ TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Fòrums i regles d'accés</h2>
+  <p>Un <strong>fòrum</strong> és l'espai on els usuaris obren temes i hi responen. Té els seus propis rols, independents dels del gestor: qui administra els fòrums, qui modera, qui participa, qui només llegeix i qui està bloquejat.</p>
+  <p>Les <strong>regles d'accés</strong> combinen tres decisions: la <strong>visibilitat</strong> de cada fòrum (públic, privat per a registrats o ocult), el <strong>rol per defecte</strong> de qui es registra i si es pot escriure <strong>sense compte</strong>. Un fòrum obert a anònims s'omple de correu brossa en pocs dies.</p>
+</div>
+
+<!-- ============ 5 · EXEMPLE ============ -->
+<div class="cq-block" data-kind="exemple">
+  <h2>La revista de l'institut</h2>
+  <p>La cap de redacció revisa i publica: <strong>Editor</strong>. Tres alumnes escriuen articles que ella ha d'aprovar: <strong>Col·laborador</strong>. Un professor que publica la seva secció sense revisió: <strong>Autor</strong>. Les famílies que volen comentar: <strong>Subscriptor</strong>. Només una persona, la que manté el servidor, és <strong>Administradora</strong>.</p>
+</div>
+
+<!-- ============ 6 · CAS REAL ============ -->
+<div class="cq-block" data-kind="cas real">
+  <h2>Rols a altres aplicacions</h2>
+  <p>La idea es repeteix a totes les aplicacions del mòdul. Moodle té <strong>gestor, professor, professor sense permís d'edició, estudiant i convidat</strong>, i el rol es pot donar a tot el lloc o només en un curs. Nextcloud treballa amb <strong>grups</strong> i permisos per carpeta compartida. Canvien els noms; el principi és el mateix.</p>
+</div>
+
+<!-- ============ 7 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Provar un rol sense adivinar</h2>
+  <p>La manera fiable de saber què veu un rol és entrar-hi. Crea un usuari de prova per a cada rol, obre una finestra privada del navegador i inicia-hi sessió: el tauler només mostrarà els menús que aquell rol pot fer servir.</p>
+</div>
+
+<!-- ============ 8 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li><strong>Mínim privilegi</strong>: dona el rol més baix que permeti fer la feina.</li>
+    <li>Com menys administradors, millor; mai un compte d'administrador compartit.</li>
+    <li>Un compte per persona, amb el seu correu: així queda registrat qui ha fet cada canvi.</li>
+    <li>Revisa i esborra els comptes de qui ja no participa.</li>
+    <li>Registre obert només si el lloc el necessita, i amb el rol més baix per defecte.</li>
+  </ul>
+</div>
+
+<!-- ============ 9 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>Tothom és administrador «per no tenir problemes»</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Es confon comoditat amb gestió.</p>
+      <p><span class="lbl">Solució</span> Qualsevol compte robat podria esborrar el lloc. Assigna el rol mínim.</p>
+    </dd>
+    <dt>Un col·laborador no pot afegir imatges</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El rol no té la capacitat de pujar fitxers.</p>
+      <p><span class="lbl">Solució</span> És el comportament previst: o un editor les afegeix, o se li dona el rol d'autor.</p>
+    </dd>
+    <dt>El fòrum «privat» es llegeix sense iniciar sessió</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> S'ha deixat la visibilitat en públic, o la pàgina que el mostra no respecta la restricció.</p>
+      <p><span class="lbl">Solució</span> Revisa la visibilitat de cada fòrum i prova-ho sempre des d'una finestra privada.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 10 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Resum</h2>
+  <ul>
+    <li>Capacitat: un permís. Rol: un paquet de capacitats. Usuari: la persona.</li>
+    <li>WordPress: administrador, editor, autor, col·laborador i subscriptor.</li>
+    <li>El col·laborador escriu però no publica; l'autor publica el seu.</li>
+    <li>Mínim privilegi: el rol més baix que permeti fer la feina.</li>
+    <li>El rol diu què pots fer; el grup, a quins continguts arribes.</li>
+    <li>Fòrum: visibilitat, rol per defecte i escriptura anònima decideixen qui hi entra.</li>
+  </ul>
+</div>
+
+<!-- ============ 11 · QUIZ ============ -->
+<div class="cq-block" data-kind="quiz">
+  <h2>Comprova el que has après</h2>
+  <div class="cq-question" data-id="t1-4-collab" data-type="single">
+    <div class="statement">Qui pot escriure entrades però no publicar-les?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Autor</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Col·laborador</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Subscriptor</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Editor</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-4-editor" data-type="single">
+    <div class="statement">Una persona ha de revisar i publicar els articles de tots, però no tocar extensions. Quin rol?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Administrador</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Editor</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Autor</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Col·laborador</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-4-minim" data-type="single">
+    <div class="statement">Què diu el principi de mínim privilegi?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Cada usuari ha de tenir només els permisos que necessita</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Hi ha d'haver com a mínim dos administradors</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Els usuaris han de tenir la contrasenya més curta possible</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Tots els usuaris tenen el mateix rol</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-4-grup" data-type="single">
+    <div class="statement">Vols que una pàgina només la llegeixin els 12 membres de la redacció, que tenen rols diferents. Què fas servir?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Canviar-los a tots el rol a administrador</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Un grup «Redacció» amb accés a la pàgina</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Una contrasenya compartida per a tots</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Una categoria nova</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-4-forum" data-type="multi">
+    <div class="statement">Quines decisions formen les regles d'accés d'un fòrum?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">La visibilitat de cada fòrum</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">El rol que rep qui es registra</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Si es pot escriure sense compte</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">El color dels temes</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 1.2</span> Creació d'usuaris i grups d'usuaris.</p>
+  <p><span class="lbl">CA 1.2</span> Gestiona usuaris amb rols diferents.</p>
+  <p><span class="lbl">CA 1.8</span> Habilita fòrums i estableix regles d'accés.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="t1-3-gestors-de-continguts.html">
+    <span class="dir">Anterior · T1.3</span>
+    <span class="ttl">Gestors de continguts</span></a>
+  <a class="next" href="t1-5-mantenir-un-gestor.html">
+    <span class="dir">Següent · T1.5</span>
+    <span class="ttl">Mantenir un gestor de continguts</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

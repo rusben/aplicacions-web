@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T3.3 · Trobar-ho i protegir-ho — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA3 · Instal·lació de serveis de gestió d'arxius web</a>
+    <span class="pos">T3.3 · 3/9</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA3 · T3.3</div>
+  <h1>Trobar-ho i protegir-ho</h1>
+  <p class="lede">Metadades, etiquetes i cerca perquè els fitxers apareguin; comprovacions perquè no els vegi qui no toca.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què sabràs fer en acabar</h2>
+  <ul>
+    <li>Explicar què són els arxius d'informació addicional i per a què serveixen.</li>
+    <li>Distingir metadades, etiquetes i comentaris.</li>
+    <li>Explicar com indexa i cerca un gestor d'arxius web.</li>
+    <li>Aplicar criteris d'indexació a una jerarquia de carpetes.</li>
+    <li>Enumerar les comprovacions de seguretat d'un servei d'arxius.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Informació sobre els fitxers</h2>
+  <p>Un fitxer porta més coses que el seu contingut. Les <strong>metadades</strong> són les dades del fitxer: mida, tipus, data i qui l'ha modificat; les genera el sistema. A sobre, el servei deixa afegir informació posada per les persones.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Informació addicional</th><th>Què és</th><th>Per a què</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Etiqueta</strong></td><td>Una paraula clau enganxada al fitxer o la carpeta</td><td>Agrupar coses que són en carpetes diferents</td></tr>
+        <tr><td><strong>Comentari</strong></td><td>Una nota datada d'una persona</td><td>Explicar un canvi o demanar una revisió</td></tr>
+        <tr><td><strong>Descripció de carpeta</strong></td><td>Un text a la capçalera de la carpeta, sovint un fitxer <code>README.md</code></td><td>Dir què hi va i què no</td></tr>
+        <tr><td><strong>Versions</strong></td><td>Les còpies anteriors del mateix fitxer</td><td>Tornar enrere sense perdre res</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 3 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Com es troba un fitxer</h2>
+  <p>El servei no busca pel disc cada vegada: manté un <strong>índex</strong> a la base de dades amb el nom, la ruta, el tipus, la mida i les etiquetes de cada fitxer. Buscar és consultar aquest índex, i per això és immediat.</p>
+  <p>Si es toquen els fitxers per fora, l'índex queda desfasat i l'administrador ha de demanar-li que torni a llegir les carpetes. Alguns serveis afegeixen una <strong>cerca de text complet</strong>, que a més mira dins dels documents, però demana un motor de cerca a part.</p>
+</div>
+
+<!-- ============ 4 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>Criteris d'indexació</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Criteri</th><th>Com s'aplica</th></tr></thead>
+      <tbody>
+        <tr><td>Noms previsibles</td><td><code>2026-03-12-acta-departament.pdf</code>: data al davant i minúscules, sense accents ni espais</td></tr>
+        <tr><td>Jerarquia curta</td><td>Tres nivells són suficients; més enllà ningú hi arriba</td></tr>
+        <tr><td>Etiquetes acordades</td><td>Una llista tancada i escrita: <code>acta</code>, <code>factura</code>, <code>pendent</code></td></tr>
+        <tr><td>Descripció a cada carpeta d'equip</td><td>Què s'hi guarda, qui hi escriu i com es nomenen els fitxers</td></tr>
+        <tr><td>Un lloc per a cada cosa</td><td>Si un document encaixa en dues carpetes, es posa en una i s'etiqueta amb l'altra</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Comprovar la seguretat</h2>
+  <p>Un servei d'arxius guarda documents de persones, i això vol dir revisar-lo amb una llista:</p>
+  <ul>
+    <li>El <strong>directori de dades no ha de ser accessible</strong> des del navegador.</li>
+    <li><strong>HTTPS</strong> per a tot, i capçaleres de seguretat correctes.</li>
+    <li>Protecció contra <strong>intents de contrasenya</strong> repetits, i verificació en dos passos per als administradors.</li>
+    <li>Comptes i comparticions <strong>revisades</strong>: enllaços vells sense caducitat, comptes de gent que ja no hi és.</li>
+    <li><strong>Actualitzacions</strong> del servei i de les aplicacions afegides.</li>
+    <li><strong>Còpies</strong> de les dues meitats i una restauració provada.</li>
+  </ul>
+  <p>La majoria de serveis porten una pàgina d'estat que fa part d'aquestes comprovacions i avisa del que falla.</p>
+</div>
+
+<!-- ============ 6 · EXEMPLE ============ -->
+<div class="cq-block" data-kind="exemple">
+  <h2>Quatre carpetes «Fotos»</h2>
+  <p>Un equip guarda les imatges de cada activitat dins de la carpeta de l'activitat, i totes es diuen «Fotos». Ningú troba res. En comptes de moure-ho tot, hi posen l'etiqueta <code>foto</code> i la data al nom: ara una cerca per etiqueta les ensenya totes juntes, i cada carpeta continua tenint el seu material.</p>
+</div>
+
+<!-- ============ 7 · CAS REAL ============ -->
+<div class="cq-block" data-kind="cas real">
+  <h2>L'enllaç que ningú havia tancat</h2>
+  <p>Una empresa comparteix un pressupost amb un enllaç públic per anar de pressa. Dos anys després l'enllaç continua viu i el document ja no hi hauria de ser. La revisió periòdica de comparticions és una tasca d'administració, com les còpies: es mira qui té accés a què i es tanca el que ha caducat.</p>
+</div>
+
+<!-- ============ 8 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Acorda els noms i les etiquetes abans d'omplir el servei, no després.</li>
+    <li>Cada carpeta d'equip, amb la seva descripció.</li>
+    <li>Repassa la pàgina d'estat del servei cada vegada que l'actualitzis.</li>
+    <li>Revisa enllaços públics i comptes inactius de manera periòdica.</li>
+  </ul>
+</div>
+
+<!-- ============ 9 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>La cerca no troba un fitxer que hi és</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> S'ha posat al disc per fora i no és a l'índex.</p>
+      <p><span class="lbl">Solució</span> Demana al servei que torni a llegir la carpeta de l'usuari.</p>
+    </dd>
+    <dt>Etiquetes que no serveixen de res</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Cadascú se'n va inventar una: <code>acta</code>, <code>actes</code>, <code>Acta2026</code>.</p>
+      <p><span class="lbl">Solució</span> Llista tancada, escrita a la descripció de la carpeta.</p>
+    </dd>
+    <dt>El directori de dades es veu des del navegador</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> És dins de l'arrel web i el servidor no el protegeix.</p>
+      <p><span class="lbl">Solució</span> Treu-lo de l'arrel web; és el primer avís de qualsevol comprovació de seguretat.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 10 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Resum</h2>
+  <ul>
+    <li>Metadades: les dades del fitxer. Etiquetes, comentaris i descripcions: el que hi afegeixen les persones.</li>
+    <li>La cerca consulta un índex de la base de dades; si es toquen fitxers per fora, cal refer-lo.</li>
+    <li>Indexar bé és nomenar bé, jerarquia curta i etiquetes acordades.</li>
+    <li>La seguretat es comprova amb una llista: dades fora del web, HTTPS, intents, comparticions, actualitzacions i còpies.</li>
+  </ul>
+</div>
+
+<!-- ============ 11 · QUIZ ============ -->
+<div class="cq-block" data-kind="quiz">
+  <h2>Comprova el que has après</h2>
+  <div class="cq-question" data-id="t3-3-index" data-type="single">
+    <div class="statement">Per què la cerca del servei és immediata?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Perquè recorre tot el disc cada vegada</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Perquè consulta un índex guardat a la base de dades</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Perquè només busca als fitxers petits</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Perquè la fa el navegador</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t3-3-etiqueta" data-type="single">
+    <div class="statement">Un document encaixa en dues carpetes. Quin criteri és millor?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Guardar-ne una còpia a cada carpeta</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Guardar-lo en una i etiquetar-lo amb l'altra</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Posar-lo a l'arrel</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Compartir-lo amb un enllaç públic</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t3-3-addicional" data-type="multi">
+    <div class="statement">Quins són arxius o elements d'informació addicional sobre un fitxer?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Les etiquetes</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Els comentaris</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">La descripció de la carpeta</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">La contrasenya de l'usuari</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t3-3-seguretat" data-type="single">
+    <div class="statement">Quin és el primer avís que ha de saltar en una comprovació de seguretat d'un servei d'arxius?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Que el directori de dades sigui accessible des del navegador</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Que hi hagi massa etiquetes</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Que la jerarquia tingui tres nivells</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Que els fitxers siguin grans</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 3.1</span> Instal·lació. Navegació i operacions bàsiques. Administració del gestor.</p>
+  <p><span class="lbl">CA 3.6</span> Utilitza arxius d'informació addicional.</p>
+  <p><span class="lbl">CA 3.7</span> Aplica criteris d'indexació sobre els arxius i directoris.</p>
+  <p><span class="lbl">CA 3.8</span> Comprova la seguretat del gestor d'arxius.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="t3-2-comptes-permisos-i-comparticio.html">
+    <span class="dir">Anterior · T3.2</span>
+    <span class="ttl">Comptes, permisos i compartició</span></a>
+  <a class="next" href="../guies/g3-1-instal-lar-nextcloud.html">
+    <span class="dir">Següent · G3.1</span>
+    <span class="ttl">Guia: instal·lar Nextcloud</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

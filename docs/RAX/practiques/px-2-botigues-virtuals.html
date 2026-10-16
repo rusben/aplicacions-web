@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PX.2 · Pràctica: botigues virtuals — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RAX · HTML i CSS</a>
+    <span class="pos">PX.2 · 7/7</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RAX · PX.2</div>
+  <h1>Pràctica: botigues virtuals</h1>
+  <p class="lede">Dues plataformes de comerç electrònic, la mateixa botiga i una comparació honesta.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Teories <a class="cq-ref" href="../../RA1/teoria/t1-3-gestors-de-continguts.html">T1.3</a> i <a class="cq-ref" href="../../RA1/teoria/t1-5-mantenir-un-gestor.html">T1.5</a>. Les guies <a class="cq-ref" href="../../RA1/guies/g1-2-pila-lamp.html">G1.2</a> i <a class="cq-ref" href="../../RA1/guies/g1-3-wordpress.html">G1.3</a> et serveixen per a qualsevol aplicació PHP.</p>
+  <p>Instal·laràs almenys dues plataformes de botiga, les configuraràs amb el mateix catàleg i compararàs quina és més fàcil d'instal·lar, de fer servir i de mantenir.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <ul>
+    <li>Una màquina nova a IsardVDI amb la pila LAMP, i un host virtual i una base de dades per botiga.</li>
+    <li>Plataformes a triar: <strong>WooCommerce</strong> (sobre WordPress), <strong>PrestaShop</strong>, <strong>OpenCart</strong>, <strong>CubeCart</strong> o <strong>Zen Cart</strong>.</li>
+  </ul>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Què has de fer a cada botiga</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Requisit</th><th>Detall</th></tr></thead>
+      <tbody>
+        <tr><td>Aparença</td><td>Canviar el tema i personalitzar colors, tipus de lletra o disposició</td></tr>
+        <tr><td>Categories</td><td>Tres categories principals</td></tr>
+        <tr><td>Productes</td><td>Tres per categoria, amb nom, descripció de dues o tres frases i preu</td></tr>
+        <tr><td>Divisa</td><td>Una divisa configurada que es vegi bé a tots els preus</td></tr>
+        <tr><td>Idiomes</td><td>Dos idiomes com a mínim, amb nom i descripció de productes traduïts</td></tr>
+        <tr><td>Clients</td><td>Registre d'usuaris i subscripció al butlletí</td></tr>
+        <tr><td>Usabilitat</td><td>Qualsevol producte a <strong>tres clics o menys</strong> des de la portada</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Pila LAMP, host virtual i base de dades per botiga</td><td>Guia <a class="cq-ref" href="../../RA1/guies/g1-2-pila-lamp.html">G1.2</a></td></tr>
+        <tr><td>Requeriments de cada plataforma</td><td>La documentació oficial de cadascuna</td></tr>
+        <tr><td>WooCommerce</td><td>Guia <a class="cq-ref" href="../../RA1/guies/g1-3-wordpress.html">G1.3</a>, extensions</td></tr>
+        <tr><td>Què és una botiga sobre un CMS</td><td>Teoria <a class="cq-ref" href="../../RA1/teoria/t1-3-gestors-de-continguts.html">T1.3</a>, cas real</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>Requeriments abans d'instal·lar</h2>
+  <p>Cada plataforma demana unes versions concretes de PHP i unes extensions. Mira-les a la documentació abans de començar: Ubuntu 26.04 porta PHP 8.5, i una plataforma que encara no el suporti fallarà a mitja instal·lació. Anota-ho a la comparació.</p>
+</div>
+
+<!-- ============ 6 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Comptar clics</h2>
+  <p>Demana a un company que trobi un producte concret a la teva botiga sense ajuda i compta els clics. És la manera real de comprovar la regla dels tres clics.</p>
+</div>
+
+<!-- ============ 7 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li>Les dues botigues tenen 3 categories i 9 productes amb preu a la divisa triada.</li>
+    <li>Un client nou es pot registrar i subscriure al butlletí.</li>
+    <li>El canvi d'idioma tradueix nom i descripció dels productes.</li>
+    <li>Cada producte és a tres clics o menys de la portada.</li>
+  </ul>
+</div>
+
+<!-- ============ 8 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>L'instal·lador diu que falta una extensió de PHP</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> La plataforma en demana alguna que no porta la pila bàsica.</p>
+      <p><span class="lbl">Solució</span> Instal·la el paquet <code>php-…</code> que falti i reinicia Apache.</p>
+    </dd>
+    <dt>Les dues botigues es barregen</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Comparteixen host virtual o base de dades.</p>
+      <p><span class="lbl">Solució</span> Una carpeta, un host virtual i una base de dades per botiga.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 9 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <p><strong>Demostració en directe</strong> de les botigues, explicant on és cada funció i quines dificultats has resolt.</p>
+  <p>Un repositori públic a GitHub amb tot a <code>README.md</code> (sense PDF): plataformes amb versió i entorn, captures de cada requisit i una <strong>reflexió comparativa de 150 paraules com a mínim</strong>: quina és més intuïtiva i per què, quines dificultats has trobat i si compleixen la regla dels tres clics.</p>
+  <p>Per pujar nota: una tercera plataforma i una taula comparativa de facilitat d'instal·lació, personalització, escalabilitat i extensions.</p>
+</div>
+
+
+<!-- ============ QUALIFICACIÓ ============ -->
+<div class="cq-block" data-kind="qualificació">
+  <h2>Com es qualifica</h2>
+  <p>Aquesta pràctica és una de les dues principals del <a class="cq-ref" href="../index.html">RAX</a> i és el 30 % de la seva nota. Cada apartat es puntua a la demostració i amb les evidències del README: la puntuació sencera si funciona, la meitat si funciona amb mancances i zero si no es pot demostrar.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Apartat</th><th>Punts</th></tr></thead>
+      <tbody>
+        <tr><td>Dues plataformes instal·lades amb els requeriments comprovats</td><td>2</td></tr>
+        <tr><td>Aparença personalitzada a cada botiga</td><td>1,5</td></tr>
+        <tr><td>Catàleg: categories, productes i divisa</td><td>2</td></tr>
+        <tr><td>Botiga en dos idiomes amb productes traduïts</td><td>1</td></tr>
+        <tr><td>Registre de clients i subscripció al butlletí</td><td>1</td></tr>
+        <tr><td>Proves de funcionament i regla dels tres clics</td><td>1</td></tr>
+        <tr><td>Comparació raonada de requeriments, ús i manteniment</td><td>1,5</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>10</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="px-1-web-html5.html">
+    <span class="dir">Anterior · PX.1</span>
+    <span class="ttl">Pràctica: web HTML5</span></a>
+  <a class="next" href="../index.html">
+    <span class="dir">Has acabat el · RAX</span>
+    <span class="ttl">RAX · HTML i CSS</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

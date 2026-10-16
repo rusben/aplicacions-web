@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T2.2 · Un Moodle per dins — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA2 · Instal·lació de sistemes de gestió d'aprenentatge</a>
+    <span class="pos">T2.2 · 2/9</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA2 · T2.2</div>
+  <h1>Un Moodle per dins</h1>
+  <p class="lede">Codi, dades i base de dades: on queda cada cosa quan s'instal·la.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què sabràs fer en acabar</h2>
+  <ul>
+    <li>Enumerar les tres parts d'una instal·lació de Moodle.</li>
+    <li>Explicar la jerarquia de directoris i per què el web només serveix <code>public</code>.</li>
+    <li>Dir què guarda el directori de dades i per què va fora del web.</li>
+    <li>Explicar per a què serveix el cron.</li>
+    <li>Descriure com s'organitzen categories, cursos, seccions i activitats.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Tres parts</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Part</th><th>Conté</th><th>On</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Codi</strong></td><td>Els fitxers PHP de Moodle, els temes i els connectors</td><td>La carpeta del lloc, per exemple <code>/var/www/moodle.internal</code></td></tr>
+        <tr><td><strong>Dades</strong> (<code>moodledata</code>)</td><td>Fitxers pujats, memòria cau, sessions, còpies de cursos</td><td>Fora del web: <code>/var/moodledata</code></td></tr>
+        <tr><td><strong>Base de dades</strong></td><td>Usuaris, cursos, notes, registres, configuració</td><td>MySQL</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Una còpia del lloc sencer necessita les tres. El fitxer <code>config.php</code>, a l'arrel del codi, les lliga: diu l'adreça del lloc, on és <code>moodledata</code> i com connectar amb la base de dades.</p>
+</div>
+
+<!-- ============ 3 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>La jerarquia de directoris</h2>
+  <p>Des de Moodle 5.1, el codi té una carpeta <code>public</code> i és l'única que ha de servir el servidor web. La resta —la configuració i les eines de línia d'ordres— queda fora de l'abast del navegador.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Directori</th><th>Què hi ha</th></tr></thead>
+      <tbody>
+        <tr><td><code>config.php</code></td><td>Configuració del lloc; no és accessible des del web</td></tr>
+        <tr><td><code>admin/cli/</code></td><td>Eines de terminal: <code>cron.php</code>, instal·lació, actualització</td></tr>
+        <tr><td><code>public/</code></td><td>L'arrel web: <code>index.php</code>, pàgines i recursos</td></tr>
+        <tr><td><code>public/theme/</code></td><td>Temes</td></tr>
+        <tr><td><code>public/mod/</code></td><td>Activitats: <code>assign</code>, <code>quiz</code>, <code>forum</code>…</td></tr>
+        <tr><td><code>public/blocks/</code>, <code>public/local/</code></td><td>Blocs i connectors locals</td></tr>
+        <tr><td><code>moodledata/filedir/</code></td><td>Tots els fitxers pujats, amb noms de resum</td></tr>
+        <tr><td><code>moodledata/cache/</code>, <code>temp/</code>, <code>sessions/</code></td><td>Dades temporals que es poden regenerar</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 4 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Per què les dades van fora del web</h2>
+  <p>A <code>moodledata</code> hi ha les entregues de l'alumnat, les còpies de cursos i les sessions obertes. Si fos dins de la carpeta que serveix Apache, qualsevol que endevinés la ruta les podria descarregar. Moodle ho comprova en instal·lar-se i no accepta un directori de dades accessible des del web.</p>
+</div>
+
+<!-- ============ 5 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>El cron</h2>
+  <p>Moltes feines de Moodle no passen quan algú clica: enviar els correus dels fòrums, tancar tasques fora de termini, esborrar temporals, calcular estadístiques. Les fa el <strong>cron</strong>, un programa que el sistema executa <strong>cada minut</strong>. Sense cron, Moodle sembla funcionar però els avisos no surten.</p>
+</div>
+
+<!-- ============ 6 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Com s'organitza el contingut</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Nivell</th><th>Exemple</th></tr></thead>
+      <tbody>
+        <tr><td>Categoria</td><td>CFGM SMX</td></tr>
+        <tr><td>Subcategoria</td><td>Primer curs</td></tr>
+        <tr><td>Curs</td><td>Aplicacions Web</td></tr>
+        <tr><td>Secció (tema)</td><td>Gestors de continguts</td></tr>
+        <tr><td>Recurs o activitat</td><td>Guia de WordPress · Tasca «Portal amb WordPress»</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 7 · EXEMPLE ============ -->
+<div class="cq-block" data-kind="exemple">
+  <h2>On acaba una entrega</h2>
+  <p>Un estudiant entrega <code>practica.pdf</code> en una tasca. La base de dades guarda qui l'ha entregat, quan i la nota. El fitxer va a <code>moodledata/filedir</code> amb un nom de resum com <code>3f/a2/3fa2…</code>, i no amb el nom original: així, dos fitxers idèntics només ocupen espai una vegada.</p>
+</div>
+
+<!-- ============ 8 · CAS REAL ============ -->
+<div class="cq-block" data-kind="cas real">
+  <h2>Canviar l'aspecte sense tocar el codi</h2>
+  <p>L'aspecte depèn del <strong>tema</strong>. El tema per defecte, <strong>Boost</strong>, permet canviar el logotip, el color de marca i afegir <strong>SCSS en brut</strong> des de l'administració. Instal·lar un tema nou és copiar-lo a <code>public/theme</code> o pujar-lo des del web; Moodle el detecta i en fa l'actualització.</p>
+</div>
+
+<!-- ============ 9 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>L'informe d'entorn</h2>
+  <p>A <strong>Administració del lloc → Servidor → Entorn</strong>, Moodle llista els seus requeriments al costat del que té el servidor: versió de PHP, extensions, base de dades, <code>max_input_vars</code>. És el mateix informe que surt durant la instal·lació.</p>
+</div>
+
+<!-- ============ 10 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li><code>moodledata</code> sempre fora de l'arrel web.</li>
+    <li>L'arrel web del host virtual apunta a <code>public</code>.</li>
+    <li>Cron cada minut des del primer dia.</li>
+    <li>Temes i connectors només del directori oficial de Moodle.</li>
+  </ul>
+</div>
+
+<!-- ============ 11 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>El lloc mostra una llista de fitxers o errors després d'instal·lar</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> L'arrel web apunta a la carpeta del codi, no a <code>public</code>.</p>
+      <p><span class="lbl">Solució</span> Canvia el <code>DocumentRoot</code> al directori <code>public</code>.</p>
+    </dd>
+    <dt>Els correus dels fòrums no arriben mai</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El cron no s'executa.</p>
+      <p><span class="lbl">Solució</span> Programa'l cada minut i comprova-ho a l'informe de tasques programades.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 12 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Resum</h2>
+  <ul>
+    <li>Tres parts: codi, <code>moodledata</code> i base de dades; <code>config.php</code> les lliga.</li>
+    <li>El web només serveix <code>public</code>.</li>
+    <li><code>moodledata</code> va fora del web perquè guarda entregues i sessions.</li>
+    <li>El cron fa les feines de fons cada minut.</li>
+    <li>Categoria → curs → secció → recurs o activitat.</li>
+  </ul>
+</div>
+
+<!-- ============ 13 · QUIZ ============ -->
+<div class="cq-block" data-kind="quiz">
+  <h2>Comprova el que has après</h2>
+  <div class="cq-question" data-id="t2-2-moodledata" data-type="single">
+    <div class="statement">On han d'anar les entregues de l'alumnat?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">A <code>public/</code>, per poder-les descarregar</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">A <code>moodledata</code>, fora de l'arrel web</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">A la base de dades, com a text</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">A <code>config.php</code></button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t2-2-public" data-type="single">
+    <div class="statement">Des de Moodle 5.1, quina carpeta ha de servir Apache?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">La carpeta arrel del codi</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true"><code>public</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>moodledata</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>admin/cli</code></button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t2-2-cron" data-type="single">
+    <div class="statement">Què passa si no s'executa el cron?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Moodle no arrenca</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Les feines de fons, com els correus dels fòrums, no es fan</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Els usuaris no poden iniciar sessió</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">S'esborren els cursos</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t2-2-copia" data-type="multi">
+    <div class="statement">Què cal per restaurar un lloc Moodle sencer?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Codi</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true"><code>moodledata</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Base de dades</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Només la carpeta <code>theme</code></button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 2.2</span> Instal·lació en sistemes operatius lliures i propietaris. Modes de registre. Interfície gràfica associada. Personalització de l'entorn. Navegació i edició.</p>
+  <p><span class="lbl">CA 2.1</span> Reconeix l'estructura del lloc i la jerarquia de directoris generada.</p>
+  <p><span class="lbl">CA 2.2</span> Realitza modificacions en l'estètica o aspecte del lloc.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="t2-1-plataformes-d-aprenentatge.html">
+    <span class="dir">Anterior · T2.1</span>
+    <span class="ttl">Plataformes d'aprenentatge</span></a>
+  <a class="next" href="t2-3-mantenir-un-moodle.html">
+    <span class="dir">Següent · T2.3</span>
+    <span class="ttl">Mantenir un Moodle</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A5.1 · Bústies al servidor — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA5 · Instal·lació d'aplicacions web d'escriptori</a>
+    <span class="pos">A5.1 · 7/10</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA5 · A5.1</div>
+  <h1>Bústies al servidor</h1>
+  <p class="lede">Muntar el servidor de correu intern, crear-hi comptes i seguir un missatge des del terminal.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Teories <a class="cq-ref" href="../teoria/t5-1-aplicacions-web-d-escriptori.html">T5.1</a> (client i servidor) i <a class="cq-ref" href="../teoria/t5-2-com-viatja-un-correu.html">T5.2</a> (protocols, ports i bústies). La guia <a class="cq-ref" href="../guies/g5-1-servidor-de-correu-intern.html">G5.1</a> és el manual que consultaràs.</p>
+  <p>Deixaràs a punt el servidor de correu sobre el qual muntaràs el correu web de l'<a class="cq-ref" href="a5-2-correu-web.html">A5.2</a>: comptes, bústies Maildir i proves fetes des del terminal. L'escriptori d'aquesta activitat és el de tot el RA.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Màquina</th><th>Sistema</th><th>Domini de correu</th><th>Comptes</th></tr></thead>
+      <tbody>
+        <tr><td>Escriptori nou a IsardVDI, <code>correu-cognom</code></td><td>Ubuntu 26.04 LTS</td><td><code>correu.internal</code></td><td>Tres persones d'una gestoria</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>El correu és <strong>només intern</strong>: els missatges van d'un compte a l'altre del mateix servidor, sense sortir a Internet.</p>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Què has de fer</h2>
+  <ol>
+    <li>Instal·la i configura el servidor de correu amb <strong>bústies Maildir</strong> i escoltant només a la mateixa màquina.</li>
+    <li>Crea <strong>tres comptes</strong> amb nom de persona i un <strong>àlies</strong> genèric (<code>info</code>) que arribi a un d'ells.</li>
+    <li>Fes una taula amb els <strong>serveis i ports</strong> que escolten al servidor, i digues per a què serveix cadascun.</li>
+    <li>Envia un missatge d'un compte a un altre des del terminal i <strong>localitza el fitxer</strong> del missatge dins del Maildir del destinatari.</li>
+    <li>Obre el missatge amb un editor de text i identifica'n les <strong>capçaleres</strong>: qui l'envia, qui el rep, la data i els <code>Received</code>.</li>
+    <li>Envia un missatge a l'àlies i comprova a quina bústia acaba.</li>
+    <li>Envia un missatge a un compte <strong>inexistent</strong> i explica, amb el registre a la mà, què ha passat.</li>
+    <li>Desactiva un compte i comprova que ja no autentica, però que la seva bústia continua al disc.</li>
+  </ol>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Instal·lació, Maildir i comptes</td><td>Guia <a class="cq-ref" href="../guies/g5-1-servidor-de-correu-intern.html">G5.1</a></td></tr>
+        <tr><td>Àlies i desactivació de comptes</td><td>Guia <a class="cq-ref" href="../guies/g5-1-servidor-de-correu-intern.html">G5.1</a>, «Comptes d'usuari»</td></tr>
+        <tr><td>Quins ports i per a què</td><td>Teoria <a class="cq-ref" href="../teoria/t5-2-com-viatja-un-correu.html">T5.2</a>, «Tres protocols i els seus ports»</td></tr>
+        <tr><td>Què vol dir cada capçalera</td><td>Teoria <a class="cq-ref" href="../teoria/t5-2-com-viatja-un-correu.html">T5.2</a>, «Mirar el camí d'un missatge»</td></tr>
+        <tr><td>Per què el client i el servidor no són el mateix</td><td>Teoria <a class="cq-ref" href="../teoria/t5-1-aplicacions-web-d-escriptori.html">T5.1</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>Res cap a Internet</h2>
+  <p>Aquest servidor només ha de parlar amb ell mateix. Un servidor de correu obert a la xarxa acaba reenviant correu brossa de tercers en hores, i la IP del centre queda marcada. Comprova que escolta només a la interfície local abans de continuar.</p>
+</div>
+
+<!-- ============ 6 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>El registre explica el que ha passat</h2>
+  <p>Deixa <code>sudo tail -f /var/log/mail.log</code> obert en una terminal mentre envies missatges des d'una altra. Cada línia diu què n'ha fet el servidor: acceptar-lo, entregar-lo o rebutjar-lo, i per què. És la primera eina de diagnòstic, abans de tocar cap configuració.</p>
+</div>
+
+<!-- ============ 7 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li><code>systemctl is-active postfix dovecot</code> respon <code>active</code> dues vegades.</li>
+    <li><code>ss -tlnp</code> mostra el 25 i el 143 escoltant només a l'adreça local.</li>
+    <li>Cada missatge enviat apareix com un fitxer nou dins del <code>Maildir</code> del destinatari.</li>
+    <li>El missatge a l'àlies acaba a la bústia de la persona correcta.</li>
+    <li>El missatge al compte inexistent queda explicat al registre.</li>
+    <li><code>doveadm auth test</code> falla amb el compte desactivat i funciona amb els altres.</li>
+  </ul>
+</div>
+
+<!-- ============ 8 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>No apareix cap carpeta <code>Maildir</code></dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Falta l'opció d'entrega en Maildir, o encara no ha arribat cap missatge a aquell usuari.</p>
+      <p><span class="lbl">Solució</span> Revisa l'opció, reinicia el servei i torna a enviar.</p>
+    </dd>
+    <dt><code>mail</code> no existeix</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Falta el paquet d'eines de correu.</p>
+      <p><span class="lbl">Solució</span> Instal·la'l com diu <a class="cq-ref" href="../guies/g5-1-servidor-de-correu-intern.html">G5.1</a>.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 9 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <p>Un repositori a GitHub amb un <code>README.md</code> que tingui la taula de serveis i ports, les ordres de creació dels comptes, captures del Maildir i de les capçaleres d'un missatge, les línies del registre dels tres enviaments i la sortida de les comprovacions.</p>
+  <p>Respon-hi també: <strong>per què encara no pots llegir aquest correu des del navegador, i què et falta per poder fer-ho?</strong></p>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 5.1</span> Aplicacions de correu web. Instal·lació.</p>
+  <p><span class="lbl">Contingut 5.2</span> Gestió d'usuaris.</p>
+  <p><span class="lbl">CA 5.3</span> Configura les aplicacions per a integrar-les amb un servidor de correu.</p>
+  <p><span class="lbl">CA 5.4</span> Gestiona els comptes d'usuari.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="../guies/g5-3-calendari-contactes-i-tasques.html">
+    <span class="dir">Anterior · G5.3</span>
+    <span class="ttl">Guia: calendari, contactes i tasques web</span></a>
+  <a class="next" href="a5-2-correu-web.html">
+    <span class="dir">Següent · A5.2</span>
+    <span class="ttl">Correu web</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

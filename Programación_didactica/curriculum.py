@@ -129,16 +129,16 @@ MAP = {
  'RA4/activitats/a4-2-document-full-i-formulari':  (['4.1'], ['4.6', '4.7']),
  'RA4/activitats/a4-3-comptes-permisos-i-seguretat': (['4.2', '4.3'], ['4.4', '4.5']),
  'RA4/practiques/p4-1-projecte-digital-del-grup':  (['4.1', '4.2', '4.3'], []),
- 'RA5/teoria/t5-1-aplicacions-web-d-escriptori':   (['5.1'], ['5.1']),
- 'RA5/teoria/t5-2-com-viatja-un-correu':           (['5.1'], ['5.3', '5.5']),
+ 'RA5/teoria/t5-1-aplicacions-web-d-escriptori': (['5.1'], ['5.1']),
+ 'RA5/teoria/t5-2-com-viatja-un-correu': (['5.1'], ['5.3', '5.5']),
  'RA5/teoria/t5-3-calendaris-contactes-i-tasques': (['5.1'], ['5.6', '5.7']),
- 'RA5/guies/g5-1-servidor-de-correu-intern':       (['5.1', '5.2'], ['5.3', '5.4']),
- 'RA5/guies/g5-2-correu-web-amb-roundcube':        (['5.1', '5.2'], ['5.2', '5.3', '5.5']),
- 'RA5/guies/g5-3-calendari-contactes-i-tasques':   (['5.1', '5.2'], ['5.6', '5.7']),
- 'RA5/activitats/a5-1-busties-al-servidor':        (['5.1', '5.2'], ['5.3', '5.4']),
- 'RA5/activitats/a5-2-correu-web':                 (['5.1', '5.2'], ['5.2', '5.3', '5.4', '5.5']),
- 'RA5/activitats/a5-3-agenda-contactes-i-tasques': (['5.1', '5.2'], ['5.6', '5.7']),
- 'RA5/practiques/p5-1-escriptori-web-de-l-organitzacio': (['5.1', '5.2'], []),
+ 'RA5/guies/g5-1-gmail-etiquetes-i-filtres': (['5.1', '5.2'], ['5.2', '5.3', '5.4']),
+ 'RA5/guies/g5-2-gmail-imap-i-comprovacions': (['5.1', '5.2'], ['5.3', '5.5']),
+ 'RA5/guies/g5-3-calendari-contactes-i-tasques': (['5.1', '5.2'], ['5.4', '5.6', '5.7']),
+ 'RA5/activitats/a5-1-filtres-al-gmail': (['5.1', '5.2'], ['5.2', '5.3']),
+ 'RA5/activitats/a5-2-correu-entre-dos-comptes': (['5.1', '5.2'], ['5.3', '5.4', '5.5']),
+ 'RA5/activitats/a5-3-agenda-del-viatge': (['5.1', '5.2'], ['5.4', '5.6', '5.7']),
+ 'RA5/practiques/p5-1-el-viatge-amb-google': (['5.1', '5.2'], []),
 }
 
 # Rúbrica de cada pràctica principal: (nom, pes al RA, [(apartat, criteris, punts)]).
@@ -191,14 +191,14 @@ PRACTIQUES = {
    ("Taula d'accessos aplicada i comptes gestionats", ['4.4'], 0.75),
    ("Seguretat: dos passos, restriccions i auditoria de comparticions", ['4.5'], 0.75),
  ]),
- 'RA5/practiques/p5-1-escriptori-web-de-l-organitzacio': ('Pràctica P5.1', 60, [
-   ("Comparació i descripció de les aplicacions web d'escriptori triades", ['5.1'], 1),
-   ("Servidor de correu intern instal·lat, amb bústies i ports comprovats", ['5.2'], 1.5),
-   ("Correu web instal·lat i integrat amb el servidor de correu", ['5.2', '5.3'], 2),
-   ("Comptes, àlies, altes i baixes documentats i provats", ['5.4'], 1.5),
-   ("Accés al correu verificat entre comptes, amb filtres i contactes", ['5.5'], 1.5),
-   ("Calendari web instal·lat, amb calendaris i comparticions", ['5.6'], 1.5),
-   ("Prestacions demostrades: cites, repeticions, convidats, tasques i sincronització", ['5.7'], 1),
+ 'RA5/practiques/p5-1-el-viatge-amb-google': ('Pràctica P5.1', 60, [
+   ("Eines de Google descrites i diferència entre IMAP i POP3 explicada", ['5.1'], 1),
+   ("Correu web preparat: etiquetes, colors i accés IMAP revisat", ['5.2'], 1),
+   ("Cinc filtres i resposta automàtica configurats i provats", ['5.3'], 1.5),
+   ("Comptes i permisos: calendari compartit amb un company i full amb el professorat", ['5.4'], 1.5),
+   ("Accés al correu verificat amb dos comptes i capçaleres", ['5.5'], 1.5),
+   ("Calendari del viatge creat, amb dates i activitats de cada dia", ['5.6'], 1.5),
+   ("Prestacions demostrades: repeticions, convidats, recordatoris, tasques, ruta i pressupost", ['5.7'], 2),
  ]),
 }
 

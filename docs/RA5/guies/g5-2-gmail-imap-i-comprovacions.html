@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G5.2 · Guia: Gmail, IMAP i comprovacions — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA5 · Instal·lació d'aplicacions web d'escriptori</a>
+    <span class="pos">G5.2 · 5/10</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA5 · G5.2</div>
+  <h1>Guia: Gmail, IMAP i comprovacions</h1>
+  <p class="lede">Veure com es connecta el correu web al servidor i comprovar que el correu arriba.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què hi ha en aquesta guia</h2>
+  <p>Documentació oficial: <a href="https://support.google.com/mail/answer/7126229">configurar IMAP i SMTP</a> · <a href="https://support.google.com/mail/answer/29436">veure l'original d'un missatge</a></p>
+  <ul>
+    <li>Punt de partida: el correu preparat a <a class="cq-ref" href="g5-1-gmail-etiquetes-i-filtres.html">G5.1</a> i dos comptes, el teu i el d'un company.</li>
+    <li>Resultat: els paràmetres del servidor identificats, una prova d'enviament entre dos comptes i les capçaleres llegides.</li>
+    <li>No s'instal·la cap servidor: es mira com està configurat el de Google.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Veure com es connecta el correu</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Obre l'apartat de configuració:</strong> engranatge <strong>→ Mostra tota la configuració → Reenviament i POP/IMAP</strong>.</p>
+    </li>
+    <li>
+      <p><strong>Mira l'estat de l'accés IMAP.</strong> Si és «Activa IMAP», un client de fora del navegador pot llegir el correu per aquest protocol.</p>
+    </li>
+    <li>
+      <p><strong>Anota els paràmetres</strong> a la taula de sota: servidor, port i xifratge de l'entrada i de la sortida.</p>
+    </li>
+    <li>
+      <p><strong>Si l'opció no es pot canviar</strong>, és que l'administrador del centre l'ha restringit. Fes-ne la captura i apunta-ho.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 3 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>Paràmetres del correu de Google</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Servei</th><th>Servidor</th><th>Port</th><th>Xifratge</th></tr></thead>
+      <tbody>
+        <tr><td>Entrada IMAP</td><td><code>imap.gmail.com</code></td><td>993</td><td>SSL/TLS</td></tr>
+        <tr><td>Entrada POP3</td><td><code>pop.gmail.com</code></td><td>995</td><td>SSL/TLS</td></tr>
+        <tr><td>Sortida SMTP</td><td><code>smtp.gmail.com</code></td><td>465 o 587</td><td>SSL/TLS o STARTTLS</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="cq-note"><span class="lbl">Usuari</span>
+    L'usuari és l'adreça completa del compte. Els clients de fora del navegador demanen autenticació moderna o una contrasenya d'aplicació.</div>
+</div>
+
+<!-- ============ 4 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Provar el correu entre dos comptes</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Obre dues sessions alhora.</strong> En una finestra, el teu compte; en una altra, el de la parella. Una pot ser una finestra privada.</p>
+    </li>
+    <li>
+      <p><strong>Envia un missatge</strong> de la primera al segon amb la paraula <code>puig</code> a l'assumpte.</p>
+    </li>
+    <li>
+      <p><strong>Comprova la recepció:</strong> el missatge ha d'aparèixer amb l'etiqueta «institut», si el destinatari té el filtre de <a class="cq-ref" href="g5-1-gmail-etiquetes-i-filtres.html">G5.1</a>.</p>
+    </li>
+    <li>
+      <p><strong>Respon</strong> des de la segona sessió i comprova que la resposta torna a la primera.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 5 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Llegir les capçaleres</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Obre el missatge rebut</strong> i prem els tres punts de la capçalera.</p>
+    </li>
+    <li>
+      <p><strong>Tria «Mostra l'original».</strong> S'obre una pàgina amb les dades del missatge.</p>
+    </li>
+    <li>
+      <p><strong>Mira l'estat de <code>SPF</code>, <code>DKIM</code> i <code>DMARC</code></strong>: han de dir <code>PASS</code>.</p>
+    </li>
+    <li>
+      <p><strong>Localitza les línies <code>Received</code></strong> i apunta per quins servidors ha passat el missatge, començant per baix.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 6 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Comprovació de conjunt</h2>
+  <ul>
+    <li>Has trobat l'accés IMAP a la configuració i n'has apuntat l'estat.</li>
+    <li>La taula de paràmetres és completa.</li>
+    <li>El missatge enviat arriba al segon compte.</li>
+    <li>La resposta torna al primer.</li>
+    <li>A l'original del missatge, SPF, DKIM i DMARC surten com a <code>PASS</code>.</li>
+  </ul>
+</div>
+
+<!-- ============ 7 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Provar sempre amb dos comptes: enviar-te correu a tu mateix amaga problemes.</li>
+    <li>Fer captures de pantalla completa de cada prova.</li>
+    <li>Mirar les capçaleres abans de pensar que el correu s'ha perdut.</li>
+    <li>No donar mai la contrasenya del compte a un client: fer servir la d'aplicació.</li>
+  </ul>
+</div>
+
+<!-- ============ 8 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>El missatge no arriba</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Ha anat a la carpeta de brossa o l'adreça té un error.</p>
+      <p><span class="lbl">Solució</span> Mira la brossa i comprova l'adreça.</p>
+    </dd>
+    <dt>No trobo l'opció IMAP</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El compte és de l'organització i l'administrador l'ha amagat.</p>
+      <p><span class="lbl">Solució</span> Anota-ho a la memòria i fes la captura del que veus.</p>
+    </dd>
+    <dt>SPF o DKIM no surten com a PASS</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El correu s'ha enviat des d'un altre servei.</p>
+      <p><span class="lbl">Solució</span> Envia'l des del correu web del mateix compte.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 9 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Fitxa ràpida</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Vull</th><th>On</th></tr></thead>
+      <tbody>
+        <tr><td>Veure si IMAP està actiu</td><td>Configuració → <strong>Reenviament i POP/IMAP</strong></td></tr>
+        <tr><td>Paràmetres d'entrada</td><td><code>imap.gmail.com</code>, port 993</td></tr>
+        <tr><td>Paràmetres de sortida</td><td><code>smtp.gmail.com</code>, port 465 o 587</td></tr>
+        <tr><td>Veure les capçaleres</td><td>Tres punts del missatge → <strong>Mostra l'original</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="g5-1-gmail-etiquetes-i-filtres.html">
+    <span class="dir">Anterior · G5.1</span>
+    <span class="ttl">Guia: Gmail, etiquetes i filtres</span></a>
+  <a class="next" href="g5-3-calendari-contactes-i-tasques.html">
+    <span class="dir">Següent · G5.3</span>
+    <span class="ttl">Guia: calendari, contactes i tasques</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

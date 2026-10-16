@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G2.2 · Guia: administrar Moodle — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA2 · Instal·lació de sistemes de gestió d'aprenentatge</a>
+    <span class="pos">G2.2 · 5/9</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA2 · G2.2</div>
+  <h1>Guia: administrar Moodle</h1>
+  <p class="lede">Lloc, usuaris, cursos, inscripcions, aspecte, còpies, informes i seguretat, des del navegador.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què hi ha en aquesta guia</h2>
+  <p>Documentació oficial: <a href="https://docs.moodle.org/502/ca/">docs.moodle.org</a></p>
+  <ul>
+    <li>Punt de partida: Moodle instal·lat amb <a class="cq-ref" href="g2-1-instal-lar-moodle.html">G2.1</a> i sessió iniciada com a administrador.</li>
+    <li>Les rutes són les del menú en català: <strong>Administració del lloc</strong> és a la barra superior.</li>
+    <li>Els noms dels menús poden variar lleugerament entre versions; si no trobes una opció, fes servir el cercador de l'administració.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Configuració inicial del lloc</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Perfil propi:</strong> menú d'usuari → <strong>Perfil → Edita el perfil</strong>; canvia correu, contrasenya i imatge.</p>
+    </li>
+    <li>
+      <p><strong>Nom i portada:</strong> <strong>Administració del lloc → General → Portada</strong>; nom llarg i curt.</p>
+    </li>
+    <li>
+      <p><strong>Portada només per a usuaris identificats:</strong> <strong>Administració del lloc → Seguretat → Normatives del lloc → Força els usuaris a identificar-se</strong>.</p>
+    </li>
+    <li>
+      <p><strong>Zona horària:</strong> <strong>Administració del lloc → General → Ubicació → Paràmetres d'ubicació</strong>; tria <code>Europe/Madrid</code>. Les dates d'entrega en depenen.</p>
+    </li>
+    <li>
+      <p><strong>Idioma:</strong> <strong>Administració del lloc → General → Idioma → Paquets d'idioma</strong>; instal·la'l i tria'l com a predeterminat.</p>
+    </li>
+    <li>
+      <p><strong>Contrasenyes:</strong> <strong>Seguretat → Normatives del lloc → Normativa de contrasenyes</strong>; 8 caràcters, amb dígits, minúscules i majúscules.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 3 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Usuaris</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Un compte a mà:</strong> <strong>Administració del lloc → Usuaris → Comptes → Afegeix un usuari</strong>, amb autenticació <em>Comptes manuals</em>.</p>
+    </li>
+    <li>
+      <p><strong>Molts comptes d'un CSV:</strong> <strong>Usuaris → Comptes → Carrega usuaris</strong>. El fitxer ha de ser UTF-8 i tenir aquestes capçaleres:</p>
+<pre>username,firstname,lastname,email,password
+blobesponja,Blob,Esponja,blobesponja@exemple.internal,Abc123!x
+jsongoku,JSON,Goku,jsongoku@exemple.internal,Abc123!x
+ritahardware,Rita,Hardware,ritahardware@exemple.internal,Abc123!x</pre>
+    </li>
+    <li>
+      <p><strong>Accions en bloc:</strong> <strong>Usuaris → Comptes → Accions sobre usuaris en bloc</strong>; filtra, selecciona i tria <em>Suprimeix</em>, <em>Força el canvi de contrasenya</em>…</p>
+    </li>
+    <li>
+      <p><strong>Camps de perfil propis:</strong> <strong>Usuaris → Comptes → Camps del perfil de l'usuari</strong>.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 4 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Cursos i inscripcions</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Categoria:</strong> <strong>Administració del lloc → Cursos → Gestiona cursos i categories → Crea una categoria</strong>.</p>
+    </li>
+    <li>
+      <p><strong>Curs:</strong> a la categoria, <strong>Crea un curs</strong>; nom, nom curt, format <em>Temes</em> i nombre de seccions.</p>
+    </li>
+    <li>
+      <p><strong>Mètodes d'inscripció:</strong> dins del curs, <strong>Participants → Mètodes d'inscripció</strong>. Activa o desactiva <em>Inscripció manual</em>, <em>Autoinscripció</em> i <em>Accés de convidats</em>.</p>
+    </li>
+    <li>
+      <p><strong>Matricular:</strong> <strong>Participants → Inscriu usuaris</strong>; tria les persones i el rol.</p>
+    </li>
+    <li>
+      <p><strong>Afegir contingut:</strong> activa el <strong>Mode d'edició</strong> i, a cada secció, <strong>Afegeix una activitat o un recurs</strong>.</p>
+    </li>
+    <li>
+      <p><strong>Importar d'un altre curs:</strong> <strong>Més → Reutilitza el curs → Importa</strong>.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 5 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Qualificacions, insígnies i qüestionaris</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Qualificador:</strong> al curs, <strong>Qualificacions → Configuració del qualificador</strong>; tria l'agregació, per exemple <em>Mitjana de qualificacions</em>.</p>
+    </li>
+    <li>
+      <p><strong>Insígnia:</strong> <strong>Més → Insígnies → Afegeix una insígnia</strong>; defineix el criteri, activa-la i atorga-la.</p>
+    </li>
+    <li>
+      <p><strong>Banc de preguntes:</strong> <strong>Més → Banc de preguntes</strong>; crea categories i preguntes, o importa-les en format GIFT.</p>
+    </li>
+    <li>
+      <p><strong>Qüestionari:</strong> afegeix l'activitat i, a <strong>Preguntes</strong>, <strong>Afegeix → del banc de preguntes</strong>.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 6 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Aspecte</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Instal·lar un tema:</strong> <strong>Administració del lloc → Connectors → Instal·la connectors</strong>; puja el ZIP del <a href="https://moodle.org/plugins/?q=type:theme">directori oficial</a>.</p>
+    </li>
+    <li>
+      <p><strong>Triar-lo:</strong> <strong>Aparença → Temes</strong>.</p>
+    </li>
+    <li>
+      <p><strong>Logotip i colors:</strong> <strong>Aparença → Logotips</strong> i els paràmetres del tema, com el color de marca de Boost.</p>
+    </li>
+    <li>
+      <p><strong>CSS propi:</strong> paràmetres del tema → <strong>SCSS en brut</strong>:</p>
+<pre>.navbar { border-bottom: 4px solid #1d4e89; }</pre>
+    </li>
+    <li>
+      <p><strong>Capçalera i peu:</strong> <strong>Aparença → Configuració addicional d'HTML</strong>.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 7 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Còpies</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Còpia d'un curs:</strong> <strong>Més → Reutilitza el curs → Còpia de seguretat</strong>; tria si inclou usuaris i descarrega el <code>.mbz</code>.</p>
+    </li>
+    <li>
+      <p><strong>Restaurar-la:</strong> <strong>Reutilitza el curs → Restaura</strong>; puja el <code>.mbz</code> i tria si va a un curs nou o existent.</p>
+    </li>
+    <li>
+      <p><strong>Còpies automàtiques:</strong> <strong>Administració del lloc → Cursos → Còpia de seguretat → Paràmetres de còpia automatitzada</strong>.</p>
+    </li>
+    <li>
+      <p><strong>Còpia del lloc</strong> des del terminal, amb Moodle en manteniment:</p>
+<pre>sudo -u www-data php /var/www/moodle.internal/admin/cli/\
+maintenance.php --enable
+sudo mysqldump --single-transaction moodle &gt; moodle-$(date +%F).sql
+sudo tar -czf moodle-$(date +%F).tar.gz \
+  /var/www/moodle.internal /var/moodledata
+sudo -u www-data php /var/www/moodle.internal/admin/cli/\
+maintenance.php --disable</pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 8 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Informes i seguretat</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Registres:</strong> <strong>Administració del lloc → Informes → Registres</strong>; filtra per curs, usuari, dia i acció.</p>
+    </li>
+    <li>
+      <p><strong>Ús d'un curs:</strong> al curs, <strong>Informes → Activitat del curs</strong> i <strong>Participació al curs</strong>.</p>
+    </li>
+    <li>
+      <p><strong>Bloquejar una IP:</strong> <strong>Administració del lloc → General → Seguretat → Blocador d'IP</strong>; escriu-la a <em>Llista d'IP bloquejades</em>.</p>
+    </li>
+    <li>
+      <p><strong>Comprovar el lloc:</strong> <strong>Informes → Comprovacions de seguretat</strong>; resol els <em>Crític</em> i <em>Seriós</em>.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 9 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Comprovació de conjunt</h2>
+  <ul>
+    <li>Un usuari del CSV inicia sessió i ha de canviar la contrasenya segons la normativa.</li>
+    <li>Un curs amb accés de convidats s'obre en una finestra privada sense iniciar sessió.</li>
+    <li>El <code>.mbz</code> d'un curs es restaura en un curs nou amb tot el contingut.</li>
+    <li>Els registres mostren l'accés de l'usuari de prova amb la seva IP.</li>
+  </ul>
+</div>
+
+<!-- ============ 10 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Zona horària i normativa de contrasenyes, abans de crear cursos i comptes.</li>
+    <li>Usuaris en bloc amb CSV; elimina'ls en bloc quan acabin.</li>
+    <li>Blocar una IP de l'aula pot deixar fora tot el grup: comprova-ho abans.</li>
+    <li>Còpia del lloc abans d'instal·lar temes o connectors.</li>
+  </ul>
+</div>
+
+<!-- ============ 11 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>La càrrega de CSV dona «Capçalera no vàlida»</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Una columna mal escrita o el fitxer no és UTF-8.</p>
+      <p><span class="lbl">Solució</span> Revisa les capçaleres exactes i desa en UTF-8 sense BOM.</p>
+    </dd>
+    <dt>Després de bloquejar una IP, ningú no pot entrar</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> S'ha escrit a <em>IP permeses</em>, que deixa entrar només les de la llista.</p>
+      <p><span class="lbl">Solució</span> Des del servidor, buida el camp amb <code>admin/cli/cfg.php</code> o a la base de dades, i posa l'adreça a <em>IP bloquejades</em>.</p>
+    </dd>
+    <dt>La tasca tanca una hora abans</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> La zona horària del lloc o de l'usuari no és la correcta.</p>
+      <p><span class="lbl">Solució</span> Revisa els paràmetres d'ubicació i el perfil.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 12 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Fitxa ràpida</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Vull</th><th>On</th></tr></thead>
+      <tbody>
+        <tr><td>Crear usuaris en bloc</td><td>Usuaris → Comptes → Carrega usuaris</td></tr>
+        <tr><td>Crear un curs</td><td>Cursos → Gestiona cursos i categories</td></tr>
+        <tr><td>Com s'entra al curs</td><td>Curs → Participants → Mètodes d'inscripció</td></tr>
+        <tr><td>Tema</td><td>Aparença → Temes</td></tr>
+        <tr><td>Còpia d'un curs</td><td>Curs → Reutilitza el curs → Còpia de seguretat</td></tr>
+        <tr><td>Qui ha fet què</td><td>Informes → Registres</td></tr>
+        <tr><td>Blocar IP</td><td>Seguretat → Blocador d'IP</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="g2-1-instal-lar-moodle.html">
+    <span class="dir">Anterior · G2.1</span>
+    <span class="ttl">Guia: instal·lar Moodle</span></a>
+  <a class="next" href="../activitats/a2-1-moodle-a-punt.html">
+    <span class="dir">Següent · A2.1</span>
+    <span class="ttl">Moodle a punt</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

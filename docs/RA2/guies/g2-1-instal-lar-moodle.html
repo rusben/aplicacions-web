@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G2.1 · Guia: instal·lar Moodle — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA2 · Instal·lació de sistemes de gestió d'aprenentatge</a>
+    <span class="pos">G2.1 · 4/9</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA2 · G2.1</div>
+  <h1>Guia: instal·lar Moodle</h1>
+  <p class="lede">Moodle 5.2 amb Apache, MySQL i PHP, l'arrel a public i el cron en marxa.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què hi ha en aquesta guia</h2>
+  <p>Documentació oficial: <a href="https://docs.moodle.org/502/en/Installing_Moodle">Installing Moodle</a> · <a href="https://moodledev.io/general/releases/5.2">requeriments de Moodle 5.2</a></p>
+  <ul>
+    <li>Resultat: Moodle 5.2 a <code>http://moodle.internal</code>, amb les dades a <code>/var/moodledata</code>.</li>
+    <li>La pila i el host virtual segueixen <a class="cq-ref" href="../../RA1/guies/g1-2-pila-lamp.html">G1.2</a>, amb els canvis que s'indiquen.</li>
+  </ul>
+  <div class="cq-note"><span class="lbl">Primer, els requeriments</span>
+    Moodle és exigent amb la versió de PHP. Abans de començar, mira la pàgina de requeriments de la versió que instal·laràs i compara-la amb el que porta l'escriptori (<code>php -v</code>). Si la teva versió de Moodle encara no admet el PHP d'Ubuntu 26.04, fes l'escriptori amb <strong>Ubuntu 24.04 LTS</strong>, que porta PHP 8.3, i canvia <code>8.5</code> per <code>8.3</code> a les rutes d'aquesta guia.</div>
+</div>
+
+<!-- ============ 2 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Preparar el servidor</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Instal·la la pila</strong> amb les extensions de PHP que demana Moodle:</p>
+<pre>sudo apt update
+sudo apt install -y apache2 mysql-server libapache2-mod-php \
+  php-mysql php-xml php-mbstring php-curl php-zip php-gd \
+  php-intl php-soap</pre>
+    </li>
+    <li>
+      <p><strong>Puja <code>max_input_vars</code></strong> a 5000, que és el mínim de Moodle:</p>
+<pre>echo 'max_input_vars = 5000' | \
+  sudo tee /etc/php/8.5/apache2/conf.d/99-moodle.ini
+sudo systemctl restart apache2</pre>
+    </li>
+    <li>
+      <p><strong>Crea la base de dades i l'usuari:</strong></p>
+<pre>sudo mysql</pre>
+<pre>CREATE DATABASE moodle
+  DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+CREATE USER 'moodleuser'@'localhost' IDENTIFIED BY 'Canvia-la-2026';
+GRANT ALL PRIVILEGES ON moodle.* TO 'moodleuser'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;</pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 3 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Posar-hi el codi i el directori de dades</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Descarrega Moodle 5.2</strong> i descomprimeix-lo:</p>
+<pre>cd /tmp
+wget https://download.moodle.org/download.php/direct/stable502/\
+moodle-latest-502.tgz
+sudo tar -xzf moodle-latest-502.tgz -C /var/www
+sudo mv /var/www/moodle /var/www/moodle.internal</pre>
+    </li>
+    <li>
+      <p><strong>Crea el directori de dades</strong>, fora de <code>/var/www</code>:</p>
+<pre>sudo mkdir /var/moodledata
+sudo chown www-data:www-data /var/moodledata
+sudo chmod 770 /var/moodledata</pre>
+    </li>
+    <li>
+      <p><strong>Deixa que l'instal·lador escrigui <code>config.php</code>:</strong></p>
+<pre>sudo chown -R www-data:www-data /var/www/moodle.internal</pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 4 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Host virtual amb l'arrel a public</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Crea el lloc:</strong></p>
+<pre>sudo nano /etc/apache2/sites-available/moodle.internal.conf</pre>
+<pre>&lt;VirtualHost *:80&gt;
+    ServerName moodle.internal
+    DocumentRoot /var/www/moodle.internal/public
+
+    &lt;Directory /var/www/moodle.internal/public&gt;
+        AllowOverride None
+        Require all granted
+    &lt;/Directory&gt;
+
+    ErrorLog ${APACHE_LOG_DIR}/moodle.internal_error.log
+    CustomLog ${APACHE_LOG_DIR}/moodle.internal_access.log combined
+&lt;/VirtualHost&gt;</pre>
+    </li>
+    <li>
+      <p><strong>Activa'l</strong> i afegeix el nom a <code>/etc/hosts</code>:</p>
+<pre>sudo a2ensite moodle.internal.conf
+sudo apache2ctl configtest
+sudo systemctl reload apache2
+echo '127.0.0.1 moodle.internal' | sudo tee -a /etc/hosts</pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 5 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Instal·lador web</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Obre <code>http://moodle.internal</code></strong> i tria l'idioma <strong>Català</strong>.</p>
+    </li>
+    <li>
+      <p><strong>Confirma les rutes:</strong> adreça web <code>http://moodle.internal</code>, directori de dades <code>/var/moodledata</code>.</p>
+    </li>
+    <li>
+      <p><strong>Tria el controlador</strong> <strong>MySQL millorat (natiu/mysqli)</strong> i escriu <code>localhost</code>, <code>moodle</code>, <code>moodleuser</code> i la contrasenya.</p>
+    </li>
+    <li>
+      <p><strong>Revisa la comprovació de l'entorn:</strong> tot el que és <em>obligatori</em> ha de sortir en verd. Si falta una extensió, instal·la el paquet <code>php-…</code>, reinicia Apache i torna a carregar.</p>
+    </li>
+    <li>
+      <p><strong>Espera que creï les taules</strong> i omple el compte d'administrador i el nom del lloc.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 6 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Cron i permisos finals</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Programa el cron</strong> cada minut amb l'usuari d'Apache:</p>
+<pre>sudo crontab -u www-data -e</pre>
+<pre>* * * * * /usr/bin/php /var/www/moodle.internal/admin/cli/cron.php</pre>
+    </li>
+    <li>
+      <p><strong>Torna el codi a <code>root</code></strong>: Apache només ha de poder escriure a <code>moodledata</code>:</p>
+<pre>sudo chown -R root:root /var/www/moodle.internal
+sudo chmod 644 /var/www/moodle.internal/config.php</pre>
+    </li>
+    <li>
+      <p><strong>Comprova el cron</strong> executant-lo a mà una vegada:</p>
+<pre>sudo -u www-data /usr/bin/php \
+  /var/www/moodle.internal/admin/cli/cron.php | tail -3
+<span class="o">Cron completed at ...</span></pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 7 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Comprovació de conjunt</h2>
+  <ul>
+    <li><code>http://moodle.internal</code> mostra la portada i es pot iniciar sessió.</li>
+    <li><code>http://moodle.internal/config.php</code> no ensenya res: <code>config.php</code> és fora de l'arrel web.</li>
+    <li><strong>Administració del lloc → Servidor → Entorn</strong> no té cap requisit obligatori en vermell.</li>
+    <li><strong>Administració del lloc → Notificacions</strong> no avisa que el cron no s'executa.</li>
+  </ul>
+</div>
+
+<!-- ============ 8 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li><code>moodledata</code> fora de <code>/var/www</code>, amb permisos 770.</li>
+    <li>Codi propietat de <code>root</code> un cop instal·lat.</li>
+    <li>Un usuari de base de dades només per a Moodle.</li>
+    <li>Actualitza Moodle dins de la mateixa branca (5.2.x) quan surtin versions de seguretat.</li>
+  </ul>
+</div>
+
+<!-- ============ 9 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>L'entorn diu que la versió de PHP no és compatible</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> La versió de Moodle que has baixat no admet el PHP de l'escriptori.</p>
+      <p><span class="lbl">Solució</span> Refés l'escriptori amb Ubuntu 24.04 LTS (PHP 8.3) o baixa la versió de Moodle que sí que l'admet. Comprova-ho sempre abans d'instal·lar.</p>
+    </dd>
+    <dt>«max_input_vars must be at least 5000»</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El fitxer de <code>conf.d</code> no s'ha llegit.</p>
+      <p><span class="lbl">Solució</span> Comprova que és a <code>apache2/conf.d</code> (no a <code>cli</code>) i reinicia Apache.</p>
+    </dd>
+    <dt>L'instal·lador no pot escriure <code>config.php</code></dt>
+    <dd>
+      <p><span class="lbl">Causa</span> La carpeta del codi no és de <code>www-data</code>.</p>
+      <p><span class="lbl">Solució</span> Fes el <code>chown</code> temporal o copia el contingut que mostra a <code>config.php</code> a mà.</p>
+    </dd>
+    <dt>Es veu una llista de carpetes</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El <code>DocumentRoot</code> no acaba en <code>/public</code>.</p>
+      <p><span class="lbl">Solució</span> Corregeix-lo i recarrega Apache.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 10 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Fitxa ràpida</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Peça</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>Sistema</td><td>Ubuntu 26.04 LTS · PHP 8.5 · MySQL 8.4 (o 24.04 amb PHP 8.3 si Moodle ho demana)</td></tr>
+        <tr><td>Codi</td><td><code>/var/www/moodle.internal</code></td></tr>
+        <tr><td>Arrel web</td><td><code>/var/www/moodle.internal/public</code></td></tr>
+        <tr><td>Dades</td><td><code>/var/moodledata</code></td></tr>
+        <tr><td>Configuració</td><td><code>config.php</code>, a l'arrel del codi</td></tr>
+        <tr><td>Cron</td><td><code>admin/cli/cron.php</code> cada minut, com a <code>www-data</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="../teoria/t2-3-mantenir-un-moodle.html">
+    <span class="dir">Anterior · T2.3</span>
+    <span class="ttl">Mantenir un Moodle</span></a>
+  <a class="next" href="g2-2-administrar-moodle.html">
+    <span class="dir">Següent · G2.2</span>
+    <span class="ttl">Guia: administrar Moodle</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

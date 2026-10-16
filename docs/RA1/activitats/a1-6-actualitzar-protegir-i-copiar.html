@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A1.6 · Actualitzar, protegir i copiar — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA1 · Instal·lació de gestors de continguts</a>
+    <span class="pos">A1.6 · 15/16</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA1 · A1.6</div>
+  <h1>Actualitzar, protegir i copiar</h1>
+  <p class="lede">El manteniment d'un gestor: posar-lo al dia, tancar-ne les portes, copiar-lo i demostrar que la còpia serveix.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Teoria <a class="cq-ref" href="../teoria/t1-5-mantenir-un-gestor.html">T1.5</a>. La guia <a class="cq-ref" href="../guies/g1-3-wordpress.html">G1.3</a>, apartats de WP-CLI, seguretat i manteniment i restauració, és el manual que consultaràs.</p>
+  <p>Deixaràs el lloc de proves desactualitzat a propòsit, l'actualitzaràs de manera ordenada, activaràs els mecanismes de seguretat del gestor, en faràs una còpia completa i la restauraràs després d'una «avaria». Abans i després de cada pas passaràs una llista de proves.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <p>L'escriptori de proves de l'<a class="cq-ref" href="a1-2-requeriments-i-instal-lacio.html">A1.2</a>, amb WordPress a <code>proves.internal</code> i tot el que hi has fet a les activitats anteriors. Un client et demana que te'n facis càrrec: fa mesos que ningú no l'actualitza i no hi ha cap còpia.</p>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Què has de fer</h2>
+  <ol>
+    <li>Escriu una <strong>llista de proves</strong> d'almenys vuit files per al teu lloc i passa-la.</li>
+    <li>Instal·la amb WP-CLI una <strong>versió antiga</strong> d'una extensió del directori oficial, perquè el tauler en demani l'actualització.</li>
+    <li>Fes una <strong>còpia completa</strong>: bolcat de la base de dades i fitxers, i treu-la de l'escriptori.</li>
+    <li>Fes l'inventari del que cal actualitzar i aplica les actualitzacions d'una en una, en l'ordre que decideixis després de llegir què canvia a cadascuna. Registra cada element amb la versió d'abans i la de després, i torna a passar la llista de proves.</li>
+    <li>Activa els <strong>mecanismes de seguretat</strong> del gestor: actualitzacions automàtiques, cap tema ni extensió sobrant, comentaris moderats, registre tancat, editor de fitxers desactivat, <code>wp-config.php</code> protegit i contrasenyes d'aplicació revisades. Resol els avisos crítics de <strong>Salut del lloc</strong>.</li>
+    <li>Fes una segona còpia. Simula una <strong>avaria</strong>: esborra una pàgina, una entrada i una extensió.</li>
+    <li><strong>Restaura</strong> la segona còpia i passa la llista de proves per tercera vegada.</li>
+  </ol>
+  <p>Exemple per al punt 2 (tria l'extensió i la versió a la pestanya «Advanced View» del directori):</p>
+<pre>cd /var/www/proves.internal
+sudo -u www-data wp plugin install hello-dolly \
+  --version=1.6 --activate</pre>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Quines actualitzacions són urgents</td><td>Teoria <a class="cq-ref" href="../teoria/t1-5-mantenir-un-gestor.html">T1.5</a>, «Actualitzar»</td></tr>
+        <tr><td>WP-CLI i actualitzacions</td><td>Guia <a class="cq-ref" href="../guies/g1-3-wordpress.html">G1.3</a>, «Administrar-lo amb WP-CLI»</td></tr>
+        <tr><td>Mecanismes de seguretat del gestor</td><td>Teoria <a class="cq-ref" href="../teoria/t1-5-mantenir-un-gestor.html">T1.5</a>, «Protegir», i guia <a class="cq-ref" href="../guies/g1-3-wordpress.html">G1.3</a>, «Seguretat i manteniment»</td></tr>
+        <tr><td>Fer la còpia i treure-la del servidor</td><td>Guia <a class="cq-ref" href="../guies/g1-3-wordpress.html">G1.3</a>, «Seguretat i manteniment»</td></tr>
+        <tr><td>Restaurar-la</td><td>Guia <a class="cq-ref" href="../guies/g1-3-wordpress.html">G1.3</a>, «Restaurar una còpia»</td></tr>
+        <tr><td>Què posar a la llista de proves</td><td>Teoria <a class="cq-ref" href="../teoria/t1-5-mantenir-un-gestor.html">T1.5</a>, «Proves després de cada canvi»</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>Primer la còpia</h2>
+  <p>Mai actualitzis sense una còpia recent i provada. Si una actualització trenca el lloc, la còpia és l'única manera de tornar enrere en minuts. Una còpia que es queda al mateix escriptori es perd amb l'escriptori.</p>
+</div>
+
+<!-- ============ 6 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Què hi ha dins del bolcat</h2>
+  <p>Obre el fitxer <code>.sql</code> amb <code>less</code>. Són ordres SQL: <code>CREATE TABLE</code> per a cada taula i <code>INSERT</code> amb les files. Busca-hi el títol d'una de les teves entrades: restaurar és tornar a executar aquestes ordres.</p>
+</div>
+
+<!-- ============ 7 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li><code>sudo -u www-data wp plugin list --update=available</code> i <code>wp core check-update</code> no mostren res pendent.</li>
+    <li><code>sudo -u www-data wp core verify-checksums</code> passa sense errors.</li>
+    <li><code>sudo -u www-data wp theme list</code> només mostra el tema actiu i, com a molt, un de reserva.</li>
+    <li>Al tauler no surt <strong>Aparença → Editor de fitxers de temes</strong>.</li>
+    <li><code>ls -l wp-config.php</code> mostra permisos <code>640</code>.</li>
+    <li>Després de restaurar, la pàgina, l'entrada i l'extensió esborrades hi tornen a ser, i la llista de proves passa sencera.</li>
+  </ul>
+</div>
+
+<!-- ============ 8 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>WP-CLI diu «Error: This does not seem to be a WordPress installation»</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> No ets a la carpeta del lloc.</p>
+      <p><span class="lbl">Solució</span> Fes <code>cd</code> a la carpeta o afegeix <code>--path=/var/www/proves.internal</code>.</p>
+    </dd>
+    <dt>Després de restaurar, les imatges no surten</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> La còpia de fitxers no incloïa <code>wp-content/uploads</code> o els permisos no són de <code>www-data</code>.</p>
+      <p><span class="lbl">Solució</span> Revisa el contingut del <code>.tar.gz</code> i torna a fer el <code>chown</code>.</p>
+    </dd>
+    <dt>«Error establint la connexió amb la base de dades» després de restaurar</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El bolcat no s'ha carregat a la base de dades correcta.</p>
+      <p><span class="lbl">Solució</span> Comprova el nom de la base a <code>wp-config.php</code> i torna a carregar el bolcat.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 9 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <p>Un repositori a GitHub amb un <code>README.md</code> que tingui la llista de proves amb les tres passades, la taula d'actualitzacions, cada mecanisme de seguretat amb una captura, les ordres de còpia i restauració i la sortida de les comprovacions.</p>
+  <p>Respon-hi també: <strong>en quin ordre has aplicat les actualitzacions i per què, i què hauries fet si una d'elles hagués trencat el lloc?</strong></p>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 1.5</span> Actualitzacions del gestor de continguts. Configuració de mòduls i menús.</p>
+  <p><span class="lbl">CA 1.5</span> Realitza tasques d'actualització del gestor de continguts, especialment les de seguretat.</p>
+  <p><span class="lbl">CA 1.7</span> Activa i configura els mecanismes de seguretat proporcionats pel propi gestor de continguts.</p>
+  <p><span class="lbl">CA 1.9</span> Realitza proves de funcionament.</p>
+  <p><span class="lbl">CA 1.10</span> Realitza còpies de seguretat dels continguts del gestor.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="a1-5-forum-amb-regles-d-acces.html">
+    <span class="dir">Anterior · A1.5</span>
+    <span class="ttl">Fòrum amb regles d'accés</span></a>
+  <a class="next" href="../practiques/p1-1-portal-wordpress.html">
+    <span class="dir">Següent · P1.1</span>
+    <span class="ttl">Pràctica: portal amb WordPress</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

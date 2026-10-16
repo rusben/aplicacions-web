@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G1.3 · Guia: WordPress — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA1 · Instal·lació de gestors de continguts</a>
+    <span class="pos">G1.3 · 8/16</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA1 · G1.3</div>
+  <h1>Guia: WordPress</h1>
+  <p class="lede">De la carpeta buida a un lloc amb usuaris, grups, menús, fòrums, còpies i estil propi.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què hi ha en aquesta guia</h2>
+  <p>Documentació oficial: <a href="https://wordpress.org/documentation/">wordpress.org/documentation</a> · <a href="https://ca.wordpress.org/">ca.wordpress.org</a></p>
+  <ul>
+    <li>Punt de partida: pila LAMP i host virtual fets amb <a class="cq-ref" href="g1-2-pila-lamp.html">G1.2</a>. Aquí el lloc es diu <code>wordpress.internal</code>, la base de dades <code>wpdb</code> i l'usuari <code>wpuser</code>.</li>
+    <li>Cobreix instal·lació, enllaços permanents, usuaris i grups, aparença, menús i sindicació, extensions, idiomes, fòrums, WP-CLI, seguretat, còpies i proves.</li>
+    <li>WordPress recomana PHP 8.3 o superior, MySQL 8.0 o superior i HTTPS; Ubuntu 26.04 compleix les dues primeres. Els requeriments actualitzats són a <a href="https://wordpress.org/about/requirements/">wordpress.org/about/requirements</a>.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Instal·lar WordPress</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Descarrega i descomprimeix</strong> l'última versió al <code>DocumentRoot</code>:</p>
+<pre>cd /tmp
+wget https://wordpress.org/latest.zip
+sudo unzip -q latest.zip -d /tmp
+sudo cp -a /tmp/wordpress/. /var/www/wordpress.internal/
+sudo rm -f /var/www/wordpress.internal/index.html</pre>
+    </li>
+    <li>
+      <p><strong>Dona els fitxers a Apache:</strong></p>
+<pre>sudo chown -R www-data:www-data /var/www/wordpress.internal</pre>
+    </li>
+    <li>
+      <p><strong>Obre <code>http://wordpress.internal</code></strong>, tria <strong>Català</strong> i omple les dades de la base de dades:</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Camp</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>Nom de la base de dades</td><td><code>wpdb</code></td></tr>
+        <tr><td>Nom d'usuari</td><td><code>wpuser</code></td></tr>
+        <tr><td>Contrasenya</td><td>La que vas posar a MySQL</td></tr>
+        <tr><td>Servidor</td><td><code>localhost</code></td></tr>
+        <tr><td>Prefix de les taules</td><td><code>wp_</code>, o un altre si comparteixes base</td></tr>
+      </tbody>
+    </table>
+  </div>
+    </li>
+    <li>
+      <p><strong>Posa el títol del lloc i l'administrador.</strong> Evita <code>admin</code> com a nom d'usuari i fes servir una contrasenya llarga.</p>
+    </li>
+    <li>
+      <p><strong>Entra al tauler</strong> a <code>http://wordpress.internal/wp-admin</code>.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 3 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>On és cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Fitxer o carpeta</th><th>Conté</th></tr></thead>
+      <tbody>
+        <tr><td><code>wp-config.php</code></td><td>Dades de connexió a la base de dades i claus de seguretat</td></tr>
+        <tr><td><code>wp-content/themes</code></td><td>Temes</td></tr>
+        <tr><td><code>wp-content/plugins</code></td><td>Extensions</td></tr>
+        <tr><td><code>wp-content/uploads</code></td><td>Tot el que es puja a Mèdia, per any i mes</td></tr>
+        <tr><td><code>.htaccess</code></td><td>Regles de reescriptura dels enllaços permanents</td></tr>
+        <tr><td><code>wp-admin</code>, <code>wp-includes</code></td><td>Nucli: no es toca mai</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 4 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Enllaços permanents</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Comprova</strong> que <code>rewrite</code> està actiu i que el host virtual té <code>AllowOverride All</code> (<a class="cq-ref" href="g1-2-pila-lamp.html">G1.2</a>):</p>
+<pre>apache2ctl -M | grep rewrite
+<span class="o">rewrite_module (shared)</span></pre>
+    </li>
+    <li>
+      <p>A <strong>Configuració → Enllaços permanents</strong>, tria «Nom de l'entrada» i desa.</p>
+    </li>
+    <li>
+      <p><strong>Comprova el <code>.htaccess</code></strong> que ha escrit WordPress:</p>
+<pre>cat /var/www/wordpress.internal/.htaccess
+<span class="o"># BEGIN WordPress</span>
+<span class="o">&lt;IfModule mod_rewrite.c&gt;</span>
+<span class="o">RewriteEngine On</span>
+<span class="o">RewriteBase /</span>
+<span class="o">RewriteRule ^index\.php$ - [L]</span>
+<span class="o">RewriteCond %{REQUEST_FILENAME} !-f</span>
+<span class="o">RewriteCond %{REQUEST_FILENAME} !-d</span>
+<span class="o">RewriteRule . /index.php [L]</span>
+<span class="o">&lt;/IfModule&gt;</span>
+<span class="o"># END WordPress</span></pre>
+    </li>
+    <li>
+      <p><strong>Obre una entrada</strong>: l'adreça ha de ser <code>/nom-de-l-entrada/</code> i no <code>?p=123</code>.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 5 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Usuaris i rols</h2>
+  <ol class="cq-steps">
+    <li>
+      <p>A <strong>Usuaris → Afegeix</strong>, crea un compte per persona amb nom d'usuari, correu i contrasenya.</p>
+    </li>
+    <li>
+      <p><strong>Tria el rol</strong> al desplegable. Els rols i què pot fer cadascun són a <a class="cq-ref" href="../teoria/t1-4-usuaris-i-rols.html">T1.4</a>.</p>
+    </li>
+    <li>
+      <p><strong>Prova cada rol</strong> iniciant sessió en una finestra privada del navegador.</p>
+    </li>
+    <li>
+      <p><strong>Decideix qui es pot registrar</strong> a <strong>Configuració → General</strong>: casella «Qualsevol es pot registrar» i «Rol per defecte dels usuaris nous». Deixa-la desmarcada si no cal.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Rols personalitzats i grups</h2>
+  <p>WordPress porta cinc rols i cap grup. Per a totes dues coses calen extensions.</p>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Instal·la User Role Editor.</strong> A <strong>Usuaris → User Role Editor</strong>, clica <strong>Add Role</strong>, posa-li un identificador (<code>corrector</code>) i fes-lo a partir d'un rol existent amb «Make copy of».</p>
+    </li>
+    <li>
+      <p><strong>Ajusta les capacitats</strong> del rol nou: marca o desmarca <code>publish_posts</code>, <code>edit_others_posts</code>, <code>upload_files</code>… i desa amb <strong>Update</strong>.</p>
+    </li>
+    <li>
+      <p><strong>Instal·la Groups.</strong> A <strong>Grups → Grups</strong>, crea un grup (<code>Redacció</code>). Afegeix-hi usuaris des de la llista d'usuaris, amb l'acció en bloc per afegir al grup.</p>
+    </li>
+    <li>
+      <p><strong>Restringeix un contingut</strong> al grup: a l'editor de l'entrada o pàgina, al quadre <strong>Groups</strong>, tria el grup que la pot llegir i desa.</p>
+    </li>
+    <li>
+      <p><strong>Comprova-ho</strong> en una finestra privada: sense sessió, o amb un usuari de fora del grup, el contingut no es veu.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 6 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Aparença</h2>
+  <ol class="cq-steps">
+    <li>
+      <p>A <strong>Aparença → Temes → Afegeix un tema</strong>, busca'n un i activa'l.</p>
+    </li>
+    <li>
+      <p>A <strong>Aparença → Editor</strong>, edita la capçalera, el peu, els menús i la plantilla de la portada.</p>
+    </li>
+    <li>
+      <p>A <strong>Configuració → Lectura</strong>, tria si la portada és una pàgina estàtica o les últimes entrades.</p>
+    </li>
+    <li>
+      <p><strong>Afegeix el CSS propi</strong> a <strong>Aparença → Editor → Estils → CSS addicional</strong>. Sobreviu a les actualitzacions del tema:</p>
+<pre>.wp-block-site-title a {
+  color: #1d4e89;
+  text-transform: uppercase;
+}</pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Identitat, menús, ginys i sindicació</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Identitat del lloc:</strong> a <strong>Configuració → General</strong>, títol, descripció curta, icona del lloc, idioma i zona horària.</p>
+    </li>
+    <li>
+      <p><strong>Menús:</strong> a <strong>Aparença → Editor → Navegació</strong>, crea el menú principal i afegeix-hi pàgines, categories i enllaços. Crea'n un altre per al peu i col·loca'l al patró del peu.</p>
+    </li>
+    <li>
+      <p><strong>Ginys:</strong> a <strong>Aparença → Editor → Patrons</strong>, edita el peu o la barra lateral i afegeix-hi blocs: <strong>Cerca</strong>, <strong>Últimes entrades</strong>, <strong>Categories</strong> o <strong>RSS</strong>, que mostra les entrades d'un altre web.</p>
+    </li>
+    <li>
+      <p><strong>Sindicació:</strong> a <strong>Configuració → Lectura</strong>, tria quantes entrades surten al fil i si porten el text complet o un resum.</p>
+    </li>
+    <li>
+      <p><strong>Comprova els fils</strong> des de la terminal:</p>
+<pre>curl -s http://wordpress.internal/feed/ | grep -c '&lt;item&gt;'
+curl -s http://wordpress.internal/category/noticies/feed/ | head -5</pre>
+    </li>
+  </ol>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Fil</th><th>Adreça</th></tr></thead>
+      <tbody>
+        <tr><td>Entrades del lloc</td><td><code>/feed/</code></td></tr>
+        <tr><td>Una categoria</td><td><code>/category/nom/feed/</code></td></tr>
+        <tr><td>Comentaris</td><td><code>/comments/feed/</code></td></tr>
+        <tr><td>Format Atom</td><td><code>/feed/atom/</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 7 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Extensions</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>A <strong>Extensions → Afegeix</strong>, busca l'extensió, clica <strong>Instal·la</strong> i després <strong>Activa</strong>.</strong></p>
+    </li>
+    <li>
+      <p><strong>Configura-la</strong> al menú que hagi afegit.</p>
+    </li>
+    <li>
+      <p><strong>Esborra</strong> les que no facis servir: desactivar no n'hi ha prou.</p>
+    </li>
+  </ol>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Per a</th><th>Extensió habitual</th></tr></thead>
+      <tbody>
+        <tr><td>Formulari de contacte</td><td>Contact Form 7, WPForms</td></tr>
+        <tr><td>Web en diversos idiomes</td><td>Polylang, TranslatePress</td></tr>
+        <tr><td>Botiga</td><td>WooCommerce</td></tr>
+        <tr><td>Fòrums</td><td>bbPress</td></tr>
+        <tr><td>Mapa</td><td>Bloc incrustat d'OpenStreetMap o Google Maps</td></tr>
+        <tr><td>Còpies de seguretat</td><td>UpdraftPlus</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 8 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Lloc en diversos idiomes amb Polylang</h2>
+  <ol class="cq-steps">
+    <li>
+      <p>Instal·la i activa <strong>Polylang</strong>.</p>
+    </li>
+    <li>
+      <p>A <strong>Idiomes</strong>, afegeix català, castellà i anglès. El primer és l'idioma per defecte.</p>
+    </li>
+    <li>
+      <p><strong>Edita una entrada</strong>: a la columna d'idioma, el <strong>+</strong> crea la traducció enllaçada.</p>
+    </li>
+    <li>
+      <p><strong>Afegeix el selector d'idioma</strong> al menú des de l'editor del lloc.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Fòrums amb bbPress</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Instal·la i activa bbPress.</strong> Apareix el menú <strong>Fòrums</strong> al tauler.</p>
+    </li>
+    <li>
+      <p><strong>Crea un fòrum</strong> a <strong>Fòrums → Afegeix</strong> i tria'n la visibilitat: públic, privat (només usuaris registrats) o ocult (només moderadors).</p>
+    </li>
+    <li>
+      <p><strong>Fixa les regles d'accés</strong> a <strong>Configuració → Fòrums</strong>: quin rol de fòrum rep automàticament qui es registra i si es permet publicar sense compte.</p>
+    </li>
+    <li>
+      <p><strong>Dona un rol de fòrum</strong> a cada usuari des del seu perfil, i afegeix la pàgina del fòrum al menú.</p>
+    </li>
+  </ol>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Rol de fòrum</th><th>Què pot fer</th></tr></thead>
+      <tbody>
+        <tr><td>Keymaster</td><td>Tot, inclosa la configuració dels fòrums</td></tr>
+        <tr><td>Moderador</td><td>Editar, tancar i esborrar temes i respostes</td></tr>
+        <tr><td>Participant</td><td>Crear temes i respondre</td></tr>
+        <tr><td>Espectador</td><td>Només llegir</td></tr>
+        <tr><td>Bloquejat</td><td>Res</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Administrar-lo amb WP-CLI</h2>
+  <p>Documentació: <a href="https://developer.wordpress.org/cli/commands/">WP-CLI Commands</a>. Serveix per fer des de la terminal el que es fa al tauler, i per repetir-ho sense errors.</p>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Instal·la WP-CLI:</strong></p>
+<pre>curl -O https://raw.githubusercontent.com/\
+wp-cli/builds/gh-pages/phar/wp-cli.phar
+chmod +x wp-cli.phar
+sudo mv wp-cli.phar /usr/local/bin/wp</pre>
+    </li>
+    <li>
+      <p><strong>Executa'l com a <code>www-data</code></strong> des de la carpeta del lloc, perquè els fitxers no canviïn de propietari:</p>
+<pre>cd /var/www/wordpress.internal
+sudo -u www-data wp core version
+sudo -u www-data wp plugin list</pre>
+    </li>
+    <li>
+      <p><strong>Consulta què cal actualitzar</strong> i aplica-ho:</p>
+<pre>sudo -u www-data wp core check-update
+sudo -u www-data wp plugin list --update=available
+sudo -u www-data wp plugin update --all
+sudo -u www-data wp theme update --all
+sudo -u www-data wp core update</pre>
+    </li>
+    <li>
+      <p><strong>Comprova que el nucli no s'ha modificat</strong>:</p>
+<pre>sudo -u www-data wp core verify-checksums
+<span class="o">Success: WordPress installation verifies against checksums.</span></pre>
+    </li>
+  </ol>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Ordre</th><th>Fa</th></tr></thead>
+      <tbody>
+        <tr><td><code>wp plugin install nom --version=X --activate</code></td><td>Instal·la una versió concreta d'una extensió</td></tr>
+        <tr><td><code>wp plugin delete nom</code></td><td>Esborra una extensió</td></tr>
+        <tr><td><code>wp theme list</code> · <code>wp theme delete nom</code></td><td>Temes instal·lats i esborrar-ne</td></tr>
+        <tr><td><code>wp user list</code> · <code>wp user create</code></td><td>Usuaris</td></tr>
+        <tr><td><code>wp db export fitxer.sql</code></td><td>Bolcat de la base de dades</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 9 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Seguretat i manteniment</h2>
+  <ol class="cq-steps">
+    <li>
+      <p>Obre <strong>Eines → Salut del lloc</strong> i resol els avisos crítics.</p>
+    </li>
+    <li>
+      <p>A <strong>Tauler → Actualitzacions</strong>, aplica el nucli, els temes i les extensions pendents. Abans, fes una còpia.</p>
+    </li>
+    <li>
+      <p><strong>Activa les actualitzacions automàtiques</strong> a la llista d'extensions i de temes.</p>
+    </li>
+    <li>
+      <p><strong>Tanca el que no cal:</strong> esborra temes i extensions inactius, desmarca el registre obert si no el necessites i, a <strong>Configuració → Discussió</strong>, fes que els comentaris s'hagin d'aprovar.</p>
+    </li>
+    <li>
+      <p><strong>Desactiva l'editor de fitxers del tauler</strong>, que permetria canviar codi PHP des del navegador. Afegeix a <code>wp-config.php</code>, abans de la línia «That's all, stop editing»:</p>
+<pre>define( 'DISALLOW_FILE_EDIT', true );</pre>
+    </li>
+    <li>
+      <p><strong>Contrasenyes d'aplicació:</strong> al perfil de cada usuari, revoca les que no es facin servir.</p>
+    </li>
+    <li>
+      <p><strong>Protegeix <code>wp-config.php</code>:</strong> només l'ha de poder llegir Apache.</p>
+<pre>sudo chmod 640 /var/www/wordpress.internal/wp-config.php</pre>
+    </li>
+    <li>
+      <p><strong>Fes una còpia completa</strong>: base de dades i fitxers.</p>
+<pre>sudo mysqldump --single-transaction wpdb &gt; wpdb-$(date +%F).sql
+sudo tar -czf wp-fitxers-$(date +%F).tar.gz \
+  -C /var/www wordpress.internal</pre>
+    </li>
+    <li>
+      <p><strong>Treu la còpia del servidor</strong>, per exemple cap a un altre escriptori:</p>
+<pre>scp wpdb-*.sql wp-fitxers-*.tar.gz usuari@192.168.120.46:~/copies/</pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Restaurar una còpia</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Recupera els fitxers</strong> de la còpia. Si la carpeta del lloc encara existeix, mou-la abans:</p>
+<pre>sudo mv /var/www/wordpress.internal /var/www/wordpress.vell
+sudo tar -xzf wp-fitxers-DATA.tar.gz -C /var/www
+sudo chown -R www-data:www-data /var/www/wordpress.internal</pre>
+    </li>
+    <li>
+      <p><strong>Recupera la base de dades</strong>. El bolcat substitueix les taules que ja hi són:</p>
+<pre>sudo mysql wpdb &lt; wpdb-DATA.sql</pre>
+    </li>
+    <li>
+      <p><strong>Passa les proves de funcionament</strong> i, si tot va bé, esborra <code>/var/www/wordpress.vell</code>.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 10 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Proves de funcionament</h2>
+  <ul>
+    <li>La portada i <code>/wp-admin</code> carreguen sense avisos.</li>
+    <li>Una entrada s'obre pel seu enllaç permanent, sense <code>?p=</code>.</li>
+    <li>Es pot pujar una imatge a Mèdia.</li>
+    <li>Un usuari col·laborador pot escriure però no publicar.</li>
+    <li>El formulari de contacte envia i el canvi d'idioma funciona.</li>
+    <li>Un contingut restringit a un grup no es veu des d'una finestra privada.</li>
+    <li>El fil <code>/feed/</code> mostra les últimes entrades.</li>
+    <li><strong>Salut del lloc</strong> no té avisos crítics i <code>wp core verify-checksums</code> passa.</li>
+  </ul>
+</div>
+
+<!-- ============ 11 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Cap usuari anomenat <code>admin</code> i contrasenyes llargues.</li>
+    <li>Temes i extensions només del directori oficial.</li>
+    <li>CSS propi al CSS addicional, mai als fitxers del tema.</li>
+    <li>Còpia abans de cada actualització.</li>
+  </ul>
+</div>
+
+<!-- ============ 12 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>Error establint la connexió amb la base de dades</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Dades incorrectes a l'assistent o a <code>wp-config.php</code>.</p>
+      <p><span class="lbl">Solució</span> Prova l'usuari amb <code>mysql -u wpuser -p wpdb</code>.</p>
+    </dd>
+    <dt>Totes les pàgines menys la portada donen 404</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Enllaços permanents sense <code>rewrite</code> o sense <code>AllowOverride All</code>.</p>
+      <p><span class="lbl">Solució</span> Activa el mòdul, revisa el host virtual i torna a desar els enllaços permanents.</p>
+    </dd>
+    <dt>WordPress demana dades d'FTP per instal·lar extensions</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Apache no pot escriure als fitxers.</p>
+      <p><span class="lbl">Solució</span> Torna a fer el <code>chown</code> a <code>www-data</code>. Com a últim recurs, afegeix <code>define('FS_METHOD', 'direct');</code> a <code>wp-config.php</code>.</p>
+    </dd>
+    <dt>«El fitxer pujat supera la directiva upload_max_filesize»</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El límit de PHP és massa baix.</p>
+      <p><span class="lbl">Solució</span> Puja'l com explica <a class="cq-ref" href="g1-2-pila-lamp.html">G1.2</a> i reinicia Apache.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 13 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Fitxa ràpida</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Vull</th><th>On</th></tr></thead>
+      <tbody>
+        <tr><td>Tauler</td><td><code>/wp-admin</code></td></tr>
+        <tr><td>Crear usuaris</td><td>Usuaris → Afegeix</td></tr>
+        <tr><td>Enllaços amigables</td><td>Configuració → Enllaços permanents</td></tr>
+        <tr><td>Canviar l'aspecte</td><td>Aparença → Temes / Editor</td></tr>
+        <tr><td>CSS propi</td><td>Editor → Estils → CSS addicional</td></tr>
+        <tr><td>Estat del lloc</td><td>Eines → Salut del lloc</td></tr>
+        <tr><td>Crear rols i grups</td><td>User Role Editor · Groups</td></tr>
+        <tr><td>Menús i ginys</td><td>Aparença → Editor → Navegació / Patrons</td></tr>
+        <tr><td>Fil RSS</td><td><code>/feed/</code> · <code>/category/nom/feed/</code></td></tr>
+        <tr><td>Actualitzar-ho tot</td><td><code>wp core update</code> · <code>wp plugin update --all</code></td></tr>
+        <tr><td>Còpia de la base de dades</td><td><code>mysqldump --single-transaction wpdb &gt; wpdb.sql</code></td></tr>
+        <tr><td>Restaurar-la</td><td><code>mysql wpdb &lt; wpdb.sql</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="g1-2-pila-lamp.html">
+    <span class="dir">Anterior · G1.2</span>
+    <span class="ttl">Guia: pila LAMP i host virtual</span></a>
+  <a class="next" href="g1-4-migrar-wordpress.html">
+    <span class="dir">Següent · G1.4</span>
+    <span class="ttl">Guia: migrar WordPress a un allotjament</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

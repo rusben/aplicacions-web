@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T2.3 · Mantenir un Moodle — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA2 · Instal·lació de sistemes de gestió d'aprenentatge</a>
+    <span class="pos">T2.3 · 3/9</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA2 · T2.3</div>
+  <h1>Mantenir un Moodle</h1>
+  <p class="lede">Còpies, importacions, informes i seguretat d'un lloc on hi ha notes de persones.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què sabràs fer en acabar</h2>
+  <ul>
+    <li>Distingir una còpia de curs d'una còpia del lloc.</li>
+    <li>Dir quins continguts es poden importar i exportar i en quin format.</li>
+    <li>Triar l'informe adequat per saber qui ha fet què.</li>
+    <li>Enumerar les mesures de seguretat pròpies de Moodle.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Còpies</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Còpia</th><th>Què guarda</th><th>Per a què</th></tr></thead>
+      <tbody>
+        <tr><td><strong>De curs</strong> (<code>.mbz</code>)</td><td>Un curs: recursos, activitats i, si es vol, usuaris i notes</td><td>Moure o duplicar un curs, arxivar-lo en acabar</td></tr>
+        <tr><td><strong>Del lloc</strong></td><td>Codi, <code>moodledata</code> i bolcat de la base de dades</td><td>Recuperar el servidor sencer</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Les <strong>còpies automàtiques de cursos</strong> es programen a l'administració i les fa el cron. No substitueixen la còpia del lloc: si es perd el servidor, es perden amb ell.</p>
+</div>
+
+<!-- ============ 3 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Importar i exportar</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Contingut</th><th>Format</th><th>On</th></tr></thead>
+      <tbody>
+        <tr><td>Usuaris</td><td>CSV</td><td>Administració → Usuaris → Carrega usuaris</td></tr>
+        <tr><td>Contingut d'un curs a un altre</td><td>Directe entre cursos</td><td>Curs → Reutilitza → Importa</td></tr>
+        <tr><td>Curs sencer</td><td><code>.mbz</code></td><td>Curs → Reutilitza → Còpia de seguretat / Restaura</td></tr>
+        <tr><td>Preguntes</td><td>Moodle XML, GIFT</td><td>Banc de preguntes → Importa / Exporta</td></tr>
+        <tr><td>Qualificacions</td><td>CSV, full de càlcul</td><td>Qualificacions → Exporta</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 4 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Informes</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Informe</th><th>Respon</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Registres</strong></td><td>Qui ha fet què, quan i des de quina IP</td></tr>
+        <tr><td><strong>Registres en temps real</strong></td><td>Què passa ara mateix</td></tr>
+        <tr><td><strong>Activitat del curs</strong></td><td>Quantes visites té cada recurs</td></tr>
+        <tr><td><strong>Participació</strong></td><td>Qui ha fet, o no, una activitat concreta</td></tr>
+        <tr><td><strong>Estadístiques</strong></td><td>Evolució de l'ús del lloc, si s'activen</td></tr>
+        <tr><td><strong>Comprovacions de seguretat</strong></td><td>Configuracions de risc del lloc</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Seguretat</h2>
+  <ul>
+    <li><strong>Normativa de contrasenyes</strong>: longitud mínima, dígits, majúscules i símbols.</li>
+    <li><strong>Blocador d'IP</strong>: llista d'adreces permeses o bloquejades.</li>
+    <li>Bloqueig del compte després de diversos intents fallits.</li>
+    <li>Autoregistre desactivat si no cal.</li>
+    <li>HTTPS a tot el lloc i actualitzacions de seguretat de Moodle.</li>
+    <li>L'informe <strong>Comprovacions de seguretat</strong> revisat després de cada canvi gran.</li>
+  </ul>
+</div>
+
+<!-- ============ 6 · EXEMPLE ============ -->
+<div class="cq-block" data-kind="exemple">
+  <h2>Tancar el curs a final de juny</h2>
+  <p>Acabat el curs, el professorat fa una còpia <code>.mbz</code> amb usuaris i notes per arxivar-la. Després el <strong>reinicia</strong>: esborra entregues i matrícules però manté materials i activitats. Al setembre torna a estar llest per al grup nou, i les notes de l'any anterior es poden recuperar de la còpia.</p>
+</div>
+
+<!-- ============ 7 · CAS REAL ============ -->
+<div class="cq-block" data-kind="cas real">
+  <h2>Qui ha esborrat el fòrum?</h2>
+  <p>Un matí falta un fòrum amb tots els missatges. Els <strong>registres</strong> del curs, filtrats per «Accions de supressió», diuen quin compte l'ha esborrat, a quina hora i des de quina IP. Si era el compte d'un estudiant, el problema no és l'estudiant: és que tenia un rol que li permetia esborrar.</p>
+</div>
+
+<!-- ============ 8 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Llegir l'informe de comprovacions</h2>
+  <p>A <strong>Administració del lloc → Informes → Comprovacions de seguretat</strong>, cada línia porta un estat: <em>Correcte</em>, <em>Avís</em>, <em>Seriós</em> o <em>Crític</em>. Clicant-ne una, Moodle explica el risc i on es corregeix.</p>
+</div>
+
+<!-- ============ 9 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Còpia del lloc abans de cada actualització de Moodle.</li>
+    <li>Còpies de curs amb usuaris només quan calgui: contenen dades personals.</li>
+    <li>Cap informe de registres compartit fora de l'equip que l'ha de fer servir.</li>
+    <li>Normativa de contrasenyes activada abans de crear els comptes.</li>
+  </ul>
+</div>
+
+<!-- ============ 10 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>Restaurar un curs no porta els estudiants</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> La còpia es va fer sense usuaris.</p>
+      <p><span class="lbl">Solució</span> Torna a fer-la marcant «Inclou els usuaris inscrits».</p>
+    </dd>
+    <dt>La càrrega de CSV crea usuaris sense contrasenya o amb noms estranys</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Capçaleres mal escrites o codificació que no és UTF-8.</p>
+      <p><span class="lbl">Solució</span> Fes servir les capçaleres exactes i desa el CSV en UTF-8.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 11 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Resum</h2>
+  <ul>
+    <li>Còpia de curs (<code>.mbz</code>) i còpia del lloc (codi + dades + base de dades).</li>
+    <li>Usuaris en CSV, preguntes en XML o GIFT, cursos en <code>.mbz</code>.</li>
+    <li>Els registres diuen qui ha fet què, quan i des d'on.</li>
+    <li>Contrasenyes, blocador d'IP, HTTPS i comprovacions de seguretat.</li>
+  </ul>
+</div>
+
+<!-- ============ 12 · QUIZ ============ -->
+<div class="cq-block" data-kind="quiz">
+  <h2>Comprova el que has après</h2>
+  <div class="cq-question" data-id="t2-3-mbz" data-type="single">
+    <div class="statement">Quin fitxer genera la còpia de seguretat d'un curs?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>.sql</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true"><code>.mbz</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>.csv</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>.zip</code> del codi</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t2-3-registres" data-type="single">
+    <div class="statement">Vols saber des de quina IP un usuari ha entrat a un curs. Quin informe?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Activitat del curs</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Registres</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Estadístiques</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Participació</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t2-3-gift" data-type="single">
+    <div class="statement">En quin format pots importar preguntes al banc de preguntes?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">GIFT</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">CSV d'usuaris</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>.mbz</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">SCSS</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 2.2</span> Instal·lació en sistemes operatius lliures i propietaris. Modes de registre. Interfície gràfica associada. Personalització de l'entorn. Navegació i edició.</p>
+  <p><span class="lbl">CA 2.5</span> Importa i exporta continguts en diferents formats.</p>
+  <p><span class="lbl">CA 2.6</span> Realitza còpies de seguretat i restauracions.</p>
+  <p><span class="lbl">CA 2.7</span> Realitza informes d'accés i utilització del lloc.</p>
+  <p><span class="lbl">CA 2.8</span> Comprova la seguretat del lloc.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="t2-2-un-moodle-per-dins.html">
+    <span class="dir">Anterior · T2.2</span>
+    <span class="ttl">Un Moodle per dins</span></a>
+  <a class="next" href="../guies/g2-1-instal-lar-moodle.html">
+    <span class="dir">Següent · G2.1</span>
+    <span class="ttl">Guia: instal·lar Moodle</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

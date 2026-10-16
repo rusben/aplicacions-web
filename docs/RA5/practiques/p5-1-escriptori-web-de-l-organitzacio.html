@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P5.1 · Pràctica: l'escriptori web de l'organització — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA5 · Instal·lació d'aplicacions web d'escriptori</a>
+    <span class="pos">P5.1 · 10/10</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA5 · P5.1</div>
+  <h1>Pràctica: l'escriptori web de l'organització</h1>
+  <p class="lede">Correu, agenda, contactes i tasques al navegador, per a un equip de debò, amb els manuals escrits.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Les teories <a class="cq-ref" href="../teoria/t5-1-aplicacions-web-d-escriptori.html">T5.1</a>, <a class="cq-ref" href="../teoria/t5-2-com-viatja-un-correu.html">T5.2</a> i <a class="cq-ref" href="../teoria/t5-3-calendaris-contactes-i-tasques.html">T5.3</a>, i les activitats <a class="cq-ref" href="../activitats/a5-1-busties-al-servidor.html">A5.1</a>, <a class="cq-ref" href="../activitats/a5-2-correu-web.html">A5.2</a> i <a class="cq-ref" href="../activitats/a5-3-agenda-contactes-i-tasques.html">A5.3</a>, que en són l'assaig. Les guies <a class="cq-ref" href="../guies/g5-1-servidor-de-correu-intern.html">G5.1</a>, <a class="cq-ref" href="../guies/g5-2-correu-web-amb-roundcube.html">G5.2</a> i <a class="cq-ref" href="../guies/g5-3-calendari-contactes-i-tasques.html">G5.3</a> són els manuals que consultaràs; per a la pila i el servidor d'agenda, <a class="cq-ref" href="../../RA1/guies/g1-2-pila-lamp.html">G1.2</a> i <a class="cq-ref" href="../../RA3/guies/g3-1-instal-lar-nextcloud.html">G3.1</a>.</p>
+  <p>És la pràctica principal del <a class="cq-ref" href="../index.html">RA5</a>. Muntaràs l'escriptori web complet d'una organització que triïs: servidor de correu, correu web i agenda compartida, amb els comptes de l'equip i les proves fetes.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Element</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>Màquina</td><td>Escriptori <strong>nou</strong> a IsardVDI, anomenat <code>p5-1-cognom</code></td></tr>
+        <tr><td>Sistema</td><td>Ubuntu, la versió que admetin les aplicacions que instal·lis</td></tr>
+        <tr><td>Correu</td><td>Servidor intern al domini que triïs, amb bústies Maildir</td></tr>
+        <tr><td>Correu web</td><td>Client web connectat a aquest servidor</td></tr>
+        <tr><td>Agenda</td><td>Calendari, contactes i tasques web</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Tria l'organització: una gestoria, una clínica veterinària, un equip esportiu o un departament del centre. Les persones, els calendaris i els contactes han de tenir sentit per a aquella organització.</p>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 1: tria i servidor de correu</h2>
+  <ol>
+    <li><strong>Compara</strong> almenys dues aplicacions web d'escriptori de correu i justifica la que instal·les, amb enllaços a la documentació.</li>
+    <li>Fes la <strong>fitxa de requeriments</strong> i l'inventari del servidor.</li>
+    <li>Instal·la i configura el <strong>servidor de correu intern</strong>: bústies Maildir, escoltant només a la màquina, amb el domini de l'organització.</li>
+    <li>Crea <strong>quatre comptes</strong> com a mínim, amb almenys un <strong>àlies</strong> genèric, i documenta el procediment d'alta i de baixa.</li>
+    <li>Fes una taula dels <strong>serveis i ports</strong> i explica què fa cadascun.</li>
+  </ol>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 2: correu web integrat</h2>
+  <ol>
+    <li>Instal·la el <strong>correu web</strong> i integra'l amb el servidor de bústies i el d'enviament. Documenta cada opció que canviïs.</li>
+    <li>Personalitza'l: nom de l'organització, idioma i aparença.</li>
+    <li>Deixa cada compte a punt: <strong>identitat, signatura, carpetes</strong> i preferències.</li>
+    <li>Crea com a mínim <strong>dos filtres</strong> útils per a l'organització i demostra'ls.</li>
+    <li>Munta la <strong>llibreta d'adreces</strong> amb contactes i un grup, i exporta-la.</li>
+    <li><strong>Verifica l'accés al correu</strong>: cada compte entra, s'envien missatges entre ells i es comprova a la bústia del disc. Un compte desactivat no ha de poder entrar.</li>
+  </ol>
+</div>
+
+<!-- ============ 5 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 3: agenda, contactes i tasques</h2>
+  <ol>
+    <li>Instal·la l'aplicació de <strong>calendari web</strong> i activa contactes i tasques.</li>
+    <li>Crea els <strong>calendaris</strong> de l'organització: personals i d'equip, amb colors i comparticions pensades.</li>
+    <li>Demostra les <strong>prestacions</strong>: cita amb lloc, esdeveniment repetit amb final, convidats amb resposta, recordatori i consulta de disponibilitat abans de posar una reunió.</li>
+    <li><strong>Llibreta compartida</strong> de l'organització i <strong>llista de tasques</strong> d'equip amb dates i prioritats.</li>
+    <li><strong>Sincronitza</strong> un compte amb un client de fora del navegador amb contrasenya d'aplicació, i comprova-ho en els dos sentits.</li>
+    <li>Explica la <strong>relació entre el correu i l'agenda</strong>: per què les invitacions necessiten correu sortint.</li>
+  </ol>
+</div>
+
+<!-- ============ 6 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 4: gestió, seguretat i proves</h2>
+  <ol>
+    <li><strong>Gestió d'usuaris documentada</strong>: alta, canvi de contrasenya, àlies, baixa i què passa amb la bústia i amb l'agenda de qui marxa.</li>
+    <li><strong>Seguretat</strong>: el servidor de correu tancat a l'exterior, contrasenyes robustes, contrasenyes d'aplicació per als clients, comprovacions de l'estat del servidor i actualitzacions.</li>
+    <li><strong>Còpia</strong> de les bústies i de les dades de l'agenda, treta del servidor, i una <strong>restauració provada</strong>: esborra una bústia i un calendari i recupera'ls.</li>
+    <li>Passa una <strong>llista de proves</strong> d'almenys deu files, abans i després de la restauració.</li>
+    <li><strong>Extra:</strong> unifica correu i agenda en una sola interfície, o configura HTTPS amb certificat.</li>
+  </ol>
+</div>
+
+<!-- ============ 7 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Escriptori i pila LAMP</td><td>Guies <a class="cq-ref" href="../../RA1/guies/g1-1-entorn-de-laboratori.html">G1.1</a> i <a class="cq-ref" href="../../RA1/guies/g1-2-pila-lamp.html">G1.2</a></td></tr>
+        <tr><td>Servidor de correu i comptes</td><td>Guia <a class="cq-ref" href="../guies/g5-1-servidor-de-correu-intern.html">G5.1</a> i activitat <a class="cq-ref" href="../activitats/a5-1-busties-al-servidor.html">A5.1</a></td></tr>
+        <tr><td>Correu web, filtres i contactes</td><td>Guia <a class="cq-ref" href="../guies/g5-2-correu-web-amb-roundcube.html">G5.2</a> i activitat <a class="cq-ref" href="../activitats/a5-2-correu-web.html">A5.2</a></td></tr>
+        <tr><td>Servidor d'agenda</td><td>Guia <a class="cq-ref" href="../../RA3/guies/g3-1-instal-lar-nextcloud.html">G3.1</a></td></tr>
+        <tr><td>Calendari, contactes, tasques i sincronització</td><td>Guia <a class="cq-ref" href="../guies/g5-3-calendari-contactes-i-tasques.html">G5.3</a> i activitat <a class="cq-ref" href="../activitats/a5-3-agenda-contactes-i-tasques.html">A5.3</a></td></tr>
+        <tr><td>Per què cada peça fa el que fa</td><td>Teories <a class="cq-ref" href="../teoria/t5-1-aplicacions-web-d-escriptori.html">T5.1</a>, <a class="cq-ref" href="../teoria/t5-2-com-viatja-un-correu.html">T5.2</a> i <a class="cq-ref" href="../teoria/t5-3-calendaris-contactes-i-tasques.html">T5.3</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 8 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>Correu de laboratori</h2>
+  <p>El servidor ha de quedar tancat a l'exterior: només correu entre els comptes de l'organització. Obrir-lo a Internet sense DNS ni protecció acaba en correu brossa i en una IP del centre bloquejada. Documenta com has comprovat que està tancat.</p>
+</div>
+
+<!-- ============ 9 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Demostra-ho amb dos comptes</h2>
+  <p>Totes les proves d'aquesta pràctica es fan amb dues sessions obertes alhora, una per compte, en finestres diferents. Enviar-se correu a un mateix o mirar el propi calendari amaga la meitat dels problemes de permisos i d'entrega.</p>
+</div>
+
+<!-- ============ 10 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li>Els serveis de correu i de bústies estan actius i escolten només on toca.</li>
+    <li>Cada compte entra al correu web i veu la seva bústia; el desactivat, no.</li>
+    <li>Un missatge enviat des del client apareix al Maildir del destinatari i al seu correu web.</li>
+    <li>El filtre classifica el missatge de prova.</li>
+    <li>El calendari d'equip es pot editar des d'un altre compte i el personal només mostra disponibilitat.</li>
+    <li>Un client de fora sincronitza cites en els dos sentits.</li>
+    <li>Després de restaurar, la bústia i el calendari esborrats hi tornen a ser.</li>
+  </ul>
+</div>
+
+<!-- ============ 11 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>El correu web no autentica cap compte</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El servidor de bústies no autentica o el client apunta on no toca.</p>
+      <p><span class="lbl">Solució</span> Aïlla-ho provant l'autenticació des del terminal, com a <a class="cq-ref" href="../guies/g5-1-servidor-de-correu-intern.html">G5.1</a>, abans de tocar el client.</p>
+    </dd>
+    <dt>Les invitacions del calendari no arriben</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El servidor d'agenda no té correu sortint configurat.</p>
+      <p><span class="lbl">Solució</span> Configura'l cap al teu servidor de correu i torna-ho a provar.</p>
+    </dd>
+    <dt>Després de restaurar, l'usuari no veu la bústia</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Els permisos del <code>Maildir</code> no són de l'usuari.</p>
+      <p><span class="lbl">Solució</span> Torna a assignar-los i comprova-ho amb una prova d'autenticació.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 12 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <p><strong>Demostració en directe</strong> al professorat, amb dues sessions obertes: enviar un correu d'un compte a l'altre, ensenyar el filtre, convidar a una reunió i ensenyar la sincronització amb un client de fora.</p>
+  <p>Un repositori públic a GitHub amb <strong>tres fitxers</strong>:</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Fitxer</th><th>Què hi va</th></tr></thead>
+      <tbody>
+        <tr><td><code>INSTALLATION.md</code></td><td>Manual d'instal·lació: requeriments, servidor de correu, correu web i servidor d'agenda, amb les ordres i les opcions canviades. Ha de servir per repetir-ho.</td></tr>
+        <tr><td><code>CONFIGURATION.md</code></td><td>Manual d'administració: comptes, àlies, altes i baixes, identitats, filtres, calendaris, comparticions, tasques i sincronització. <strong>Amb captures.</strong></td></tr>
+        <tr><td><code>README.md</code></td><td>Descripció, enllaços als altres dos, taula de serveis i ports, mesures de seguretat, procediment de còpia i restauració i la llista de proves omplerta.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Respon al <code>README.md</code>: <strong>què hauries de canviar per obrir aquest correu a Internet, i per què no s'hi obre a l'aula?</strong></p>
+  <p>Per pujar nota: HTTPS amb certificat, unificació de correu i agenda en una sola interfície, o filtres antibrossa al servidor.</p>
+</div>
+
+
+<!-- ============ RÚBRICA ============ -->
+<div class="cq-block" data-kind="rúbrica">
+  <h2>Com es qualifica</h2>
+  <p>Aquesta pràctica és el 60 % de la nota del <a class="cq-ref" href="../index.html">RA5</a>; l'altre 40 % és l'examen tipus test. Cada apartat es puntua a la demostració i amb les evidències del README: la puntuació sencera si funciona, la meitat si funciona amb mancances i zero si no es pot demostrar.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Apartat</th><th>Criteri</th><th>Punts</th></tr></thead>
+      <tbody>
+        <tr><td>Comparació i descripció de les aplicacions web d'escriptori triades</td><td><code>5.1</code></td><td>1</td></tr>
+        <tr><td>Servidor de correu intern instal·lat, amb bústies i ports comprovats</td><td><code>5.2</code></td><td>1,5</td></tr>
+        <tr><td>Correu web instal·lat i integrat amb el servidor de correu</td><td><code>5.2</code> · <code>5.3</code></td><td>2</td></tr>
+        <tr><td>Comptes, àlies, altes i baixes documentats i provats</td><td><code>5.4</code></td><td>1,5</td></tr>
+        <tr><td>Accés al correu verificat entre comptes, amb filtres i contactes</td><td><code>5.5</code></td><td>1,5</td></tr>
+        <tr><td>Calendari web instal·lat, amb calendaris i comparticions</td><td><code>5.6</code></td><td>1,5</td></tr>
+        <tr><td>Prestacions demostrades: cites, repeticions, convidats, tasques i sincronització</td><td><code>5.7</code></td><td>1</td></tr>
+        <tr><td><strong>Total</strong></td><td></td><td><strong>10</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 5.1</span> Aplicacions de correu web. Instal·lació.</p>
+  <p><span class="lbl">Contingut 5.2</span> Gestió d'usuaris.</p>
+  <p><span class="lbl">CA 5.1</span> Descriu diferents aplicacions web d'escriptori.</p>
+  <p><span class="lbl">CA 5.2</span> Instal·la aplicacions per a proveir d'accés web al servei de correu electrònic.</p>
+  <p><span class="lbl">CA 5.3</span> Configura les aplicacions per a integrar-les amb un servidor de correu.</p>
+  <p><span class="lbl">CA 5.4</span> Gestiona els comptes d'usuari.</p>
+  <p><span class="lbl">CA 5.5</span> Verifica l'accés al correu electrònic.</p>
+  <p><span class="lbl">CA 5.6</span> Instal·la aplicacions de calendari web.</p>
+  <p><span class="lbl">CA 5.7</span> Reconeix les prestacions específiques de les aplicacions instal·lades (cites, tasques, entre altres).</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="../activitats/a5-3-agenda-contactes-i-tasques.html">
+    <span class="dir">Anterior · A5.3</span>
+    <span class="ttl">Agenda, contactes i tasques</span></a>
+  <a class="next" href="../index.html">
+    <span class="dir">Has acabat el · RA5</span>
+    <span class="ttl">RA5 · Instal·lació d'aplicacions web d'escriptori</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T1.1 · Com funciona una aplicació web — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA1 · Instal·lació de gestors de continguts</a>
+    <span class="pos">T1.1 · 1/16</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA1 · T1.1</div>
+  <h1>Com funciona una aplicació web</h1>
+  <p class="lede">El navegador demana, el servidor respon: què passa entre tots dos quan obres una web.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què sabràs fer en acabar</h2>
+  <ul>
+    <li>Explicar què és una aplicació web i qui fa cada feina: client i servidor.</li>
+    <li>Separar una URL en les seves parts i dir quina arriba al servidor.</li>
+    <li>Llegir una petició i una resposta HTTP senzilles.</li>
+    <li>Distingir contingut estàtic de contingut dinàmic.</li>
+    <li>Enumerar què necessita un servidor per executar un gestor de continguts.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Client i servidor</h2>
+  <p>Una <strong>aplicació web</strong> és un programa que fas servir amb el navegador, sense instal·lar res a l'ordinador. Es reparteix en dues bandes que parlen per <strong>HTTP</strong>:</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Banda</th><th>Qui és</th><th>Què fa</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Client</strong> (frontend)</td><td>El navegador: Firefox, Chrome…</td><td>Inicia la petició, interpreta l'HTML, el CSS i el JavaScript i ho mostra.</td></tr>
+        <tr><td><strong>Servidor</strong> (backend)</td><td>Un programa com Apache o nginx</td><td>Respon la petició: entrega un fitxer o executa un programa que el genera.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <figure>
+    <img src="../img/client-servidor.jpg" alt="Esquema client-servidor" loading="lazy">
+    <figcaption>El client inicia sempre la conversa; el servidor només respon.</figcaption>
+  </figure>
+  <p>Client i servidor poden tenir sistemes diferents: HTTP és un estàndard i tots dos l'entenen igual.</p>
+</div>
+
+<!-- ============ 3 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Les parts d'una URL</h2>
+  <p>La <strong>URL</strong> identifica un recurs: una pàgina, una imatge, un vídeo. Té fins a set parts:</p>
+  <figure>
+    <img src="../img/url_syntax.png" alt="Parts d'una URL: esquema, usuari, host, port, camí, consulta i fragment" loading="lazy">
+  </figure>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Part</th><th>Exemple</th><th>Per a què serveix</th></tr></thead>
+      <tbody>
+        <tr><td>Esquema</td><td><code>https</code></td><td>Protocol d'accés</td></tr>
+        <tr><td>Usuari</td><td><code>joan@</code></td><td>Identificació, poc habitual avui</td></tr>
+        <tr><td>Host</td><td><code>info.cern.ch</code></td><td>Nom o IP del servidor</td></tr>
+        <tr><td>Port</td><td><code>:443</code></td><td>Porta del servidor; s'omet si és la de sempre</td></tr>
+        <tr><td>Camí</td><td><code>/index.html</code></td><td>Quin recurs es vol</td></tr>
+        <tr><td>Consulta</td><td><code>?q=animals</code></td><td>Dades extra per al programa que respon</td></tr>
+        <tr><td>Fragment</td><td><code>#seccio2</code></td><td>Punt de la pàgina; <strong>no arriba al servidor</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 4 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Petició i resposta</h2>
+  <p>HTTP és text. El navegador envia una <strong>petició</strong> amb un mètode (<code>GET</code> per demanar, <code>POST</code> per enviar dades), el camí i unes capçaleres. El servidor contesta amb un <strong>codi d'estat</strong>, capçaleres i el contingut.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Codi</th><th>Vol dir</th></tr></thead>
+      <tbody>
+        <tr><td><code>200 OK</code></td><td>Aquí tens el recurs</td></tr>
+        <tr><td><code>301</code> / <code>302</code></td><td>El recurs és en una altra adreça</td></tr>
+        <tr><td><code>403 Forbidden</code></td><td>Existeix, però no hi pots accedir</td></tr>
+        <tr><td><code>404 Not Found</code></td><td>No existeix</td></tr>
+        <tr><td><code>500</code></td><td>El programa del servidor ha fallat</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Estàtic i dinàmic</h2>
+  <p>Un recurs <strong>estàtic</strong> és un fitxer que el servidor entrega tal qual: una pàgina HTML, una imatge. Si recarregues, reps exactament el mateix.</p>
+  <p>Un recurs <strong>dinàmic</strong> el genera un programa a cada petició, normalment en PHP, Python o JavaScript. El programa pot llegir la consulta de la URL, consultar una <strong>base de dades</strong> i construir una resposta diferent per a cada usuari.</p>
+  <figure>
+    <img src="../img/servidorwebdinamic.png" alt="Servidor web estàtic i dinàmic" loading="lazy">
+  </figure>
+</div>
+
+<!-- ============ 6 · EXEMPLE ============ -->
+<div class="cq-block" data-kind="exemple">
+  <h2>La mateixa hora, dues vegades</h2>
+  <p><code>data.html</code> conté el text «La data del servidor és 20 d'octubre»: digui el que digui el rellotge, sempre respon això. <code>data.php</code> demana l'hora al sistema cada vegada que algú hi entra, i cada recàrrega mostra l'hora del moment. El navegador rep HTML en tots dos casos: no sap si l'ha escrit una persona o un programa.</p>
+</div>
+
+<!-- ============ 7 · CAS REAL ============ -->
+<div class="cq-block" data-kind="cas real">
+  <h2>Què necessita un gestor de continguts</h2>
+  <p>WordPress, Moodle o Nextcloud són aplicacions dinàmiques. Per funcionar demanen sempre el mateix conjunt, la <strong>pila LAMP</strong>:</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Peça</th><th>Paper</th><th>Al laboratori</th></tr></thead>
+      <tbody>
+        <tr><td><strong>L</strong>inux</td><td>Sistema operatiu del servidor</td><td>Ubuntu 26.04 LTS en un escriptori d'IsardVDI</td></tr>
+        <tr><td><strong>A</strong>pache</td><td>Servidor web</td><td>Apache 2.4</td></tr>
+        <tr><td><strong>M</strong>ySQL</td><td>Base de dades</td><td>MySQL 8.4</td></tr>
+        <tr><td><strong>P</strong>HP</td><td>Executa el codi de l'aplicació</td><td>PHP 8.5</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Abans d'instal·lar una aplicació cal comprovar aquests <strong>requeriments</strong> a la seva documentació: versions de PHP i de base de dades i extensions necessàries.</p>
+</div>
+
+<!-- ============ 8 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Veure la conversa HTTP</h2>
+  <p>A Firefox, <strong>F12</strong> obre les eines de desenvolupador. A la pestanya <strong>Xarxa</strong>, recarrega la pàgina i clica un recurs: veuràs la petició, les capçaleres i el codi d'estat. Des del terminal, <code>curl -I</code> mostra només les capçaleres de la resposta:</p>
+<pre>curl -I http://info.cern.ch/
+<span class="o">HTTP/1.1 200 OK</span>
+<span class="o">Server: Apache</span>
+<span class="o">Content-Type: text/html</span></pre>
+  <figure>
+    <img src="../img/firefox_request.png" alt="Petició HTTP a les eines de desenvolupador de Firefox" loading="lazy">
+  </figure>
+</div>
+
+<!-- ============ 9 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Consulta els requeriments de l'aplicació abans d'instal·lar res.</li>
+    <li>Fes servir <code>https</code> sempre que hi hagi usuaris i contrasenyes.</li>
+    <li>Un programa del servidor no ha de fer mai el que diu la URL sense comprovar-ho: qui controla la consulta controlaria el servidor.</li>
+  </ul>
+</div>
+
+<!-- ============ 10 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>Pensar que el fragment <code>#</code> arriba al servidor</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Es confon la URL sencera amb la petició.</p>
+      <p><span class="lbl">Solució</span> El fragment el gestiona el navegador; al servidor només hi arriba fins a la consulta.</p>
+    </dd>
+    <dt>Obrir un <code>.php</code> amb doble clic i veure el codi</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Sense servidor no hi ha ningú que l'executi.</p>
+      <p><span class="lbl">Solució</span> Els fitxers dinàmics s'obren sempre a través del servidor web: <code>http://…</code>.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 11 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Resum</h2>
+  <ul>
+    <li>El <strong>client</strong> demana i el <strong>servidor</strong> respon, sempre per HTTP.</li>
+    <li>Una URL té esquema, host, port, camí, consulta i fragment.</li>
+    <li>Els codis d'estat diuen com ha anat: 200, 301, 403, 404, 500.</li>
+    <li>Estàtic: el fitxer tal qual. Dinàmic: un programa el genera a cada petició.</li>
+    <li>Els gestors de continguts necessiten una pila LAMP: Linux, Apache, MySQL i PHP.</li>
+  </ul>
+</div>
+
+<!-- ============ 12 · QUIZ ============ -->
+<div class="cq-block" data-kind="quiz">
+  <h2>Comprova el que has après</h2>
+  <div class="cq-question" data-id="t1-1-fragment" data-type="single">
+    <div class="statement">Quina part de <code>https://web.internal/blog?pag=2#comentaris</code> no arriba al servidor?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">El camí <code>/blog</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">La consulta <code>pag=2</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">El fragment <code>#comentaris</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">El host <code>web.internal</code></button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-1-404" data-type="single">
+    <div class="statement">Què vol dir un <code>404</code>?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">El servidor ha fallat executant el programa</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">El recurs demanat no existeix</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">No tens permís per veure el recurs</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">El recurs s'ha mogut a una altra adreça</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-1-dinamic" data-type="single">
+    <div class="statement">Quina frase descriu un recurs dinàmic?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">És una imatge de mida gran</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Un programa el genera a cada petició i pot canviar cada vegada</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Només es pot veure amb JavaScript activat</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">És un fitxer HTML que el servidor entrega tal qual</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-1-lamp" data-type="single">
+    <div class="statement">Quina peça de la pila LAMP guarda les entrades d'un blog?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Apache</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">PHP</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">MySQL</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Linux</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 1.1</span> Instal·lació en sistemes operatius lliures i propietaris.</p>
+  <p><span class="lbl">Contingut 1.4</span> Funcionament dels gestors de continguts.</p>
+  <p><span class="lbl">CA 1.1</span> Identifica els requeriments necessaris per instal·lar gestors de continguts.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="../index.html">
+    <span class="dir">Torna a · RA1</span>
+    <span class="ttl">RA1 · Instal·lació de gestors de continguts</span></a>
+  <a class="next" href="t1-2-html-i-css.html">
+    <span class="dir">Següent · T1.2</span>
+    <span class="ttl">HTML i CSS</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

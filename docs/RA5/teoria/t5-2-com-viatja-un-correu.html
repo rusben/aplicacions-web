@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T5.2 · Com viatja un correu — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA5 · Instal·lació d'aplicacions web d'escriptori</a>
+    <span class="pos">T5.2 · 2/10</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA5 · T5.2</div>
+  <h1>Com viatja un correu</h1>
+  <p class="lede">Qui l'envia, qui el guarda i qui te'l mostra: tres programes i tres protocols.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què sabràs fer en acabar</h2>
+  <ul>
+    <li>Explicar el camí d'un missatge des de qui l'escriu fins a qui el llegeix.</li>
+    <li>Distingir SMTP, IMAP i POP3 i dir quan es fa servir cadascun.</li>
+    <li>Explicar la diferència entre llegir el correu per IMAP i per POP3.</li>
+    <li>Llegir les capçaleres d'un missatge per saber per on ha passat.</li>
+    <li>Relacionar cada protocol amb el seu port.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Tres programes</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Sigla</th><th>Qui és</th><th>Què fa</th></tr></thead>
+      <tbody>
+        <tr><td><strong>MUA</strong></td><td>El client: Gmail al navegador, l'aplicació del mòbil</td><td>Escriure i llegir missatges</td></tr>
+        <tr><td><strong>MTA</strong></td><td>El servidor d'enviament</td><td>Rebre el missatge i portar-lo al servidor de destí</td></tr>
+        <tr><td><strong>MDA</strong></td><td>L'entregador</td><td>Deixar el missatge a la bústia de l'usuari</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Un missatge passa pels tres: el client el dona al servidor d'enviament, aquest el porta al servidor del destinatari, i allà l'entregador el deixa a la bústia. Amb Gmail, els tres programes són de Google, però el camí és el mateix.</p>
+</div>
+
+<!-- ============ 3 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>Tres protocols i els seus ports</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Protocol</th><th>Serveix per</th><th>Port sense xifrar</th><th>Port xifrat</th></tr></thead>
+      <tbody>
+        <tr><td><strong>SMTP</strong></td><td>Enviar i transportar missatges entre servidors</td><td>25 · 587</td><td>465</td></tr>
+        <tr><td><strong>IMAP</strong></td><td>Llegir la bústia deixant els missatges al servidor</td><td>143</td><td>993</td></tr>
+        <tr><td><strong>POP3</strong></td><td>Descarregar els missatges a l'equip</td><td>110</td><td>995</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>El port <strong>25</strong> el fan servir els servidors per parlar entre ells; el <strong>587</strong> és el que fa servir un client per enviar, perquè demana autenticació.</p>
+</div>
+
+<!-- ============ 4 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>IMAP o POP3</h2>
+  <p>Amb <strong>IMAP</strong> els missatges es queden al servidor i el client n'ensenya una vista. Les carpetes, el que has llegit i el que has esborrat són iguals a tots els dispositius. És el que fa servir el correu web i el que necessita qui llegeix des de més d'un lloc.</p>
+  <p>Amb <strong>POP3</strong> el client descarrega els missatges i, normalment, els esborra del servidor: queden en un sol equip. Té sentit si es vol buidar el servidor i guardar-ho tot en local, però avui és l'excepció.</p>
+</div>
+
+<!-- ============ 5 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Les capçaleres d'un missatge</h2>
+  <p>Tot missatge porta capçaleres que expliquen d'on ve. Les línies <code>Received</code> diuen per quins servidors ha passat i quan; <code>From</code> i <code>To</code> diuen qui l'envia i qui el rep.</p>
+  <p>A Gmail es veuen amb <strong>Mostra l'original</strong>. Hi surten també tres comprovacions, <code>SPF</code>, <code>DKIM</code> i <code>DMARC</code>, que diuen si el servidor que l'ha enviat té permís per fer-ho en nom d'aquell domini.</p>
+</div>
+
+<!-- ============ 6 · EXEMPLE ============ -->
+<div class="cq-block" data-kind="exemple">
+  <h2>D'un compte a l'altre</h2>
+  <p>L'Anna escriu al Pau, tots dos amb compte del centre. El client de l'Anna dona el missatge al servidor, que veu que el destinatari és del mateix domini i l'entrega directament a la bústia del Pau. Quan el Pau obre el correu, el client demana la bústia i el missatge hi surt. Si el Pau té IMAP al mòbil, també el veu allà.</p>
+</div>
+
+<!-- ============ 7 · CAS REAL ============ -->
+<div class="cq-block" data-kind="cas real">
+  <h2>El correu que acaba a la brossa</h2>
+  <p>Una associació envia un butlletí des d'un domini nou i tot va a la carpeta de brossa. No és cap error del client: els servidors de destí desconfien d'un domini sense registres SPF i DKIM que demostrin que pot enviar. Per això, en un servidor propi, enviar cap a fora demana feina de DNS i de reputació; Google ja la té feta.</p>
+</div>
+
+<!-- ============ 8 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>IMAP per defecte; POP3 només si hi ha un motiu.</li>
+    <li>Els clients envien pel port d'enviament autenticat, no pel 25.</li>
+    <li>Connexions xifrades sempre: 993 i 465 o 587.</li>
+    <li>Si un correu no arriba, mira primer la carpeta de brossa i després les capçaleres.</li>
+  </ul>
+</div>
+
+<!-- ============ 9 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>El missatge s'envia però no arriba</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> L'ha acceptat el servidor d'enviament però no s'ha entregat, o ha anat a brossa.</p>
+      <p><span class="lbl">Solució</span> Mira la carpeta de brossa i les capçaleres: indiquen on s'ha aturat.</p>
+    </dd>
+    <dt>Els missatges desapareixen d'un dispositiu</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Un client té POP3 i se'ls descarrega.</p>
+      <p><span class="lbl">Solució</span> Configura'l amb IMAP.</p>
+    </dd>
+    <dt>El client no connecta i diu «connexió rebutjada»</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El port no és el correcte o la connexió no està xifrada.</p>
+      <p><span class="lbl">Solució</span> Revisa servidor, port i xifratge.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 10 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Resum</h2>
+  <ul>
+    <li>Client (MUA), servidor d'enviament (MTA) i entregador (MDA) es reparteixen la feina.</li>
+    <li>SMTP envia; IMAP i POP3 llegeixen.</li>
+    <li>IMAP deixa els missatges al servidor; POP3 se'ls emporta.</li>
+    <li>Les capçaleres expliquen el camí del missatge.</li>
+  </ul>
+</div>
+
+<!-- ============ 11 · QUIZ ============ -->
+<div class="cq-block" data-kind="quiz">
+  <h2>Comprova el que has après</h2>
+  <div class="cq-question" data-id="t5-2-imap" data-type="single">
+    <div class="statement">Una usuària llegeix el correu des de l'ordinador i del mòbil. Quin protocol ha de fer servir?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">IMAP</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">POP3</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">SMTP</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">HTTP</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t5-2-ports" data-type="single">
+    <div class="statement">Quin port fa servir un client per enviar correu amb autenticació?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">25</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">587</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">143</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">110</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t5-2-pop" data-type="single">
+    <div class="statement">Què fa normalment POP3?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Descarrega els missatges a l'equip i els esborra del servidor</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Envia missatges entre servidors</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Sincronitza carpetes entre dispositius</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Xifra el correu</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t5-2-capcaleres" data-type="single">
+    <div class="statement">On es veu el camí que ha seguit un missatge?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">A les capçaleres, amb «Mostra l'original»</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Al nom del remitent</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">A la signatura</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">A la carpeta d'enviats</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 5.1</span> Aplicacions de correu web. Instal·lació.</p>
+  <p><span class="lbl">CA 5.3</span> Configura les aplicacions per a integrar-les amb un servidor de correu.</p>
+  <p><span class="lbl">CA 5.5</span> Verifica l'accés al correu electrònic.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="t5-1-aplicacions-web-d-escriptori.html">
+    <span class="dir">Anterior · T5.1</span>
+    <span class="ttl">Aplicacions web d'escriptori</span></a>
+  <a class="next" href="t5-3-calendaris-contactes-i-tasques.html">
+    <span class="dir">Següent · T5.3</span>
+    <span class="ttl">Calendaris, contactes i tasques</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

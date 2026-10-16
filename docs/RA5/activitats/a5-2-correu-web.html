@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A5.2 · Correu web — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA5 · Instal·lació d'aplicacions web d'escriptori</a>
+    <span class="pos">A5.2 · 8/10</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA5 · A5.2</div>
+  <h1>Correu web</h1>
+  <p class="lede">Instal·lar el client web, connectar-lo al servidor i deixar-lo llest per a tres usuaris.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Teories <a class="cq-ref" href="../teoria/t5-1-aplicacions-web-d-escriptori.html">T5.1</a> i <a class="cq-ref" href="../teoria/t5-2-com-viatja-un-correu.html">T5.2</a>. Les guies <a class="cq-ref" href="../../RA1/guies/g1-2-pila-lamp.html">G1.2</a>, <a class="cq-ref" href="../guies/g5-1-servidor-de-correu-intern.html">G5.1</a> i <a class="cq-ref" href="../guies/g5-2-correu-web-amb-roundcube.html">G5.2</a> són els manuals que consultaràs.</p>
+  <p>Instal·laràs el correu web sobre el servidor de l'<a class="cq-ref" href="a5-1-busties-al-servidor.html">A5.1</a>, l'integraràs amb les bústies, el deixaràs a punt per als usuaris i verificaràs l'accés al correu amb proves entre comptes.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <p>L'escriptori de l'<a class="cq-ref" href="a5-1-busties-al-servidor.html">A5.1</a>, amb el servidor de correu i els tres comptes de la gestoria. La pila LAMP s'instal·la a la mateixa màquina i el correu web quedarà a <code>http://correu.internal/roundcube</code>.</p>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Què has de fer</h2>
+  <ol>
+    <li>Fes la <strong>fitxa de requeriments</strong> del correu web i compara-la amb l'inventari del servidor abans d'instal·lar.</li>
+    <li>Instal·la el correu web i <strong>configura la connexió</strong> amb el servidor de bústies i amb el d'enviament. Anota quines opcions has canviat i per què.</li>
+    <li><strong>Verifica l'accés</strong>: cada compte de l'<a class="cq-ref" href="a5-1-busties-al-servidor.html">A5.1</a> ha de poder iniciar sessió i veure la seva bústia, i el compte desactivat no.</li>
+    <li>Envia un correu <strong>del primer usuari al segon</strong> des del client web i comprova'l a la bústia del disc i al client web de l'altre.</li>
+    <li>Envia'n un <strong>des del terminal</strong> i comprova que surt al client web: el client no és l'origen dels missatges.</li>
+    <li>Deixa cada compte a punt: <strong>identitat</strong>, signatura, zona horària i una <strong>carpeta</strong> pròpia.</li>
+    <li>Crea un <strong>filtre</strong> que mogui a aquella carpeta els missatges amb una paraula a l'assumpte, i prova'l.</li>
+    <li>Afegeix tres <strong>contactes</strong> a la llibreta d'adreces, crea'n un grup i exporta-la.</li>
+    <li>Escriu una <strong>taula de proves</strong> amb almenys sis files: què proves, com, què esperes i què ha passat.</li>
+  </ol>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Pila LAMP i inventari</td><td>Guia <a class="cq-ref" href="../../RA1/guies/g1-2-pila-lamp.html">G1.2</a></td></tr>
+        <tr><td>Instal·lació i connexió amb el servidor</td><td>Guia <a class="cq-ref" href="../guies/g5-2-correu-web-amb-roundcube.html">G5.2</a></td></tr>
+        <tr><td>Identitats, carpetes, filtres i contactes</td><td>Guia <a class="cq-ref" href="../guies/g5-2-correu-web-amb-roundcube.html">G5.2</a>, «Deixar-lo a punt per a l'usuari»</td></tr>
+        <tr><td>Comptes i bústies</td><td>Guia <a class="cq-ref" href="../guies/g5-1-servidor-de-correu-intern.html">G5.1</a> i activitat <a class="cq-ref" href="a5-1-busties-al-servidor.html">A5.1</a></td></tr>
+        <tr><td>Per què el client no té usuaris propis</td><td>Teoria <a class="cq-ref" href="../teoria/t5-1-aplicacions-web-d-escriptori.html">T5.1</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>Els comptes no es creen al client</h2>
+  <p>Al correu web no hi ha cap pantalla per donar d'alta usuaris, i no és un error: els comptes viuen al servidor de correu. Si has de donar accés a algú nou, el compte es crea allà i el client l'autentica tot sol.</p>
+</div>
+
+<!-- ============ 6 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Els dos registres alhora</h2>
+  <p>Obre el registre del client i el del correu en dues terminals i envia un missatge des del navegador. Veuràs primer la petició del client i després el que en fa el servidor. Si un missatge falla, aquesta comparació diu de seguida de qui és el problema.</p>
+</div>
+
+<!-- ============ 7 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li>Els tres comptes actius entren al correu web amb la contrasenya del servidor.</li>
+    <li>El compte desactivat rep un error d'autenticació.</li>
+    <li>Un missatge enviat des del client apareix al Maildir del destinatari i al seu correu web.</li>
+    <li>Un missatge enviat des del terminal apareix al correu web.</li>
+    <li>El missatge enviat queda a la carpeta d'enviats.</li>
+    <li>El filtre col·loca el missatge de prova a la carpeta esperada.</li>
+  </ul>
+</div>
+
+<!-- ============ 8 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>«Connexió al servidor fallida»</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> La configuració apunta a un servidor o a un port equivocat.</p>
+      <p><span class="lbl">Solució</span> Comprova els ports que escolten i revisa la configuració, com diu <a class="cq-ref" href="../guies/g5-2-correu-web-amb-roundcube.html">G5.2</a>.</p>
+    </dd>
+    <dt>Entra però no veu els missatges que sí que són al Maildir</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El servidor de bústies busca en una ruta diferent.</p>
+      <p><span class="lbl">Solució</span> Revisa la ubicació de les bústies a <a class="cq-ref" href="../guies/g5-1-servidor-de-correu-intern.html">G5.1</a>.</p>
+    </dd>
+    <dt>No hi ha pestanya de filtres</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Falta el connector o el mòdul del servidor.</p>
+      <p><span class="lbl">Solució</span> Instal·la'ls i activa el connector com explica <a class="cq-ref" href="../guies/g5-2-correu-web-amb-roundcube.html">G5.2</a>.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 9 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <p>Un repositori a GitHub amb un <code>README.md</code> que tingui la fitxa de requeriments, les opcions de configuració canviades amb la seva explicació, captures de la sessió de cada usuari, del filtre i de la llibreta d'adreces, i la taula de proves omplerta.</p>
+  <p>Respon-hi també: <strong>què passaria amb els missatges si desinstal·lessis el correu web, i per què?</strong></p>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 5.1</span> Aplicacions de correu web. Instal·lació.</p>
+  <p><span class="lbl">Contingut 5.2</span> Gestió d'usuaris.</p>
+  <p><span class="lbl">CA 5.2</span> Instal·la aplicacions per a proveir d'accés web al servei de correu electrònic.</p>
+  <p><span class="lbl">CA 5.3</span> Configura les aplicacions per a integrar-les amb un servidor de correu.</p>
+  <p><span class="lbl">CA 5.4</span> Gestiona els comptes d'usuari.</p>
+  <p><span class="lbl">CA 5.5</span> Verifica l'accés al correu electrònic.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="a5-1-busties-al-servidor.html">
+    <span class="dir">Anterior · A5.1</span>
+    <span class="ttl">Bústies al servidor</span></a>
+  <a class="next" href="a5-3-agenda-contactes-i-tasques.html">
+    <span class="dir">Següent · A5.3</span>
+    <span class="ttl">Agenda, contactes i tasques</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

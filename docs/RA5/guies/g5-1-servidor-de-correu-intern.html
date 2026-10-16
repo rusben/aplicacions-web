@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G5.1 · Guia: servidor de correu intern — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA5 · Instal·lació d'aplicacions web d'escriptori</a>
+    <span class="pos">G5.1 · 4/10</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA5 · G5.1</div>
+  <h1>Guia: servidor de correu intern</h1>
+  <p class="lede">Postfix i Dovecot a l'escriptori de laboratori: bústies Maildir, comptes i proves des del terminal.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què hi ha en aquesta guia</h2>
+  <p>Documentació oficial: <a href="https://www.postfix.org/documentation.html">Postfix</a> · <a href="https://doc.dovecot.org/">Dovecot</a></p>
+  <ul>
+    <li>Punt de partida: un escriptori d'IsardVDI amb Ubuntu a punt (<a class="cq-ref" href="../../RA1/guies/g1-1-entorn-de-laboratori.html">G1.1</a>).</li>
+    <li>Resultat: un servidor de correu <strong>només intern</strong> al domini <code>correu.internal</code>, amb bústies Maildir i accés per IMAP.</li>
+    <li>Sobre aquest servidor s'hi connecta el correu web de <a class="cq-ref" href="g5-2-correu-web-amb-roundcube.html">G5.2</a>.</li>
+  </ul>
+  <div class="cq-note"><span class="lbl">Correu intern, no a Internet</span>
+    Aquest servidor no ha d'enviar correu cap a fora ni rebre'n. Un servidor de correu obert a Internet necessita DNS, registres de reputació i protecció contra abusos, i la major part de xarxes bloquegen el port de sortida. Al laboratori, els missatges van d'un usuari a un altre de la mateixa màquina.</div>
+</div>
+
+<!-- ============ 2 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Instal·lar Postfix i Dovecot</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Posa el nom de la màquina</strong> i afegeix-lo a <code>/etc/hosts</code>:</p>
+<pre>sudo hostnamectl set-hostname correu
+echo '127.0.0.1 correu.internal correu' | sudo tee -a /etc/hosts</pre>
+    </li>
+    <li>
+      <p><strong>Instal·la els paquets.</strong> A la pantalla de Postfix, tria <strong>Internet Site</strong> i escriu <code>correu.internal</code> com a nom del sistema:</p>
+<pre>sudo apt update
+sudo apt install -y postfix dovecot-imapd dovecot-lmtpd mailutils</pre>
+    </li>
+    <li>
+      <p><strong>Comprova que els dos serveis estan actius:</strong></p>
+<pre>systemctl is-active postfix dovecot
+<span class="o">active</span>
+<span class="o">active</span></pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 3 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Bústies en format Maildir</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Digues a Postfix</strong> que entregui en Maildir dins de la carpeta de cada usuari:</p>
+<pre>sudo postconf -e 'home_mailbox = Maildir/'
+sudo postconf -e 'inet_interfaces = loopback-only'
+sudo postconf -e 'mydestination = correu.internal, localhost'
+sudo systemctl restart postfix</pre>
+    </li>
+<!--    <li>
+      <p><strong>Digues a Dovecot</strong> on són les bústies:</p>
+<pre>sudo nano /etc/dovecot/conf.d/10-mail.conf</pre>
+<pre>mail_location = maildir:~/Maildir</pre>
+    </li> -->
+    <li>
+      <p><strong>Deixa només IMAP</strong> actiu i reinicia:</p>
+<pre>sudo nano /etc/dovecot/dovecot.conf</pre>
+<pre>protocols = imap lmtp</pre>
+<pre>sudo systemctl restart dovecot</pre>
+    </li>
+    <li>
+      <p><strong>Comprova els ports</strong> que escolten:</p>
+<pre>ss -tlnp | grep -E ':25|:143'</pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 4 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Comptes d'usuari</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Crea un compte per persona.</strong> En aquest servidor, els comptes de correu són els usuaris del sistema:</p>
+<pre>sudo adduser anna
+sudo adduser pau</pre>
+    </li>
+    <li>
+      <p><strong>Comprova que Dovecot els autentica:</strong></p>
+<pre>sudo doveadm auth test anna
+<span class="o">passdb: anna auth succeeded</span></pre>
+    </li>
+    <li>
+      <p><strong>Posa un àlies</strong> si vols una adreça diferent del nom d'usuari, i aplica'l:</p>
+<pre>echo 'info: anna' | sudo tee -a /etc/aliases
+sudo newaliases</pre>
+    </li>
+    <li>
+      <p><strong>Per donar de baixa</strong> algú, desactiva-li el compte en lloc d'esborrar-lo, i la bústia es conserva:</p>
+<pre>sudo usermod -L pau</pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 5 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Provar-ho des del terminal</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Envia un missatge</strong> d'un usuari a un altre:</p>
+<pre>echo 'Primera prova' | mail -s 'Hola Pau' pau@correu.internal</pre>
+    </li>
+    <li>
+      <p><strong>Mira la bústia</strong> del destinatari: cada fitxer és un missatge.</p>
+<pre>sudo ls /home/pau/Maildir/new
+<span class="o">1774523900.Vfd00I1M2e.correu</span></pre>
+    </li>
+    <li>
+      <p><strong>Llegeix el registre</strong> per veure el camí que ha fet:</p>
+<pre>sudo tail -20 /var/log/mail.log</pre>
+    </li>
+    <li>
+      <p><strong>Prova l'accés IMAP</strong> tal com ho farà el correu web:</p>
+<pre>sudo doveadm mailbox list -u pau
+<span class="o">INBOX</span></pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 6 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>Fitxers i ordres</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què</th><th>On</th></tr></thead>
+      <tbody>
+        <tr><td>Configuració de Postfix</td><td><code>/etc/postfix/main.cf</code>, amb <code>postconf -e</code></td></tr>
+        <tr><td>Configuració de Dovecot</td><td><code>/etc/dovecot/conf.d/</code></td></tr>
+        <tr><td>Bústies</td><td><code>/home/usuari/Maildir</code></td></tr>
+        <tr><td>Àlies</td><td><code>/etc/aliases</code> i <code>newaliases</code></td></tr>
+        <tr><td>Registre</td><td><code>/var/log/mail.log</code></td></tr>
+        <tr><td>Cua de sortida</td><td><code>mailq</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 7 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Comprovació de conjunt</h2>
+  <ul>
+    <li><code>systemctl is-active postfix dovecot</code> respon <code>active</code> dues vegades.</li>
+    <li><code>ss -tlnp</code> mostra els ports 25 i 143 escoltant.</li>
+    <li>Un missatge enviat amb <code>mail</code> apareix com a fitxer dins del <code>Maildir</code> del destinatari.</li>
+    <li><code>sudo doveadm auth test usuari</code> funciona amb la contrasenya del sistema.</li>
+    <li><code>mailq</code> no té missatges encallats.</li>
+  </ul>
+</div>
+
+<!-- ============ 8 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Al laboratori, el servidor només escolta a la mateixa màquina.</li>
+    <li>Un compte per persona; les adreces alternatives, amb àlies.</li>
+    <li>Maildir, no mbox.</li>
+    <li>Cada canvi, comprovat al registre abans de passar al següent.</li>
+    <li>Desactivar el compte en lloc d'esborrar-lo: la bústia es conserva.</li>
+  </ul>
+</div>
+
+<!-- ============ 9 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>Els missatges van a <code>/var/mail/usuari</code> i no al Maildir</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Falta <code>home_mailbox</code> a Postfix.</p>
+      <p><span class="lbl">Solució</span> Posa-la i reinicia; els missatges antics es queden al fitxer vell.</p>
+    </dd>
+    <dt>El correu web no autentica cap usuari</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Dovecot no troba les bústies o l'usuari no existeix al sistema.</p>
+      <p><span class="lbl">Solució</span> Prova-ho amb <code>doveadm auth test</code>, que aïlla el problema del client.</p>
+    </dd>
+    <dt>Un missatge queda a la cua</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El domini del destinatari no és del servidor.</p>
+      <p><span class="lbl">Solució</span> Al laboratori, envia només a adreces <code>@correu.internal</code>; buida la cua amb <code>sudo postsuper -d ALL</code>.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 10 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Fitxa ràpida</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Vull</th><th>Ordre</th></tr></thead>
+      <tbody>
+        <tr><td>Canviar una opció de Postfix</td><td><code>sudo postconf -e 'clau = valor'</code></td></tr>
+        <tr><td>Crear un compte</td><td><code>sudo adduser nom</code></td></tr>
+        <tr><td>Provar l'autenticació</td><td><code>sudo doveadm auth test nom</code></td></tr>
+        <tr><td>Enviar una prova</td><td><code>echo cos | mail -s assumpte nom@correu.internal</code></td></tr>
+        <tr><td>Veure la bústia</td><td><code>sudo ls /home/nom/Maildir/new</code></td></tr>
+        <tr><td>Veure què ha passat</td><td><code>sudo tail -f /var/log/mail.log</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="../teoria/t5-3-calendaris-contactes-i-tasques.html">
+    <span class="dir">Anterior · T5.3</span>
+    <span class="ttl">Calendaris, contactes i tasques</span></a>
+  <a class="next" href="g5-2-correu-web-amb-roundcube.html">
+    <span class="dir">Següent · G5.2</span>
+    <span class="ttl">Guia: correu web amb Roundcube</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

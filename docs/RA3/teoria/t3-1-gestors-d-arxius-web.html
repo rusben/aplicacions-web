@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T3.1 · Serveis de gestió d'arxius web — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA3 · Instal·lació de serveis de gestió d'arxius web</a>
+    <span class="pos">T3.1 · 1/9</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA3 · T3.1</div>
+  <h1>Serveis de gestió d'arxius web</h1>
+  <p class="lede">Els fitxers deixen de viure en un ordinador i passen a viure en un servei, amb adreça i permisos.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què sabràs fer en acabar</h2>
+  <ul>
+    <li>Explicar per a què serveix un gestor d'arxius web i què resol.</li>
+    <li>Distingir-lo d'una carpeta compartida de xarxa i d'un servidor FTP.</li>
+    <li>Comparar aplicacions de gestió d'arxius web i serveis de núvol comercials.</li>
+    <li>Identificar els requeriments per instal·lar-ne un.</li>
+    <li>Dir què guarda a la base de dades i què guarda al disc.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Què és un gestor d'arxius web</h2>
+  <p>Un <strong>gestor d'arxius web</strong> és una aplicació que guarda fitxers en un servidor i els deixa consultar, pujar, organitzar i compartir <strong>des del navegador</strong>, amb un compte d'usuari per a cada persona.</p>
+  <p>Resol tres problemes alhora: arribar als fitxers des de qualsevol lloc, treballar-hi entre diverses persones i tenir una còpia fora de l'ordinador. A canvi, algú ha d'administrar el servei: usuaris, espai, permisos i seguretat.</p>
+</div>
+
+<!-- ============ 3 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>No és el mateix que una carpeta de xarxa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Servei</th><th>Com s'hi arriba</th><th>Fort en</th><th>Fluix en</th></tr></thead>
+      <tbody>
+        <tr><td>Carpeta compartida (SMB, NFS)</td><td>Des de la xarxa local</td><td>Velocitat dins de l'oficina</td><td>Fora de la xarxa no s'hi arriba</td></tr>
+        <tr><td>FTP o SFTP</td><td>Amb un client</td><td>Transferir molts fitxers</td><td>Sense interfície ni compartició fina</td></tr>
+        <tr><td>Gestor d'arxius web</td><td>Navegador, mòbil o client d'escriptori</td><td>Accés des de fora, compartir i versions</td><td>Necessita servidor i manteniment</td></tr>
+        <tr><td>Núvol comercial</td><td>Navegador o aplicació</td><td>Zero manteniment</td><td>Les dades són en un servidor d'altri</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 4 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>Aplicacions més conegudes</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Aplicació</th><th>Què la caracteritza</th><th>Web</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Nextcloud</strong></td><td>La més estesa; fitxers, calendari, contactes i ofimàtica amb aplicacions afegides</td><td><a href="https://nextcloud.com">nextcloud.com</a></td></tr>
+        <tr><td><strong>ownCloud</strong></td><td>El projecte del qual va néixer Nextcloud</td><td><a href="https://owncloud.com">owncloud.com</a></td></tr>
+        <tr><td><strong>Seafile</strong></td><td>Sincronització molt ràpida, orientada a biblioteques de fitxers</td><td><a href="https://www.seafile.com">seafile.com</a></td></tr>
+        <tr><td><strong>Pydio</strong> · <strong>FileRun</strong></td><td>Gestors d'arxius sobre carpetes que ja existeixen al servidor</td><td><a href="https://pydio.com">pydio.com</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Els serveis comercials com Google Drive, OneDrive o Dropbox fan el mateix, però no se'n controla ni el servidor ni les dades. Per això una escola o una empresa petita sovint es munta el seu.</p>
+</div>
+
+<!-- ============ 5 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Què cal per instal·lar-ne un</h2>
+  <p>La majoria són aplicacions PHP i demanen el mateix que un gestor de continguts: servidor web, PHP amb unes quantes extensions, base de dades i espai de disc. Hi ha dues diferències importants.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Requeriment</th><th>Per què</th></tr></thead>
+      <tbody>
+        <tr><td>Disc generós</td><td>Els fitxers dels usuaris hi van a parar; creix de pressa</td></tr>
+        <tr><td>Límits de PHP alts</td><td>Pujar fitxers grans demana pujar la mida màxima i el temps d'execució</td></tr>
+        <tr><td>Tasques programades</td><td>Neteja, miniatures i notificacions es fan en segon pla</td></tr>
+        <tr><td>HTTPS</td><td>Hi viatgen documents i contrasenyes</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 6 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>On queda cada cosa</h2>
+  <p>El servei parteix les dades en dues meitats, com un gestor de continguts. Al <strong>disc</strong>, dins del directori de dades, hi ha els fitxers reals, organitzats per usuari. A la <strong>base de dades</strong> hi ha els comptes, els permisos, els enllaços compartits, les etiquetes i un índex del que hi ha a cada carpeta.</p>
+  <p>Per això copiar només els fitxers no és una còpia completa, i deixar-hi fitxers per fora, copiant-los al disc amb el sistema operatiu, no els fa aparèixer: el servei no els té a l'índex fins que no el torna a llegir.</p>
+</div>
+
+<!-- ============ 7 · EXEMPLE ============ -->
+<div class="cq-block" data-kind="exemple">
+  <h2>El pen-drive de l'AMPA</h2>
+  <p>Una associació guarda els documents en un llapis de memòria que passa de mà en mà. Cada any n'apareixen tres versions i ningú sap quina val. Amb un gestor d'arxius web cada persona té el seu compte, la carpeta de l'associació és compartida, els canvis queden datats i qui marxa deixa de tenir accés amb un clic.</p>
+</div>
+
+<!-- ============ 8 · CAS REAL ============ -->
+<div class="cq-block" data-kind="cas real">
+  <h2>El núvol d'un centre educatiu</h2>
+  <p>Molts centres tenen el seu propi Nextcloud: cada professor hi té un espai, els departaments tenen carpetes compartides i les programacions s'enllacen amb un enllaç amb contrasenya i data de caducitat. El servidor és al mateix centre, així que les dades de l'alumnat no surten de casa, i l'administrador n'ha de respondre: còpies, espai i permisos.</p>
+</div>
+
+<!-- ============ 9 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Tria l'aplicació pel que ha de fer el servei, i mira't-ne els requeriments abans d'instal·lar.</li>
+    <li>El directori de dades, fora de l'arrel del web.</li>
+    <li>Quota d'espai per usuari des del primer dia: sense quota, el disc s'omple.</li>
+    <li>Còpia de les dues meitats: fitxers i base de dades.</li>
+  </ul>
+</div>
+
+<!-- ============ 10 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>Confondre'l amb un servidor FTP</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Tots dos mouen fitxers.</p>
+      <p><span class="lbl">Solució</span> L'FTP transfereix; el gestor d'arxius web, a més, dona comptes, permisos, compartició i historial.</p>
+    </dd>
+    <dt>Copiar fitxers al disc del servidor i esperar que apareguin</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El servei treballa amb el seu índex a la base de dades.</p>
+      <p><span class="lbl">Solució</span> S'han de pujar pel servei, o dir-li que torni a llegir la carpeta.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 11 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Resum</h2>
+  <ul>
+    <li>Un gestor d'arxius web guarda fitxers al servidor i els fa accessibles des del navegador, amb comptes i permisos.</li>
+    <li>Va més enllà d'una carpeta de xarxa o d'un FTP: compartició, versions i accés des de fora.</li>
+    <li>Nextcloud, ownCloud, Seafile i Pydio en són exemples lliures.</li>
+    <li>Demana disc, límits de PHP alts, tasques programades i HTTPS.</li>
+    <li>Els fitxers són al disc i els permisos i l'índex, a la base de dades.</li>
+  </ul>
+</div>
+
+<!-- ============ 12 · QUIZ ============ -->
+<div class="cq-block" data-kind="quiz">
+  <h2>Comprova el que has après</h2>
+  <div class="cq-question" data-id="t3-1-utilitat" data-type="single">
+    <div class="statement">Quin avantatge té un gestor d'arxius web sobre una carpeta compartida de la xarxa local?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">És més ràpid dins de l'oficina</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">S'hi arriba des de fora amb un navegador i té comptes i compartició</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">No necessita cap servidor</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">No fa falta fer-ne còpies</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t3-1-propi" data-type="single">
+    <div class="statement">Per què un centre educatiu munta el seu gestor d'arxius en lloc de fer servir un núvol comercial?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Perquè és més fàcil de mantenir</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Per controlar el servidor i les dades que hi guarda</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Perquè els núvols comercials no permeten compartir</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Perquè no necessita còpies de seguretat</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t3-1-dades" data-type="single">
+    <div class="statement">Copies un fitxer directament dins del directori de dades del servidor. Què passa?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">No surt al servei fins que aquest torna a llegir la carpeta</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Apareix immediatament a l'usuari</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">S'esborra automàticament</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Es comparteix amb tothom</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t3-1-requeriments" data-type="multi">
+    <div class="statement">Quins requeriments són especialment importants en un gestor d'arxius web?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Espai de disc</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Límits de pujada de PHP alts</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Tasques programades en segon pla</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Una targeta gràfica dedicada</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 3.1</span> Instal·lació. Navegació i operacions bàsiques. Administració del gestor.</p>
+  <p><span class="lbl">CA 3.1</span> Estableix la utilitat d'un servei de gestió d'arxius web.</p>
+  <p><span class="lbl">CA 3.2</span> Descriu diferents aplicacions de gestió d'arxius web.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="../index.html">
+    <span class="dir">Torna a · RA3</span>
+    <span class="ttl">RA3 · Instal·lació de serveis de gestió d'arxius web</span></a>
+  <a class="next" href="t3-2-comptes-permisos-i-comparticio.html">
+    <span class="dir">Següent · T3.2</span>
+    <span class="ttl">Comptes, permisos i compartició</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

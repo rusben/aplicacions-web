@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P3.1 · Pràctica: el núvol de l'aula — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA3 · Instal·lació de serveis de gestió d'arxius web</a>
+    <span class="pos">P3.1 · 9/9</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA3 · P3.1</div>
+  <h1>Pràctica: el núvol de l'aula</h1>
+  <p class="lede">Un servei de gestió d'arxius web instal·lat, administrat, documentat i obert als companys.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Les teories <a class="cq-ref" href="../teoria/t3-1-gestors-d-arxius-web.html">T3.1</a>, <a class="cq-ref" href="../teoria/t3-2-comptes-permisos-i-comparticio.html">T3.2</a> i <a class="cq-ref" href="../teoria/t3-3-trobar-ho-i-protegir-ho.html">T3.3</a>, i les activitats <a class="cq-ref" href="../activitats/a3-1-el-nuvol-a-punt.html">A3.1</a>, <a class="cq-ref" href="../activitats/a3-2-comptes-grups-i-recursos.html">A3.2</a> i <a class="cq-ref" href="../activitats/a3-3-ordenar-trobar-i-protegir.html">A3.3</a>, que en són l'assaig. Les guies <a class="cq-ref" href="../guies/g3-1-instal-lar-nextcloud.html">G3.1</a> i <a class="cq-ref" href="../guies/g3-2-administrar-nextcloud.html">G3.2</a> són els manuals que consultaràs; per a la pila i el host virtual, <a class="cq-ref" href="../../RA1/guies/g1-2-pila-lamp.html">G1.2</a>.</p>
+  <p>És la pràctica principal del <a class="cq-ref" href="../index.html">RA3</a>. Muntaràs el núvol d'una organització que triïs, el deixaràs administrat de cap a peus i entregaràs el <strong>manual d'instal·lació i el de configuració</strong>, que és la feina real d'un tècnic.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Element</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>Màquina</td><td>Escriptori <strong>nou</strong> a IsardVDI, anomenat <code>p3-1-cognom</code></td></tr>
+        <tr><td>Sistema</td><td>Ubuntu, la versió que admeti el PHP que demana el gestor</td></tr>
+        <tr><td>Pila</td><td>Apache, MySQL i PHP</td></tr>
+        <tr><td>Nom del lloc</td><td><code>nuvol.internal</code>, i la IP de l'escriptori per entrar-hi des de fora</td></tr>
+        <tr><td>Dades</td><td>Fora de l'arrel web</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Tria l'organització: una associació, un equip esportiu, una petita empresa o el teu propi cicle. Els comptes, els grups i les carpetes han de tenir sentit per a aquella organització.</p>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 1: tria i instal·lació</h2>
+  <ol>
+    <li><strong>Compara</strong> almenys dues aplicacions de gestió d'arxius web i justifica la que instal·les, amb els enllaços de la documentació.</li>
+    <li>Fes la <strong>fitxa de requeriments</strong> i l'<strong>inventari del servidor</strong>, i digues què has hagut d'instal·lar o canviar.</li>
+    <li>Instal·la el gestor amb el <strong>directori de dades fora de l'arrel web</strong>, els límits de PHP ajustats i les tasques en segon pla en marxa.</li>
+    <li>Explica la <strong>jerarquia de directoris</strong> que ha generat i ensenya on acaba un fitxer pujat.</li>
+  </ol>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 2: comptes, grups i permisos</h2>
+  <ol>
+    <li>Com a mínim <strong>quatre comptes</strong> de tipus diferent: administració, edició i només consulta, més un accés sense compte per enllaç.</li>
+    <li>Almenys <strong>dos grups</strong>, amb <strong>quotes</strong> diferents i una quota per defecte per als comptes nous.</li>
+    <li>Un <strong>administrador de grup</strong> que gestioni el seu grup sense administrar tot el servei.</li>
+    <li>Documenta en una taula quins permisos té cada tipus d'usuari i <strong>demostra'n l'efecte</strong>: qui pot esborrar, qui pot editar i qui només veure.</li>
+  </ol>
+</div>
+
+<!-- ============ 5 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 3: arxius i recursos compartits</h2>
+  <ol>
+    <li>Una <strong>jerarquia de carpetes</strong> raonada, amb una carpeta d'equip per al grup principal.</li>
+    <li>Operacions bàsiques documentades: pujar, crear carpetes, moure, reanomenar, esborrar i recuperar de la paperera, i recuperar una versió anterior.</li>
+    <li><strong>Compartir</strong> de les tres maneres: amb un usuari, amb un grup i amb un enllaç. L'enllaç, amb <strong>contrasenya i caducitat</strong>.</li>
+    <li>Una <strong>bústia</strong> on es puguin deixar fitxers sense veure els dels altres.</li>
+    <li><strong>Informació addicional</strong>: etiquetes d'una llista acordada, comentaris i descripció a cada carpeta d'equip.</li>
+    <li><strong>Criteris d'indexació</strong> escrits i aplicats, amb tres cerques d'exemple que els demostrin.</li>
+  </ol>
+</div>
+
+<!-- ============ 6 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Fase 4: accés des de la xarxa, seguretat i còpies</h2>
+  <ol>
+    <li><strong>Accés des d'una altra màquina</strong> de la xarxa, amb l'adreça autoritzada al gestor. Documenta com ho has fet.</li>
+    <li><strong>Revisió de seguretat</strong> amb informe: dades fora del web, estat sense avisos, verificació en dos passos per a l'administració, protecció d'intents, normes dels enllaços públics i actualitzacions.</li>
+    <li><strong>Còpia completa</strong> amb el servei en manteniment, treta del servidor. Simula una avaria esborrant una carpeta compartida i <strong>restaura-la</strong>.</li>
+    <li>Passa una <strong>llista de proves</strong> d'almenys vuit files abans i després de la restauració.</li>
+    <li><strong>Extra:</strong> connecta el teu núvol amb el d'un company amb un compte extern i navega-hi, o munta el client d'escriptori o el mòbil i sincronitza una carpeta.</li>
+  </ol>
+</div>
+
+<!-- ============ 7 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Escriptori, pila i host virtual</td><td>Guies <a class="cq-ref" href="../../RA1/guies/g1-1-entorn-de-laboratori.html">G1.1</a> i <a class="cq-ref" href="../../RA1/guies/g1-2-pila-lamp.html">G1.2</a></td></tr>
+        <tr><td>Comparar aplicacions i requeriments</td><td>Teoria <a class="cq-ref" href="../teoria/t3-1-gestors-d-arxius-web.html">T3.1</a> i activitat <a class="cq-ref" href="../activitats/a3-1-el-nuvol-a-punt.html">A3.1</a></td></tr>
+        <tr><td>Instal·lació, dades, cron, domini i còpies</td><td>Guia <a class="cq-ref" href="../guies/g3-1-instal-lar-nextcloud.html">G3.1</a></td></tr>
+        <tr><td>Comptes, grups, quotes i compartició</td><td>Teoria <a class="cq-ref" href="../teoria/t3-2-comptes-permisos-i-comparticio.html">T3.2</a>, guia <a class="cq-ref" href="../guies/g3-2-administrar-nextcloud.html">G3.2</a> i activitat <a class="cq-ref" href="../activitats/a3-2-comptes-grups-i-recursos.html">A3.2</a></td></tr>
+        <tr><td>Etiquetes, indexació i seguretat</td><td>Teoria <a class="cq-ref" href="../teoria/t3-3-trobar-ho-i-protegir-ho.html">T3.3</a>, guia <a class="cq-ref" href="../guies/g3-2-administrar-nextcloud.html">G3.2</a> i activitat <a class="cq-ref" href="../activitats/a3-3-ordenar-trobar-i-protegir.html">A3.3</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 8 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>Documents de persones</h2>
+  <p>Un gestor d'arxius guarda documents reals. Fes servir fitxers de prova i noms inventats, no pengis dades personals de ningú i no publiquis captures amb contrasenyes ni amb enllaços públics que continuïn actius.</p>
+</div>
+
+<!-- ============ 9 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>El manual és part de la feina</h2>
+  <p>Un tècnic que instal·la un servei deixa escrit com el tornaria a instal·lar i com s'administra. Per això aquesta pràctica s'entrega en dos manuals separats: qui llegeix el d'instal·lació no vol captures de pantalla, i qui llegeix el de configuració les necessita totes.</p>
+</div>
+
+<!-- ============ 10 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li>El directori de dades no és accessible des del navegador i és fora de l'arrel web.</li>
+    <li><code>sudo -u www-data php occ status</code> i <code>occ user:list</code> responen amb el que has muntat.</li>
+    <li>Cada tipus d'usuari pot fer exactament el que diu la teva taula, provat en finestra privada.</li>
+    <li>L'enllaç públic demana contrasenya i caduca; la bústia no deixa veure els fitxers pujats.</li>
+    <li>Una cerca per etiqueta torna fitxers de carpetes diferents.</li>
+    <li>Des d'una altra màquina de la xarxa s'hi entra amb l'adreça autoritzada.</li>
+    <li>Després de restaurar, la carpeta esborrada hi torna a ser amb els seus permisos.</li>
+  </ul>
+</div>
+
+<!-- ============ 11 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>Des de l'altra màquina surt «untrusted domain»</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> L'adreça d'accés no està autoritzada al gestor.</p>
+      <p><span class="lbl">Solució</span> Afegeix-la als dominis de confiança, com explica <a class="cq-ref" href="../guies/g3-1-instal-lar-nextcloud.html">G3.1</a>.</p>
+    </dd>
+    <dt>Després de restaurar, els fitxers hi són però el servei no els mostra</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> L'índex de la base de dades i el disc no coincideixen, o els permisos no són de l'usuari d'Apache.</p>
+      <p><span class="lbl">Solució</span> Torna a fer el <code>chown</code> i refés l'índex amb <code>occ files:scan --all</code>.</p>
+    </dd>
+    <dt>Les pujades grans fallen a mitges</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Els límits de PHP o el temps màxim d'execució.</p>
+      <p><span class="lbl">Solució</span> Revisa'ls com explica <a class="cq-ref" href="../guies/g3-1-instal-lar-nextcloud.html">G3.1</a> i torna-ho a provar amb el mateix fitxer.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 12 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <p><strong>Demostració en directe</strong> al professorat, amb els comptes de prova preparats i una altra màquina per ensenyar l'accés des de la xarxa.</p>
+  <p>Un repositori públic a GitHub amb <strong>tres fitxers</strong>:</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Fitxer</th><th>Què hi va</th></tr></thead>
+      <tbody>
+        <tr><td><code>INSTALLATION.md</code></td><td>Manual d'instal·lació: escriptori, requeriments, inventari, pila, instal·lació del gestor, dades, cron i accés des de la xarxa. Sense captures: ha de servir per repetir-ho.</td></tr>
+        <tr><td><code>CONFIGURATION.md</code></td><td>Manual de configuració: comptes, grups, quotes, permisos demostrats, jerarquia, comparticions, etiquetes i indexació, seguretat i còpies. <strong>Amb captures a cada apartat.</strong></td></tr>
+        <tr><td><code>README.md</code></td><td>Descripció del projecte, enllaços als altres dos fitxers, la llista de proves omplerta i els problemes que has trobat.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Respon al <code>README.md</code>: <strong>si el disc de l'escriptori es cremés ara mateix, què hauries de tenir guardat per tornar a tenir el núvol igual, i quant de temps hi trigaries?</strong></p>
+  <p>Per pujar nota: sincronització amb el client d'escriptori o el mòbil, comptes externs amb el núvol d'un company, o HTTPS amb certificat.</p>
+</div>
+
+
+<!-- ============ RÚBRICA ============ -->
+<div class="cq-block" data-kind="rúbrica">
+  <h2>Com es qualifica</h2>
+  <p>Aquesta pràctica és el 60 % de la nota del <a class="cq-ref" href="../index.html">RA3</a>; l'altre 40 % és l'examen tipus test. Cada apartat es puntua a la demostració i amb les evidències del README: la puntuació sencera si funciona, la meitat si funciona amb mancances i zero si no es pot demostrar.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Apartat</th><th>Criteri</th><th>Punts</th></tr></thead>
+      <tbody>
+        <tr><td>Utilitat del servei justificada per a l'organització triada</td><td><code>3.1</code></td><td>0,5</td></tr>
+        <tr><td>Comparació raonada de dues aplicacions de gestió d'arxius web</td><td><code>3.2</code></td><td>1</td></tr>
+        <tr><td>Instal·lació i adaptació: requeriments, dades fora del web, límits i cron</td><td><code>3.3</code></td><td>2</td></tr>
+        <tr><td>Comptes classificats per permisos, grups i quotes, amb l'efecte demostrat</td><td><code>3.4</code></td><td>1,5</td></tr>
+        <tr><td>Jerarquia de carpetes, operacions amb fitxers i recursos compartits</td><td><code>3.5</code></td><td>1,5</td></tr>
+        <tr><td>Informació addicional: etiquetes, comentaris i descripcions de carpeta</td><td><code>3.6</code></td><td>1</td></tr>
+        <tr><td>Criteris d'indexació escrits, aplicats i demostrats amb cerques</td><td><code>3.7</code></td><td>1</td></tr>
+        <tr><td>Revisió de seguretat amb informe, còpia i restauració provada</td><td><code>3.8</code></td><td>1,5</td></tr>
+        <tr><td><strong>Total</strong></td><td></td><td><strong>10</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 3.1</span> Instal·lació. Navegació i operacions bàsiques. Administració del gestor.</p>
+  <p><span class="lbl">Contingut 3.2</span> Usuaris i permisos. Tipus d'usuari.</p>
+  <p><span class="lbl">Contingut 3.3</span> Creació de recursos compartits.</p>
+  <p><span class="lbl">CA 3.1</span> Estableix la utilitat d'un servei de gestió d'arxius web.</p>
+  <p><span class="lbl">CA 3.2</span> Descriu diferents aplicacions de gestió d'arxius web.</p>
+  <p><span class="lbl">CA 3.3</span> Instal·la i adapta una eina de gestió d'arxius web.</p>
+  <p><span class="lbl">CA 3.4</span> Crea i classifica comptes d'usuari en funció dels seus permisos.</p>
+  <p><span class="lbl">CA 3.5</span> Gestiona arxius i directoris.</p>
+  <p><span class="lbl">CA 3.6</span> Utilitza arxius d'informació addicional.</p>
+  <p><span class="lbl">CA 3.7</span> Aplica criteris d'indexació sobre els arxius i directoris.</p>
+  <p><span class="lbl">CA 3.8</span> Comprova la seguretat del gestor d'arxius.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="../activitats/a3-3-ordenar-trobar-i-protegir.html">
+    <span class="dir">Anterior · A3.3</span>
+    <span class="ttl">Ordenar, trobar i protegir</span></a>
+  <a class="next" href="../index.html">
+    <span class="dir">Has acabat el · RA3</span>
+    <span class="ttl">RA3 · Instal·lació de serveis de gestió d'arxius web</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

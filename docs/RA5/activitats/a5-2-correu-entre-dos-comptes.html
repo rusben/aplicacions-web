@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A5.2 · Correu entre dos comptes — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA5 · Instal·lació d'aplicacions web d'escriptori</a>
+    <span class="pos">A5.2 · 8/10</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA5 · A5.2</div>
+  <h1>Correu entre dos comptes</h1>
+  <p class="lede">Dues sessions, un missatge i les proves que demostren que el correu arriba.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Teoria <a class="cq-ref" href="../teoria/t5-2-com-viatja-un-correu.html">T5.2</a>. Les guies <a class="cq-ref" href="../guies/g5-1-gmail-etiquetes-i-filtres.html">G5.1</a> i <a class="cq-ref" href="../guies/g5-2-gmail-imap-i-comprovacions.html">G5.2</a> són els manuals que consultaràs.</p>
+  <p>Treballaràs en parella. Enviareu correu entre els vostres comptes del centre, mirareu com es connecta el correu al servidor i llegireu les capçaleres per comprovar el camí.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <p>Els dos comptes del centre, a dos navegadors o a dues finestres, una de privada. Si has fet <a class="cq-ref" href="a5-1-filtres-al-gmail.html">A5.1</a>, el teu compte ja té els filtres, i el filtre de «puig» et servirà de prova.</p>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Què has de fer</h2>
+  <ol>
+    <li>Mira a la configuració de Gmail si l'accés <strong>IMAP</strong> està activat i apunta els paràmetres d'entrada i de sortida en una taula.</li>
+    <li>Explica amb les teves paraules la <strong>diferència entre IMAP i POP3</strong> en un màxim de quatre línies.</li>
+    <li>Obre <strong>dues sessions alhora</strong>, una per compte.</li>
+    <li>Envia un missatge del compte A al B amb <code>puig</code> a l'assumpte, i comprova que arriba amb l'etiqueta «institut».</li>
+    <li>Respon des del B i comprova que la resposta torna a l'A.</li>
+    <li>Obre l'original d'un dels missatges rebuts i anota si <code>SPF</code>, <code>DKIM</code> i <code>DMARC</code> són <code>PASS</code>.</li>
+    <li>Anota per quants servidors ha passat el missatge mirant les línies <code>Received</code>.</li>
+    <li>Escriu una <strong>taula de proves</strong> de sis files: què proves, com, què esperes i què ha passat.</li>
+  </ol>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Paràmetres IMAP, POP3 i SMTP</td><td>Guia <a class="cq-ref" href="../guies/g5-2-gmail-imap-i-comprovacions.html">G5.2</a>, «Paràmetres del correu de Google»</td></tr>
+        <tr><td>Prova entre dos comptes</td><td>Guia <a class="cq-ref" href="../guies/g5-2-gmail-imap-i-comprovacions.html">G5.2</a>, «Provar el correu entre dos comptes»</td></tr>
+        <tr><td>Capçaleres</td><td>Guia <a class="cq-ref" href="../guies/g5-2-gmail-imap-i-comprovacions.html">G5.2</a>, «Llegir les capçaleres»</td></tr>
+        <tr><td>Diferència IMAP i POP3</td><td>Teoria <a class="cq-ref" href="../teoria/t5-2-com-viatja-un-correu.html">T5.2</a>, «IMAP o POP3»</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>Dues sessions, no una</h2>
+  <p>Enviar-te un missatge a tu mateix no demostra res: l'enviament i la recepció passen pel mateix compte i amaguen els problemes de permisos i d'entrega. Per demostrar que el correu arriba, calen dos comptes i dues finestres obertes alhora.</p>
+</div>
+
+<!-- ============ 6 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Els dos extrems</h2>
+  <p>Quan envies, mira primer l'enviat del compte A i després l'entrada del B. Si el missatge hi és a un lloc i no a l'altre, sabràs exactament on s'ha aturat. Les capçaleres hi afegeixen l'hora de cada salt.</p>
+</div>
+
+<!-- ============ 7 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li>La taula de paràmetres té entrada IMAP, entrada POP3 i sortida SMTP, amb port i xifratge.</li>
+    <li>El missatge arriba al compte B amb l'etiqueta «institut».</li>
+    <li>La resposta torna al compte A.</li>
+    <li>SPF, DKIM i DMARC surten com a <code>PASS</code>, o has explicat per què no.</li>
+    <li>La taula de proves té sis files completes.</li>
+  </ul>
+</div>
+
+<!-- ============ 8 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>El missatge no arriba</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> L'adreça té un error o ha anat a la brossa.</p>
+      <p><span class="lbl">Solució</span> Revisa l'adreça i la carpeta de brossa.</p>
+    </dd>
+    <dt>No trobo la pestanya POP/IMAP</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> L'administrador del centre l'ha restringida.</p>
+      <p><span class="lbl">Solució</span> Fes la captura del que veus i explica-ho.</p>
+    </dd>
+    <dt>No surt l'etiqueta «institut»</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El filtre és al compte A i no al B.</p>
+      <p><span class="lbl">Solució</span> Crea'l al compte que rep el missatge.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 9 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <p>Un document amb la taula de paràmetres, captures de pantalla completa de les dues sessions, del missatge i de l'original, i la taula de proves omplerta.</p>
+  <p>Respon-hi també: <strong>per què un missatge que esborres des del mòbil desapareix també de l'ordinador amb IMAP, i què passaria amb POP3?</strong></p>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 5.1</span> Aplicacions de correu web. Instal·lació.</p>
+  <p><span class="lbl">Contingut 5.2</span> Gestió d'usuaris.</p>
+  <p><span class="lbl">CA 5.3</span> Configura les aplicacions per a integrar-les amb un servidor de correu.</p>
+  <p><span class="lbl">CA 5.4</span> Gestiona els comptes d'usuari.</p>
+  <p><span class="lbl">CA 5.5</span> Verifica l'accés al correu electrònic.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="a5-1-filtres-al-gmail.html">
+    <span class="dir">Anterior · A5.1</span>
+    <span class="ttl">Filtres al Gmail</span></a>
+  <a class="next" href="a5-3-agenda-del-viatge.html">
+    <span class="dir">Següent · A5.3</span>
+    <span class="ttl">Agenda del viatge</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

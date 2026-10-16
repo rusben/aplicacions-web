@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T3.2 · Comptes, permisos i compartició — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA3 · Instal·lació de serveis de gestió d'arxius web</a>
+    <span class="pos">T3.2 · 2/9</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA3 · T3.2</div>
+  <h1>Comptes, permisos i compartició</h1>
+  <p class="lede">Qui entra, quant espai té i qui pot veure, editar o tornar a compartir cada carpeta.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què sabràs fer en acabar</h2>
+  <ul>
+    <li>Distingir els tipus d'usuari d'un gestor d'arxius web.</li>
+    <li>Explicar què és una quota i per què se'n posa.</li>
+    <li>Diferenciar compartir amb una persona, amb un grup i amb un enllaç.</li>
+    <li>Triar els permisos d'una compartició segons el que ha de fer cadascú.</li>
+    <li>Explicar què és un recurs compartit i com s'organitza una jerarquia de carpetes.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Tipus d'usuari</h2>
+  <p>En un gestor d'arxius web hi ha dos nivells de permisos que no s'han de confondre. El <strong>tipus d'usuari</strong> diu què pot fer al servei: un <strong>administrador</strong> crea comptes, posa quotes i instal·la aplicacions; un <strong>usuari normal</strong> només treballa amb els seus fitxers i els que li comparteixen; un <strong>convidat</strong> arriba per un enllaç i no té compte.</p>
+  <p>Els <strong>permisos sobre un fitxer</strong> són una altra cosa: dependen de qui n'és el propietari i de com l'ha compartit. Un administrador del servei no és automàticament propietari dels fitxers de tothom.</p>
+</div>
+
+<!-- ============ 3 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>Grups i quotes</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Peça</th><th>Per a què serveix</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Compte</strong></td><td>Una persona: nom, contrasenya i el seu espai de fitxers</td></tr>
+        <tr><td><strong>Grup</strong></td><td>Un col·lectiu: «Professorat», «1r SMX». Es comparteix amb el grup, no amb vint persones</td></tr>
+        <tr><td><strong>Quota</strong></td><td>L'espai màxim d'un compte. Evita que una persona ompli el disc</td></tr>
+        <tr><td><strong>Administrador de grup</strong></td><td>Gestiona els comptes del seu grup sense ser administrador de tot el servei</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 4 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Tres maneres de compartir</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Manera</th><th>Qui hi arriba</th><th>Quan es fa servir</th></tr></thead>
+      <tbody>
+        <tr><td>Amb un usuari</td><td>Una persona amb compte</td><td>Un document concret per a algú</td></tr>
+        <tr><td>Amb un grup</td><td>Tots els membres del grup</td><td>La carpeta d'un departament o d'una classe</td></tr>
+        <tr><td>Amb un enllaç</td><td>Qualsevol que tingui l'adreça</td><td>Enviar una cosa a fora, sense comptes</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Cada compartició porta els seus <strong>permisos</strong>: només llegir, editar, crear, esborrar i tornar a compartir. Un enllaç, a més, pot portar <strong>contrasenya</strong> i <strong>data de caducitat</strong>, i pot permetre pujar fitxers sense veure els que ja hi ha: és la manera de recollir entregues.</p>
+</div>
+
+<!-- ============ 5 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Recursos compartits i jerarquia</h2>
+  <p>Un <strong>recurs compartit</strong> és una carpeta que deixa de ser d'una persona per passar a ser d'un equip. Per no acabar amb un desordre, es decideix abans una <strong>jerarquia</strong>: carpetes de primer nivell per àmbit («Documents», «Projectes», «Recursos»), i dins, per any o per grup.</p>
+  <p>La regla pràctica és compartir <strong>com més amunt millor</strong> i una sola vegada: es comparteix la carpeta del departament amb el grup, i tot el que hi entri queda compartit. Compartir fitxer a fitxer acaba en permisos que ningú recorda.</p>
+</div>
+
+<!-- ============ 6 · EXEMPLE ============ -->
+<div class="cq-block" data-kind="exemple">
+  <h2>La carpeta de les pràctiques</h2>
+  <p>Un professor crea «Pràctiques 1r SMX» i la comparteix amb el grup «1r SMX» amb permís de només lectura: tothom veu els enunciats, ningú els canvia. A dins hi posa «Entregues», compartida amb un enllaç que demana contrasenya i només deixa pujar. L'alumnat hi deixa la feina sense veure la dels altres.</p>
+</div>
+
+<!-- ============ 7 · CAS REAL ============ -->
+<div class="cq-block" data-kind="cas real">
+  <h2>Qui se'n va de l'empresa</h2>
+  <p>Quan una persona marxa, els seus fitxers no poden marxar amb ella. Per això els documents de feina viuen en carpetes d'equip i no al compte personal de ningú: es desactiva el compte i tot continua al seu lloc. Si el compte era el propietari de mig arxiu, cal transferir-ne la propietat abans de tancar-lo.</p>
+</div>
+
+<!-- ============ 8 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Mirar una compartició des de l'altre costat</h2>
+  <p>La manera fiable de saber què veu algú és entrar-hi: obre una finestra privada, inicia sessió amb l'altre compte o enganxa-hi l'enllaç compartit i intenta editar, esborrar i tornar a compartir. Les icones del propietari no diuen què pot fer l'altre.</p>
+</div>
+
+<!-- ============ 9 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Comparteix amb grups, no amb persones d'una en una.</li>
+    <li>Dona el permís mínim: si només s'ha de consultar, només lectura.</li>
+    <li>Enllaços públics amb contrasenya i caducitat, i només quan calgui.</li>
+    <li>Quota per a tothom, i revisa qui s'acosta al límit.</li>
+    <li>Els documents d'equip, en carpetes d'equip; el compte personal és per al que és personal.</li>
+  </ul>
+</div>
+
+<!-- ============ 10 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>Un enllaç públic acaba en un cercador</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> S'ha compartit sense contrasenya ni caducitat i algú l'ha publicat.</p>
+      <p><span class="lbl">Solució</span> Enllaços amb contrasenya i data, i revisa'ls de tant en tant.</p>
+    </dd>
+    <dt>Algú esborra un fitxer compartit i desapareix per a tothom</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> La compartició donava permís d'esborrar.</p>
+      <p><span class="lbl">Solució</span> Ajusta els permisos i recupera'l de la paperera del propietari.</p>
+    </dd>
+    <dt>Es desactiva un compte i desapareix la carpeta de l'equip</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> La carpeta era del seu espai personal.</p>
+      <p><span class="lbl">Solució</span> Transfereix la propietat dels fitxers abans de tancar el compte.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 11 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Resum</h2>
+  <ul>
+    <li>Tipus d'usuari: administrador, usuari i convidat per enllaç.</li>
+    <li>Els grups eviten repetir comparticions; les quotes eviten que s'ompli el disc.</li>
+    <li>Es comparteix amb un usuari, amb un grup o amb un enllaç, cadascun amb els seus permisos.</li>
+    <li>Els enllaços admeten contrasenya, caducitat i pujada sense veure la resta.</li>
+    <li>Els documents d'equip van en carpetes d'equip, compartides amunt i una sola vegada.</li>
+  </ul>
+</div>
+
+<!-- ============ 12 · QUIZ ============ -->
+<div class="cq-block" data-kind="quiz">
+  <h2>Comprova el que has après</h2>
+  <div class="cq-question" data-id="t3-2-grup" data-type="single">
+    <div class="statement">Vint alumnes han de veure la mateixa carpeta d'enunciats. Què fas?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Compartir-la vint vegades, una per alumne</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Compartir-la una vegada amb el grup de la classe</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Donar-los la contrasenya del teu compte</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Fer-los administradors</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t3-2-entregues" data-type="single">
+    <div class="statement">Vols recollir treballs sense que l'alumnat vegi els dels altres. Quina compartició fas servir?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Un enllaç de només lectura</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Un enllaç que només permeti pujar fitxers</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Compartir la carpeta amb permís d'edició</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Enviar-los la teva contrasenya</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t3-2-quota" data-type="single">
+    <div class="statement">Per a què serveix la quota d'un compte?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Per limitar quantes vegades entra</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Per limitar l'espai de disc que pot ocupar</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Per decidir amb qui pot compartir</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Per caducar la contrasenya</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t3-2-marxa" data-type="single">
+    <div class="statement">Una treballadora marxa i el seu compte es desactiva. Com evites perdre els documents de l'equip?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Perquè ja vivien en carpetes d'equip, o transferint-ne la propietat abans</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Deixant el compte obert per sempre</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Compartint-ho tot amb enllaços públics</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Fent-ne una captura de pantalla</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 3.2</span> Usuaris i permisos. Tipus d'usuari.</p>
+  <p><span class="lbl">Contingut 3.3</span> Creació de recursos compartits.</p>
+  <p><span class="lbl">CA 3.4</span> Crea i classifica comptes d'usuari en funció dels seus permisos.</p>
+  <p><span class="lbl">CA 3.5</span> Gestiona arxius i directoris.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="t3-1-gestors-d-arxius-web.html">
+    <span class="dir">Anterior · T3.1</span>
+    <span class="ttl">Serveis de gestió d'arxius web</span></a>
+  <a class="next" href="t3-3-trobar-ho-i-protegir-ho.html">
+    <span class="dir">Següent · T3.3</span>
+    <span class="ttl">Trobar-ho i protegir-ho</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

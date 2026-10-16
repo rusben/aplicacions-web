@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T4.3 · Comptes, permisos i seguretat — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA4 · Aplicacions d'ofimàtica web</a>
+    <span class="pos">T4.3 · 3/9</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA4 · T4.3</div>
+  <h1>Comptes, permisos i seguretat</h1>
+  <p class="lede">A l'ofimàtica web, qui pot obrir un document és una decisió de configuració, no una carpeta tancada amb clau.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què sabràs fer en acabar</h2>
+  <ul>
+    <li>Distingir compte personal i compte d'organització.</li>
+    <li>Explicar què és la propietat d'un document i com es transfereix.</li>
+    <li>Triar el nivell d'accés d'una compartició segons qui l'ha de fer servir.</li>
+    <li>Aplicar criteris de seguretat en l'accés: contrasenyes, verificació en dos passos i sessions.</li>
+    <li>Explicar què s'ha de comprovar periòdicament en un entorn d'ofimàtica web.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Compte personal i compte d'organització</h2>
+  <p>Un <strong>compte personal</strong> és d'una persona i no el governa ningú més: si se'n va, s'ho endú tot. Un <strong>compte d'organització</strong> el crea un administrador dins d'un domini propi, que pot fixar normes, recuperar comptes i recuperar documents quan algú marxa.</p>
+  <p>Per això la feina d'una empresa o d'un centre no hauria de viure en comptes personals, encara que sigui més còmode al principi.</p>
+</div>
+
+<!-- ============ 3 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Propietat i permisos</h2>
+  <p>Cada document té un <strong>propietari</strong>: qui el va crear. El propietari decideix qui hi entra, pot transferir la propietat i és l'únic que el pot esborrar del tot. Els altres reben un <strong>nivell d'accés</strong>.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Nivell</th><th>Pot</th><th>No pot</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Lector</strong></td><td>Obrir, llegir i descarregar</td><td>Canviar res ni comentar</td></tr>
+        <tr><td><strong>Comentarista</strong></td><td>Llegir, comentar i suggerir</td><td>Canviar el text directament</td></tr>
+        <tr><td><strong>Editor</strong></td><td>Canviar el contingut i, sovint, compartir-lo</td><td>Esborrar-lo definitivament ni canviar-ne el propietari</td></tr>
+        <tr><td><strong>Propietari</strong></td><td>Tot, inclòs transferir la propietat</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>A més, es decideix <strong>a qui</strong> s'aplica: a persones concretes, a tota l'organització o a qualsevol que tingui l'enllaç. L'última opció és la que s'escapa de les mans.</p>
+</div>
+
+<!-- ============ 4 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Criteris de seguretat en l'accés</h2>
+  <ul>
+    <li><strong>Contrasenya llarga i única</strong> per al compte, i gestor de contrasenyes.</li>
+    <li><strong>Verificació en dos passos</strong>: amb la contrasenya sola, un correu robat obre tots els documents.</li>
+    <li><strong>Sessions</strong>: tancar la sessió als equips compartits i poder-les tancar totes a distància si es perd un dispositiu.</li>
+    <li><strong>Revisió d'aplicacions connectades</strong>: els complements que s'instal·len demanen accés als documents, i hi queden.</li>
+    <li><strong>Revisió de comparticions</strong>: enllaços oberts que ja no calen i persones que ja no hi són.</li>
+    <li><strong>Còpia</strong>: exportació periòdica del que és important.</li>
+  </ul>
+</div>
+
+<!-- ============ 5 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Dades personals</h2>
+  <p>Un formulari que demana nom, correu o edat recull <strong>dades personals</strong>, i això obliga a dir per a què es fan servir, a demanar només el que calgui i a esborrar-les quan ja no serveixen. Si les respostes són de menors, encara amb més cura.</p>
+  <p>La regla pràctica és no demanar cap dada que no faci falta per a la finalitat de l'enquesta: la millor manera de protegir una dada és no tenir-la.</p>
+</div>
+
+<!-- ============ 6 · EXEMPLE ============ -->
+<div class="cq-block" data-kind="exemple">
+  <h2>L'enllaç que va acabar a fora</h2>
+  <p>Un equip comparteix el pressupost «amb qualsevol que tingui l'enllaç, com a editor» per anar de pressa. Algú el reenvia i acaba en un xat de vint persones. Ningú ho sabrà mai: el document no registra qui ha entrat amb l'enllaç. La correcció és compartir-lo amb les cinc persones que hi han de treballar.</p>
+</div>
+
+<!-- ============ 7 · CAS REAL ============ -->
+<div class="cq-block" data-kind="cas real">
+  <h2>Qui acaba el cicle</h2>
+  <p>Quan un alumne acaba i el centre tanca el seu compte, els treballs que era propietari desapareixen dels documents compartits. Per això els treballs de grup es creen en una carpeta del centre o se'n transfereix la propietat abans de tancar el compte, igual que a l'empresa.</p>
+</div>
+
+<!-- ============ 8 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Comparteix amb persones o amb l'organització; l'enllaç obert, només quan no hi hagi alternativa.</li>
+    <li>Nivell d'accés mínim: si només s'ha de llegir, lector.</li>
+    <li>Verificació en dos passos a tots els comptes, i obligatòria per a qui administra.</li>
+    <li>Revisa els complements connectats i treu els que no facis servir.</li>
+    <li>Demana només les dades necessàries i digues per a què són.</li>
+  </ul>
+</div>
+
+<!-- ============ 9 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>Es tanca un compte i desapareixen documents de l'equip</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> N'era el propietari.</p>
+      <p><span class="lbl">Solució</span> Transfereix la propietat o treballa en carpetes de l'organització.</p>
+    </dd>
+    <dt>«Sol·licita accés» cada vegada que s'obre l'enllaç</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El document s'ha compartit amb un compte i s'obre amb un altre.</p>
+      <p><span class="lbl">Solució</span> Comprova amb quin compte s'ha iniciat sessió al navegador.</p>
+    </dd>
+    <dt>Un formulari recull dades que no calen</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> S'ha copiat una plantilla sense mirar-la.</p>
+      <p><span class="lbl">Solució</span> Treu les preguntes que no serveixin per a la finalitat i explica-la al principi.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 10 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Resum</h2>
+  <ul>
+    <li>El compte d'organització permet fixar normes i recuperar documents; el personal, no.</li>
+    <li>Cada document té propietari, i la resta reben un nivell d'accés: lector, comentarista o editor.</li>
+    <li>L'enllaç obert és el permís que s'escapa de les mans.</li>
+    <li>Seguretat de l'accés: contrasenya única, dos passos, sessions, complements i comparticions revisades.</li>
+    <li>Un formulari recull dades personals: només les necessàries i amb la finalitat explicada.</li>
+  </ul>
+</div>
+
+<!-- ============ 11 · QUIZ ============ -->
+<div class="cq-block" data-kind="quiz">
+  <h2>Comprova el que has après</h2>
+  <div class="cq-question" data-id="t4-3-nivell" data-type="single">
+    <div class="statement">Vols que una persona revisi un informe sense poder-ne canviar el text. Quin nivell li dones?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Editor</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Comentarista</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Propietari</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Cap: li envies una còpia</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t4-3-propietat" data-type="single">
+    <div class="statement">Per què els treballs d'equip no s'han de crear al compte personal d'un membre?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Perquè si es tanca el compte, els documents se'n van amb ell</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Perquè els comptes personals no permeten compartir</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Perquè no tenen historial de versions</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Perquè no es poden exportar a PDF</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t4-3-seguretat" data-type="multi">
+    <div class="statement">Quins criteris de seguretat s'apliquen a l'accés d'un entorn d'ofimàtica web?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Verificació en dos passos</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Revisar les aplicacions connectades al compte</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Revisar els enllaços compartits que ja no calen</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Fer servir la mateixa contrasenya a tot arreu per no oblidar-la</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t4-3-dades" data-type="single">
+    <div class="statement">Fas una enquesta per organitzar una sortida. Quina dada NO has de demanar?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Si hi assistirà</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Al·lèrgies alimentàries, si hi ha dinar</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">El DNI i l'adreça de casa</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">El grup de classe</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 4.2</span> Gestió d'usuaris i permisos associats.</p>
+  <p><span class="lbl">Contingut 4.3</span> Comprovació de la seguretat.</p>
+  <p><span class="lbl">CA 4.4</span> Gestiona els comptes d'usuari.</p>
+  <p><span class="lbl">CA 4.5</span> Aplica criteris de seguretat en l'accés dels usuaris.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="t4-2-treballar-hi-entre-diversos.html">
+    <span class="dir">Anterior · T4.2</span>
+    <span class="ttl">Treballar-hi entre diversos</span></a>
+  <a class="next" href="../guies/g4-1-documents-fulls-i-formularis.html">
+    <span class="dir">Següent · G4.1</span>
+    <span class="ttl">Guia: documents, fulls i formularis</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

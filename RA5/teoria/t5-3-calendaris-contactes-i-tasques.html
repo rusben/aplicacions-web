@@ -541,42 +541,40 @@
 <header class="cq-header">
   <div class="eyebrow">0228 · Aplicacions Web · RA5 · T5.3</div>
   <h1>Calendaris, contactes i tasques</h1>
-  <p class="lede">L'agenda compartida també és un servei: un servidor la guarda i cada client la mostra.</p>
+  <p class="lede">Com s'organitza una agenda compartida i què la fa útil per a un equip.</p>
 </header>
 
 <!-- ============ 1 · OBJECTIUS ============ -->
 <div class="cq-block" data-kind="objectius">
   <h2>Què sabràs fer en acabar</h2>
   <ul>
-    <li>Explicar com funciona un calendari web i per què se sincronitza amb el mòbil.</li>
-    <li>Distingir CalDAV, CardDAV i el fitxer iCalendar.</li>
-    <li>Reconèixer les prestacions d'una agenda: cites, esdeveniments repetits, convidats, disponibilitat i recordatoris.</li>
-    <li>Explicar per a què serveixen els contactes compartits i les llistes de tasques.</li>
-    <li>Triar què es comparteix i amb quins permisos.</li>
+    <li>Explicar què és un calendari compartit i en què es diferencia d'un de personal.</li>
+    <li>Distingir una cita, un esdeveniment repetit i una reunió amb convidats.</li>
+    <li>Consultar la disponibilitat d'altres persones abans de posar una reunió.</li>
+    <li>Escollir el permís adequat en compartir un calendari.</li>
+    <li>Dir per a què serveixen els contactes i les tasques.</li>
   </ul>
 </div>
 
 <!-- ============ 2 · TEORIA ============ -->
 <div class="cq-block" data-kind="teoria">
-  <h2>Un servidor i molts clients</h2>
-  <p>Un calendari web funciona com el correu: les dades són al servidor i cada client en mostra una vista. El protocol que fan servir els clients per llegir i escriure esdeveniments és <strong>CalDAV</strong>; per als contactes, <strong>CardDAV</strong>.</p>
-  <p>Per això la mateixa agenda es veu al navegador, al mòbil i a un client d'escriptori: tots tres parlen CalDAV amb el mateix servidor. El que es copia i s'envia per correu és un fitxer <strong>iCalendar</strong> (<code>.ics</code>): una foto d'un esdeveniment o d'un calendari sencer, que serveix per importar i exportar, no per sincronitzar.</p>
+  <h2>Una agenda per a un equip</h2>
+  <p>Un calendari web guarda esdeveniments al servidor, no a l'ordinador. Per això es pot veure des de qualsevol lloc i es pot <strong>compartir</strong>: una altra persona veu el mateix calendari, amb els canvis en directe.</p>
+  <p>Una persona pot tenir diversos calendaris: un de personal, un de feina, un del viatge. Cada un té color, nom i permisos propis.</p>
 </div>
 
 <!-- ============ 3 · REFERÈNCIA ============ -->
 <div class="cq-block" data-kind="referència">
-  <h2>Què ofereix una agenda web</h2>
+  <h2>Què es pot fer amb un esdeveniment</h2>
   <div class="cq-tablewrap">
     <table class="cq-table">
-      <thead><tr><th>Prestació</th><th>Per a què serveix</th></tr></thead>
+      <thead><tr><th>Prestació</th><th>Què fa</th></tr></thead>
       <tbody>
-        <tr><td><strong>Cita o esdeveniment</strong></td><td>Una hora reservada, amb lloc i descripció</td></tr>
-        <tr><td><strong>Repetició</strong></td><td>Cada setmana, cada mes, fins a una data</td></tr>
-        <tr><td><strong>Convidats</strong></td><td>S'hi convida altres persones, que accepten o refusen</td></tr>
-        <tr><td><strong>Disponibilitat</strong></td><td>Veure qui està lliure abans de posar una reunió</td></tr>
-        <tr><td><strong>Recordatori</strong></td><td>Avís uns minuts o dies abans</td></tr>
-        <tr><td><strong>Diversos calendaris</strong></td><td>Personal, feina i equip, amb colors i visibilitat propis</td></tr>
-        <tr><td><strong>Tasques</strong></td><td>Feines amb data límit i estat, sovint amb el calendari</td></tr>
+        <tr><td><strong>Cita</strong></td><td>Data, hora, lloc i descripció d'un esdeveniment</td></tr>
+        <tr><td><strong>Repetició</strong></td><td>L'esdeveniment es repeteix cada dia, setmana o mes, fins a una data o un nombre de vegades</td></tr>
+        <tr><td><strong>Convidats</strong></td><td>Cada persona rep la invitació i respon que sí, que no o potser</td></tr>
+        <tr><td><strong>Recordatori</strong></td><td>Un avís abans de l'hora, per correu o al mòbil</td></tr>
+        <tr><td><strong>Disponibilitat</strong></td><td>Mostra quan estan lliures els convidats abans de fixar l'hora</td></tr>
       </tbody>
     </table>
   </div>
@@ -584,111 +582,116 @@
 
 <!-- ============ 4 · TEORIA ============ -->
 <div class="cq-block" data-kind="teoria">
-  <h2>Compartir sense perdre el control</h2>
-  <p>Un calendari es comparteix com un document: amb una persona o amb un grup, i amb un nivell. <strong>Lectura</strong> per veure què hi ha, <strong>escriptura</strong> per posar-hi coses, i una opció intermèdia que només ensenya si l'hora està ocupada, sense dir de què.</p>
-  <p>També es pot publicar un calendari amb un <strong>enllaç</strong>, per exemple el d'activitats d'un centre, perquè qualsevol s'hi subscrigui des del seu client. Un calendari personal no s'hauria de publicar mai així: diu on ets a cada hora.</p>
+  <h2>Permisos en compartir</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Permís</th><th>L'altra persona pot…</th></tr></thead>
+      <tbody>
+        <tr><td>Veure només si estàs lliure o ocupat</td><td>Saber quan hi ets, sense veure què fas</td></tr>
+        <tr><td>Veure tots els detalls</td><td>Llegir els esdeveniments</td></tr>
+        <tr><td>Fer canvis als esdeveniments</td><td>Afegir, moure i esborrar</td></tr>
+        <tr><td>Fer canvis i gestionar l'ús compartit</td><td>Decidir també amb qui es comparteix</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Es dona el permís més petit que serveixi. Un company que només ha de saber quan ets lliure no necessita veure el contingut.</p>
 </div>
 
 <!-- ============ 5 · TEORIA ============ -->
 <div class="cq-block" data-kind="teoria">
   <h2>Contactes i tasques</h2>
-  <p>La <strong>llibreta d'adreces</strong> del servidor és la mateixa per a tots els clients i es pot compartir per equips: quan canvia un telèfon, canvia per a tothom. El format d'intercanvi és <code>.vcf</code> (vCard).</p>
-  <p>Les <strong>tasques</strong> són la tercera pota: una llista amb data límit, prioritat i estat. Sovint es guarden al mateix calendari, i per això apareixen al costat de les cites i es poden compartir igual.</p>
+  <p>Els <strong>contactes</strong> són la llibreta d'adreces: nom, correu i telèfon. Es poden agrupar amb etiquetes (per exemple «família» o «professors») i enviar un correu a tot un grup d'una vegada.</p>
+  <p>Les <strong>tasques</strong> són una llista de feines amb data, que surten també al calendari. Serveixen per no confondre una cosa que s'ha de fer (una tasca) amb una cosa que passa a una hora concreta (un esdeveniment).</p>
 </div>
 
 <!-- ============ 6 · EXEMPLE ============ -->
 <div class="cq-block" data-kind="exemple">
-  <h2>La reunió de departament</h2>
-  <p>El cap de departament crea una reunió setmanal, hi convida sis persones i mira abans la disponibilitat per no trepitjar cap classe. Dues responen que no poden, i ho veu sense enviar cap correu. El calendari del departament és compartit en lectura amb la resta del centre: qualsevol veu que aquella hora està ocupada, però no de què va la reunió.</p>
+  <h2>Un viatge de set dies</h2>
+  <p>Una persona prepara un viatge. Crea un calendari «Viatge» amb un esdeveniment per dia, l'hi comparteix a un company i li posa un recordatori l'endemà abans de sortir. Les reserves que ha de fer van a tasques, amb la data límit de cada una. El company veu l'itinerari i sap on és cada dia.</p>
 </div>
 
-<!-- ============ 7 · OBSERVACIÓ ============ -->
-<div class="cq-block" data-kind="observació">
-  <h2>Què hi ha dins d'un .ics</h2>
-  <p>Exporta un esdeveniment i obre'l amb un editor de text: és un fitxer de línies amb <code>BEGIN:VEVENT</code>, l'inici, el final, el títol i els convidats. És el mateix que s'adjunta a una invitació per correu, i el que fa que el client de l'altra persona reconegui la cita i li ofereixi acceptar-la.</p>
-</div>
-
-<!-- ============ 8 · BONES PRÀCTIQUES ============ -->
+<!-- ============ 7 · BONES PRÀCTIQUES ============ -->
 <div class="cq-block" data-kind="bones pràctiques">
   <h2>Criteris professionals</h2>
   <ul>
-    <li>Un calendari per àmbit: personal, feina i equip, no tot barrejat.</li>
-    <li>Comparteix la disponibilitat quan no calgui ensenyar el contingut.</li>
-    <li>Els esdeveniments repetits, amb data de final: si no, s'eternitzen.</li>
-    <li>La llibreta compartida de l'organització, al servidor, no al mòbil de cadascú.</li>
-    <li>Exporta una còpia dels calendaris importants de tant en tant.</li>
+    <li>Un calendari per a cada finalitat, amb colors diferents.</li>
+    <li>Compartir amb el permís més petit possible.</li>
+    <li>Posar sempre lloc i descripció: ajuden qui no ho sap.</li>
+    <li>Comprovar la disponibilitat abans de convidar.</li>
+    <li>Repetició amb data final: no deixar-la infinita.</li>
   </ul>
 </div>
 
-<!-- ============ 9 · PROBLEMES ============ -->
+<!-- ============ 8 · PROBLEMES ============ -->
 <div class="cq-block" data-kind="problemes">
   <h2>Errors habituals</h2>
   <dl class="cq-issues">
-    <dt>El mòbil no veu els esdeveniments nous</dt>
+    <dt>El company no veu el calendari compartit</dt>
     <dd>
-      <p><span class="lbl">Causa</span> S'ha importat un fitxer <code>.ics</code> en lloc de configurar el compte CalDAV.</p>
-      <p><span class="lbl">Solució</span> Configura el compte al client: la importació és una còpia que no se sincronitza.</p>
+      <p><span class="lbl">Causa</span> La invitació no s'ha acceptat o s'ha compartit amb una adreça equivocada.</p>
+      <p><span class="lbl">Solució</span> Revisa l'adreça i demana-li que accepti la invitació.</p>
     </dd>
-    <dt>Es duplica tot el calendari</dt>
+    <dt>L'esdeveniment surt a una hora diferent</dt>
     <dd>
-      <p><span class="lbl">Causa</span> S'ha importat el mateix fitxer dues vegades, o hi ha dos comptes sincronitzant.</p>
-      <p><span class="lbl">Solució</span> Esborra el calendari duplicat i deixa una sola font.</p>
+      <p><span class="lbl">Causa</span> El calendari i l'ordinador tenen zones horàries diferents.</p>
+      <p><span class="lbl">Solució</span> Revisa la zona horària de cada un.</p>
     </dd>
-    <dt>Els convidats no reben la invitació</dt>
+    <dt>Una repetició no s'acaba mai</dt>
     <dd>
-      <p><span class="lbl">Causa</span> El servidor de calendari no pot enviar correu.</p>
-      <p><span class="lbl">Solució</span> Revisa la configuració de correu del servidor: les invitacions viatgen per correu.</p>
+      <p><span class="lbl">Causa</span> No s'ha posat final a la repetició.</p>
+      <p><span class="lbl">Solució</span> Edita'l i defineix el final.</p>
     </dd>
   </dl>
 </div>
 
-<!-- ============ 10 · RESUM ============ -->
+<!-- ============ 9 · RESUM ============ -->
 <div class="cq-block" data-kind="resum">
   <h2>Resum</h2>
   <ul>
-    <li>El calendari és un servei: CalDAV per a esdeveniments, CardDAV per a contactes.</li>
-    <li>Un <code>.ics</code> és una còpia per importar i exportar, no una sincronització.</li>
-    <li>Cites, repeticions, convidats, disponibilitat, recordatoris i tasques són les prestacions bàsiques.</li>
-    <li>Es comparteix per lectura, per escriptura o només ensenyant la disponibilitat.</li>
+    <li>El calendari viu al servidor i es pot compartir.</li>
+    <li>Una cita pot repetir-se, tenir convidats i recordatoris.</li>
+    <li>La disponibilitat evita convocar reunions en hores ocupades.</li>
+    <li>El permís es tria segons el que ha de fer l'altra persona.</li>
+    <li>Contactes i tasques completen l'agenda.</li>
   </ul>
 </div>
 
-<!-- ============ 11 · QUIZ ============ -->
+<!-- ============ 10 · QUIZ ============ -->
 <div class="cq-block" data-kind="quiz">
   <h2>Comprova el que has après</h2>
-  <div class="cq-question" data-id="t5-3-caldav" data-type="single">
-    <div class="statement">Vols que el mòbil vegi sempre l'agenda actualitzada. Què configures?</div>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Un compte CalDAV contra el servidor</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">La importació d'un fitxer .ics</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Un reenviament de correu</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Una còpia de seguretat</button>
+  <div class="cq-question" data-id="t5-3-permis" data-type="single">
+    <div class="statement">Un company només ha de saber quan estàs lliure. Quin permís li dones?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Veure només si estàs lliure o ocupat</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Fer canvis als esdeveniments</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Fer canvis i gestionar l'ús compartit</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Cap, li ho expliques de paraula</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t5-3-repeticio" data-type="single">
+    <div class="statement">Un esdeveniment s'ha de repetir cada dilluns fins a final de curs. Què has de definir?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Una repetició setmanal amb data final</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Un esdeveniment per cada dilluns, a mà</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Un recordatori</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Una tasca</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t5-3-tasca" data-type="single">
+    <div class="statement">Quin és el sentit d'una tasca?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Una feina pendent, amb data límit</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Una reunió amb convidats</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Un contacte</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Un calendari compartit</button>
     <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
     <div class="cq-feedback" role="status" aria-live="polite"></div>
   </div>
   <div class="cq-question" data-id="t5-3-disponibilitat" data-type="single">
-    <div class="statement">Has de compartir amb el centre que aquella hora estàs ocupat, però no de què. Com ho comparteixes?</div>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Amb permís d'escriptura</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Mostrant només la disponibilitat</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Publicant un enllaç públic del calendari personal</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Enviant un .ics a tothom</button>
-    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
-    <div class="cq-feedback" role="status" aria-live="polite"></div>
-  </div>
-  <div class="cq-question" data-id="t5-3-prestacions" data-type="multi">
-    <div class="statement">Quines són prestacions pròpies d'una agenda web?</div>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Esdeveniments repetits amb data de final</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Convidats que accepten o refusen</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Llistes de tasques amb data límit</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Enviament de correu entre servidors</button>
-    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
-    <div class="cq-feedback" role="status" aria-live="polite"></div>
-  </div>
-  <div class="cq-question" data-id="t5-3-ics" data-type="single">
-    <div class="statement">Què és un fitxer <code>.ics</code>?</div>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Una còpia d'un esdeveniment o d'un calendari, per importar i exportar</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">El protocol de sincronització</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">La bústia de correu</button>
-    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Una llibreta de contactes</button>
+    <div class="statement">Per a què serveix consultar la disponibilitat?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Per escollir una hora en què tots els convidats són lliures</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Per canviar el color del calendari</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Per esborrar esdeveniments antics</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Per exportar els contactes</button>
     <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
     <div class="cq-feedback" role="status" aria-live="polite"></div>
   </div>
@@ -708,9 +711,9 @@
   <a class="prev" href="t5-2-com-viatja-un-correu.html">
     <span class="dir">Anterior · T5.2</span>
     <span class="ttl">Com viatja un correu</span></a>
-  <a class="next" href="../guies/g5-1-servidor-de-correu-intern.html">
+  <a class="next" href="../guies/g5-1-gmail-etiquetes-i-filtres.html">
     <span class="dir">Següent · G5.1</span>
-    <span class="ttl">Guia: servidor de correu intern</span></a>
+    <span class="ttl">Guia: Gmail, etiquetes i filtres</span></a>
 </nav>
 <!-- === PEU DE NAVEGACIÓ FI === -->
 

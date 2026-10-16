@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T1.5 · Mantenir un gestor de continguts — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA1 · Instal·lació de gestors de continguts</a>
+    <span class="pos">T1.5 · 5/16</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA1 · T1.5</div>
+  <h1>Mantenir un gestor de continguts</h1>
+  <p class="lede">Instal·lar-lo és el primer dia; actualitzar-lo, protegir-lo i copiar-lo és cada dia.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què sabràs fer en acabar</h2>
+  <ul>
+    <li>Explicar per què s'han d'aplicar les actualitzacions, sobretot les de seguretat.</li>
+    <li>Enumerar els mecanismes de seguretat que ofereix el propi gestor.</li>
+    <li>Dir què s'ha de copiar per tenir una còpia de seguretat completa.</li>
+    <li>Descriure els passos per moure un lloc a un allotjament.</li>
+    <li>Planificar les proves de funcionament després d'un canvi.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Actualitzar</h2>
+  <p>Un CMS té tres coses que s'actualitzen: el <strong>nucli</strong>, el <strong>tema</strong> i les <strong>extensions</strong>. La majoria d'atacs a WordPress no entren pel nucli sinó per extensions velles amb errors coneguts.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Tipus</th><th>Exemple</th><th>Quan aplicar-la</th></tr></thead>
+      <tbody>
+        <tr><td>Seguretat i manteniment</td><td>7.1 → 7.1.1</td><td>De seguida; WordPress ho fa sol</td></tr>
+        <tr><td>Versió principal</td><td>7.0 → 7.1</td><td>Després de fer còpia i provar-la</td></tr>
+        <tr><td>Extensió o tema</td><td>Avís al tauler</td><td>Aviat, llegint què canvia</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 3 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Protegir</h2>
+  <p>Abans d'instal·lar extensions de seguretat, cal fer servir el que el gestor ja porta:</p>
+  <ul>
+    <li>Contrasenyes robustes i un compte per persona, amb el rol mínim (<a class="cq-ref" href="t1-4-usuaris-i-rols.html">T1.4</a>).</li>
+    <li>Actualitzacions automàtiques de seguretat activades.</li>
+    <li>Esborrar els temes i les extensions que no es fan servir.</li>
+    <li>Comentaris moderats o només per a usuaris registrats.</li>
+    <li><strong>HTTPS</strong> sempre que s'entri al tauler.</li>
+    <li>L'estat del lloc: WordPress té <strong>Eines → Salut del lloc</strong>, que avisa del que falla.</li>
+  </ul>
+  <p>A més, el servidor ha de complir la seva part: permisos de fitxers correctes, sense <code>777</code>, i la base de dades accessible només des del mateix servidor.</p>
+</div>
+
+<!-- ============ 4 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Copiar</h2>
+  <p>Un lloc fet amb un CMS té dues meitats i una còpia de seguretat les necessita totes dues:</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Meitat</th><th>Hi ha</th><th>Com es copia</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Base de dades</strong></td><td>Entrades, pàgines, usuaris, configuració</td><td>Un bolcat SQL</td></tr>
+        <tr><td><strong>Fitxers</strong></td><td>Codi, temes, extensions i imatges pujades</td><td>Un arxiu comprimit</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Una còpia que no s'ha provat de restaurar no és una còpia. I una còpia guardada al mateix servidor es perd amb el servidor.</p>
+</div>
+
+<!-- ============ 5 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Portar-lo a un allotjament</h2>
+  <p>Treballar en local i publicar després és el flux normal. Moure un lloc és una còpia i una restauració en una altra màquina, amb una dificultat afegida: la base de dades guarda l'<strong>adreça del lloc</strong> dins de moltes taules. Si el lloc era <code>http://wordpress.internal</code> i passa a <code>https://elmeuweb.com</code>, cal substituir-la a tot arreu, amb una eina que respecti les dades serialitzades.</p>
+</div>
+
+<!-- ============ 6 · EXEMPLE ============ -->
+<div class="cq-block" data-kind="exemple">
+  <h2>L'extensió oblidada</h2>
+  <p>Un web d'una associació funciona anys sense que ningú hi entri. Una extensió de galeria que ja no s'utilitzava té un error publicat i algú el fa servir per penjar enllaços de publicitat a totes les pàgines. Si s'hagués esborrat, o almenys actualitzat, no hauria passat. Restaurar la còpia de la setmana anterior ho arregla en cinc minuts; sense còpia, és refer el web.</p>
+</div>
+
+<!-- ============ 7 · CAS REAL ============ -->
+<div class="cq-block" data-kind="cas real">
+  <h2>Proves després de cada canvi</h2>
+  <p>Després d'instal·lar, actualitzar o migrar, es fa una llista de proves i es passa sencera: la portada carrega, una entrada i una pàgina s'obren pel seu enllaç permanent, es pot iniciar sessió, el formulari de contacte envia i es pot pujar una imatge. Així un error es troba en cinc minuts i no quan l'avisa un visitant.</p>
+</div>
+
+<!-- ============ 8 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Llegir la Salut del lloc</h2>
+  <p>A <strong>Eines → Salut del lloc</strong>, WordPress separa els problemes en <em>crítics</em> i <em>recomanats</em>: versió de PHP, extensions sense actualitzar, temes inactius, HTTPS. La pestanya <strong>Informació</strong> mostra la ruta del lloc, la versió de la base de dades i els límits de PHP, com la mida màxima de pujada.</p>
+</div>
+
+<!-- ============ 9 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Còpia <strong>abans</strong> de cada actualització important.</li>
+    <li>Còpies periòdiques i guardades fora del servidor.</li>
+    <li>Prova de restaurar la còpia almenys una vegada.</li>
+    <li>Menys extensions, més seguretat.</li>
+    <li>Passa la llista de proves després de cada canvi.</li>
+  </ul>
+</div>
+
+<!-- ============ 10 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>La còpia només té els fitxers</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> S'ha oblidat la base de dades.</p>
+      <p><span class="lbl">Solució</span> Una còpia completa sempre porta bolcat SQL i fitxers.</p>
+    </dd>
+    <dt>Després de migrar, les imatges apunten a l'adreça antiga</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> L'adreça del lloc no s'ha substituït a la base de dades.</p>
+      <p><span class="lbl">Solució</span> Fes la substitució amb una eina que respecti les dades serialitzades, com explica <a class="cq-ref" href="../guies/g1-4-migrar-wordpress.html">G1.4</a>.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 11 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Resum</h2>
+  <ul>
+    <li>S'actualitzen nucli, tema i extensions; les de seguretat, de seguida.</li>
+    <li>Primer, la seguretat que porta el gestor: rols, actualitzacions, HTTPS, res de sobres.</li>
+    <li>Còpia completa = base de dades + fitxers, fora del servidor i provada.</li>
+    <li>Migrar és copiar, restaurar i canviar l'adreça del lloc a la base de dades.</li>
+  </ul>
+</div>
+
+<!-- ============ 12 · QUIZ ============ -->
+<div class="cq-block" data-kind="quiz">
+  <h2>Comprova el que has après</h2>
+  <div class="cq-question" data-id="t1-5-copia" data-type="single">
+    <div class="statement">Què ha de contenir una còpia de seguretat completa d'un WordPress?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Només la carpeta del tema</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Només la base de dades</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">La base de dades i els fitxers</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">La configuració d'Apache</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-5-atac" data-type="single">
+    <div class="statement">Per on entren la majoria d'atacs a un CMS?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Pel nucli recent</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Per extensions i temes desactualitzats</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Pel navegador del visitant</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Per la mida de les imatges</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-5-migrar" data-type="single">
+    <div class="statement">Per què no n'hi ha prou de copiar els fitxers i la base de dades per canviar de domini?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">La base de dades guarda l'adreça antiga del lloc</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Els fitxers PHP només funcionen en un domini</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Cal tornar a instal·lar tots els temes</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">La base de dades no es pot copiar</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-5-seguretat" data-type="multi">
+    <div class="statement">Quins són mecanismes de seguretat que ja porta el gestor?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Rols d'usuari</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Actualitzacions automàtiques</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Un tallafoc de xarxa</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Moderació de comentaris</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 1.5</span> Actualitzacions del gestor de continguts. Configuració de mòduls i menús.</p>
+  <p><span class="lbl">CA 1.4</span> Realitza proves de funcionament.</p>
+  <p><span class="lbl">CA 1.5</span> Realitza tasques d'actualització del gestor de continguts, especialment les de seguretat.</p>
+  <p><span class="lbl">CA 1.7</span> Activa i configura els mecanismes de seguretat proporcionats pel propi gestor de continguts.</p>
+  <p><span class="lbl">CA 1.9</span> Realitza proves de funcionament.</p>
+  <p><span class="lbl">CA 1.10</span> Realitza còpies de seguretat dels continguts del gestor.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="t1-4-usuaris-i-rols.html">
+    <span class="dir">Anterior · T1.4</span>
+    <span class="ttl">Usuaris, grups i rols</span></a>
+  <a class="next" href="../guies/g1-1-entorn-de-laboratori.html">
+    <span class="dir">Següent · G1.1</span>
+    <span class="ttl">Guia: l'entorn de laboratori</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

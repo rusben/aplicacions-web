@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A5.3 · Agenda, contactes i tasques — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA5 · Instal·lació d'aplicacions web d'escriptori</a>
+    <span class="pos">A5.3 · 9/10</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA5 · A5.3</div>
+  <h1>Agenda, contactes i tasques</h1>
+  <p class="lede">Muntar el calendari web d'un equip, compartir-lo i sincronitzar-lo amb un client de fora.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Teoria <a class="cq-ref" href="../teoria/t5-3-calendaris-contactes-i-tasques.html">T5.3</a>. Les guies <a class="cq-ref" href="../../RA3/guies/g3-1-instal-lar-nextcloud.html">G3.1</a> i <a class="cq-ref" href="../guies/g5-3-calendari-contactes-i-tasques.html">G5.3</a> són els manuals que consultaràs.</p>
+  <p>Instal·laràs les aplicacions de calendari, contactes i tasques, les configuraràs per a l'equip de la gestoria i demostraràs les prestacions pròpies d'una agenda web: repeticions, convidats, disponibilitat, recordatoris i sincronització.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <p>Un Nextcloud instal·lat com a <a class="cq-ref" href="../../RA3/guies/g3-1-instal-lar-nextcloud.html">G3.1</a>, a l'escriptori del <a class="cq-ref" href="../index.html">RA5</a> o al del <a class="cq-ref" href="../../RA3/index.html">RA3</a>, amb un compte per a cadascuna de les tres persones de la gestoria.</p>
+  <p>La gestoria vol una agenda d'equip per a les visites, mantenir separada l'agenda personal de cadascú, una llibreta d'adreces comuna de clients i una llista de feines pendents.</p>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Què has de fer</h2>
+  <ol>
+    <li><strong>Activa</strong> les aplicacions de calendari, contactes i tasques, i comprova que els tres comptes les veuen.</li>
+    <li>Crea dos calendaris: un <strong>personal</strong> i un d'<strong>equip</strong>, amb colors diferents.</li>
+    <li>Al calendari d'equip, crea una <strong>visita</strong> amb lloc i descripció, una <strong>reunió setmanal repetida</strong> amb data de final i un esdeveniment amb <strong>recordatori</strong>.</li>
+    <li><strong>Convida</strong> els altres dos comptes a la reunió i fes que un accepti i l'altre refusi. Ensenya com queda l'esdeveniment.</li>
+    <li><strong>Comparteix</strong> el calendari d'equip amb permís d'edició, i el personal de manera que els altres només en vegin la <strong>disponibilitat</strong>.</li>
+    <li>Crea una <strong>llibreta d'adreces</strong> de clients amb quatre contactes, comparteix-la amb l'equip i exporta-la.</li>
+    <li>Crea una <strong>llista de tasques</strong> compartida amb tres feines, amb dates límit i prioritats, i marca'n una de completada.</li>
+    <li><strong>Sincronitza</strong> el calendari amb un client de fora del navegador, fent servir una contrasenya d'aplicació. Crea una cita al client i comprova que apareix al web, i a l'inrevés.</li>
+    <li><strong>Exporta</strong> el calendari d'equip en <code>.ics</code>, obre'l amb un editor de text i identifica un esdeveniment.</li>
+  </ol>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Instal·lar el servidor d'agenda</td><td>Guia <a class="cq-ref" href="../../RA3/guies/g3-1-instal-lar-nextcloud.html">G3.1</a></td></tr>
+        <tr><td>Activar aplicacions, calendaris i comparticions</td><td>Guia <a class="cq-ref" href="../guies/g5-3-calendari-contactes-i-tasques.html">G5.3</a></td></tr>
+        <tr><td>Contactes i tasques</td><td>Guia <a class="cq-ref" href="../guies/g5-3-calendari-contactes-i-tasques.html">G5.3</a>, «Contactes i tasques»</td></tr>
+        <tr><td>Sincronitzar un client</td><td>Guia <a class="cq-ref" href="../guies/g5-3-calendari-contactes-i-tasques.html">G5.3</a>, «Sincronitzar amb un client»</td></tr>
+        <tr><td>Quines prestacions ha de tenir una agenda</td><td>Teoria <a class="cq-ref" href="../teoria/t5-3-calendaris-contactes-i-tasques.html">T5.3</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>El calendari personal no es publica</h2>
+  <p>Un enllaç públic d'un calendari personal explica a qualsevol on ets a cada hora de la setmana. Per compartir amb l'equip n'hi ha prou amb la disponibilitat, que diu que estàs ocupat sense dir de què.</p>
+</div>
+
+<!-- ============ 6 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Importar no és sincronitzar</h2>
+  <p>Importa el fitxer <code>.ics</code> exportat a un altre calendari i després canvia un esdeveniment a l'original: el calendari importat no es mou. Compara-ho amb el client sincronitzat, on el canvi arriba sol. Anota la diferència, perquè és la pregunta més freqüent dels usuaris.</p>
+</div>
+
+<!-- ============ 7 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li>La reunió repetida apareix cada setmana i s'atura a la data de final.</li>
+    <li>Les respostes dels convidats es veuen a l'esdeveniment.</li>
+    <li>Un company pot afegir una visita al calendari d'equip i no al teu personal.</li>
+    <li>Del calendari personal, els altres només en veuen les hores ocupades.</li>
+    <li>La llista de tasques compartida es veu des dels tres comptes i la tasca amb data surt al calendari.</li>
+    <li>Una cita creada al client de fora surt al navegador i a l'inrevés.</li>
+  </ul>
+</div>
+
+<!-- ============ 8 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>El client de fora no connecta</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> L'adreça de sincronització no és correcta o el nom del servidor no es resol des d'aquell equip.</p>
+      <p><span class="lbl">Solució</span> Copia l'adreça de la configuració de l'aplicació i prova amb la IP.</p>
+    </dd>
+    <dt>Els convidats no reben la invitació</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El servidor no té correu sortint configurat.</p>
+      <p><span class="lbl">Solució</span> Configura'l i anota-ho: és una dependència entre el correu i l'agenda.</p>
+    </dd>
+    <dt>Es veuen els esdeveniments dues vegades</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El calendari s'ha importat i, a més, se sincronitza.</p>
+      <p><span class="lbl">Solució</span> Deixa una sola font i esborra la còpia.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 9 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <p>Un repositori a GitHub amb un <code>README.md</code> que tingui captures dels calendaris i de les comparticions, de les respostes dels convidats, de la llista de tasques, de la configuració del client sincronitzat i un fragment del fitxer <code>.ics</code> explicat.</p>
+  <p>Respon-hi també: <strong>quina diferència hi ha entre importar un calendari i sincronitzar-lo, i quan faries servir cada cosa?</strong></p>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 5.1</span> Aplicacions de correu web. Instal·lació.</p>
+  <p><span class="lbl">Contingut 5.2</span> Gestió d'usuaris.</p>
+  <p><span class="lbl">CA 5.6</span> Instal·la aplicacions de calendari web.</p>
+  <p><span class="lbl">CA 5.7</span> Reconeix les prestacions específiques de les aplicacions instal·lades (cites, tasques, entre altres).</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="a5-2-correu-web.html">
+    <span class="dir">Anterior · A5.2</span>
+    <span class="ttl">Correu web</span></a>
+  <a class="next" href="../practiques/p5-1-escriptori-web-de-l-organitzacio.html">
+    <span class="dir">Següent · P5.1</span>
+    <span class="ttl">Pràctica: l'escriptori web de l'organització</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

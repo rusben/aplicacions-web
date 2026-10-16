@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G1.2 · Guia: pila LAMP i host virtual — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA1 · Instal·lació de gestors de continguts</a>
+    <span class="pos">G1.2 · 7/16</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA1 · G1.2</div>
+  <h1>Guia: pila LAMP i host virtual</h1>
+  <p class="lede">Apache, MySQL i PHP a Ubuntu 26.04, i un host virtual per a cada aplicació.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què hi ha en aquesta guia</h2>
+  <p>Documentació oficial: <a href="https://httpd.apache.org/docs/2.4/">Apache</a> · <a href="https://dev.mysql.com/doc/">MySQL</a> · <a href="https://www.php.net/docs.php">PHP</a></p>
+  <ul>
+    <li>Punt de partida: un escriptori d'IsardVDI amb Ubuntu 26.04 LTS a punt (<a class="cq-ref" href="g1-1-entorn-de-laboratori.html">G1.1</a>).</li>
+    <li>Resultat: Apache 2.4, MySQL 8.4 i PHP 8.5, una base de dades i un host virtual per nom, <code>app.internal</code>, llest per rebre qualsevol aplicació.</li>
+    <li>És la base de WordPress (<a class="cq-ref" href="g1-3-wordpress.html">G1.3</a>), Nextcloud i Moodle.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>Per què .internal i no .local</h2>
+  <p>Els noms acabats en <code>.local</code> els reserva mDNS (Avahi, Bonjour): el sistema els pot intentar resoldre per multidifusió i fallar. <code>.internal</code> és el domini reservat per a xarxes privades i no xoca amb res.</p>
+</div>
+
+<!-- ============ 3 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Instal·lar Apache, MySQL i PHP</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Instal·la els paquets:</strong></p>
+<pre>sudo apt update
+sudo apt install -y apache2 mysql-server \
+  libapache2-mod-php php-mysql php-curl php-gd \
+  php-mbstring php-xml php-zip php-intl unzip</pre>
+    </li>
+    <li>
+      <p><strong>Comprova que els serveis estan actius:</strong></p>
+<pre>systemctl is-active apache2 mysql
+<span class="o">active</span>
+<span class="o">active</span></pre>
+    </li>
+    <li>
+      <p><strong>Comprova la versió de PHP:</strong></p>
+<pre>php -v
+<span class="o">PHP 8.5.x (cli) ...</span>
+mysql --version
+<span class="o">mysql  Ver 8.4.x for Linux on x86_64 ...</span></pre>
+    </li>
+    <li>
+      <p><strong>Obre <code>http://localhost</code></strong> al navegador: ha de sortir «Apache2 Default Page».</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 4 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Crear la base de dades i el seu usuari</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Reforça la instal·lació</strong> de MySQL. L'assistent pregunta si vols validar la força de les contrasenyes; respon <strong>sí</strong> a esborrar els usuaris anònims, a prohibir l'accés remot de <code>root</code> i a esborrar la base <code>test</code>:</p>
+<pre>sudo mysql_secure_installation</pre>
+    </li>
+    <li>
+      <p><strong>Entra a MySQL</strong> com a administrador; a Ubuntu, <code>root</code> s'autentica pel sistema i entra sense contrasenya des de <code>sudo</code>:</p>
+<pre>sudo mysql</pre>
+    </li>
+    <li>
+      <p><strong>Crea la base de dades i un usuari</strong> que només hi pugui accedir des del mateix servidor. Canvia els noms i la contrasenya per als teus:</p>
+<pre>CREATE DATABASE appdb
+  CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+CREATE USER 'appuser'@'localhost'
+  IDENTIFIED BY 'Canvia-la-2026';
+GRANT ALL PRIVILEGES ON appdb.* TO 'appuser'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;</pre>
+    </li>
+    <li>
+      <p><strong>Prova que l'usuari entra</strong> i veu la seva base de dades:</p>
+<pre>mysql -u appuser -p -e "SHOW DATABASES;"
+<span class="o">appdb</span>
+<span class="o">information_schema</span></pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 5 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Crear el host virtual</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Crea el directori del lloc</strong> amb una pàgina de prova:</p>
+<pre>sudo mkdir -p /var/www/app.internal
+echo '&lt;h1&gt;app.internal funciona&lt;/h1&gt;' | \
+  sudo tee /var/www/app.internal/index.html</pre>
+    </li>
+    <li>
+      <p><strong>Escriu la configuració del lloc:</strong></p>
+<pre>sudo nano /etc/apache2/sites-available/app.internal.conf</pre>
+<pre>&lt;VirtualHost *:80&gt;
+    ServerName app.internal
+    DocumentRoot /var/www/app.internal
+
+    &lt;Directory /var/www/app.internal&gt;
+        AllowOverride All
+        Require all granted
+    &lt;/Directory&gt;
+
+    ErrorLog ${APACHE_LOG_DIR}/app.internal_error.log
+    CustomLog ${APACHE_LOG_DIR}/app.internal_access.log combined
+&lt;/VirtualHost&gt;</pre>
+    </li>
+    <li>
+      <p><strong>Activa el lloc i el mòdul <code>rewrite</code>,</strong> comprova la sintaxi i recarrega:</p>
+<pre>sudo a2ensite app.internal.conf
+sudo a2enmod rewrite
+sudo apache2ctl configtest
+<span class="o">Syntax OK</span>
+sudo systemctl reload apache2</pre>
+    </li>
+    <li>
+      <p><strong>Fes que el nom es resolgui.</strong> Si el navegador és a la mateixa màquina, afegeix a <code>/etc/hosts</code>:</p>
+<pre>127.0.0.1   app.internal</pre>
+      <p>Si el navegador és en un altre equip, posa-hi la IP del servidor en lloc de <code>127.0.0.1</code>, al fitxer <code>hosts</code> d'aquell equip.</p>
+    </li>
+    <li>
+      <p><strong>Obre <code>http://app.internal</code>:</strong> ha de sortir «app.internal funciona».</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 6 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>Directives del host virtual</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Directiva</th><th>Serveix per</th></tr></thead>
+      <tbody>
+        <tr><td><code>ServerName</code></td><td>Nom pel qual respon aquest lloc</td></tr>
+        <tr><td><code>ServerAlias</code></td><td>Altres noms, com <code>www.app.internal</code></td></tr>
+        <tr><td><code>DocumentRoot</code></td><td>Carpeta que se serveix</td></tr>
+        <tr><td><code>AllowOverride All</code></td><td>Deixa que l'aplicació faci servir <code>.htaccess</code>; WordPress el necessita per als enllaços permanents</td></tr>
+        <tr><td><code>ErrorLog</code> / <code>CustomLog</code></td><td>Registres propis del lloc, a <code>/var/log/apache2</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 7 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Posar-hi una aplicació</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Descomprimeix l'aplicació</strong> dins del <code>DocumentRoot</code>. Si crea una subcarpeta, mou-ne el contingut a l'arrel:</p>
+<pre>cd /var/www/app.internal
+sudo rm index.html
+sudo unzip ~/Baixades/aplicacio.zip
+sudo cp -a aplicacio/. . &amp;&amp; sudo rm -r aplicacio</pre>
+    </li>
+    <li>
+      <p><strong>Dona els fitxers a Apache</strong> perquè l'aplicació pugui escriure-hi (pujades, actualitzacions):</p>
+<pre>sudo chown -R www-data:www-data /var/www/app.internal
+sudo find /var/www/app.internal -type d -exec chmod 755 {} +
+sudo find /var/www/app.internal -type f -exec chmod 644 {} +</pre>
+    </li>
+    <li>
+      <p><strong>Obre <code>http://app.internal</code></strong> i segueix l'assistent amb aquestes dades de base de dades: servidor <code>localhost</code>, base <code>appdb</code>, usuari <code>appuser</code>.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 8 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Ajustar els límits de PHP</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Crea un fitxer propi</strong> de configuració, que no es perd en actualitzar PHP:</p>
+<pre>sudo nano /etc/php/8.5/apache2/conf.d/99-aplicacions.ini</pre>
+<pre>upload_max_filesize = 64M
+post_max_size = 64M
+max_execution_time = 300
+memory_limit = 256M</pre>
+    </li>
+    <li>
+      <p><strong>Reinicia Apache</strong> perquè els llegeixi:</p>
+<pre>sudo systemctl restart apache2</pre>
+    </li>
+    <li>
+      <p><strong>Comprova</strong> que el PHP d'Apache els ha agafat; el de la línia d'ordres té un <code>php.ini</code> diferent:</p>
+<pre>echo '&lt;?php phpinfo();' | sudo tee /var/www/app.internal/info.php</pre>
+      <p>Obre <code>http://app.internal/info.php</code>, busca <code>upload_max_filesize</code> i <strong>esborra el fitxer</strong> en acabar.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Fer l'inventari del servidor</h2>
+  <p>Abans d'instal·lar una aplicació, es compara el que té el servidor amb els requeriments de la seva documentació.</p>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Versions de cada peça:</strong></p>
+<pre>apache2 -v | head -1
+php -v | head -1
+mysql --version</pre>
+    </li>
+    <li>
+      <p><strong>Extensions de PHP carregades</strong>; busca les que demana l'aplicació:</p>
+<pre>php -m | grep -Ei 'mysqli|pdo_mysql|curl|gd|mbstring|xml|zip|intl'</pre>
+    </li>
+    <li>
+      <p><strong>Mòduls d'Apache</strong>, com <code>rewrite</code> per als enllaços amigables:</p>
+<pre>apache2ctl -M | grep -E 'rewrite|php'</pre>
+    </li>
+    <li>
+      <p><strong>Recursos disponibles:</strong></p>
+<pre>free -h
+df -h /var/www</pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 9 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Comprovació de conjunt</h2>
+  <ul>
+    <li><code>curl -I http://app.internal</code> respon <code>200</code>.</li>
+    <li><code>mysql -u appuser -p appdb -e "SELECT 1;"</code> entra sense error.</li>
+    <li><code>ss -tlnp | grep 3306</code> mostra MySQL escoltant només a <code>127.0.0.1</code>.</li>
+    <li><code>apache2ctl -S</code> mostra <code>app.internal</code> a la llista d'hosts virtuals.</li>
+    <li>No queda cap <code>info.php</code> al servidor.</li>
+  </ul>
+</div>
+
+<!-- ============ 10 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Una base de dades i un usuari per aplicació; mai l'usuari <code>root</code> a l'aplicació.</li>
+    <li>L'usuari de la base de dades, només a <code>localhost</code>.</li>
+    <li>Mai <code>chmod 777</code>: directoris 755 i fitxers 644.</li>
+    <li><code>apache2ctl configtest</code> abans de cada recàrrega.</li>
+    <li>Els canvis de PHP en un fitxer de <code>conf.d</code>, no al <code>php.ini</code> original.</li>
+  </ul>
+</div>
+
+<!-- ============ 11 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>Surt la pàgina per defecte d'Apache en lloc del lloc</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El nom no es resol cap al servidor, o el lloc no està activat.</p>
+      <p><span class="lbl">Solució</span> Revisa <code>/etc/hosts</code> i que <code>apache2ctl -S</code> el mostri.</p>
+    </dd>
+    <dt><code>403 Forbidden</code></dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Falta el bloc <code>&lt;Directory&gt;</code> o el directori no és llegible per <code>www-data</code>.</p>
+      <p><span class="lbl">Solució</span> Revisa la configuració i els permisos; el registre d'errors del lloc diu quin fitxer falla.</p>
+    </dd>
+    <dt>El navegador descarrega el fitxer <code>.php</code></dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Apache no té el mòdul de PHP.</p>
+      <p><span class="lbl">Solució</span> Instal·la <code>libapache2-mod-php</code> i reinicia Apache.</p>
+    </dd>
+    <dt><code>Access denied for user</code></dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Usuari, contrasenya o <code>@'localhost'</code> no coincideixen.</p>
+      <p><span class="lbl">Solució</span> Torna a crear l'usuari amb <code>sudo mysql</code> i prova'l des de la línia d'ordres.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 12 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Fitxa ràpida</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Vull</th><th>Ordre</th></tr></thead>
+      <tbody>
+        <tr><td>Instal·lar la pila</td><td><code>apt install apache2 mysql-server libapache2-mod-php php-mysql …</code></td></tr>
+        <tr><td>Consola de base de dades</td><td><code>sudo mysql</code></td></tr>
+        <tr><td>Inventari del servidor</td><td><code>php -m</code> · <code>apache2ctl -M</code> · <code>mysql --version</code></td></tr>
+        <tr><td>Activar un lloc</td><td><code>a2ensite nom.conf</code></td></tr>
+        <tr><td>Activar un mòdul</td><td><code>a2enmod rewrite</code></td></tr>
+        <tr><td>Provar la sintaxi</td><td><code>apache2ctl configtest</code></td></tr>
+        <tr><td>Aplicar canvis</td><td><code>systemctl reload apache2</code></td></tr>
+        <tr><td>Veure errors del lloc</td><td><code>tail -f /var/log/apache2/app.internal_error.log</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="g1-1-entorn-de-laboratori.html">
+    <span class="dir">Anterior · G1.1</span>
+    <span class="ttl">Guia: l'entorn de laboratori</span></a>
+  <a class="next" href="g1-3-wordpress.html">
+    <span class="dir">Següent · G1.3</span>
+    <span class="ttl">Guia: WordPress</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

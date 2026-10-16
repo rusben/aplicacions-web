@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TX.1 · Capses i disposició — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RAX · HTML i CSS</a>
+    <span class="pos">TX.1 · 1/7</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RAX · TX.1</div>
+  <h1>Capses i disposició</h1>
+  <p class="lede">Cada element és una capsa: com es mesura, com es mou i com es reparteix l'espai.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què sabràs fer en acabar</h2>
+  <ul>
+    <li>Explicar les quatre capes del model de capsa.</li>
+    <li>Calcular l'amplada real d'un element i fer servir <code>box-sizing</code>.</li>
+    <li>Triar el valor de <code>position</code> adequat per a cada cas.</li>
+    <li>Distribuir elements amb Flexbox i amb Grid.</li>
+    <li>Adaptar una pàgina al mòbil amb <em>media queries</em>.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>El model de capsa</h2>
+  <p>El navegador tracta cada element com una capsa rectangular amb quatre capes, de dins cap a fora:</p>
+  <figure>
+    <img src="../img/box-model.gif" alt="Model de capsa: contingut, padding, border i margin" loading="lazy">
+  </figure>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Capa</th><th>Propietat</th><th>Com és</th></tr></thead>
+      <tbody>
+        <tr><td>Contingut</td><td><code>width</code>, <code>height</code></td><td>On hi ha el text o la imatge</td></tr>
+        <tr><td>Farciment</td><td><code>padding</code></td><td>Espai interior; agafa el fons de l'element</td></tr>
+        <tr><td>Vora</td><td><code>border</code></td><td>La línia; gruix, estil i color</td></tr>
+        <tr><td>Marge</td><td><code>margin</code></td><td>Espai exterior, transparent; pot ser negatiu</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 3 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Quant ocupa de debò</h2>
+  <p>Per defecte (<code>box-sizing: content-box</code>) l'amplada només compta el contingut, i el farciment i la vora s'hi sumen. Amb <code>border-box</code>, l'amplada que escrius ja ho inclou tot menys el marge.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th><code>width: 200px; padding: 20px; border: 5px</code></th><th>Amplada visible</th></tr></thead>
+      <tbody>
+        <tr><td><code>content-box</code></td><td>200 + 40 + 10 = <strong>250 px</strong></td></tr>
+        <tr><td><code>border-box</code></td><td><strong>200 px</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <figure>
+    <img src="../img/box-sizing-comparison.png" alt="Comparació entre content-box i border-box" loading="lazy">
+  </figure>
+  <p>Per això gairebé tots els projectes comencen amb aquesta regla:</p>
+<pre>*, *::before, *::after {
+  box-sizing: border-box;
+}</pre>
+</div>
+
+<!-- ============ 4 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Posicionar amb position</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Valor</th><th>Referència</th><th>Surt del flux?</th></tr></thead>
+      <tbody>
+        <tr><td><code>static</code></td><td>Cap: ignora <code>top</code> i <code>left</code>; és el valor per defecte</td><td>No</td></tr>
+        <tr><td><code>relative</code></td><td>La seva posició normal</td><td>No: deixa el forat</td></tr>
+        <tr><td><code>absolute</code></td><td>L'avantpassat posicionat més proper, o la pàgina</td><td>Sí</td></tr>
+        <tr><td><code>fixed</code></td><td>La finestra; no es mou en fer scroll</td><td>Sí</td></tr>
+        <tr><td><code>sticky</code></td><td>Relatiu fins a un llindar; després, fix</td><td>No</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <figure>
+    <img src="../img/absolute-relative.png" alt="Un element absolute dins d'un pare relative" loading="lazy">
+  </figure>
+  <p>La parella habitual és un pare amb <code>relative</code> i un fill amb <code>absolute</code>: el fill es col·loca respecte del pare, per exemple un text sobre una imatge.</p>
+</div>
+
+<!-- ============ 5 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Flexbox i Grid</h2>
+  <p>Per repartir espai entre elements no cal <code>position</code>: hi ha dos sistemes pensats per a això.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th></th><th>Flexbox</th><th>Grid</th></tr></thead>
+      <tbody>
+        <tr><td>Dimensions</td><td>Una: fila <em>o</em> columna</td><td>Dues: files <em>i</em> columnes</td></tr>
+        <tr><td>S'activa amb</td><td><code>display: flex</code></td><td><code>display: grid</code></td></tr>
+        <tr><td>Propietats clau</td><td><code>justify-content</code>, <code>align-items</code>, <code>flex-wrap</code>, <code>gap</code></td><td><code>grid-template-columns</code>, <code>grid-template-areas</code>, <code>gap</code></td></tr>
+        <tr><td>Ideal per</td><td>Menús, barres, targetes en fila</td><td>L'estructura de tota la pàgina</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 6 · EXEMPLE ============ -->
+<div class="cq-block" data-kind="exemple">
+  <h2>Centrar i fer una graella</h2>
+  <p>Centrar una capsa horitzontalment i verticalment dins de la pantalla:</p>
+<pre>.contenidor {
+  display: flex;
+  justify-content: center;  /* eix horitzontal */
+  align-items: center;      /* eix vertical */
+  min-height: 100vh;
+}</pre>
+  <p>Una graella de targetes que s'adapta sola a l'amplada:</p>
+<pre>.targetes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}</pre>
+</div>
+
+<!-- ============ 7 · CAS REAL ============ -->
+<div class="cq-block" data-kind="cas real">
+  <h2>Una pàgina que es veu bé al mòbil</h2>
+  <p>Més de la meitat de les visites arriben des del mòbil. Les <em>media queries</em> apliquen regles només a partir d'una amplada: es dissenya per a pantalla petita i s'amplia per a la gran (<em>mobile first</em>). Els temes dels gestors de continguts ja ho fan, i el CSS addicional ha de respectar-ho.</p>
+<pre>.pagina { display: block; }
+
+@media (min-width: 768px) {
+  .pagina {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+  }
+}</pre>
+</div>
+
+<!-- ============ 8 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Veure la capsa a l'inspector</h2>
+  <p>A l'inspector del navegador, la pestanya <strong>Disposició</strong> dibuixa el model de capsa de l'element seleccionat amb els valors de cada capa. Els contenidors <code>flex</code> i <code>grid</code> porten una etiqueta al costat: si hi fas clic, el navegador en pinta les línies sobre la pàgina.</p>
+</div>
+
+<!-- ============ 9 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Posa <code>box-sizing: border-box</code> a tot el document.</li>
+    <li>Grid per a l'estructura, Flexbox per als components.</li>
+    <li>Deixa <code>position: absolute</code> per a detalls, no per maquetar la pàgina.</li>
+    <li>Prova sempre la pàgina a 375 px d'amplada.</li>
+    <li>Deixa prou farciment als botons perquè es puguin tocar amb el dit.</li>
+  </ul>
+</div>
+
+<!-- ============ 10 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>Dues columnes al 50 % no hi caben</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Amb <code>content-box</code>, el farciment i la vora se sumen al 50 %.</p>
+      <p><span class="lbl">Solució</span> Fes servir <code>border-box</code> o <code>gap</code> amb Grid.</p>
+    </dd>
+    <dt>L'element <code>absolute</code> se'n va a la cantonada de la pàgina</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Cap avantpassat té <code>position</code> diferent de <code>static</code>.</p>
+      <p><span class="lbl">Solució</span> Posa <code>position: relative</code> al pare que ha de fer de referència.</p>
+    </dd>
+    <dt><code>justify-content</code> no fa res</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> S'ha posat als fills, no al contenidor.</p>
+      <p><span class="lbl">Solució</span> Les propietats de Flexbox i Grid van al contenidor.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 11 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Resum</h2>
+  <ul>
+    <li>Capsa: contingut, <code>padding</code>, <code>border</code> i <code>margin</code>.</li>
+    <li><code>border-box</code> fa que l'amplada escrita sigui l'amplada real.</li>
+    <li><code>relative</code> es mou des del seu lloc; <code>absolute</code>, respecte del pare posicionat; <code>fixed</code>, respecte de la finestra.</li>
+    <li>Flexbox reparteix en una dimensió; Grid, en dues.</li>
+    <li>Les <em>media queries</em> adapten la pàgina a cada pantalla.</li>
+  </ul>
+</div>
+
+<!-- ============ 12 · QUIZ ============ -->
+<div class="cq-block" data-kind="quiz">
+  <h2>Comprova el que has après</h2>
+  <div class="cq-question" data-id="tx-1-amplada" data-type="single">
+    <div class="statement">Amb <code>content-box</code>, <code>width: 300px</code>, <code>padding: 10px</code> i <code>border: 5px</code>, quant fa d'ample la capsa visible?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">300 px</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">310 px</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">330 px</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">315 px</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="tx-1-fixed" data-type="single">
+    <div class="statement">Quin valor manté un element al mateix lloc de la finestra quan fas scroll?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>relative</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>absolute</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true"><code>fixed</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>static</code></button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="tx-1-grid" data-type="single">
+    <div class="statement">Vols l'estructura de tota una pàgina en files i columnes. Què tries?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Flexbox</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Grid</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>position: absolute</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>display: inline-block</code></button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="tx-1-contenidor" data-type="single">
+    <div class="statement">On es posa <code>justify-content: center</code>?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">Al contenidor que té <code>display: flex</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">A cada fill</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Al <code>body</code> sempre</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">A l'etiqueta <code>html</code></button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="../index.html">
+    <span class="dir">Torna a · RAX</span>
+    <span class="ttl">RAX · HTML i CSS</span></a>
+  <a class="next" href="../guies/gx-1-github-pages.html">
+    <span class="dir">Següent · GX.1</span>
+    <span class="ttl">Guia: repositori i GitHub Pages</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

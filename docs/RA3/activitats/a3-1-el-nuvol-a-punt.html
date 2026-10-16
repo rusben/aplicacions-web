@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A3.1 · El núvol a punt — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA3 · Instal·lació de serveis de gestió d'arxius web</a>
+    <span class="pos">A3.1 · 6/9</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA3 · A3.1</div>
+  <h1>El núvol a punt</h1>
+  <p class="lede">Instal·lar un gestor d'arxius web, comprovar-lo i entrar-hi des d'una altra màquina.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Teoria <a class="cq-ref" href="../teoria/t3-1-gestors-d-arxius-web.html">T3.1</a> (per a què serveix, quins requeriments té i on queda cada cosa). Les guies <a class="cq-ref" href="../../RA1/guies/g1-2-pila-lamp.html">G1.2</a> i <a class="cq-ref" href="../guies/g3-1-instal-lar-nextcloud.html">G3.1</a> són els manuals que consultaràs.</p>
+  <p>Compararàs dues aplicacions de gestió d'arxius web, instal·laràs Nextcloud i el deixaràs a punt: dades fora del web, tasques en segon pla i accés des d'un altre equip. L'escriptori que prepares aquí és el de les activitats <a class="cq-ref" href="a3-2-comptes-grups-i-recursos.html">A3.2</a> i <a class="cq-ref" href="a3-3-ordenar-trobar-i-protegir.html">A3.3</a>.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Màquina</th><th>Sistema</th><th>Nom del lloc</th><th>Dades</th></tr></thead>
+      <tbody>
+        <tr><td>Escriptori nou a IsardVDI, <code>nuvol-cognom</code></td><td>Ubuntu, la versió que admeti el PHP que demana Nextcloud</td><td><code>nuvol.internal</code></td><td><code>/var/ncdata</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Una associació de veïns vol deixar de passar-se documents per correu i et demana un núvol propi.</p>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Què has de fer</h2>
+  <ol>
+    <li>Fes una <strong>taula comparativa</strong> de Nextcloud i una altra aplicació (ownCloud, Seafile o Pydio): requeriments, com es guarden els fitxers, com es comparteix i què costa mantenir-la. Posa l'enllaç d'on surt cada dada.</li>
+    <li>Explica en tres línies <strong>què li aporta</strong> a l'associació respecte d'una carpeta compartida de xarxa.</li>
+    <li>Prepara l'escriptori, instal·la la pila i fes l'<strong>inventari del servidor</strong>. Compara'l amb els requeriments de Nextcloud abans d'instal·lar res.</li>
+    <li>Instal·la Nextcloud amb el codi a <code>/var/www/nuvol.internal</code> i les <strong>dades a <code>/var/ncdata</code></strong>. Deixa el cron en marxa.</li>
+    <li>Puja un fitxer des del navegador i <strong>troba'l al disc</strong>: ensenya la ruta dins de <code>/var/ncdata</code>.</li>
+    <li>Copia un fitxer dins d'aquella carpeta <strong>per terminal</strong>, comprova que no surt al navegador i fes que aparegui.</li>
+    <li>Autoritza l'adreça de xarxa de l'escriptori i entra al núvol <strong>des d'una altra màquina</strong>.</li>
+    <li>Deixa la <strong>visió general</strong> sense avisos de seguretat ni del cron.</li>
+  </ol>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Escriptori i pila LAMP</td><td>Guies <a class="cq-ref" href="../../RA1/guies/g1-1-entorn-de-laboratori.html">G1.1</a> i <a class="cq-ref" href="../../RA1/guies/g1-2-pila-lamp.html">G1.2</a></td></tr>
+        <tr><td>Per què comparar aplicacions i què mirar</td><td>Teoria <a class="cq-ref" href="../teoria/t3-1-gestors-d-arxius-web.html">T3.1</a></td></tr>
+        <tr><td>Instal·lació, dades, cron i domini autoritzat</td><td>Guia <a class="cq-ref" href="../guies/g3-1-instal-lar-nextcloud.html">G3.1</a></td></tr>
+        <tr><td>Refer l'índex dels fitxers</td><td>Guia <a class="cq-ref" href="../guies/g3-1-instal-lar-nextcloud.html">G3.1</a>, consola d'administració</td></tr>
+        <tr><td>Per què un fitxer copiat per fora no apareix</td><td>Teoria <a class="cq-ref" href="../teoria/t3-1-gestors-d-arxius-web.html">T3.1</a>, «On queda cada cosa»</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>Les dades, fora de l'arrel web</h2>
+  <p>Si el directori de dades queda dins de la carpeta que serveix Apache, qualsevol pot intentar arribar als documents per una adreça. És el primer que revisa qualsevol comprovació de seguretat, i el primer que es mira en corregir aquesta activitat.</p>
+</div>
+
+<!-- ============ 6 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Com guarda els fitxers</h2>
+  <p>Mira <code>/var/ncdata</code> amb <code>ls -R</code>: hi ha una carpeta per compte i, a dins, <code>files</code> amb els fitxers tal com els veu l'usuari. Els fitxers esborrats i les versions antigues són en carpetes germanes: també ocupen espai de la quota.</p>
+</div>
+
+<!-- ============ 7 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li><code>sudo -u www-data php occ status</code> diu <code>installed: true</code>.</li>
+    <li><code>ls /var/ncdata</code> mostra la carpeta del teu compte i el fitxer pujat.</li>
+    <li><code>curl -I http://nuvol.internal/data/</code> no dona cap fitxer.</li>
+    <li>Després de <code>occ files:scan --all</code>, el fitxer copiat per terminal surt al navegador.</li>
+    <li>Des d'un altre equip, <code>http://IP-de-l-escriptori</code> obre l'inici de sessió.</li>
+    <li>La visió general no té avisos.</li>
+  </ul>
+</div>
+
+<!-- ============ 8 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>L'instal·lador es queixa d'una extensió de PHP</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El servidor no complia un requeriment de la teva taula.</p>
+      <p><span class="lbl">Solució</span> Instal·la el paquet que falta, reinicia Apache i anota-ho.</p>
+    </dd>
+    <dt>«Access through untrusted domain»</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> L'adreça amb què hi entres no està autoritzada.</p>
+      <p><span class="lbl">Solució</span> Afegeix-la als dominis de confiança com explica <a class="cq-ref" href="../guies/g3-1-instal-lar-nextcloud.html">G3.1</a>.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 9 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <p>Un repositori a GitHub amb un <code>README.md</code> que tingui la taula comparativa amb enllaços, l'inventari del servidor, captures de la instal·lació, la ruta del fitxer al disc i la sortida de les comprovacions.</p>
+  <p>Respon-hi també: <strong>per què un fitxer copiat per terminal no apareix al navegador fins que refàs l'índex, i què vol dir això per a les còpies de seguretat?</strong></p>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 3.1</span> Instal·lació. Navegació i operacions bàsiques. Administració del gestor.</p>
+  <p><span class="lbl">CA 3.1</span> Estableix la utilitat d'un servei de gestió d'arxius web.</p>
+  <p><span class="lbl">CA 3.2</span> Descriu diferents aplicacions de gestió d'arxius web.</p>
+  <p><span class="lbl">CA 3.3</span> Instal·la i adapta una eina de gestió d'arxius web.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="../guies/g3-2-administrar-nextcloud.html">
+    <span class="dir">Anterior · G3.2</span>
+    <span class="ttl">Guia: administrar Nextcloud</span></a>
+  <a class="next" href="a3-2-comptes-grups-i-recursos.html">
+    <span class="dir">Següent · A3.2</span>
+    <span class="ttl">Comptes, grups i recursos compartits</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

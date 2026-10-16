@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AX.1 · Targeta Pokémon — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RAX · HTML i CSS</a>
+    <span class="pos">AX.1 · 3/7</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RAX · AX.1</div>
+  <h1>Targeta Pokémon</h1>
+  <p class="lede">Donar estil a un HTML que no es pot tocar: només amb CSS.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Teories <a class="cq-ref" href="../../RA1/teoria/t1-2-html-i-css.html">T1.2</a> (selectors i propietats) i <a class="cq-ref" href="../teoria/tx-1-capses-i-disposicio.html">TX.1</a> (model de capsa i Flexbox). Per al repositori, <a class="cq-ref" href="../guies/gx-1-github-pages.html">GX.1</a>.</p>
+  <p>Faràs una targeta visualment atractiva a partir d'una estructura HTML fixa, escrivint només el fitxer <code>styles.css</code> amb selectors de classe.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <ul>
+    <li>Visual Studio Code i un navegador.</li>
+    <li>Un repositori nou a GitHub anomenat <code>pokemon</code>, amb <code>README.md</code> i llicència GPL v3, clonat per SSH.</li>
+    <li>La imatge <a href="../img/bulbasaur.png">bulbasaur.png</a>, desada a la carpeta <code>images</code>.</li>
+  </ul>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>L'HTML, que no es pot modificar</h2>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="ca"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Targeta de Pokémon&lt;/title&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="pokemon-card"&gt;
+    &lt;img class="pokemon-image" src="images/bulbasaur.png"
+         alt="Imatge del Pokémon"&gt;
+    &lt;div class="pokemon-info"&gt;
+      &lt;h2 class="pokemon-name"&gt;Bulbasaur&lt;/h2&gt;
+      &lt;p class="pokemon-type plant"&gt;Planta&lt;/p&gt;
+      &lt;p class="pokemon-type poison"&gt;Verí&lt;/p&gt;
+      &lt;p class="pokemon-description"&gt;
+        Bulbasaur és un Pokémon de tipus Planta i Verí. És fàcil
+        distingir-lo per la llavor que té a l'esquena, que creix a
+        mesura que ell ho fa.
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Què has de fer</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Classe</th><th>Estil que ha de tenir</th></tr></thead>
+      <tbody>
+        <tr><td><code>.pokemon-card</code></td><td>Fons gris clar, cantonades arrodonides, ombra, farciment, centrada horitzontalment i verticalment a la pantalla</td></tr>
+        <tr><td><code>.pokemon-image</code></td><td>Amplada màxima, cantonades arrodonides i marge inferior</td></tr>
+        <tr><td><code>.pokemon-info</code></td><td>Fons verd clar, cantonades arrodonides i farciment</td></tr>
+        <tr><td><code>.pokemon-name</code></td><td>Tipus de lletra distintiu i color que contrasti</td></tr>
+        <tr><td><code>.pokemon-type</code></td><td>Un color per tipus (<code>.plant</code>, <code>.poison</code>) i marge inferior</td></tr>
+        <tr><td><code>.pokemon-description</code></td><td>Lletra més petita que el nom i color gris</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Crear i clonar el repositori per SSH</td><td>Guia <a class="cq-ref" href="../guies/gx-1-github-pages.html">GX.1</a></td></tr>
+        <tr><td>Selectors de classe i propietats de color i lletra</td><td>Teoria <a class="cq-ref" href="../../RA1/teoria/t1-2-html-i-css.html">T1.2</a></td></tr>
+        <tr><td>Farciment, vores i marges</td><td>Teoria <a class="cq-ref" href="../teoria/tx-1-capses-i-disposicio.html">TX.1</a>, model de capsa</td></tr>
+        <tr><td>Centrar la targeta a la pantalla</td><td>Teoria <a class="cq-ref" href="../teoria/tx-1-capses-i-disposicio.html">TX.1</a>, exemple de Flexbox</td></tr>
+        <tr><td>Publicar-la a GitHub Pages</td><td>Pas a pas del lliurament</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 6 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>Dues classes al mateix element</h2>
+  <p><code>class="pokemon-type plant"</code> vol dir que l'element té dues classes. <code>.pokemon-type</code> dona l'estil comú a tots els tipus i <code>.plant</code> només el color propi. Així no es repeteix el mateix CSS.</p>
+</div>
+
+<!-- ============ 7 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Provar abans d'escriure</h2>
+  <p>A l'inspector del navegador pots escriure propietats sobre <code>.pokemon-card</code> i veure'n l'efecte a l'instant. Quan t'agradi, copia-les a <code>styles.css</code>.</p>
+</div>
+
+<!-- ============ 8 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li><code>index.html</code> és idèntic a l'original.</li>
+    <li>La targeta queda centrada tant en pantalla gran com a 375 px d'amplada.</li>
+    <li>Tots els estils fan servir selectors de classe.</li>
+    <li>La pàgina publicada a GitHub Pages es veu igual que en local.</li>
+  </ul>
+</div>
+
+<!-- ============ 9 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>No surt la imatge a GitHub Pages però sí en local</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El nom de la carpeta o del fitxer no coincideix en majúscules i minúscules.</p>
+      <p><span class="lbl">Solució</span> GitHub Pages distingeix <code>Images</code> d'<code>images</code>: fes-los coincidir.</p>
+    </dd>
+    <dt>La targeta no es centra verticalment</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> El contenidor flex no té alçada.</p>
+      <p><span class="lbl">Solució</span> Dona <code>min-height: 100vh</code> al <code>body</code>.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 10 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Publica els canvis</strong> des de la carpeta del repositori:</p>
+<pre>git add .
+git commit -m "Descripció dels canvis"
+git push</pre>
+    </li>
+    <li>
+      <p><strong>Activa GitHub Pages:</strong> <strong>Settings → Pages → Branch: main</strong> i desa.</p>
+    </li>
+    <li>
+      <p><strong>Copia l'adreça publicada</strong> al camp <strong>Website</strong> de la secció <strong>About</strong> del repositori.</p>
+    </li>
+  </ol>
+  <p>Entrega l'enllaç al repositori. Respon al <code>README.md</code>: <strong>quina propietat has fet servir per centrar la targeta i per què funciona?</strong></p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="../guies/gx-1-github-pages.html">
+    <span class="dir">Anterior · GX.1</span>
+    <span class="ttl">Guia: repositori i GitHub Pages</span></a>
+  <a class="next" href="ax-2-landing-page.html">
+    <span class="dir">Següent · AX.2</span>
+    <span class="ttl">Landing page</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

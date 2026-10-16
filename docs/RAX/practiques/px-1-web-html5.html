@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PX.1 · Pràctica: web HTML5 — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RAX · HTML i CSS</a>
+    <span class="pos">PX.1 · 6/7</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RAX · PX.1</div>
+  <h1>Pràctica: web HTML5</h1>
+  <p class="lede">Un web propi de tres pàgines, semàntic, animat i adaptat al mòbil.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Teories <a class="cq-ref" href="../../RA1/teoria/t1-2-html-i-css.html">T1.2</a> i <a class="cq-ref" href="../teoria/tx-1-capses-i-disposicio.html">TX.1</a> senceres i les activitats <a class="cq-ref" href="../activitats/ax-1-targeta-pokemon.html">AX.1</a> a <a class="cq-ref" href="../activitats/ax-3-zoo-interactiu.html">AX.3</a>.</p>
+  <p>Faràs un projecte complet només amb HTML5 i CSS, sobre un tema que triïs, i en documentaràs les decisions de disseny.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <ul>
+    <li>Un repositori nou a GitHub amb GitHub Pages activat.</li>
+    <li>Carpetes separades per a CSS i imatges.</li>
+    <li>Tema lliure: bloc personal, web d'empresa, catàleg de productes…</li>
+  </ul>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Què has de fer</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Apartat</th><th>Requisits</th><th>Punts</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Layout</strong></td><td>Esquema dibuixat al README. Etiquetes semàntiques (<code>header</code>, <code>nav</code>, <code>main</code>, <code>section</code>, <code>article</code>, <code>footer</code>). Sense <code>&lt;br&gt;</code> ni marcs.</td><td>2,5</td></tr>
+        <tr><td><strong>Navegació</strong></td><td>Dins de <code>&lt;nav&gt;</code>, fixa o enganxosa, amb efecte a <code>:hover</code> i adaptació al mòbil.</td><td>1,5</td></tr>
+        <tr><td><strong>Continguts i estil</strong></td><td>Tres pàgines com a mínim, amb un sol <code>styles.css</code> extern i estils per a lletra, colors, marges, imatges i enllaços.</td><td>2</td></tr>
+        <tr><td><strong>Visualització i animació</strong></td><td>Un efecte (carrusel, paral·laxi o transicions) i animacions amb <code>@keyframes</code>, <code>transition</code> o <code>transform</code>.</td><td>1,5</td></tr>
+        <tr><td><strong>Disseny adaptable</strong></td><td><em>Media queries</em> per a pantalla petita, mitjana i gran.</td><td>1</td></tr>
+        <tr><td><strong>Codi net</strong></td><td>Indentació, comentaris on calgui i fitxers ordenats. HTML sense errors al validador del W3C.</td><td>1,5</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Extres valorats: tipus de lletra propis, icones SVG, formulari de contacte i multimèdia.</p>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Etiquetes semàntiques</td><td>Teoria <a class="cq-ref" href="../../RA1/teoria/t1-2-html-i-css.html">T1.2</a>, taula d'etiquetes</td></tr>
+        <tr><td>Estructura de la pàgina</td><td>Teoria <a class="cq-ref" href="../teoria/tx-1-capses-i-disposicio.html">TX.1</a>, Grid</td></tr>
+        <tr><td>Menú enganxós</td><td>Teoria <a class="cq-ref" href="../teoria/tx-1-capses-i-disposicio.html">TX.1</a>, <code>position: sticky</code></td></tr>
+        <tr><td>Adaptació al mòbil</td><td>Teoria <a class="cq-ref" href="../teoria/tx-1-capses-i-disposicio.html">TX.1</a>, <em>media queries</em></td></tr>
+        <tr><td>Publicació</td><td>Guia <a class="cq-ref" href="../guies/gx-1-github-pages.html">GX.1</a> i lliurament d'<a class="cq-ref" href="../activitats/ax-1-targeta-pokemon.html">AX.1</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>Primer el dibuix</h2>
+  <p>Dibuixa el layout en paper abans d'escriure codi: quines zones hi ha, com es col·loquen en pantalla gran i com s'apilen al mòbil. Amb el dibuix fet, les <code>grid-template-areas</code> gairebé s'escriuen soles.</p>
+</div>
+
+<!-- ============ 6 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Provar-ho com un mòbil</h2>
+  <p>A Firefox, <strong>Ctrl+Maj+M</strong> obre la vista adaptable: tria un mòbil de 375 px i recorre totes les pàgines. Si apareix barra de desplaçament horitzontal, alguna cosa té una amplada fixa massa gran.</p>
+</div>
+
+<!-- ============ 7 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li>El <a href="https://validator.w3.org/">validador del W3C</a> no dona errors a cap pàgina.</li>
+    <li>Les tres pàgines comparteixen el mateix <code>styles.css</code>.</li>
+    <li>A 375 px no hi ha desplaçament horitzontal i el menú es pot fer servir.</li>
+    <li>El web es veu publicat a GitHub Pages.</li>
+  </ul>
+</div>
+
+<!-- ============ 8 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>Les <em>media queries</em> no s'apliquen al mòbil</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Falta la metaetiqueta <code>viewport</code>.</p>
+      <p><span class="lbl">Solució</span> Afegeix-la al <code>head</code> de totes les pàgines.</p>
+    </dd>
+    <dt>Els enllaços entre pàgines funcionen en local però no a GitHub Pages</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Rutes absolutes que comencen per <code>/</code>.</p>
+      <p><span class="lbl">Solució</span> Fes servir rutes relatives: <code>contacte.html</code>.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 9 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <p>L'enllaç al repositori amb GitHub Pages activat. El <code>README.md</code> ha de tenir: descripció i tema, esquema del layout, decisions d'estil i propietats CSS usades, efectes i animacions, com has fet el disseny adaptable i captures del resultat.</p>
+  <p>Respon-hi també: <strong>quina part del teu CSS canviaries per adaptar aquest disseny a un tema de WordPress amb el CSS addicional?</strong></p>
+</div>
+
+<!-- ============ QUALIFICACIÓ ============ -->
+<div class="cq-block" data-kind="qualificació">
+  <h2>Com es qualifica</h2>
+  <p>Aquesta pràctica és una de les dues principals del <a class="cq-ref" href="../index.html">RAX</a> i és el 30 % de la seva nota. Cada apartat es puntua amb les evidències del README i el resultat publicat: la puntuació sencera si funciona, la meitat si funciona amb mancances i zero si no es pot demostrar.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="../activitats/ax-3-zoo-interactiu.html">
+    <span class="dir">Anterior · AX.3</span>
+    <span class="ttl">Zoo interactiu</span></a>
+  <a class="next" href="px-2-botigues-virtuals.html">
+    <span class="dir">Següent · PX.2</span>
+    <span class="ttl">Pràctica: botigues virtuals</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

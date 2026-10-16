@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T1.2 · HTML i CSS — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA1 · Instal·lació de gestors de continguts</a>
+    <span class="pos">T1.2 · 2/16</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA1 · T1.2</div>
+  <h1>HTML i CSS</h1>
+  <p class="lede">L'HTML diu què és cada cosa; el CSS diu com s'ha de veure.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què sabràs fer en acabar</h2>
+  <ul>
+    <li>Distingir el paper de l'HTML i el del CSS.</li>
+    <li>Escriure l'esquelet d'un document HTML5 amb etiquetes semàntiques.</li>
+    <li>Aplicar estils amb selectors d'etiqueta, de classe i d'identificador.</li>
+    <li>Diferenciar elements de bloc i elements en línia.</li>
+    <li>Saber on posar el CSS per personalitzar un tema d'un gestor de continguts.</li>
+  </ul>
+  <p>És una presentació pensada per entendre el que genera un gestor de continguts. La disposició de la pàgina i les webs fetes a mà es treballen al <a class="cq-ref" href="../../RAX/index.html">RAX</a>, material complementari.</p>
+</div>
+
+<!-- ============ 2 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Estructura i presentació, per separat</h2>
+  <p><strong>HTML</strong> és un llenguatge de marques: envolta el contingut amb etiquetes que diuen <em>què és</em> cada cosa, un títol, un paràgraf, un enllaç. No diu com es veu.</p>
+  <p><strong>CSS</strong> és el llenguatge d'estils: colors, tipus de lletra, espais i disposició. Separar-los permet canviar tot l'aspecte d'un lloc sense tocar el contingut, i és exactament el que fa un <strong>tema</strong> de WordPress o de Moodle.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th></th><th>HTML</th><th>CSS</th></tr></thead>
+      <tbody>
+        <tr><td>Respon</td><td>Què és aquest element?</td><td>Com s'ha de veure?</td></tr>
+        <tr><td>Tipus</td><td>Llenguatge de marques</td><td>Full d'estils</td></tr>
+        <tr><td>Exemple</td><td><code>&lt;h1&gt;Benvinguts&lt;/h1&gt;</code></td><td><code>h1 { color: navy; }</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 3 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>L'esquelet d'un document</h2>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="ca"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;Títol de la pestanya&lt;/title&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- contingut visible --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Peça</th><th>Funció</th></tr></thead>
+      <tbody>
+        <tr><td><code>&lt;!DOCTYPE html&gt;</code></td><td>Declara HTML5</td></tr>
+        <tr><td><code>lang="ca"</code></td><td>Idioma: ajuda els lectors de pantalla i els cercadors</td></tr>
+        <tr><td><code>&lt;head&gt;</code></td><td>Metadades, títol i enllaç al CSS; no es veu</td></tr>
+        <tr><td><code>viewport</code></td><td>Imprescindible perquè es vegi bé al mòbil</td></tr>
+        <tr><td><code>&lt;body&gt;</code></td><td>Tot el que es mostra</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 4 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>Etiquetes que més faràs servir</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Etiqueta</th><th>Serveix per</th></tr></thead>
+      <tbody>
+        <tr><td><code>&lt;h1&gt;</code>…<code>&lt;h6&gt;</code></td><td>Títols per nivells; un sol <code>h1</code> per pàgina</td></tr>
+        <tr><td><code>&lt;p&gt;</code></td><td>Paràgraf</td></tr>
+        <tr><td><code>&lt;strong&gt;</code> · <code>&lt;em&gt;</code></td><td>Text important · èmfasi</td></tr>
+        <tr><td><code>&lt;ul&gt;</code> · <code>&lt;ol&gt;</code> · <code>&lt;li&gt;</code></td><td>Llista sense ordre · ordenada · element</td></tr>
+        <tr><td><code>&lt;a href="…"&gt;</code></td><td>Enllaç</td></tr>
+        <tr><td><code>&lt;img src="…" alt="…"&gt;</code></td><td>Imatge; <code>alt</code> és obligatori</td></tr>
+        <tr><td><code>&lt;table&gt;</code> · <code>&lt;tr&gt;</code> · <code>&lt;th&gt;</code> · <code>&lt;td&gt;</code></td><td>Taula de dades</td></tr>
+        <tr><td><code>&lt;form&gt;</code> · <code>&lt;label&gt;</code> · <code>&lt;input&gt;</code></td><td>Formulari</td></tr>
+        <tr><td><code>&lt;header&gt;</code> · <code>&lt;nav&gt;</code> · <code>&lt;main&gt;</code></td><td>Capçalera · navegació · contingut principal</td></tr>
+        <tr><td><code>&lt;section&gt;</code> · <code>&lt;article&gt;</code> · <code>&lt;footer&gt;</code></td><td>Secció · peça independent · peu</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Com s'escriu una regla CSS</h2>
+<pre>selector {
+  propietat: valor;
+}</pre>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Selector</th><th>Exemple</th><th>S'aplica a</th></tr></thead>
+      <tbody>
+        <tr><td>D'etiqueta</td><td><code>p { color: #333; }</code></td><td>Tots els <code>&lt;p&gt;</code></td></tr>
+        <tr><td>De classe</td><td><code>.destacat { … }</code></td><td>Els elements amb <code>class="destacat"</code></td></tr>
+        <tr><td>D'identificador</td><td><code>#capcalera { … }</code></td><td>L'únic element amb <code>id="capcalera"</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>El CSS pot anar <strong>en línia</strong> (<code>style="…"</code>), <strong>intern</strong> (<code>&lt;style&gt;</code> al <code>head</code>) o <strong>extern</strong> (<code>styles.css</code> enllaçat). L'extern és el bo: un sol fitxer serveix per a totes les pàgines. Si dues regles xoquen, guanya la més específica: identificador sobre classe, classe sobre etiqueta.</p>
+</div>
+
+<!-- ============ 6 · TEORIA ============ -->
+<div class="cq-block" data-kind="teoria">
+  <h2>Elements de bloc i elements en línia</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th></th><th>Bloc</th><th>En línia</th></tr></thead>
+      <tbody>
+        <tr><td>Exemples</td><td><code>div</code>, <code>p</code>, <code>h1</code>, <code>section</code>, <code>ul</code></td><td><code>span</code>, <code>a</code>, <code>strong</code>, <code>img</code>, <code>code</code></td></tr>
+        <tr><td>Ocupa</td><td>Tota l'amplada disponible</td><td>Només el que necessita</td></tr>
+        <tr><td>Comença</td><td>En una línia nova</td><td>A continuació del que hi ha</td></tr>
+        <tr><td><code>width</code> i <code>height</code></td><td>Funcionen</td><td>S'ignoren</td></tr>
+        <tr><td>Pot contenir</td><td>Blocs i elements en línia</td><td>Només elements en línia</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <figure>
+    <img src="../img/boxmodel-block-vs-inline.png" alt="Diferència entre elements de bloc i en línia" loading="lazy">
+  </figure>
+  <p>La propietat <code>display</code> ho canvia: <code>inline-block</code> es col·loca en línia però accepta mides, i és el truc clàssic per a un menú horitzontal.</p>
+</div>
+
+<!-- ============ 7 · EXEMPLE ============ -->
+<div class="cq-block" data-kind="exemple">
+  <h2>Un menú horitzontal</h2>
+<pre>&lt;nav&gt;
+  &lt;a href="#" class="menu"&gt;Inici&lt;/a&gt;
+  &lt;a href="#" class="menu"&gt;Serveis&lt;/a&gt;
+  &lt;a href="#" class="menu"&gt;Contacte&lt;/a&gt;
+&lt;/nav&gt;</pre>
+<pre>.menu {
+  display: inline-block;
+  width: 120px;
+  padding: 10px 0;
+  text-align: center;
+  background: #e3f2fd;
+  text-decoration: none;
+}
+.menu:hover { background: #bbdefb; }</pre>
+</div>
+
+<!-- ============ 8 · CAS REAL ============ -->
+<div class="cq-block" data-kind="cas real">
+  <h2>El CSS addicional d'un tema</h2>
+  <p>Als gestors de continguts no s'edita el fitxer del tema: la pròxima actualització el trepitjaria. WordPress té un apartat de <strong>CSS addicional</strong> i Moodle un camp de <strong>SCSS en brut</strong> on s'afegeixen regles pròpies. Són les mateixes regles d'aquesta pàgina, aplicades sobre les classes que el tema ja posa a l'HTML.</p>
+</div>
+
+<!-- ============ 9 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Inspeccionar qualsevol pàgina</h2>
+  <p>Clic dret sobre un element i <strong>Inspecciona</strong>: veuràs a l'esquerra l'HTML i a la dreta les regles CSS que s'hi apliquen. Pots canviar un valor i veure l'efecte a l'instant, sense tocar cap fitxer. És la manera de trobar la classe que has de fer servir al CSS addicional d'un tema.</p>
+</div>
+
+<!-- ============ 10 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Fes servir etiquetes pel que signifiquen, no per com es veuen.</li>
+    <li>Posa sempre <code>alt</code> a les imatges i <code>label</code> als camps.</li>
+    <li>CSS en fitxer extern, i classes millor que identificadors.</li>
+    <li>Valida l'HTML amb el <a href="https://validator.w3.org/">validador del W3C</a>.</li>
+    <li>No edites els fitxers d'un tema: fes servir el CSS addicional o un tema fill.</li>
+  </ul>
+</div>
+
+<!-- ============ 11 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>L'estil no s'aplica</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> La ruta de <code>&lt;link href&gt;</code> no és correcta, o el selector no coincideix amb la classe.</p>
+      <p><span class="lbl">Solució</span> Mira a la pestanya Xarxa si <code>styles.css</code> dona 404 i, a l'inspector, quines regles arriben a l'element.</p>
+    </dd>
+    <dt><code>width</code> no fa res</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> L'element és en línia.</p>
+      <p><span class="lbl">Solució</span> Canvia-li el <code>display</code> a <code>block</code> o <code>inline-block</code>.</p>
+    </dd>
+    <dt>Un <code>&lt;div&gt;</code> dins d'un <code>&lt;span&gt;</code></dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Un element en línia no pot contenir un bloc.</p>
+      <p><span class="lbl">Solució</span> Canvia el contenidor per un element de bloc.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 12 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Resum</h2>
+  <ul>
+    <li>HTML: estructura i significat. CSS: aspecte.</li>
+    <li>Tot document té <code>doctype</code>, <code>html</code>, <code>head</code> i <code>body</code>.</li>
+    <li>Selectors d'etiqueta, de classe (<code>.</code>) i d'identificador (<code>#</code>).</li>
+    <li>Bloc: ocupa l'amplada i admet mides. En línia: només el seu contingut.</li>
+    <li>Als gestors de continguts, el CSS propi va al CSS addicional del tema.</li>
+  </ul>
+</div>
+
+<!-- ============ 13 · QUIZ ============ -->
+<div class="cq-block" data-kind="quiz">
+  <h2>Comprova el que has après</h2>
+  <div class="cq-question" data-id="t1-2-paper" data-type="single">
+    <div class="statement">Quin llenguatge decideix el color d'un títol?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">HTML</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">CSS</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">PHP</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">HTTP</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-2-classe" data-type="single">
+    <div class="statement">Quin selector s'aplica a <code>&lt;p class="avis"&gt;</code>?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>#avis</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true"><code>.avis</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>avis</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>p#avis</code></button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-2-linia" data-type="multi">
+    <div class="statement">Quins són elements en línia per defecte?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true"><code>span</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true"><code>a</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>div</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false"><code>section</code></button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+  <div class="cq-question" data-id="t1-2-tema" data-type="single">
+    <div class="statement">On poses el CSS per personalitzar un tema de WordPress?</div>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Editant directament el fitxer <code>style.css</code> del tema</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="true">A l'apartat de CSS addicional, que no es perd en actualitzar</button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">Dins de cada entrada, amb <code>style</code></button>
+    <button type="button" aria-pressed="false" class="cq-option" data-correct="false">A la base de dades</button>
+    <div><button type="button" class="cq-check-btn">Comprova la resposta</button></div>
+    <div class="cq-feedback" role="status" aria-live="polite"></div>
+  </div>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 1.3</span> Utilització de la interfície gràfica. Personalització de l'entorn. Funcionalitats proporcionades pel gestor de continguts. Sindicació.</p>
+  <p><span class="lbl">CA 1.3</span> Personalitza la interfície del gestor de continguts.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="t1-1-com-funciona-una-aplicacio-web.html">
+    <span class="dir">Anterior · T1.1</span>
+    <span class="ttl">Com funciona una aplicació web</span></a>
+  <a class="next" href="t1-3-gestors-de-continguts.html">
+    <span class="dir">Següent · T1.3</span>
+    <span class="ttl">Gestors de continguts</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

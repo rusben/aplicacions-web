@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A1.3 · Usuaris, grups i rols — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA1 · Instal·lació de gestors de continguts</a>
+    <span class="pos">A1.3 · 12/16</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA1 · A1.3</div>
+  <h1>Usuaris, grups i rols</h1>
+  <p class="lede">La redacció d'una revista digital: cada persona amb el seu compte, el seu rol i el seu grup.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què has de saber abans de començar</h2>
+  <p>Teoria <a class="cq-ref" href="../teoria/t1-4-usuaris-i-rols.html">T1.4</a>. La guia <a class="cq-ref" href="../guies/g1-3-wordpress.html">G1.3</a>, apartats d'usuaris, rols personalitzats i grups, és el manual que consultaràs.</p>
+  <p>Crearàs els comptes d'una redacció, triaràs el rol de cadascun, en faràs un de personalitzat, agruparàs usuaris i demostraràs amb proves que cadascú pot fer el que li toca i res més.</p>
+</div>
+
+<!-- ============ 2 · ESCENARI ============ -->
+<div class="cq-block" data-kind="escenari">
+  <h2>Amb què treballaràs</h2>
+  <p>L'escriptori de proves de l'<a class="cq-ref" href="a1-2-requeriments-i-instal-lacio.html">A1.2</a>, amb WordPress a <code>proves.internal</code>.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Persona</th><th>Què ha de fer</th></tr></thead>
+      <tbody>
+        <tr><td>Marta, cap de redacció</td><td>Revisar i publicar els articles de tothom</td></tr>
+        <tr><td>Pau, professor</td><td>Publicar la seva secció sense revisió</td></tr>
+        <tr><td>Aina i Joel, alumnes</td><td>Escriure articles que algú ha d'aprovar</td></tr>
+        <tr><td>Nil, corrector</td><td>Corregir articles d'altres, sense publicar ni esborrar</td></tr>
+        <tr><td>Famílies</td><td>Registrar-se per comentar</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 3 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>Què has de fer</h2>
+  <ol>
+    <li>Fes una <strong>taula de disseny</strong>: per a cada persona, el rol que li dones i per què, aplicant el mínim privilegi.</li>
+    <li>Crea els comptes de Marta, Pau, Aina i Joel amb el rol de la taula.</li>
+    <li>Crea el rol personalitzat <strong>Corrector</strong> amb només les capacitats que necessita en Nil, i assigna-l'hi.</li>
+    <li>Activa el registre obert amb el rol per defecte que correspongui a les famílies i registra't com una família des d'una finestra privada.</li>
+    <li>Crea el grup <strong>Redacció</strong> amb Marta, Pau, Aina, Joel i Nil, i una pàgina «Calendari de la redacció» que només pugui llegir aquest grup.</li>
+    <li>Fes una <strong>matriu de proves</strong>: per a cada usuari, prova una acció permesa i una de prohibida, i anota el resultat.</li>
+    <li>Tanca el registre obert i esborra el compte de família de prova.</li>
+  </ol>
+</div>
+
+<!-- ============ 4 · ENUNCIAT ============ -->
+<div class="cq-block" data-kind="enunciat">
+  <h2>D'on has de treure cada cosa</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Què has de fer</th><th>On ho tens</th></tr></thead>
+      <tbody>
+        <tr><td>Quin rol toca a cadascú</td><td>Teoria <a class="cq-ref" href="../teoria/t1-4-usuaris-i-rols.html">T1.4</a>, taules de rols i exemple</td></tr>
+        <tr><td>Crear usuaris i obrir el registre</td><td>Guia <a class="cq-ref" href="../guies/g1-3-wordpress.html">G1.3</a>, «Usuaris i rols»</td></tr>
+        <tr><td>Rol personalitzat i grup</td><td>Guia <a class="cq-ref" href="../guies/g1-3-wordpress.html">G1.3</a>, «Rols personalitzats i grups»</td></tr>
+        <tr><td>Rol o grup?</td><td>Teoria <a class="cq-ref" href="../teoria/t1-4-usuaris-i-rols.html">T1.4</a>, «Rols i grups»</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 5 · RECORDATORI ============ -->
+<div class="cq-block" data-kind="recordatori">
+  <h2>Un compte per persona</h2>
+  <p>No facis un usuari «alumnes» compartit per Aina i Joel. Amb comptes individuals el gestor registra qui ha fet cada canvi i es pot donar de baixa una persona sense afectar les altres.</p>
+</div>
+
+<!-- ============ 6 · OBSERVACIÓ ============ -->
+<div class="cq-block" data-kind="observació">
+  <h2>Veure les capacitats d'un usuari</h2>
+  <p>Amb WP-CLI pots comprovar què té cada compte sense entrar-hi: <code>wp user list</code> mostra els rols i <code>wp user list-caps nom</code> llista totes les capacitats d'un usuari. Compara la d'en Nil amb la d'un editor.</p>
+</div>
+
+<!-- ============ 7 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Com sabràs que ho has fet bé</h2>
+  <ul>
+    <li><code>sudo -u www-data wp user list --fields=user_login,roles</code> mostra un sol administrador i el rol de la taula per a cada persona.</li>
+    <li>Aina envia un article a revisió però no el pot publicar.</li>
+    <li>Nil edita un article d'en Pau però no el pot publicar ni esborrar.</li>
+    <li>Sense sessió, o amb el compte de família, «Calendari de la redacció» no es veu.</li>
+    <li>Amb el registre tancat, <code>/wp-login.php?action=register</code> no deixa crear comptes.</li>
+  </ul>
+</div>
+
+<!-- ============ 8 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Si alguna cosa no va</h2>
+  <dl class="cq-issues">
+    <dt>En Nil no veu el menú d'entrades</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Al rol li falta la capacitat de llegir o editar entrades.</p>
+      <p><span class="lbl">Solució</span> Revisa les capacitats del rol amb User Role Editor i compara-les amb les d'un editor.</p>
+    </dd>
+    <dt>La pàgina del grup es veu sense sessió</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> No s'ha desat la restricció o s'ha posat a una altra pàgina.</p>
+      <p><span class="lbl">Solució</span> Obre la pàgina a l'editor, revisa el quadre de grups i torna a desar.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 9 · LLIURAMENT ============ -->
+<div class="cq-block" data-kind="lliurament">
+  <h2>Què has d'entregar</h2>
+  <p>Un repositori a GitHub amb un <code>README.md</code> que tingui la taula de disseny, les capacitats del rol Corrector, la matriu de proves amb una captura de cada intent prohibit i la sortida de les comprovacions.</p>
+  <p>Respon-hi també: <strong>per què no n'hi ha prou amb un rol per protegir el calendari de la redacció, i quan faries servir un grup en lloc d'un rol nou?</strong></p>
+</div>
+
+
+<!-- ============ CURRÍCULUM ============ -->
+<div class="cq-block" data-kind="currículum">
+  <h2>Al currículum</h2>
+  <p><span class="lbl">Contingut 1.2</span> Creació d'usuaris i grups d'usuaris.</p>
+  <p><span class="lbl">CA 1.2</span> Gestiona usuaris amb rols diferents.</p>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="a1-2-requeriments-i-instal-lacio.html">
+    <span class="dir">Anterior · A1.2</span>
+    <span class="ttl">Requeriments i instal·lació</span></a>
+  <a class="next" href="a1-4-interficie-menus-i-sindicacio.html">
+    <span class="dir">Següent · A1.4</span>
+    <span class="ttl">Interfície, menús i sindicació</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>

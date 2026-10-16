@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G3.1 · Guia: instal·lar Nextcloud — Aplicacions Web (0228)</title>
+<link rel="stylesheet" href="../../_identitat/sinapsi.css">
+</head>
+<body>
+
+<!-- === NAVEGACIÓ INICI === -->
+<nav class="cq-nav">
+  <div class="inner">
+    <a href="../index.html">‹ RA3 · Instal·lació de serveis de gestió d'arxius web</a>
+    <span class="pos">G3.1 · 4/9</span>
+  </div>
+</nav>
+<!-- === NAVEGACIÓ FI === -->
+
+<main>
+
+<header class="cq-header">
+  <div class="eyebrow">0228 · Aplicacions Web · RA3 · G3.1</div>
+  <h1>Guia: instal·lar Nextcloud</h1>
+  <p class="lede">Nextcloud sobre Apache, MySQL i PHP, amb les dades fora del web i les tasques en segon pla en marxa.</p>
+</header>
+
+<!-- ============ 1 · OBJECTIUS ============ -->
+<div class="cq-block" data-kind="objectius">
+  <h2>Què hi ha en aquesta guia</h2>
+  <p>Documentació oficial: <a href="https://docs.nextcloud.com/server/latest/admin_manual/installation/">Installation</a> · <a href="https://docs.nextcloud.com/server/latest/admin_manual/installation/system_requirements.html">requeriments del sistema</a></p>
+  <ul>
+    <li>Punt de partida: un escriptori d'IsardVDI amb Ubuntu a punt (<a class="cq-ref" href="../../RA1/guies/g1-1-entorn-de-laboratori.html">G1.1</a>) i la pila LAMP de <a class="cq-ref" href="../../RA1/guies/g1-2-pila-lamp.html">G1.2</a>.</li>
+    <li>Resultat: Nextcloud a <code>http://nuvol.internal</code>, amb les dades a <code>/var/ncdata</code> i el cron cada cinc minuts.</li>
+    <li>La base de dades es diu <code>ncdb</code> i l'usuari <code>ncuser</code>.</li>
+  </ul>
+  <div class="cq-note"><span class="lbl">Primer, els requeriments</span>
+    Nextcloud admet unes versions concretes de PHP. Mira la pàgina de requeriments de la versió que baixis i compara-la amb <code>php -v</code>. Si la versió d'Ubuntu de l'escriptori porta un PHP massa nou, fes l'escriptori amb la versió anterior d'Ubuntu i canvia el número a les rutes de <code>/etc/php/…</code> d'aquesta guia.</div>
+</div>
+
+<!-- ============ 2 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Preparar el servidor</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Instal·la la pila i les extensions</strong> que demana Nextcloud:</p>
+<pre>sudo apt update
+sudo apt install -y apache2 mysql-server libapache2-mod-php \
+  php-mysql php-gd php-curl php-mbstring php-intl php-xml \
+  php-zip php-bcmath php-gmp php-imagick unzip</pre>
+    </li>
+    <li>
+      <p><strong>Puja els límits de PHP</strong>: els fitxers grans i les miniatures ho demanen.</p>
+<pre>sudo nano /etc/php/8.5/apache2/conf.d/99-nextcloud.ini</pre>
+<pre>memory_limit = 512M
+upload_max_filesize = 2G
+post_max_size = 2G
+max_execution_time = 3600
+output_buffering = Off</pre>
+    </li>
+    <li>
+      <p><strong>Activa els mòduls d'Apache</strong> que necessita i reinicia:</p>
+<pre>sudo a2enmod rewrite headers env dir mime
+sudo systemctl restart apache2</pre>
+    </li>
+    <li>
+      <p><strong>Crea la base de dades i el seu usuari:</strong></p>
+<pre>sudo mysql</pre>
+<pre>CREATE DATABASE ncdb
+  CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE USER 'ncuser'@'localhost' IDENTIFIED BY 'Canvia-la-2026';
+GRANT ALL PRIVILEGES ON ncdb.* TO 'ncuser'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;</pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 3 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Posar-hi el codi i el directori de dades</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Baixa i descomprimeix</strong> l'última versió:</p>
+<pre>cd /tmp
+wget https://download.nextcloud.com/server/releases/latest.zip
+sudo unzip -q latest.zip -d /var/www
+sudo mv /var/www/nextcloud /var/www/nuvol.internal</pre>
+    </li>
+    <li>
+      <p><strong>Crea el directori de dades fora de l'arrel web.</strong> És el punt més important de la instal·lació:</p>
+<pre>sudo mkdir /var/ncdata
+sudo chown -R www-data:www-data /var/ncdata /var/www/nuvol.internal
+sudo chmod 750 /var/ncdata</pre>
+    </li>
+    <li>
+      <p><strong>Comprova l'espai</strong> del disc on aniran els fitxers:</p>
+<pre>df -h /var/ncdata</pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 4 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Host virtual i instal·lador web</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Escriu el host virtual:</strong></p>
+<pre>sudo nano /etc/apache2/sites-available/nuvol.internal.conf</pre>
+<pre>&lt;VirtualHost *:80&gt;
+    ServerName nuvol.internal
+    DocumentRoot /var/www/nuvol.internal
+
+    &lt;Directory /var/www/nuvol.internal&gt;
+        AllowOverride All
+        Require all granted
+    &lt;/Directory&gt;
+
+    ErrorLog ${APACHE_LOG_DIR}/nuvol.internal_error.log
+    CustomLog ${APACHE_LOG_DIR}/nuvol.internal_access.log combined
+&lt;/VirtualHost&gt;</pre>
+    </li>
+    <li>
+      <p><strong>Activa'l i resol el nom:</strong></p>
+<pre>sudo a2ensite nuvol.internal.conf
+sudo apache2ctl configtest
+sudo systemctl reload apache2
+echo '127.0.0.1 nuvol.internal' | sudo tee -a /etc/hosts</pre>
+    </li>
+    <li>
+      <p><strong>Obre <code>http://nuvol.internal</code></strong> i omple l'assistent: compte d'administrador, <strong>carpeta de dades</strong> <code>/var/ncdata</code>, i MySQL amb <code>ncdb</code>, <code>ncuser</code> i la contrasenya.</p>
+    </li>
+    <li>
+      <p><strong>Espera que acabi</strong> la instal·lació de les aplicacions recomanades i entra al tauler.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 5 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Tasques en segon pla i accés des d'una altra màquina</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Programa el cron</strong> amb l'usuari d'Apache, cada cinc minuts:</p>
+<pre>sudo crontab -u www-data -e</pre>
+<pre>*/5 * * * * php -f /var/www/nuvol.internal/cron.php</pre>
+    </li>
+    <li>
+      <p><strong>Tria «Cron» com a mètode</strong> a <strong>Configuració → Paràmetres bàsics</strong>. Si hi diu que fa massa estona que no s'executa, revisa la línia anterior.</p>
+    </li>
+    <li>
+      <p><strong>Autoritza el nom o la IP</strong> amb què s'hi entrarà des d'una altra màquina. Des de la carpeta del lloc:</p>
+<pre>cd /var/www/nuvol.internal
+sudo -u www-data php occ config:system:get trusted_domains
+sudo -u www-data php occ config:system:set \
+  trusted_domains 1 --value=192.168.120.45</pre>
+    </li>
+    <li>
+      <p><strong>Prova-ho</strong> des d'un altre escriptori de la mateixa xarxa: <code>http://192.168.120.45</code> ha de demanar l'inici de sessió.</p>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 6 · REFERÈNCIA ============ -->
+<div class="cq-block" data-kind="referència">
+  <h2>La consola d'administració</h2>
+  <p>L'ordre <code>occ</code> fa des del terminal el que es fa al tauler, i coses que només es poden fer així. S'executa sempre com a <code>www-data</code> i des de la carpeta del lloc.</p>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Ordre</th><th>Fa</th></tr></thead>
+      <tbody>
+        <tr><td><code>occ status</code></td><td>Versió i estat de la instal·lació</td></tr>
+        <tr><td><code>occ user:list</code> · <code>occ user:add</code></td><td>Comptes</td></tr>
+        <tr><td><code>occ group:list</code></td><td>Grups</td></tr>
+        <tr><td><code>occ files:scan --all</code></td><td>Torna a llegir els fitxers i refà l'índex</td></tr>
+        <tr><td><code>occ app:list</code> · <code>occ app:enable nom</code></td><td>Aplicacions</td></tr>
+        <tr><td><code>occ maintenance:mode --on</code></td><td>Manteniment, per fer còpies</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ 7 · PAS A PAS ============ -->
+<div class="cq-block" data-kind="pas a pas">
+  <h2>Còpia i restauració</h2>
+  <ol class="cq-steps">
+    <li>
+      <p><strong>Posa el servei en manteniment</strong> i fes la còpia de les dues meitats:</p>
+<pre>cd /var/www/nuvol.internal
+sudo -u www-data php occ maintenance:mode --on
+sudo mysqldump --single-transaction ncdb &gt; ncdb-$(date +%F).sql
+sudo tar -czf nc-$(date +%F).tar.gz \
+  -C /var/www nuvol.internal -C /var ncdata
+sudo -u www-data php occ maintenance:mode --off</pre>
+    </li>
+    <li>
+      <p><strong>Treu la còpia del servidor</strong> cap a un altre escriptori:</p>
+<pre>scp ncdb-*.sql nc-*.tar.gz usuari@192.168.120.46:~/copies/</pre>
+    </li>
+    <li>
+      <p><strong>Per restaurar</strong>, desfés els dos fitxers i torna els permisos:</p>
+<pre>sudo tar -xzf nc-DATA.tar.gz -C /
+sudo mysql ncdb &lt; ncdb-DATA.sql
+sudo chown -R www-data:www-data /var/www/nuvol.internal /var/ncdata</pre>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ 8 · COMPROVACIÓ ============ -->
+<div class="cq-block" data-kind="comprovació">
+  <h2>Comprovació de conjunt</h2>
+  <ul>
+    <li><code>curl -I http://nuvol.internal</code> respon i porta a l'inici de sessió.</li>
+    <li><code>curl -I http://nuvol.internal/../ncdata</code> no dona cap fitxer: les dades són fora de l'arrel web.</li>
+    <li><code>sudo -u www-data php occ status</code> diu <code>installed: true</code> i la versió.</li>
+    <li>A <strong>Configuració → Visió general</strong> no hi ha avisos de seguretat ni del cron.</li>
+    <li>Des d'un altre equip de la xarxa, l'adreça autoritzada obre el servei.</li>
+  </ul>
+</div>
+
+<!-- ============ 9 · BONES PRÀCTIQUES ============ -->
+<div class="cq-block" data-kind="bones pràctiques">
+  <h2>Criteris professionals</h2>
+  <ul>
+    <li>Les dades, sempre fora de <code>/var/www</code>.</li>
+    <li><code>occ</code> com a <code>www-data</code>: executar-lo com a <code>root</code> deixa fitxers que Apache no podrà escriure.</li>
+    <li>Cron de sistema, no les tasques per AJAX: és l'únic mètode fiable.</li>
+    <li>Quota per defecte per als comptes nous.</li>
+    <li>Una còpia amb el servei en manteniment, i provada.</li>
+  </ul>
+</div>
+
+<!-- ============ 10 · PROBLEMES ============ -->
+<div class="cq-block" data-kind="problemes">
+  <h2>Errors habituals</h2>
+  <dl class="cq-issues">
+    <dt>«Access through untrusted domain»</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> S'hi entra per una adreça que no és a <code>trusted_domains</code>.</p>
+      <p><span class="lbl">Solució</span> Afegeix-la amb <code>occ config:system:set</code>, com al pas anterior.</p>
+    </dd>
+    <dt>La visió general avisa que el cron no s'executa</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> La línia del cron té una ruta equivocada o no és de <code>www-data</code>.</p>
+      <p><span class="lbl">Solució</span> Executa-la a mà i mira l'error: <code>sudo -u www-data php -f /var/www/nuvol.internal/cron.php</code>.</p>
+    </dd>
+    <dt>No es poden pujar fitxers grans</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> Els límits de PHP són baixos.</p>
+      <p><span class="lbl">Solució</span> Revisa el fitxer de <code>conf.d</code> del pas 2 i reinicia Apache.</p>
+    </dd>
+    <dt>Els fitxers copiats per SSH no surten al navegador</dt>
+    <dd>
+      <p><span class="lbl">Causa</span> No són a l'índex del servei.</p>
+      <p><span class="lbl">Solució</span> <code>sudo -u www-data php occ files:scan --all</code>.</p>
+    </dd>
+  </dl>
+</div>
+
+<!-- ============ 11 · RESUM ============ -->
+<div class="cq-block" data-kind="resum">
+  <h2>Fitxa ràpida</h2>
+  <div class="cq-tablewrap">
+    <table class="cq-table">
+      <thead><tr><th>Peça</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>Codi</td><td><code>/var/www/nuvol.internal</code></td></tr>
+        <tr><td>Dades</td><td><code>/var/ncdata</code>, fora del web</td></tr>
+        <tr><td>Base de dades</td><td><code>ncdb</code> · <code>ncuser</code></td></tr>
+        <tr><td>Consola</td><td><code>sudo -u www-data php occ …</code></td></tr>
+        <tr><td>Cron</td><td><code>*/5 * * * * php -f …/cron.php</code></td></tr>
+        <tr><td>Refer l'índex</td><td><code>occ files:scan --all</code></td></tr>
+        <tr><td>Còpia</td><td><code>mysqldump</code> + <code>tar</code> del codi i de les dades</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- === PEU DE NAVEGACIÓ INICI === -->
+<nav class="cq-pager">
+  <a class="prev" href="../teoria/t3-3-trobar-ho-i-protegir-ho.html">
+    <span class="dir">Anterior · T3.3</span>
+    <span class="ttl">Trobar-ho i protegir-ho</span></a>
+  <a class="next" href="g3-2-administrar-nextcloud.html">
+    <span class="dir">Següent · G3.2</span>
+    <span class="ttl">Guia: administrar Nextcloud</span></a>
+</nav>
+<!-- === PEU DE NAVEGACIÓ FI === -->
+
+</main>
+<script src="../../_identitat/quiz.js"></script>
+
+</body>
+</html>
